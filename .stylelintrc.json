@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "stylelint-config-idiomatic-order",
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": ["inside-block"]
+      }
+    ],
+    "at-rule-no-vendor-prefix": true,
+    "at-rule-name-case": "lower",
+    "at-rule-name-space-after": "always",
+    "at-rule-semicolon-newline-after": "always",
+    "at-rule-semicolon-space-before": "never",
+    "block-closing-brace-newline-before": "always",
+    "block-closing-brace-newline-after": "always",
+    "color-hex-case": "lower",
+    "color-hex-length": "long",
+    "color-named": "never",
+    "font-family-name-quotes": "always-unless-keyword",
+    "function-url-quotes": "always",
+    "indentation": 2,
+    "max-empty-lines": 1,
+    "max-nesting-depth": null,
+    "string-quotes": "double",
+    "scss/at-import-partial-extension": "never",
+    "selector-max-class": 3,
+    "selector-class-pattern": null,
+    "scss/selector-no-redundant-nesting-selector": true,
+    "unit-allowed-list": [
+      "em",
+      "rem",
+      "%",
+      "px",
+      "vh",
+      "vw",
+      "vmax",
+      "vmin",
+      "deg",
+      "s",
+      "fr"
+    ]
+  }
+}

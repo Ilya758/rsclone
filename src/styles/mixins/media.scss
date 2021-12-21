@@ -1,0 +1,65 @@
+@mixin media-custom($width) {
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin largeDesktops {
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin mediumDesktops {
+  @media screen and (max-width: 920px) {
+    @content;
+  }
+}
+
+@mixin smallDesktops {
+  @media screen and (max-width: 800px) {
+    @content;
+  }
+}
+
+@mixin reviews {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin landscapePhones {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin widjets {
+  @media screen and (max-width: 550px) {
+    @content;
+  }
+}
+
+@mixin mPhones {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin sPhones {
+  @media screen and (max-width: 420px) {
+    @content;
+  }
+}
+
+@mixin xsPhones {
+  @media screen and (max-width: 360px) {
+    @content;
+  }
+}

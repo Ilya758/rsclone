@@ -1,0 +1,16 @@
+{
+  "overrides": [
+    {
+      "files": ["**/*.scss", "**/*.html"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "endOfLine": "crlf"
+}
