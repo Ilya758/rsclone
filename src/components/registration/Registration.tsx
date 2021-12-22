@@ -7,7 +7,7 @@ import {
 } from './registration.style';
 import RegistrationButton from '../buttons/RegistrationButton';
 import FormRegistration from '../formRegistration/FormRegistration';
-import GenericButton from "../genericButton/GenericButton";
+import GenericButton from '../genericButton/GenericButton';
 
 const Registration = () => {
   return (
