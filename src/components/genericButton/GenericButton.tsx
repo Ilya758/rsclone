@@ -1,7 +1,16 @@
-import {ButtonWrapperStyle} from "./genericButton.style";
-import {IGenericButton} from "./genericButton.types";
+import { ButtonWrapperStyle } from './genericButton.style';
+import { IGenericButton } from './genericButton.types';
 
-const GenericButton = ({text, padding, hoverColor, margin, backgroundColor, border, color, cursor}: IGenericButton) => {
+const GenericButton = ({
+  text,
+  padding,
+  hoverColor,
+  margin,
+  backgroundColor,
+  border,
+  color,
+  cursor,
+}: IGenericButton) => {
   return (
     <ButtonWrapperStyle
       padding={padding}
@@ -14,7 +23,7 @@ const GenericButton = ({text, padding, hoverColor, margin, backgroundColor, bord
     >
       {text}
     </ButtonWrapperStyle>
-  )
+  );
 };
 
 export default GenericButton;
