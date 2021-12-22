@@ -2,6 +2,8 @@ import {
   FormRegistrationStyle,
   MainStyle,
   ContainerStyle,
+  ButtonWrapperStyle,
+  ButtonContainerStyle,
   RegistrationWrapperStyle,
 } from './registration.style';
 import RegistrationButton from '../buttons/RegistrationButton';
@@ -18,6 +20,10 @@ const Registration = () => {
         </RegistrationWrapperStyle>
       </ContainerStyle>
       <RegistrationButton />
+      <ButtonContainerStyle>
+        <ButtonWrapperStyle>Registration</ButtonWrapperStyle>
+        <ButtonWrapperStyle>Enter the World</ButtonWrapperStyle>
+      </ButtonContainerStyle>
     </MainStyle>
   );
 };

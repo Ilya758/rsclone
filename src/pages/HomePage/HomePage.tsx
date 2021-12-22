@@ -2,7 +2,6 @@ import {
   FooterStyle,
   FooterWrapperStyle,
   HeaderStyle,
-  ButtonWrapperStyle,
   RegistrationWrapperStyle,
 } from './homePage.style';
 
@@ -14,10 +13,7 @@ const HomePage = () => {
       <HeaderStyle />
       <Registration />
       <FooterStyle>
-        <FooterWrapperStyle>
-          <ButtonWrapperStyle>Registration</ButtonWrapperStyle>
-          <ButtonWrapperStyle>Forgot password</ButtonWrapperStyle>
-        </FooterWrapperStyle>
+        <FooterWrapperStyle />
       </FooterStyle>
     </RegistrationWrapperStyle>
   );
