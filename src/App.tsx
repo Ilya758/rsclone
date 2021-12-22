@@ -1,7 +1,7 @@
-import Registration from './components/registration/Registration';
+import HomePage from './pages/HomePage/HomePage';
 
 export function App() {
-  return <Registration />;
+  return <HomePage />;
 }
 
 export default App;
