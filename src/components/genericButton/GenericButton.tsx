@@ -1,16 +1,5 @@
-import React from "react";
 import {ButtonWrapperStyle} from "./genericButton.style";
-
-interface IGenericButton {
-  text :string,
-  padding :number,
-  hoverColor: string,
-  margin :number,
-  backgroundColor: string,
-  border: string,
-  color: string;
-  cursor: string;
-}
+import {IGenericButton} from "./genericButton.types";
 
 const GenericButton = ({text, padding, hoverColor, margin, backgroundColor, border, color, cursor}: IGenericButton) => {
   return (

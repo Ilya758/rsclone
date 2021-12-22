@@ -1,16 +1,7 @@
 import styled from "styled-components";
+import {IGenericButton} from "./genericButton.types";
 
-interface IGenericButtonStyle {
-  padding: number;
-  hoverColor: string;
-  margin: number;
-  backgroundColor: string;
-  border: string;
-  color: string;
-  cursor: string;
-}
-
-export const ButtonWrapperStyle = styled.button<IGenericButtonStyle>`
+export const ButtonWrapperStyle = styled.button<IGenericButton>`
   padding: ${(props) => `${props.padding}px`};
   margin: ${(props) => `${props.margin}px`};
   background-color: ${(props) => props.backgroundColor};
