@@ -171,15 +171,3 @@ export const ButtonWrapperStyle = styled.button`
     color: blue;
   }
 `;
-
-export const ButtonContainerStyle = styled.div`
-  width: 300px;
-  position: absolute;
-  z-index: 10;
-  bottom: -55px;
-  left: calc(50% - 150px);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;

@@ -2,12 +2,12 @@ import {
   FormRegistrationStyle,
   MainStyle,
   ContainerStyle,
-  ButtonWrapperStyle,
   ButtonContainerStyle,
   RegistrationWrapperStyle,
 } from './registration.style';
 import RegistrationButton from '../buttons/RegistrationButton';
 import FormRegistration from '../formRegistration/FormRegistration';
+import GenericButton from "../genericButton/GenericButton";
 
 const Registration = () => {
   return (
@@ -21,8 +21,26 @@ const Registration = () => {
       </ContainerStyle>
       <RegistrationButton />
       <ButtonContainerStyle>
-        <ButtonWrapperStyle>Registration</ButtonWrapperStyle>
-        <ButtonWrapperStyle>Enter the World</ButtonWrapperStyle>
+        <GenericButton
+          text={'Registration'}
+          padding={5}
+          hoverColor={'red'}
+          margin={5}
+          backgroundColor={'transparent'}
+          color={'blue'}
+          border={'none'}
+          cursor={'pointer'}
+        />
+        <GenericButton
+          text={'Enter the World'}
+          padding={5}
+          hoverColor={'red'}
+          margin={5}
+          backgroundColor={'transparent'}
+          color={'blue'}
+          border={'none'}
+          cursor={'pointer'}
+        />
       </ButtonContainerStyle>
     </MainStyle>
   );
