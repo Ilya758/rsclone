@@ -1,4 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const show = keyframes`
+0% {
+  opacity: 0;
+}
+90% {
+  opacity: 0;
+}
+100% {
+  opacity: 1;
+}
+`;
 
 export const ButtonStyle = styled.button`
   position: absolute;
@@ -8,6 +20,7 @@ export const ButtonStyle = styled.button`
   width: 308px;
   height: 69px;
   border: none;
+  animation: ${show} 2.3s linear;
   background-color: transparent;
   background-image: url('./assets/registration-form/50.png'),
     url('./assets/registration-form/281.svg');

@@ -1,9 +1,22 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const changeHeightTop = keyframes`
+0% {
+  flex: 15;
+}
+99% {
+  flex: 5;
+}
+100% {
+  background-color: transparent;
+}
+`;
 
 export const HeaderStyle = styled.div`
   position: relative;
   z-index: 10;
-  height: calc(100% - 730px);
+  flex: 5;
+  // animation: ${changeHeightTop} 4s linear;
   min-height: 80px;
   background-image: url('./assets/registration-form/84.png'),
     url('./assets/registration-form/95.png'),
@@ -15,7 +28,10 @@ export const HeaderStyle = styled.div`
 `;
 
 export const FooterStyle = styled.div`
+  position: relative;
   width: 100%;
+  flex: 5;
+  z-index: 1;
   background-image: url('./assets/registration-form/84.png');
   background-position-x: 0;
   background-position-y: 0;
@@ -26,7 +42,6 @@ export const FooterStyle = styled.div`
 export const FooterWrapperStyle = styled.div`
   position: relative;
   z-index: 10;
-  height: 300px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -43,4 +58,7 @@ export const RegistrationWrapperStyle = styled.div`
   width: 100%;
   height: 100vh;
   background-color: grey;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `;

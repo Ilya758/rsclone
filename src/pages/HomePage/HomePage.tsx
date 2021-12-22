@@ -6,9 +6,12 @@ import {
 } from './homePage.style';
 
 import Registration from '../../components/registration/Registration';
+import { useState } from 'react';
 
 const HomePage = () => {
-  return (
+  const [state, setState] = useState(true);
+
+  return state ? (
     <RegistrationWrapperStyle>
       <HeaderStyle />
       <Registration />
@@ -16,6 +19,14 @@ const HomePage = () => {
         <FooterWrapperStyle />
       </FooterStyle>
     </RegistrationWrapperStyle>
+  ) : (
+    <button
+      onClick={() => {
+        setState(true);
+      }}
+    >
+      Click
+    </button>
   );
 };
 
