@@ -18,7 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint src/**/* --fix --max-warnings=0"
+    "lint": "eslint src/**/* --fix --max-warnings=0",
+    "prettier": "prettier --write src/**/*"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +46,7 @@
     "@typescript-eslint/parser": "^5.8.0",
     "eslint": "^8.5.0",
     "eslint-plugin-react": "^7.27.1",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "prettier": "2.5.1"
   }
 }

@@ -9,5 +9,5 @@ ReactDOM.render(
     <Normalize />
     <App />
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
