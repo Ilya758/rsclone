@@ -40,7 +40,7 @@ export const FooterStyle = styled.div`
   background-size: 100% 9px;
 `;
 
-export const FooterWrapper = styled.div`
+export const FooterWrapperStyle = styled.div`
   height: 300px;
   height: 100%;
   display: flex;
@@ -61,7 +61,7 @@ export const RegistrationWrapperStyle = styled.div`
   background-color: grey;
 `;
 
-export const ButtonWrapper = styled.button`
+export const ButtonWrapperStyle = styled.button`
   padding: 5px;
   margin: 18px 50px;
   background-color: transparent;

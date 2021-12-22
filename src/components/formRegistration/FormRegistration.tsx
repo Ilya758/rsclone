@@ -1,13 +1,10 @@
-import {
-  FormRegistrationWrapper,
-  RegistrationHeader,
-} from './formRegistration.style';
+import { WrapperStyle, HeaderStyle } from './formRegistration.style';
 import Input from '../inputs/Input';
 
 function FormRegistration() {
   return (
-    <FormRegistrationWrapper>
-      <RegistrationHeader>Enter the Zero World!</RegistrationHeader>
+    <WrapperStyle>
+      <HeaderStyle>Enter the Zero World!</HeaderStyle>
       <Input type="text" text="Login" placeholder="Enter login" id="login" />
       <Input
         type="password"
@@ -15,7 +12,7 @@ function FormRegistration() {
         placeholder="Enter password"
         id="password"
       />
-    </FormRegistrationWrapper>
+    </WrapperStyle>
   );
 }
 

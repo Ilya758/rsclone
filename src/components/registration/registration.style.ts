@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Main = styled.div`
+export const MainStyle = styled.div`
   position: relative;
   width: 100%;
   height: 430px;
@@ -13,7 +13,7 @@ export const Main = styled.div`
   background-size: cover;
 `;
 
-export const MainWrapperBg = styled.div`
+export const ContainerStyle = styled.div`
   position: relative;
   z-index: 5;
   width: 100%;
@@ -45,7 +45,7 @@ export const FormRegistrationStyle = styled.div`
   background-position-y: 50%;
 `;
 
-export const RegistrationWrapper = styled.div`
+export const RegistrationWrapperStyle = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;

@@ -1,7 +1,7 @@
-import { ButtonRegistration } from './registrationButton.style';
+import { ButtonStyle } from './registrationButton.style';
 
 const RegistrationButton = () => {
-  return <ButtonRegistration> Login</ButtonRegistration>;
+  return <ButtonStyle> Login</ButtonStyle>;
 };
 
 export default RegistrationButton;

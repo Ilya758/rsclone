@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ButtonRegistration = styled.button`
+export const ButtonStyle = styled.button`
   position: absolute;
   z-index: 15;
   bottom: -13px;
