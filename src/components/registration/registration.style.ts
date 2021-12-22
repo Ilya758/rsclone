@@ -93,18 +93,6 @@ export const RegistrationWrapperStyle = styled.div`
   background-size: calc(100% - 58px) 9px, 29px 19px, 29px 19px;
 `;
 
-export const ButtonWrapperStyle = styled.button`
-  padding: 5px;
-  margin: 5px 5px;
-  background-color: transparent;
-  border: none;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    color: blue;
-  }
-`;
-
 export const ButtonContainerStyle = styled.div`
   width: 300px;
   position: absolute;

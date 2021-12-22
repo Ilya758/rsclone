@@ -26,7 +26,6 @@ export const FooterStyle = styled.div`
 export const FooterWrapperStyle = styled.div`
   position: relative;
   z-index: 10;
-  height: 300px;
   width: 100%;
   display: flex;
   justify-content: center;

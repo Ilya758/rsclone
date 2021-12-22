@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RSClone.iml" filepath="$PROJECT_DIR$/.idea/RSClone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/rsclone.iml" filepath="$PROJECT_DIR$/.idea/rsclone.iml" />
     </modules>
   </component>
 </project>
