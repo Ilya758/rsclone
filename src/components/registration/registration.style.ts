@@ -11,6 +11,38 @@ export const MainStyle = styled.div`
   background-image: url('./assets/registration-form/registration-bg.jpg');
   background-position: 50%;
   background-size: cover;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -65px;
+    z-index: 10;
+    left: calc(50% - 300px);
+    display: block;
+    width: 601px;
+    height: 100px;
+    background-image: url('./assets/registration-form/92.png'),
+      url('./assets/registration-form/89.png');
+    background-size: 601px 99px, 600px 90px;
+    font: 500 40px Arial, sans-serif;
+    color: #fff;
+    content: 'CloneZero';
+    line-height: 100px;
+    text-align: center;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 293px);
+    bottom: -65px;
+    width: 587px;
+    height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url('./assets/registration-form/44.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 `;
 
 export const ContainerStyle = styled.div`
@@ -59,4 +91,28 @@ export const RegistrationWrapperStyle = styled.div`
   background-position-y: 100%, 100%, 100%;
   background-repeat: no-repeat;
   background-size: calc(100% - 58px) 9px, 29px 19px, 29px 19px;
+`;
+
+export const ButtonWrapperStyle = styled.button`
+  padding: 5px;
+  margin: 5px 5px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    color: blue;
+  }
+`;
+
+export const ButtonContainerStyle = styled.div`
+  width: 300px;
+  position: absolute;
+  z-index: 10;
+  bottom: -55px;
+  left: calc(50% - 150px);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
