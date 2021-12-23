@@ -8,6 +8,7 @@ export const ButtonWrapperStyle = styled.button<IGenericButton>`
   border: ${props => props.border};
   color: ${props => props.color};
   cursor: ${props => props.cursor};
+  letter-spacing: ${props => `${props.letterSpacing}px`};
   &:hover {
     color: ${props => props.hoverColor};
   }

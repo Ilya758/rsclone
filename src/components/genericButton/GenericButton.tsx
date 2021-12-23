@@ -10,6 +10,7 @@ const GenericButton = ({
   border,
   color,
   cursor,
+  letterSpacing,
 }: IGenericButton) => {
   return (
     <ButtonWrapperStyle
@@ -20,6 +21,7 @@ const GenericButton = ({
       border={border}
       color={color}
       cursor={cursor}
+      letterSpacing={letterSpacing}
     >
       {text}
     </ButtonWrapperStyle>

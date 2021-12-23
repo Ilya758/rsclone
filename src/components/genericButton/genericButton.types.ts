@@ -7,4 +7,5 @@ export interface IGenericButton {
   border: string;
   color: string;
   cursor: string;
+  letterSpacing?: number;
 }
