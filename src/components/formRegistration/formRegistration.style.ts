@@ -15,7 +15,7 @@ const showForm = keyframes`
 export const WrapperStyle = styled.form`
   width: 100%;
   height: 100%;
-  padding: 40px;
+  padding: 25px 40px;
   animation: ${showForm} 2.2s linear;
   box-sizing: border-box;
   color: white;
