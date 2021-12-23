@@ -1,7 +1,7 @@
-import { ButtonWrapperStyle } from './genericButton.style';
-import { IGenericButton } from './genericButton.types';
+import { ErrorMessageStyle } from './errorMessage.style';
+import { IErrorMessage } from './errorMessage.types';
 
-const GenericButton = ({
+const ErrorMessage = ({
   text,
   padding,
   hoverColor,
@@ -11,9 +11,9 @@ const GenericButton = ({
   color,
   cursor,
   letterSpacing,
-}: IGenericButton) => {
+}: IErrorMessage) => {
   return (
-    <ButtonWrapperStyle
+    <ErrorMessageStyle
       padding={padding}
       hoverColor={hoverColor}
       margin={margin}
@@ -24,8 +24,8 @@ const GenericButton = ({
       letterSpacing={letterSpacing}
     >
       {text}
-    </ButtonWrapperStyle>
+    </ErrorMessageStyle>
   );
 };
 
-export default GenericButton;
+export default ErrorMessage;

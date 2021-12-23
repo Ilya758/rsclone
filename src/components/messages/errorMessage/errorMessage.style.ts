@@ -1,7 +1,7 @@
+import { IErrorMessage } from './errorMessage.types';
 import styled from 'styled-components';
-import { IGenericButton } from './genericButton.types';
 
-export const ButtonWrapperStyle = styled.button<IGenericButton>`
+export const ErrorMessageStyle = styled.div<IErrorMessage>`
   padding: ${props => `${props.padding}px`};
   margin: ${props => `${props.margin}px`};
   background-color: ${props => props.backgroundColor};

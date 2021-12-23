@@ -1,4 +1,4 @@
-export interface IGenericButton {
+export interface IErrorMessage {
   text?: string;
   padding: number;
   hoverColor: string;
