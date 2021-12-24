@@ -1,26 +1,22 @@
 import { LabelStyle, InputStyle } from './input.style';
-import { ChangeEvent } from 'react';
-
-interface InputProps {
-  type: string;
-  text: string;
-  placeholder: string;
-  id: string;
-  callback: (e: ChangeEvent<HTMLInputElement>) => void;
-  value: string;
-}
+import { IInputProps } from './inputField.types';
 
 const Input = ({
   type,
-  text,
+  labelText,
   placeholder,
   id,
   callback,
   value,
-}: InputProps) => {
+  width,
+  height,
+  backgroundImage,
+}: IInputProps) => {
   return (
     <>
-      <LabelStyle htmlFor={type}>{text}</LabelStyle>
+      <LabelStyle htmlFor={type} width={width}>
+        {labelText}
+      </LabelStyle>
       <InputStyle
         value={value}
         onChange={e => callback(e)}
@@ -28,6 +24,9 @@ const Input = ({
         id={id}
         placeholder={placeholder}
         autoComplete="off"
+        width={width}
+        height={height}
+        backgroundImage={backgroundImage}
       />
     </>
   );
