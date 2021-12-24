@@ -4,7 +4,7 @@ import ErrorMessage from '../messages/errorMessage/ErrorMessage';
 import React, {useEffect, useState} from "react";
 import {onChange} from "../../utils/onChange";
 import {useAppDispatch, useAppSelector} from "../storeHooks";
-import {setCredentials} from "../../stores/reducers/userReducer";
+import { loadUser, loadUserStatus, setCredentials } from "../../stores/reducers/userReducer";
 
 interface IUserCredentials {
   login: string;
@@ -30,6 +30,7 @@ function FormRegistration() {
       password: password
     }
     dispatch(setCredentials(credentials))
+    dispatch(loadUser())
     setPassword('');
     setLogin('');
   }
