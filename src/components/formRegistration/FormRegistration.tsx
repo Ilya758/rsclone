@@ -8,6 +8,7 @@ import { loadUser, setCredentials } from '../../stores/reducers/userReducer';
 import { tokenValidation } from '../../services/tokenValidation';
 import { IUserCredentials } from '../../types/globals';
 import RegistrationButton from '../buttons/RegistrationButton';
+import CreateCharacter from '../createCharacter/CreateCharacter';
 
 function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');
@@ -22,6 +23,7 @@ function FormRegistration() {
   }, [state]);
 
   const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e.target);
     e.preventDefault();
     const credentials: IUserCredentials = {
       login: login,
@@ -58,6 +60,7 @@ function FormRegistration() {
             onClick={e => submitHandler(e)}
             text={'Login / Registration'}
           />
+
           <ErrorMessage
             text={'wrong login or password'}
             padding={0}
@@ -70,9 +73,7 @@ function FormRegistration() {
           />
         </>
       ) : (
-        <>
-          <h1> YOU ARE LOGGED IN!</h1>
-        </>
+        <CreateCharacter />
       )}
     </WrapperStyle>
   );

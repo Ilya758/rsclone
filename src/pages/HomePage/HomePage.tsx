@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 const HomePage = () => {
   const [state, setState] = useState(true);
-  
+
   return state ? (
     <RegistrationWrapperStyle>
       <HeaderStyle />
