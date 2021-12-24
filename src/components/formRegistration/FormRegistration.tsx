@@ -5,6 +5,7 @@ import React, {useEffect, useState} from "react";
 import {onChange} from "../../utils/onChange";
 import {useAppDispatch, useAppSelector} from "../storeHooks";
 import { loadUser, loadUserStatus, setCredentials } from "../../stores/reducers/userReducer";
+import { tokenValidation } from "../../services/tokenValidation";
 
 interface IUserCredentials {
   login: string;
@@ -14,12 +15,14 @@ interface IUserCredentials {
 function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');
   const [password, setPassword] = useState<string>(() => '');
+  const [auth, setAuth] = useState<boolean>(false)
   const dispatch = useAppDispatch();
   
   // start of code for testing purposes
   const state = useAppSelector((state) => state.user)
   useEffect(() => {
-    console.log(state)
+    const isAuth = tokenValidation(state.token)
+    setAuth(isAuth)
   }, [state])
   // end of code for testing purposes
   
@@ -30,7 +33,7 @@ function FormRegistration() {
       password: password
     }
     dispatch(setCredentials(credentials))
-    dispatch(loadUser())
+    dispatch(loadUser({login: login, password: password}))
     setPassword('');
     setLogin('');
   }
