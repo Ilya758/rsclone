@@ -6,8 +6,9 @@ import {
   RegistrationWrapperStyle,
 } from './registration.style';
 import RegistrationButton from '../buttons/RegistrationButton';
-// import FormRegistration from '../formRegistration/FormRegistration';
-import CreateCharacter from '../createCharacter/CreateCharacter';
+import FormRegistration from '../formRegistration/FormRegistration';
+// import CreateCharacter from '../createCharacter/CreateCharacter';
+
 
 const Registration = () => {
   return (
@@ -15,11 +16,10 @@ const Registration = () => {
       <ContainerStyle data-offset="0.2" data-correction="0">
         <RegistrationWrapperStyle>
           <FormRegistrationStyle>
-            <CreateCharacter />
+            <FormRegistration />
           </FormRegistrationStyle>
         </RegistrationWrapperStyle>
       </ContainerStyle>
-      <RegistrationButton text={'Login / Registration'} />
       <ButtonContainerStyle>
         <div>Наши Гитхабы</div>
       </ButtonContainerStyle>
