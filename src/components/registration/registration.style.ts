@@ -118,15 +118,15 @@ export const ContainerStyle = styled.div`
     url('./assets/registration-form/139.png'),
     url('./assets/registration-form/113.png'),
     url('./assets/registration-form/116.png');
-  background-position-x: 15%, 80%, 5%, 85%;
+  background-position-x: 15%, 85%, 5%, 85%;
   background-position-y: 50%, 100%, 100%, 100%;
   background-repeat: no-repeat;
   background-size: 353px 447px, 227px 421px, 582px 393px, 329px 60px;
 `;
 
 export const FormRegistrationStyle = styled.div`
-  width: 318px;
-  height: 230px;
+  width: 600px;
+  height: 320px;
   display: flex;
   opacity: 1;
   animation: ${showFormContainer} 2s linear;
@@ -181,5 +181,5 @@ export const ButtonContainerStyle = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
