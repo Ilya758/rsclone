@@ -1,4 +1,17 @@
 import styled, { keyframes } from 'styled-components';
+import { IGenericRegistration } from './formRegistration.types';
+
+const showFormContainer = keyframes`
+  0% {
+    height: 0px;
+  }
+  80% {
+    height: 0px;
+  }
+  100% {
+    height: 230px;
+  }
+`;
 
 const showForm = keyframes`
   0% {
@@ -12,7 +25,7 @@ const showForm = keyframes`
   }
 `;
 
-export const WrapperStyle = styled.form`
+export const WrapperStyle = styled.div`
   width: 100%;
   height: 100%;
   padding: 25px 40px;
@@ -26,4 +39,23 @@ export const HeaderStyle = styled.h1`
   font-size: 18px;
   margin: 0px;
   color: white;
+`;
+
+export const FormRegistrationStyle = styled.div<IGenericRegistration>`
+  width: ${props => props.width};
+  height: ${props => props.height};
+  display: flex;
+  opacity: 1;
+  animation: ${showFormContainer} 2s linear;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  background-image: url('./assets/registration-form/form.png'),
+    url('./assets/registration-form/form-bg.svg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 93% 88%;
+  background-position-x: 50%;
+  background-position-y: 50%;
 `;

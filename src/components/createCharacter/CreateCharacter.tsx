@@ -1,3 +1,4 @@
+import RegistrationButton from '../buttons/RegistrationButton';
 import Select from '../inputs/select/Select';
 import {
   WrapperStyle,
@@ -9,6 +10,7 @@ import {
 function CreateCharacter() {
   return (
     <WrapperStyle>
+      <RegistrationButton onClick={e => console.log(e.target)} text={'Enter'} />
       <ManikinBackgroundStyle>
         <ManikinStyle />
       </ManikinBackgroundStyle>

@@ -1,5 +1,4 @@
 import {
-  FormRegistrationStyle,
   MainStyle,
   ContainerStyle,
   ButtonContainerStyle,
@@ -12,9 +11,7 @@ const Registration = () => {
     <MainStyle data-offset="2" data-correction="50">
       <ContainerStyle data-offset="0.2" data-correction="0">
         <RegistrationWrapperStyle>
-          <FormRegistrationStyle>
-            <FormRegistration />
-          </FormRegistrationStyle>
+          <FormRegistration />
         </RegistrationWrapperStyle>
       </ContainerStyle>
       <ButtonContainerStyle>
