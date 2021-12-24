@@ -23,18 +23,6 @@ opacity: 0;
   }
 `;
 
-const showFormContainer = keyframes`
-  0% {
-    height: 0px;
-  }
-  80% {
-    height: 0px;
-  }
-  100% {
-    height: 230px;
-  }
-`;
-
 const showButtonsContainer = keyframes`
   0% {
 opacity: 0;
@@ -122,25 +110,6 @@ export const ContainerStyle = styled.div`
   background-position-y: 50%, 100%, 100%, 100%;
   background-repeat: no-repeat;
   background-size: 353px 447px, 227px 421px, 582px 393px, 329px 60px;
-`;
-
-export const FormRegistrationStyle = styled.div`
-  width: 600px;
-  height: 320px;
-  display: flex;
-  opacity: 1;
-  animation: ${showFormContainer} 2s linear;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  background-image: url('./assets/registration-form/form.png'),
-    url('./assets/registration-form/form-bg.svg');
-  background-repeat: no-repeat;
-  background-size: 100% 100%, 93% 88%;
-  background-position-x: 50%;
-  background-position-y: 50%;
 `;
 
 export const RegistrationWrapperStyle = styled.div`
