@@ -1,18 +1,37 @@
 import { WrapperStyle, HeaderStyle } from './formRegistration.style';
 import Input from '../inputs/Input';
 import ErrorMessage from '../messages/errorMessage/ErrorMessage';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {onChange} from "../../utils/onChange";
+import {useAppDispatch, useAppSelector} from "../storeHooks";
+import {setCredentials} from "../../stores/reducers/userReducer";
 
+interface IUserCredentials {
+  login: string;
+  password: string;
+}
 
 function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');
   const [password, setPassword] = useState<string>(() => '');
+  const dispatch = useAppDispatch();
+  
+  // start of code for testing purposes
+  const state = useAppSelector((state) => state.user)
+  useEffect(() => {
+    console.log(state)
+  }, [state])
+  // end of code for testing purposes
   
   const submitHandler = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log(login)
-    console.log(password)
+    const credentials: IUserCredentials = {
+      login: login,
+      password: password
+    }
+    dispatch(setCredentials(credentials))
+    setPassword('');
+    setLogin('');
   }
   
   return (
