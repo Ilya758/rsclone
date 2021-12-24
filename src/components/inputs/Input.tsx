@@ -10,7 +10,7 @@ interface InputProps {
 const Input = ({ type, text, placeholder, id }: InputProps) => {
   return (
     <>
-      <LabelStyle htmlFor={type}>{text}</LabelStyle>
+      <LabelStyle htmlFor={id}>{text}</LabelStyle>
       <InputStyle type={type} id={id} placeholder={placeholder} />
     </>
   );
