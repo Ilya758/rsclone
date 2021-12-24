@@ -1,0 +1,130 @@
+import styled, { keyframes } from 'styled-components';
+
+const showForm = keyframes`
+  0% {
+    opacity: 0;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+export const WrapperStyle = styled.form`
+  width: 100%;
+  height: 100%;
+  padding: 25px 30px;
+  animation: ${showForm} 2.2s linear;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ButtonWrapperStyle = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 130px;
+  height: 236px;
+  margin: 10px 0px;
+  align-items: flex-start;
+  flex-direction: column;
+`;
+
+export const ManikinBackgroundStyle = styled.div`
+  left: calc(50% - 100px);
+  width: 127px;
+  height: 236px;
+  background-image: url('./assets/images/bg-manikin2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 10px;
+`;
+
+export const ManikinStyle = styled.div`
+  width: 90%;
+  height: 90%;
+  background-image: url('../assets/images/manikin.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+`;
+
+// .inventory--list {
+//   width: 1px;
+//   height: 1px;
+//   box-sizing: border-box;
+// }
+
+// .inventory--item {
+//   position: absolute;
+//   left: -2%;
+//   width: 41px;
+//   height: 44px;
+//   background-image: url("../assets/images/1522.png");
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   cursor: pointer;
+//   list-style: none;
+// }
+
+// .button--close {
+//   position: absolute;
+//   z-index: 3;
+//   top: 20px;
+//   right: 16px;
+//   display: block;
+//   width: 19px;
+//   height: 19px;
+//   border: none;
+//   background-color: transparent;
+//   background-image: url("../assets/images/close.png");
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   cursor: pointer;
+//   outline: none;
+// }
+
+// .inventory--info,
+// .inventory--bag {
+//   display: flex;
+//   width: 190px;
+//   height: 300px;
+//   margin-top: 45px;
+//   margin-right: auto;
+// }
+
+// .inventory--bag {
+//   width: 230px;
+//   height: 270px;
+//   box-sizing: border-box;
+//   padding: 5px;
+//   border-bottom: 2px solid rgb(60, 53, 43);
+//   margin-right: 20px;
+// }
+
+// .money--info {
+//   position: absolute;
+//   right: 20px;
+//   bottom: 50px;
+//   width: 230px;
+//   height: 50px;
+//   box-sizing: border-box;
+//   padding-left: 50px;
+//   border: 1px solid rgb(60, 53, 43);
+//   background-image: url("../assets/images/coin.png");
+//   background-position: 10px 40%;
+//   background-repeat: no-repeat;
+//   background-size: 15%;
+//   text-align: center;
+// }
+
+// .money--info__span {
+//   padding-left: 5px;
+// }
