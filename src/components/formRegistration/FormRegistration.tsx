@@ -48,17 +48,25 @@ function FormRegistration() {
               callback={onChange(setLogin)}
               type="text"
               text="Login"
+              labelText="Login"
               placeholder="Enter login"
               id="login"
               value={login}
+              width="204px"
+              height="30px"
+              backgroundImage="./assets/svg/text-field.svg"
             />
             <Input
               callback={onChange(setPassword)}
               type="password"
               text="Password"
+              labelText="Password"
               placeholder="Enter password"
               id="password"
               value={password}
+              width="204px"
+              height="30px"
+              backgroundImage="./assets/svg/text-field.svg"
             />
             <RegistrationButton
               onClick={e => submitHandler(e)}
