@@ -3,14 +3,11 @@ import Input from '../inputs/Input';
 import ErrorMessage from '../messages/errorMessage/ErrorMessage';
 import React, {useEffect, useState} from "react";
 import {onChange} from "../../utils/onChange";
-import {useAppDispatch, useAppSelector} from "../storeHooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
 import { loadUser, setCredentials } from "../../stores/reducers/userReducer";
 import { tokenValidation } from "../../services/tokenValidation";
+import { IUserCredentials } from "../../types/globals";
 
-interface IUserCredentials {
-  login: string;
-  password: string;
-}
 
 function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');

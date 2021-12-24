@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { BASE_ROUTE, TEST_ROUTE } from "../../constants/apiConstants";
-import { useAppSelector } from "../../components/storeHooks";
+import { BASE_ROUTE } from "../../constants/apiConstants";
+import { IUserCredentials } from "../../types/globals";
 
 export interface IUser {
   login: string;
@@ -15,8 +15,7 @@ const initialState: IUser = {
   login: '',
   password: '',
   status: '',
-  token: ''
-};
+  token: ''};
 
 export const userSlice = createSlice({
   name: 'user',
@@ -36,7 +35,7 @@ export const userSlice = createSlice({
 
 export const loadUser = createAsyncThunk(
   'loadUserData',
-  async (data: any, thunkAPI) => {
+  async (data: IUserCredentials, thunkAPI) => {
     const response = await axios.post(`${BASE_ROUTE}/users/authService`, {login: data.login, password: data.password}, {headers: {'Content-Type': 'application/json'}});
     thunkAPI.dispatch(loadUserStatus(response.data));
     return response;
