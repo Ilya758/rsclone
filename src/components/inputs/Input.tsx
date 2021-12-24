@@ -11,7 +11,6 @@ interface InputProps {
 }
 
 const Input = ({ type, text, placeholder, id, callback, value }: InputProps) => {
-
   return (
     <>
       <LabelStyle htmlFor={type}>{text}</LabelStyle>

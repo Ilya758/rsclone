@@ -5,5 +5,4 @@ export const onChange = (callback: (value: string) => void) => {
     e.preventDefault();
     callback(e.target.value);
   }
-
 }
