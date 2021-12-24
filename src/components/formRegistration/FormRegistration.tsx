@@ -1,8 +1,10 @@
 import { WrapperStyle, HeaderStyle } from './formRegistration.style';
 import Input from '../inputs/Input';
 import ErrorMessage from '../messages/errorMessage/ErrorMessage';
+import {useState} from "react";
 
 function FormRegistration() {
+
   return (
     <WrapperStyle>
       <HeaderStyle>Enter to the CloneZero!</HeaderStyle>
