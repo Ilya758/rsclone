@@ -24,6 +24,7 @@ function FormRegistration() {
     const isAuth = tokenValidation(state.token)
     setAuth(isAuth)
   }, [state])
+  console.log(auth)
   // end of code for testing purposes
   
   const submitHandler = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -40,7 +41,9 @@ function FormRegistration() {
   
   return (
     <WrapperStyle>
-      <HeaderStyle>Enter to the CloneZero!</HeaderStyle>
+      {!auth ?
+        <>
+        <HeaderStyle>Enter to the CloneZero!</HeaderStyle>
         <Input
           callback={onChange(setLogin)}
           type="text" text="Login"
@@ -49,16 +52,16 @@ function FormRegistration() {
           value={login}
         />
         <Input
-          callback={onChange(setPassword)}
-          type="password"
-          text="Password"
-          placeholder="Enter password"
-          id="password"
-          value={password}
+        callback={onChange(setPassword)}
+        type="password"
+        text="Password"
+        placeholder="Enter password"
+        id="password"
+        value={password}
         />
-        {/*Change style of this button to look like RegistrationButton*/}
+      {/*Change style of this button to look like RegistrationButton*/}
         <input type="submit" onClick={(e) => submitHandler(e)}/>
-      <ErrorMessage
+        <ErrorMessage
         text={'wrong login or password'}
         padding={0}
         hoverColor={''}
@@ -67,7 +70,13 @@ function FormRegistration() {
         color={'red'}
         border={'none'}
         cursor={'initial'}
-      />
+        />
+        </>
+        : <>
+          <h1> YOU ARE LOGGED IN!</h1>
+        </>
+      }
+ 
     </WrapperStyle>
   );
 }
