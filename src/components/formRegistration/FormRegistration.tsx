@@ -3,7 +3,7 @@ import {
   HeaderStyle,
   FormRegistrationStyle,
 } from './formRegistration.style';
-import Input from '../inputs/Input';
+import Input from '../inputs/textField/Input';
 import ErrorMessage from '../messages/errorMessage/ErrorMessage';
 import React, { useEffect, useState } from 'react';
 import { onChange } from '../../utils/onChange';
@@ -27,7 +27,6 @@ function FormRegistration() {
   }, [state]);
 
   const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(e.target);
     e.preventDefault();
     const credentials: IUserCredentials = {
       login: login,
@@ -67,7 +66,7 @@ function FormRegistration() {
             />
 
             <ErrorMessage
-              text={'wrong login or password'}
+              text={''}
               padding={0}
               hoverColor={''}
               margin={5}
