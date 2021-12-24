@@ -1,35 +1,27 @@
 import { WrapperStyle, HeaderStyle } from './formRegistration.style';
 import Input from '../inputs/Input';
 import ErrorMessage from '../messages/errorMessage/ErrorMessage';
-import {ChangeEvent, useState} from "react";
+import {useState} from "react";
+import {onChange} from "../../utils/onChange";
 
 function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');
   const [password, setPassword] = useState<string>(() => '');
   
-  const onLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setLogin(e.target.value);
-  }
-  
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setPassword(e.target.value);
-  }
   console.log(login)
   console.log(password)
   return (
     <WrapperStyle>
       <HeaderStyle>Enter to the CloneZero!</HeaderStyle>
       <Input
-        callback={onLoginChange}
+        callback={onChange(setLogin)}
         type="text" text="Login"
         placeholder="Enter login"
         id="login"
         value={login}
       />
       <Input
-        callback={onPasswordChange}
+        callback={onChange(setPassword)}
         type="password"
         text="Password"
         placeholder="Enter password"
