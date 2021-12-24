@@ -14,7 +14,10 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCredentials: (state, action) => action.payload
+    setCredentials: (state, action) => {
+      state.login = action.payload.login;
+      state.password = action.payload.password;
+    }
   },
 });
 
