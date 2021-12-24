@@ -28,7 +28,7 @@ const showForm = keyframes`
 export const WrapperStyle = styled.div`
   width: 100%;
   height: 100%;
-  padding: 25px 40px;
+  padding: 25px;
   animation: ${showForm} 2.2s linear;
   box-sizing: border-box;
   color: white;
@@ -47,6 +47,7 @@ export const FormRegistrationStyle = styled.div<IGenericRegistration>`
   display: flex;
   opacity: 1;
   animation: ${showFormContainer} 2s linear;
+  transition: all 1s linear;
   justify-content: center;
   flex-direction: column;
   align-items: center;
