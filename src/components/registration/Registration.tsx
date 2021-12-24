@@ -5,7 +5,6 @@ import {
   ButtonContainerStyle,
   RegistrationWrapperStyle,
 } from './registration.style';
-import RegistrationButton from '../buttons/RegistrationButton';
 import FormRegistration from '../formRegistration/FormRegistration';
 
 const Registration = () => {
@@ -18,7 +17,6 @@ const Registration = () => {
           </FormRegistrationStyle>
         </RegistrationWrapperStyle>
       </ContainerStyle>
-      <RegistrationButton text={'Login / Registration'} />
       <ButtonContainerStyle>
         <div>Наши Гитхабы</div>
       </ButtonContainerStyle>

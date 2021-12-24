@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './reducers/mock';
+import userSlice from './reducers/userReducer';
 
 export const store = configureStore({
   reducer: {
-    mock: counterReducer,
+    user: userSlice,
   },
 });
 
