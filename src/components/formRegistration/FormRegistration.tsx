@@ -4,7 +4,7 @@ import ErrorMessage from '../messages/errorMessage/ErrorMessage';
 import React, {useEffect, useState} from "react";
 import {onChange} from "../../utils/onChange";
 import {useAppDispatch, useAppSelector} from "../storeHooks";
-import { loadUser, loadUserStatus, setCredentials } from "../../stores/reducers/userReducer";
+import { loadUser, setCredentials } from "../../stores/reducers/userReducer";
 import { tokenValidation } from "../../services/tokenValidation";
 
 interface IUserCredentials {
@@ -17,15 +17,12 @@ function FormRegistration() {
   const [password, setPassword] = useState<string>(() => '');
   const [auth, setAuth] = useState<boolean>(false)
   const dispatch = useAppDispatch();
-  
-  // start of code for testing purposes
   const state = useAppSelector((state) => state.user)
+  
   useEffect(() => {
     const isAuth = tokenValidation(state.token)
     setAuth(isAuth)
   }, [state])
-  console.log(auth)
-  // end of code for testing purposes
   
   const submitHandler = (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
