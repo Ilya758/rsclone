@@ -68,11 +68,11 @@ export const PaginationButtonStyle = styled.div<IGenericButton>`
   }
 `;
 
-export const ManikinBackgroundStyle = styled.div`
+export const ManikinBackgroundStyle = styled.div<IGenericButton>`
   left: calc(50% - 100px);
   width: 118px;
   height: 206px;
-  background-image: url('./assets/images/bg-manikin2.jpg');
+  background-image: url(${props => props.background});
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
