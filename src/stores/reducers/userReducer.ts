@@ -9,6 +9,8 @@ export interface IUser {
   password: string;
   status: string;
   token: string;
+  userId: string;
+  message: string;
 }
 
 const initialState: IUser = {
@@ -16,6 +18,8 @@ const initialState: IUser = {
   password: '',
   status: '',
   token: '',
+  userId: '',
+  message: '',
 };
 
 export const userSlice = createSlice({
@@ -29,6 +33,9 @@ export const userSlice = createSlice({
     loadUserStatus(state, action) {
       state.status = action.payload.status;
       state.token = action.payload.token;
+      state.password = '';
+      state.userId = action.payload.userId;
+      state.message = action.payload.message;
     },
   },
 });
