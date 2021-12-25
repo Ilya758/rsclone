@@ -1,8 +1,8 @@
 export const SKILLS = [
-  'сила',
-  'ловкость',
-  'интуиция',
-  'выносливость',
-  'меткость',
-  'интеллект',
+  'strength',
+  'agility',
+  'instinct',
+  'endurance',
+  'accuracy',
+  'intellect',
 ];
