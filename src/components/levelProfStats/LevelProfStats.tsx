@@ -7,13 +7,15 @@ import {
 } from './levelProfStats.style';
 import { ILevelProfStats } from './levelProfStats.types';
 
-const LevelProfStats = ({ data }: ILevelProfStats) => {
+const LevelProfStats = ({ profession, level }: ILevelProfStats) => {
+  console.log(profession);
   return (
     <WrapperStyle>
       <LevelProfWrapperStyle>
-        <ProfWrapperStyle></ProfWrapperStyle>
+        <ProfWrapperStyle background={profession} />
         <LevelWrapperStyle>
-          <TextType>{data[0]}</TextType>
+          <TextType>{profession}</TextType>
+          <TextType>{`${level} level`}</TextType>
         </LevelWrapperStyle>
       </LevelProfWrapperStyle>
     </WrapperStyle>

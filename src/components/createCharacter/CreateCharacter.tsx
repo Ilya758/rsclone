@@ -90,7 +90,7 @@ function CreateCharacter() {
           placeholder="Enter name"
           id="name"
           width="164px"
-          height="27.2px"
+          height="27px"
           backgroundImage="./assets/images/bg-level.png"
         />
         <Select
@@ -128,7 +128,11 @@ function CreateCharacter() {
       </ButtonWrapperStyle>
       <SettingsWrapperStyle>
         <Skills data={[15, 12, 13, 15, 16, 17]} />
-        <LevelProfStats data={[5]} />
+        <LevelProfStats
+          level={1}
+          profession={character.profession}
+          experience={0}
+        />
       </SettingsWrapperStyle>
     </WrapperStyle>
   );
