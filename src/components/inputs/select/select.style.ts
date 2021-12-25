@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SelectStyle = styled.select`
   background-color: transparent;
   width: 164px;
-  height: 27.2px;
+  height: 27px;
   background-image: url('./assets/images/360.png');
   background-size: cover;
   outline: none;
