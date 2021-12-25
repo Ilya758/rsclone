@@ -1,15 +1,14 @@
-export interface IGenericButton {
-  text?: string;
+export interface IGenericButtonStyle {
   padding?: string;
-  hoverColor?: string;
   margin?: string;
   backgroundColor?: string;
-  background?: string;
-  backgroundHover?: string;
   border?: string;
   color?: string;
   cursor?: string;
   letterSpacing?: number;
   width?: string;
   height?: string;
+  hoverColor?: string;
+  background?: string;
+  backgroundHover?: string;
 }

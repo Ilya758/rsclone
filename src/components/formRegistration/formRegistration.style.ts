@@ -25,7 +25,7 @@ const showForm = keyframes`
   }
 `;
 
-export const WrapperStyle = styled.div`
+export const WrapperStyle = styled.form`
   width: 100%;
   height: 100%;
   padding: 25px;
