@@ -29,6 +29,10 @@ export const WrapperStyle = styled.div`
   width: 100%;
   height: 100%;
   padding: 25px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   animation: ${showForm} 2.2s linear;
   box-sizing: border-box;
   color: white;
