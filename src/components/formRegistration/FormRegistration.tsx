@@ -23,6 +23,7 @@ function FormRegistration() {
 
   useEffect(() => {
     const isAuth = tokenValidation(state.token);
+    console.log(state)
     setAuth(isAuth);
   }, [state]);
 
@@ -73,7 +74,7 @@ function FormRegistration() {
               text={'Login / Registration'}
             />
             <ErrorMessage
-              text={''}
+              text={state.message}
               padding={0}
               hoverColor={''}
               margin={5}
