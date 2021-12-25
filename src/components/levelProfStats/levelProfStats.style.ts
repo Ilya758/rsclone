@@ -27,7 +27,7 @@ export const ProfWrapperStyle = styled.div`
   width: 23px;
   height: 100%;
   box-sizing: border-box;
-  background-image: url('./assets/svg/stalker.svg');
+  background-image: url('./assets/svg/professions/stalker.svg');
   background-repeat: no-repeat;
   background-size: cover;
   border: 2px solid rgba(50, 39, 27, 1);

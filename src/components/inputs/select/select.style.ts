@@ -4,7 +4,7 @@ export const SelectStyle = styled.select`
   background-color: transparent;
   width: 164px;
   height: 27px;
-  background-image: url('./assets/images/360.png');
+  background-image: url('./assets/images/bg-level.png');
   background-size: cover;
   outline: none;
   border: none;

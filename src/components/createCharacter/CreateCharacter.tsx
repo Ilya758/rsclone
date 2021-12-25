@@ -65,16 +65,16 @@ function CreateCharacter() {
           <ManikinStyle />
         </BackgroundStyle>
         <PaginationButtonStyle
-          background={'./assets/images/left.png'}
-          backgroundHover={'./assets/images/left-hover.png'}
+          background={'./assets/images/small-icons/left.png'}
+          backgroundHover={'./assets/images/small-icons/left-hover.png'}
           margin={'0 auto 0 0'}
           onClick={() =>
             changeBackgroundHandler('left', BG_ARRAY, 'background')
           }
         />
         <PaginationButtonStyle
-          background={'./assets/images/right.png'}
-          backgroundHover={'./assets/images/right-hover.png'}
+          background={'./assets/images/small-icons/right.png'}
+          backgroundHover={'./assets/images/small-icons/right-hover.png'}
           onClick={() =>
             changeBackgroundHandler('right', BG_ARRAY, 'background')
           }
@@ -91,7 +91,7 @@ function CreateCharacter() {
           id="name"
           width="164px"
           height="27.2px"
-          backgroundImage="./assets/images/360.png"
+          backgroundImage="./assets/images/bg-level.png"
         />
         <Select
           options={['stalker', 'miner', 'corsair']}
@@ -110,16 +110,16 @@ function CreateCharacter() {
           </BackgroundStyle>
 
           <PaginationButtonStyle
-            background={'./assets/images/left.png'}
-            backgroundHover={'./assets/images/left-hover.png'}
+            background={'./assets/images/small-icons/left.png'}
+            backgroundHover={'./assets/images/small-icons/left-hover.png'}
             margin={'0 auto 0 0'}
             onClick={() =>
               changeBackgroundHandler('left', CITIES_ARRAY, 'city')
             }
           />
           <PaginationButtonStyle
-            background={'./assets/images/right.png'}
-            backgroundHover={'./assets/images/right-hover.png'}
+            background={'./assets/images/small-icons/right.png'}
+            backgroundHover={'./assets/images/small-icons/right-hover.png'}
             onClick={() =>
               changeBackgroundHandler('right', CITIES_ARRAY, 'city')
             }

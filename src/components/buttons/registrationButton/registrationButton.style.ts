@@ -22,8 +22,8 @@ export const ButtonStyle = styled.button`
   border: none;
   animation: ${show} 2.3s linear;
   background-color: transparent;
-  background-image: url('./assets/registration-form/50.png'),
-    url('./assets/registration-form/281.svg');
+  background-image: url('./assets/registration-form/button-bg.png'),
+    url('./assets/svg/button-bg-colored.svg');
   background-position-x: 50%, 50%;
   background-position-y: 50%, 50%;
   background-repeat: no-repeat;
@@ -31,9 +31,9 @@ export const ButtonStyle = styled.button`
   cursor: pointer;
   outline: none;
   &:hover {
-    background-image: url('./assets/registration-form/50.png'),
-      url('./assets/registration-form/281.svg'),
-      url('./assets/registration-form/283.svg');
+    background-image: url('./assets/registration-form/button-bg.png'),
+      url('./assets/svg/button-bg-colored.svg'),
+      url('./assets/svg/button-bg-colored-hover.svg');
     background-position-x: 30%, 50%, 50%;
     background-position-y: 30%, 50%, 30%;
     background-size: cover, 60%, 60%;

@@ -58,7 +58,7 @@ export const FormRegistrationStyle = styled.div<IGenericRegistration>`
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   background-image: url('./assets/registration-form/form.png'),
-    url('./assets/registration-form/form-bg.svg');
+    url('./assets/svg/form-bg.svg');
   background-repeat: no-repeat;
   background-size: 100% 100%, 93% 88%;
   background-position-x: 50%;
