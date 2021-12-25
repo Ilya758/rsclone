@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { IGenericButton } from '../genericButton/genericButton.types';
 
 const showForm = keyframes`
   0% {
@@ -23,27 +24,62 @@ export const WrapperStyle = styled.form`
 `;
 
 export const ButtonWrapperStyle = styled.div`
+  position: relative;
   display: flex;
   justify-content: flex-start;
-  width: 130px;
+  width: 170px;
   height: 236px;
   margin: 10px 0px;
   align-items: flex-start;
   flex-direction: column;
 `;
 
+export const LabelStyle = styled.div`
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  width: 27px;
+  height: 14px;
+  box-sizing: border-box;
+  background-image: url('./assets/images/name.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
+export const ManikinWrapperStyle = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 122px;
+  height: 236px;
+  align-items: space-between;
+  flex-wrap: wrap;
+`;
+
+export const PaginationButtonStyle = styled.div<IGenericButton>`
+  width: 27px;
+  height: 14px;
+  margin: ${props => props.margin};
+  background-image: url(${props => props.background});
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  :hover {
+    background-image: url(${props => props.backgroundHover});
+  }
+`;
+
 export const ManikinBackgroundStyle = styled.div`
   left: calc(50% - 100px);
-  width: 127px;
-  height: 236px;
+  width: 118px;
+  height: 206px;
   background-image: url('./assets/images/bg-manikin2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid black;
-  border-radius: 10px;
+  border: 2px solid rgba(75, 82, 65, 1);
+  border-radius: 7px;
 `;
 
 export const ManikinStyle = styled.div`
