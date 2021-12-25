@@ -1,6 +1,7 @@
-import RegistrationButton from '../buttons/RegistrationButton';
+import RegistrationButton from '../buttons/registrationButton/RegistrationButton';
 import Select from '../inputs/select/Select';
 import { ChangeEvent } from 'react';
+import { getNameFromUrl } from '../../utils/getNameFromUrl';
 import {
   WrapperStyle,
   BackgroundStyle,
@@ -10,44 +11,25 @@ import {
   PaginationButtonStyle,
   LabelStyle,
   CityLabelStyle,
+  SettingsWrapperStyle,
 } from './createCharacter.style';
 import Input from '../inputs/textField/Input';
 import { useState } from 'react';
+import { CITIES_ARRAY } from '../../constants/bgCities';
+import { BG_ARRAY } from '../../constants/bgManikins';
+import Skills from '../skills/Skills';
+import LevelProfStats from '../levelProfStats/LevelProfStats';
+import { ICharacterType } from './createCharacter.type';
 
 function CreateCharacter() {
-  const bgArray = [
-    './assets/images/bg-manikins/bg-manikin.jpg',
-    './assets/images/bg-manikins/bg-manikin2.jpg',
-    './assets/images/bg-manikins/bg-manikin3.jpg',
-    './assets/images/bg-manikins/bg-manikin4.jpg',
-    './assets/images/bg-manikins/bg-manikin5.jpg',
-  ];
-  const citiesArray = [
-    './assets/images/cities/moscow.jpg',
-    './assets/images/cities/new-york.jpg',
-    './assets/images/cities/saint-petersburg.jpg',
-  ];
-
-  const init = {
+  const init: ICharacterType = {
     name: '',
-    background: './assets/images/bg-manikins/bg-manikin.jpg',
+    background: 'bg-manikin1.jpg',
     profession: 'stalker',
-    city: './assets/images/cities/moscow.jpg',
+    city: 'moscow.jpg',
     coins: 100,
   };
   const [character, setCharacter] = useState(init);
-
-  const changeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCharacter({ ...character, name: e.target.value });
-  };
-
-  const changeProfessionHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setCharacter({ ...character, profession: e.target.value });
-  };
-
-  const getNameFromUrl = (url: string) => {
-    return url.split('/')[4].split('.')[0];
-  };
 
   const changeBackgroundHandler = (
     direction: string,
@@ -64,12 +46,19 @@ function CreateCharacter() {
     setCharacter({ ...character, [type]: array[index] });
   };
 
+  const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
+    e: ChangeEvent<T>,
+    type: string
+  ) => {
+    setCharacter({ ...character, [type]: e.target.value });
+  };
+
   return (
     <WrapperStyle>
       <RegistrationButton onClick={e => console.log(e.target)} text={'Enter'} />
       <BGWrapperStyle width={'122px'} height={'100%'}>
         <BackgroundStyle
-          background={character.background}
+          background={`./assets/images/bg-manikins/${character.background}`}
           width={'118px'}
           height={'206px'}
         >
@@ -79,13 +68,15 @@ function CreateCharacter() {
           background={'./assets/images/left.png'}
           backgroundHover={'./assets/images/left-hover.png'}
           margin={'0 auto 0 0'}
-          onClick={() => changeBackgroundHandler('left', bgArray, 'background')}
+          onClick={() =>
+            changeBackgroundHandler('left', BG_ARRAY, 'background')
+          }
         />
         <PaginationButtonStyle
           background={'./assets/images/right.png'}
           backgroundHover={'./assets/images/right-hover.png'}
           onClick={() =>
-            changeBackgroundHandler('right', bgArray, 'background')
+            changeBackgroundHandler('right', BG_ARRAY, 'background')
           }
         />
       </BGWrapperStyle>
@@ -93,7 +84,7 @@ function CreateCharacter() {
       <ButtonWrapperStyle>
         <LabelStyle />
         <Input
-          callback={changeNameHandler}
+          callback={e => handleSettings(e, 'name')}
           type="text"
           text={character.name}
           placeholder="Enter name"
@@ -106,12 +97,12 @@ function CreateCharacter() {
           options={['stalker', 'miner', 'corsair']}
           id={'profession'}
           name={'Profession'}
-          changeHandle={changeProfessionHandler}
+          changeHandle={e => handleSettings(e, 'profession')}
         />
         <div>Start location</div>
         <BGWrapperStyle width={'95%'} height={'130px'}>
           <BackgroundStyle
-            background={character.city}
+            background={`./assets/images/cities/${character.city}`}
             width={'100%'}
             height={'85px'}
           >
@@ -122,20 +113,23 @@ function CreateCharacter() {
             background={'./assets/images/left.png'}
             backgroundHover={'./assets/images/left-hover.png'}
             margin={'0 auto 0 0'}
-            onClick={() => changeBackgroundHandler('left', citiesArray, 'city')}
+            onClick={() =>
+              changeBackgroundHandler('left', CITIES_ARRAY, 'city')
+            }
           />
           <PaginationButtonStyle
             background={'./assets/images/right.png'}
             backgroundHover={'./assets/images/right-hover.png'}
             onClick={() =>
-              changeBackgroundHandler('right', citiesArray, 'city')
+              changeBackgroundHandler('right', CITIES_ARRAY, 'city')
             }
           />
         </BGWrapperStyle>
       </ButtonWrapperStyle>
-      <div></div>
-      <div></div>
-      <div></div>
+      <SettingsWrapperStyle>
+        <Skills data={[15, 12, 13, 15, 16, 17]} />
+        <LevelProfStats data={[5]} />
+      </SettingsWrapperStyle>
     </WrapperStyle>
   );
 }
