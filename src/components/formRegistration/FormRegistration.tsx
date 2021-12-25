@@ -23,7 +23,7 @@ function FormRegistration() {
 
   useEffect(() => {
     const isAuth = tokenValidation(state.token);
-    console.log(state)
+    console.log(state);
     setAuth(isAuth);
   }, [state]);
 
