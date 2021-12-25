@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { loadUser, setCredentials } from '../../stores/reducers/userReducer';
 import { tokenValidation } from '../../services/tokenValidation';
 import { IUserCredentials } from '../../types/globals';
-import RegistrationButton from '../buttons/RegistrationButton';
+import RegistrationButton from '../buttons/registrationButton/RegistrationButton';
 import CreateCharacter from '../createCharacter/CreateCharacter';
 
 function FormRegistration() {
@@ -72,7 +72,6 @@ function FormRegistration() {
               onClick={e => submitHandler(e)}
               text={'Login / Registration'}
             />
-
             <ErrorMessage
               text={''}
               padding={0}

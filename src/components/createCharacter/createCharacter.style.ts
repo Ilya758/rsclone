@@ -1,5 +1,5 @@
+import { IGenericButtonStyle } from './../../types/IGenericButtonStyle';
 import styled, { keyframes } from 'styled-components';
-import { IGenericButton } from '../genericButton/genericButton.types';
 
 const showForm = keyframes`
   0% {
@@ -21,6 +21,16 @@ export const WrapperStyle = styled.form`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const SettingsWrapperStyle = styled.div`
+  width: 200px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  background: rgba(95, 82, 65, 1);
+  border: 3px solid rgba(50, 39, 27, 1);
+  border-radius: 4px;
 `;
 
 export const ButtonWrapperStyle = styled.div`
@@ -45,7 +55,7 @@ export const LabelStyle = styled.div`
   background-size: cover;
 `;
 
-export const BGWrapperStyle = styled.div<IGenericButton>`
+export const BGWrapperStyle = styled.div<IGenericButtonStyle>`
   display: flex;
   justify-content: flex-start;
   padding: ${props => props.padding};
@@ -57,7 +67,7 @@ export const BGWrapperStyle = styled.div<IGenericButton>`
   flex-wrap: wrap;
 `;
 
-export const PaginationButtonStyle = styled.div<IGenericButton>`
+export const PaginationButtonStyle = styled.div<IGenericButtonStyle>`
   width: 27px;
   height: 14px;
   margin: ${props => props.margin};
@@ -70,7 +80,7 @@ export const PaginationButtonStyle = styled.div<IGenericButton>`
   }
 `;
 
-export const BackgroundStyle = styled.div<IGenericButton>`
+export const BackgroundStyle = styled.div<IGenericButtonStyle>`
   left: calc(50% - 100px);
   width: ${props => props.width};
   height: ${props => props.height};
@@ -82,8 +92,8 @@ export const BackgroundStyle = styled.div<IGenericButton>`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid rgba(75, 82, 65, 1);
-  border-radius: 7px;
+  border: 3px solid rgba(50, 39, 27, 1);
+  border-radius: 4px;
 `;
 
 export const CityLabelStyle = styled.div`
