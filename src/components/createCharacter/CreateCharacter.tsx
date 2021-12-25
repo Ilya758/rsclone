@@ -28,6 +28,14 @@ function CreateCharacter() {
     profession: 'stalker',
     city: 'moscow.jpg',
     coins: 100,
+    skills: {
+      strength: 2,
+      agility: 2,
+      instinct: 2,
+      endurance: 2,
+      accuracy: 2,
+      intellect: 2,
+    },
   };
   const [character, setCharacter] = useState(init);
 
@@ -44,6 +52,21 @@ function CreateCharacter() {
     if (index < 0) index = array.length - 1;
     if (index > array.length - 1) index = 0;
     setCharacter({ ...character, [type]: array[index] });
+  };
+
+  const handleStatsChange = (skill: string, type: string): void => {
+    let prevValue = character.skills.agility;
+    if (type === 'plus') {
+      prevValue += 1;
+    } else {
+      prevValue -= 1;
+    }
+    setCharacter({
+      ...character,
+      skills: { ...character.skills, agility: prevValue },
+    });
+    //TODO допилить
+    console.log(character.skills);
   };
 
   const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
@@ -127,7 +150,11 @@ function CreateCharacter() {
         </BGWrapperStyle>
       </ButtonWrapperStyle>
       <SettingsWrapperStyle>
-        <Skills data={[15, 12, 13, 15, 16, 17]} />
+        <Skills
+          data={character.skills}
+          handleChange={handleStatsChange}
+          isMinus={character.skills.agility > init.skills.agility}
+        />
         <LevelProfStats
           level={1}
           profession={character.profession}
