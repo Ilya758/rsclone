@@ -1,6 +1,6 @@
 export interface IGenericButton {
   text?: string;
-  padding?: number;
+  padding?: string;
   hoverColor?: string;
   margin?: string;
   backgroundColor?: string;
@@ -10,4 +10,6 @@ export interface IGenericButton {
   color?: string;
   cursor?: string;
   letterSpacing?: number;
+  width?: string;
+  height?: string;
 }

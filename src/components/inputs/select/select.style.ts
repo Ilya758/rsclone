@@ -20,6 +20,5 @@ export const SelectStyle = styled.select`
 export const LabelStyle = styled.label`
   width: 100%;
   display: inline-block;
-  margin-top: 5px;
   padding-left: 5px;
 `;
