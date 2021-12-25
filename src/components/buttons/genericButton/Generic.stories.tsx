@@ -7,13 +7,16 @@ export default {
   component: GenericButton,
 } as Meta;
 
-export const Button1: React.VFC<{}> = () => <GenericButton padding={'10px'}
-                                                           hoverColor={'red'}
-                                                           margin={'10px'}
-                                                           backgroundColor={'green'}
-                                                           border={'1px solid black'}
-                                                           color={'blue'}
-                                                           cursor={'pointer'}
-                                                           letterSpacing={2}
-                                                           text={'BUTTON'}
-/>
+export const Button1: React.VFC<unknown> = () => (
+  <GenericButton
+    padding={'10px'}
+    hoverColor={'red'}
+    margin={'10px'}
+    backgroundColor={'green'}
+    border={'1px solid black'}
+    color={'blue'}
+    cursor={'pointer'}
+    letterSpacing={2}
+    text={'BUTTON'}
+  />
+);
