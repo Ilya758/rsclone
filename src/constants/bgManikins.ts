@@ -1,4 +1,4 @@
-export const BG_ARRAY = [
+export const BG_ARRAY: string[] = [
   'bg-manikin1.jpg',
   'bg-manikin2.jpg',
   'bg-manikin3.jpg',

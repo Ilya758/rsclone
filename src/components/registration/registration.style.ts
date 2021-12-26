@@ -70,8 +70,8 @@ export const MainStyle = styled.div`
     display: block;
     width: 601px;
     height: 100px;
-    background-image: url('./assets/registration-form/92.png'),
-      url('./assets/registration-form/89.png');
+    background-image: url('./assets/registration-form/header-styled.png'),
+      url('./assets/registration-form/bg-header-styled.png');
     background-size: 601px 99px, 600px 90px;
     font: 500 40px Arial, sans-serif;
     color: #fff;
@@ -91,7 +91,7 @@ export const MainStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background-image: url('./assets/registration-form/44.png');
+    background-image: url('./assets/registration-form/bottom-button.png');
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -102,10 +102,10 @@ export const ContainerStyle = styled.div`
   z-index: 5;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/registration-form/148.png'),
-    url('./assets/registration-form/139.png'),
-    url('./assets/registration-form/113.png'),
-    url('./assets/registration-form/116.png');
+  background-image: url('./assets/registration-form/bg-man.png'),
+    url('./assets/registration-form/bg-woman.png'),
+    url('./assets/registration-form/destroyed-structure.png'),
+    url('./assets/registration-form/destroyed-structure-small.png');
   background-position-x: 15%, 85%, 5%, 85%;
   background-position-y: 50%, 100%, 100%, 100%;
   background-repeat: no-repeat;
@@ -119,9 +119,9 @@ export const RegistrationWrapperStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('./assets/registration-form/47.png'),
-    url('./assets/registration-form/32.png'),
-    url('./assets/registration-form/29.png');
+  background-image: url('./assets/registration-form/bg-line-bottom.png'),
+    url('./assets/registration-form/left-triangle.png'),
+    url('./assets/registration-form/right-triangle.png');
   background-position-x: 29px, 0%, 100%;
   background-position-y: 100%, 100%, 100%;
   background-repeat: no-repeat;

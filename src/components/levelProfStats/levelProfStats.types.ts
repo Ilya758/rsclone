@@ -1,3 +1,5 @@
 export interface ILevelProfStats {
-  data: number[];
+  experience: number;
+  level: number;
+  profession: string;
 }

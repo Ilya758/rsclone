@@ -28,6 +28,14 @@ function CreateCharacter() {
     profession: 'stalker',
     city: 'moscow.jpg',
     coins: 100,
+    skills: {
+      strength: 2,
+      agility: 2,
+      instinct: 2,
+      endurance: 2,
+      accuracy: 2,
+      intellect: 2,
+    },
   };
   const [character, setCharacter] = useState(init);
 
@@ -44,6 +52,21 @@ function CreateCharacter() {
     if (index < 0) index = array.length - 1;
     if (index > array.length - 1) index = 0;
     setCharacter({ ...character, [type]: array[index] });
+  };
+
+  const handleStatsChange = (skill: string, type: string): void => {
+    let prevValue = character.skills.agility;
+    if (type === 'plus') {
+      prevValue += 1;
+    } else {
+      prevValue -= 1;
+    }
+    setCharacter({
+      ...character,
+      skills: { ...character.skills, agility: prevValue },
+    });
+    //TODO допилить
+    console.log(character.skills);
   };
 
   const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
@@ -65,16 +88,16 @@ function CreateCharacter() {
           <ManikinStyle />
         </BackgroundStyle>
         <PaginationButtonStyle
-          background={'./assets/images/left.png'}
-          backgroundHover={'./assets/images/left-hover.png'}
+          background={'./assets/images/small-icons/left.png'}
+          backgroundHover={'./assets/images/small-icons/left-hover.png'}
           margin={'0 auto 0 0'}
           onClick={() =>
             changeBackgroundHandler('left', BG_ARRAY, 'background')
           }
         />
         <PaginationButtonStyle
-          background={'./assets/images/right.png'}
-          backgroundHover={'./assets/images/right-hover.png'}
+          background={'./assets/images/small-icons/right.png'}
+          backgroundHover={'./assets/images/small-icons/right-hover.png'}
           onClick={() =>
             changeBackgroundHandler('right', BG_ARRAY, 'background')
           }
@@ -90,8 +113,8 @@ function CreateCharacter() {
           placeholder="Enter name"
           id="name"
           width="164px"
-          height="27.2px"
-          backgroundImage="./assets/images/360.png"
+          height="27px"
+          backgroundImage="./assets/images/bg-level.png"
         />
         <Select
           options={['stalker', 'miner', 'corsair']}
@@ -110,16 +133,16 @@ function CreateCharacter() {
           </BackgroundStyle>
 
           <PaginationButtonStyle
-            background={'./assets/images/left.png'}
-            backgroundHover={'./assets/images/left-hover.png'}
+            background={'./assets/images/small-icons/left.png'}
+            backgroundHover={'./assets/images/small-icons/left-hover.png'}
             margin={'0 auto 0 0'}
             onClick={() =>
               changeBackgroundHandler('left', CITIES_ARRAY, 'city')
             }
           />
           <PaginationButtonStyle
-            background={'./assets/images/right.png'}
-            backgroundHover={'./assets/images/right-hover.png'}
+            background={'./assets/images/small-icons/right.png'}
+            backgroundHover={'./assets/images/small-icons/right-hover.png'}
             onClick={() =>
               changeBackgroundHandler('right', CITIES_ARRAY, 'city')
             }
@@ -127,8 +150,16 @@ function CreateCharacter() {
         </BGWrapperStyle>
       </ButtonWrapperStyle>
       <SettingsWrapperStyle>
-        <Skills data={[15, 12, 13, 15, 16, 17]} />
-        <LevelProfStats data={[5]} />
+        <Skills
+          data={character.skills}
+          handleChange={handleStatsChange}
+          isMinus={character.skills.agility > init.skills.agility}
+        />
+        <LevelProfStats
+          level={1}
+          profession={character.profession}
+          experience={0}
+        />
       </SettingsWrapperStyle>
     </WrapperStyle>
   );

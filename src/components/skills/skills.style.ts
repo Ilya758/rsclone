@@ -10,7 +10,7 @@ export const SkillsWrapperStyle = styled.div`
   border-bottom: 2px solid rgba(50, 39, 27, 1);
 `;
 
-export const SkillTextType = styled.div`
+export const SkillTextStyle = styled.div`
   width: 100%;
   box-sizing: border-box;
   padding-left: 25px;
@@ -18,7 +18,17 @@ export const SkillTextType = styled.div`
   justify-content: space-between;
 `;
 
-export const TextType = styled.div`
+export const TextStyle = styled.div`
   font-size: 14px;
   display: block;
+`;
+
+export const ButtonsContainerStyle = styled.div`
+  width: 30px;
+  margin-left: auto;
+  margin-right: 5px;
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

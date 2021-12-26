@@ -50,7 +50,7 @@ export const LabelStyle = styled.div`
   width: 27px;
   height: 14px;
   box-sizing: border-box;
-  background-image: url('./assets/images/name.png');
+  background-image: url('./assets/images/small-icons/name.png');
   background-repeat: no-repeat;
   background-size: cover;
 `;
