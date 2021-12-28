@@ -24,7 +24,7 @@ import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
 import CoinIndicator from '../coinIndicator/CoinIndicator';
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
-import { setStoreCharacter } from "../../stores/reducers/characterReducer";
+import { setStoreCharacter, storeCharacter } from "../../stores/reducers/characterReducer";
 
 function CreateCharacter() {
   const char = useAppSelector((state) => state.character);
@@ -83,6 +83,7 @@ function CreateCharacter() {
       <RegistrationButton onClick={e => {
         e.preventDefault();
         dispatch(setStoreCharacter(character));
+        dispatch(storeCharacter(character));
         console.log(char);
       }} text={'Enter'} />
       <BGWrapperStyle width={'122px'} height={'100%'}>

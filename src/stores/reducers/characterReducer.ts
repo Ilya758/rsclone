@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICharacterType } from "../../components/createCharacter/createCharacter.type";
+import axios from "axios";
+import { BASE_ROUTE } from "../../constants/apiConstants";
 
 
 const initialState: ICharacterType = {
@@ -34,6 +36,17 @@ export const characterSlice = createSlice({
     setStoreCharacter: (state, action) => action.payload,
   },
 });
+
+export const storeCharacter = createAsyncThunk(
+  'storeCharacterData',
+  async (data: ICharacterType) => {
+    await axios.post(
+      `${BASE_ROUTE}/character/saveCharacter`,
+      data,
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+);
 
 export const { setStoreCharacter } = characterSlice.actions;
 export default characterSlice.reducer;
