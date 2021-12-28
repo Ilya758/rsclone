@@ -12,6 +12,7 @@ import {
   LabelStyle,
   CityLabelStyle,
   SettingsWrapperStyle,
+  LocationHeaderStyle,
 } from './createCharacter.style';
 import Input from '../inputs/textField/Input';
 import { useState } from 'react';
@@ -20,10 +21,14 @@ import { BG_ARRAY } from '../../constants/bgManikins';
 import Skills from '../skills/Skills';
 import LevelProfStats from '../levelProfStats/LevelProfStats';
 import { ICharacterType } from './createCharacter.type';
+import FreePointsField from '../freePointsField/FreePointsField';
+import HealthIndicator from '../healthIndicator/HealthIndicator';
+import CoinIndicator from '../coinIndicator/CoinIndicator';
 
 function CreateCharacter() {
   const init: ICharacterType = {
     name: '',
+    id: 'player1',
     background: 'bg-manikin1.jpg',
     profession: 'stalker',
     city: 'moscow.jpg',
@@ -35,6 +40,14 @@ function CreateCharacter() {
       endurance: 2,
       accuracy: 2,
       intellect: 2,
+    },
+    stats: 10,
+    health: [40, 40],
+    locationtime: 0,
+    coordinate: {
+      outside: true,
+      object: '',
+      coordinate: [1, 1],
     },
   };
   const [character, setCharacter] = useState(init);
@@ -55,18 +68,20 @@ function CreateCharacter() {
   };
 
   const handleStatsChange = (skill: string, type: string): void => {
-    let prevValue = character.skills.agility;
+    let prevValue = character.skills[skill as keyof typeof character.skills];
+    let newStats = character.stats;
     if (type === 'plus') {
+      newStats -= 1;
       prevValue += 1;
     } else {
+      newStats += 1;
       prevValue -= 1;
     }
     setCharacter({
       ...character,
-      skills: { ...character.skills, agility: prevValue },
+      stats: newStats,
+      skills: { ...character.skills, [skill]: prevValue },
     });
-    //TODO допилить
-    console.log(character.skills);
   };
 
   const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
@@ -122,7 +137,7 @@ function CreateCharacter() {
           name={'Profession'}
           changeHandle={e => handleSettings(e, 'profession')}
         />
-        <div>Start location</div>
+        <LocationHeaderStyle>Start location</LocationHeaderStyle>
         <BGWrapperStyle width={'95%'} height={'130px'}>
           <BackgroundStyle
             background={`./assets/images/cities/${character.city}`}
@@ -150,16 +165,22 @@ function CreateCharacter() {
         </BGWrapperStyle>
       </ButtonWrapperStyle>
       <SettingsWrapperStyle>
-        <Skills
-          data={character.skills}
-          handleChange={handleStatsChange}
-          isMinus={character.skills.agility > init.skills.agility}
-        />
         <LevelProfStats
           level={1}
           profession={character.profession}
           experience={0}
         />
+
+        <HealthIndicator minHealth={40} maxHealth={40} />
+
+        <Skills
+          data={character.skills}
+          handleChange={handleStatsChange}
+          Minus={init.skills.agility}
+          isShowStatChanger={character.stats >= 1}
+        />
+        <FreePointsField stats={character.stats} />
+        <CoinIndicator coins={character.coins} />
       </SettingsWrapperStyle>
     </WrapperStyle>
   );

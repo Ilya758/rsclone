@@ -4,7 +4,7 @@ import { IGenericButtonStyle } from '../../types/IGenericButtonStyle';
 export const WrapperStyle = styled.div`
   margin-top: 10px;
   width: 100%;
-  height: 100px;
+  height: 23px;
 `;
 
 export const LevelProfWrapperStyle = styled.div`

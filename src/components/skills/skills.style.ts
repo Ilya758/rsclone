@@ -19,12 +19,15 @@ export const SkillTextStyle = styled.div`
 `;
 
 export const TextStyle = styled.div`
-  font-size: 14px;
+  min-width: 16px;
   display: block;
+  font-size: 14px;
+  text-align: end;
 `;
 
 export const ButtonsContainerStyle = styled.div`
-  width: 30px;
+  min-width: 30px;
+
   margin-left: auto;
   margin-right: 5px;
   display: block;

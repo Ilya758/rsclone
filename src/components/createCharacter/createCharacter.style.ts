@@ -13,7 +13,15 @@ const showForm = keyframes`
   }
 `;
 
-export const WrapperStyle = styled.form`
+export const LocationHeaderStyle = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const WrapperStyle = styled.div`
   width: 100%;
   height: 100%;
   animation: ${showForm} 2.2s linear;
@@ -27,7 +35,11 @@ export const SettingsWrapperStyle = styled.div`
   width: 200px;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 5px;
   background: rgba(95, 82, 65, 1);
   border: 3px solid rgba(50, 39, 27, 1);
   border-radius: 4px;
