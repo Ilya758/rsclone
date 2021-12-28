@@ -1,6 +1,6 @@
 import RegistrationButton from '../buttons/registrationButton/RegistrationButton';
 import Select from '../inputs/select/Select';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from "react";
 import { getNameFromUrl } from '../../utils/getNameFromUrl';
 import {
   WrapperStyle,
@@ -24,6 +24,7 @@ import { ICharacterType } from './createCharacter.type';
 import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
 import CoinIndicator from '../coinIndicator/CoinIndicator';
+import { useAppSelector } from "../../hooks/storeHooks";
 
 function CreateCharacter() {
   const init: ICharacterType = {
@@ -50,7 +51,15 @@ function CreateCharacter() {
       coordinate: [1, 1],
     },
   };
-  const [character, setCharacter] = useState(init);
+  const [character, setCharacter] = useState(() => init);
+  const options = useAppSelector((state) => state.user.userId);
+  
+  useEffect(() => {
+    const calculated = JSON.parse(JSON.stringify(character));
+    calculated.id = options;
+    setCharacter(calculated)
+  }, []);
+  console.log(character);
 
   const changeBackgroundHandler = (
     direction: string,
@@ -176,7 +185,7 @@ function CreateCharacter() {
         <Skills
           data={character.skills}
           handleChange={handleStatsChange}
-          Minus={init.skills.agility}
+          Minus={character.skills.agility}
           isShowStatChanger={character.stats >= 1}
         />
         <FreePointsField stats={character.stats} />
