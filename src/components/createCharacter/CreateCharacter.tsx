@@ -20,39 +20,17 @@ import { CITIES_ARRAY } from '../../constants/bgCities';
 import { BG_ARRAY } from '../../constants/bgManikins';
 import Skills from '../skills/Skills';
 import LevelProfStats from '../levelProfStats/LevelProfStats';
-import { ICharacterType } from './createCharacter.type';
 import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
 import CoinIndicator from '../coinIndicator/CoinIndicator';
-import { useAppSelector } from "../../hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { setStoreCharacter } from "../../stores/reducers/characterReducer";
 
 function CreateCharacter() {
-  const init: ICharacterType = {
-    name: '',
-    id: 'player1',
-    background: 'bg-manikin1.jpg',
-    profession: 'stalker',
-    city: 'moscow.jpg',
-    coins: 100,
-    skills: {
-      strength: 2,
-      agility: 2,
-      instinct: 2,
-      endurance: 2,
-      accuracy: 2,
-      intellect: 2,
-    },
-    stats: 10,
-    health: [40, 40],
-    locationtime: 0,
-    coordinate: {
-      outside: true,
-      object: '',
-      coordinate: [1, 1],
-    },
-  };
-  const [character, setCharacter] = useState(() => init);
+  const char = useAppSelector((state) => state.character);
+  const [character, setCharacter] = useState(() => char);
   const options = useAppSelector((state) => state.user.userId);
+  const dispatch = useAppDispatch();
   
   useEffect(() => {
     const calculated = JSON.parse(JSON.stringify(character));
@@ -102,7 +80,11 @@ function CreateCharacter() {
 
   return (
     <WrapperStyle>
-      <RegistrationButton onClick={e => console.log(e.target)} text={'Enter'} />
+      <RegistrationButton onClick={e => {
+        e.preventDefault();
+        dispatch(setStoreCharacter(character));
+        console.log(char);
+      }} text={'Enter'} />
       <BGWrapperStyle width={'122px'} height={'100%'}>
         <BackgroundStyle
           background={`./assets/images/bg-manikins/${character.background}`}
