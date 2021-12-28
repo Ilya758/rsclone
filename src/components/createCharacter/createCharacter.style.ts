@@ -27,7 +27,11 @@ export const SettingsWrapperStyle = styled.div`
   width: 200px;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 5px;
   background: rgba(95, 82, 65, 1);
   border: 3px solid rgba(50, 39, 27, 1);
   border-radius: 4px;
