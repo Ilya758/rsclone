@@ -13,7 +13,15 @@ const showForm = keyframes`
   }
 `;
 
-export const WrapperStyle = styled.form`
+export const LocationHeaderStyle = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const WrapperStyle = styled.div`
   width: 100%;
   height: 100%;
   animation: ${showForm} 2.2s linear;

@@ -12,6 +12,7 @@ import {
   LabelStyle,
   CityLabelStyle,
   SettingsWrapperStyle,
+  LocationHeaderStyle,
 } from './createCharacter.style';
 import Input from '../inputs/textField/Input';
 import { useState } from 'react';
@@ -22,6 +23,7 @@ import LevelProfStats from '../levelProfStats/LevelProfStats';
 import { ICharacterType } from './createCharacter.type';
 import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
+import CoinIndicator from '../coinIndicator/CoinIndicator';
 
 function CreateCharacter() {
   const init: ICharacterType = {
@@ -135,7 +137,7 @@ function CreateCharacter() {
           name={'Profession'}
           changeHandle={e => handleSettings(e, 'profession')}
         />
-        <div>Start location</div>
+        <LocationHeaderStyle>Start location</LocationHeaderStyle>
         <BGWrapperStyle width={'95%'} height={'130px'}>
           <BackgroundStyle
             background={`./assets/images/cities/${character.city}`}
@@ -170,6 +172,7 @@ function CreateCharacter() {
         />
 
         <HealthIndicator minHealth={40} maxHealth={40} />
+
         <Skills
           data={character.skills}
           handleChange={handleStatsChange}
@@ -177,6 +180,7 @@ function CreateCharacter() {
           isShowStatChanger={character.stats >= 1}
         />
         <FreePointsField stats={character.stats} />
+        <CoinIndicator coins={character.coins} />
       </SettingsWrapperStyle>
     </WrapperStyle>
   );
