@@ -18,7 +18,7 @@ import Input from '../inputs/textField/Input';
 import { useState } from 'react';
 import { CITIES_ARRAY } from '../../constants/bgCities';
 import { BG_ARRAY } from '../../constants/bgManikins';
-import Skills from '../skills/Skills';
+// import Skills from '../skills/Skills';
 import LevelProfStats from '../levelProfStats/LevelProfStats';
 import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
@@ -34,7 +34,7 @@ function CreateCharacter() {
   
   useEffect(() => {
     const calculated = JSON.parse(JSON.stringify(character));
-    calculated.id = options;
+    calculated.userId = options;
     setCharacter(calculated)
   }, []);
   console.log(character);
@@ -54,22 +54,22 @@ function CreateCharacter() {
     setCharacter({ ...character, [type]: array[index] });
   };
 
-  const handleStatsChange = (skill: string, type: string): void => {
-    let prevValue = character.skills[skill as keyof typeof character.skills];
-    let newStats = character.stats;
-    if (type === 'plus') {
-      newStats -= 1;
-      prevValue += 1;
-    } else {
-      newStats += 1;
-      prevValue -= 1;
-    }
-    setCharacter({
-      ...character,
-      stats: newStats,
-      skills: { ...character.skills, [skill]: prevValue },
-    });
-  };
+  // const handleStatsChange = (skill: string, type: string): void => {
+  //   let prevValue = character.skills[skill as keyof typeof character.skills];
+  //   let newStats = character.stats;
+  //   if (type === 'plus') {
+  //     newStats -= 1;
+  //     prevValue += 1;
+  //   } else {
+  //     newStats += 1;
+  //     prevValue -= 1;
+  //   }
+  //   setCharacter({
+  //     ...character,
+  //     stats: newStats,
+  //     skills: { ...character.skills, [skill]: prevValue },
+  //   });
+  // };
 
   const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
     e: ChangeEvent<T>,
@@ -165,12 +165,12 @@ function CreateCharacter() {
 
         <HealthIndicator minHealth={40} maxHealth={40} />
 
-        <Skills
-          data={character.skills}
-          handleChange={handleStatsChange}
-          Minus={character.skills.agility}
-          isShowStatChanger={character.stats >= 1}
-        />
+        {/*<Skills*/}
+        {/*  data={character}*/}
+        {/*  handleChange={handleStatsChange}*/}
+        {/*  Minus={character.agility}*/}
+        {/*  isShowStatChanger={character.stats >= 1}*/}
+        {/*/>*/}
         <FreePointsField stats={character.stats} />
         <CoinIndicator coins={character.coins} />
       </SettingsWrapperStyle>

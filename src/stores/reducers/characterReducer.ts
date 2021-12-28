@@ -6,27 +6,25 @@ import { BASE_ROUTE } from "../../constants/apiConstants";
 
 const initialState: ICharacterType = {
   name: '',
-  id: '',
+  userId: '',
   background: 'bg-manikin1.jpg',
   profession: 'stalker',
   city: 'moscow.jpg',
   coins: 100,
-  skills: {
-    strength: 2,
-    agility: 2,
-    instinct: 2,
-    endurance: 2,
-    accuracy: 2,
-    intellect: 2,
-  },
+  strength: 2,
+  agility: 2,
+  instinct: 2,
+  endurance: 2,
+  accuracy: 2,
+  intellect: 2,
   stats: 10,
-  health: [40, 40],
+  healthMin: 40,
+  healthCurrent: 40,
   locationtime: 0,
-  coordinate: {
-    outside: true,
-    object: '',
-    coordinate: [1, 1],
-  },
+  outside: true,
+  object: '',
+  coordX: 1,
+  coordY: 1,
 };
 
 export const characterSlice = createSlice({
