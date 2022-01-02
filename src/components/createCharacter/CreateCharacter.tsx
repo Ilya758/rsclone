@@ -1,6 +1,5 @@
-import RegistrationButton from '../buttons/registrationButton/RegistrationButton';
 import Select from '../inputs/select/Select';
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect } from 'react';
 import { getNameFromUrl } from '../../utils/getNameFromUrl';
 import {
   WrapperStyle,
@@ -23,19 +22,23 @@ import LevelProfStats from '../levelProfStats/LevelProfStats';
 import FreePointsField from '../freePointsField/FreePointsField';
 import HealthIndicator from '../healthIndicator/HealthIndicator';
 import CoinIndicator from '../coinIndicator/CoinIndicator';
-import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
-import { setStoreCharacter, storeCharacter } from "../../stores/reducers/characterReducer";
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import {
+  setStoreCharacter,
+  storeCharacter,
+} from '../../stores/reducers/characterReducer';
+import { Link } from 'react-router-dom';
 
 function CreateCharacter() {
-  const char = useAppSelector((state) => state.character);
+  const char = useAppSelector(state => state.character);
   const [character, setCharacter] = useState(() => char);
-  const options = useAppSelector((state) => state.user.userId);
+  const options = useAppSelector(state => state.user.userId);
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
     const calculated = JSON.parse(JSON.stringify(character));
     calculated.userId = options;
-    setCharacter(calculated)
+    setCharacter(calculated);
   }, []);
   console.log(character);
 
@@ -80,12 +83,16 @@ function CreateCharacter() {
 
   return (
     <WrapperStyle>
-      <RegistrationButton onClick={e => {
-        e.preventDefault();
-        dispatch(setStoreCharacter(character));
-        dispatch(storeCharacter(character));
-        console.log(char);
-      }} text={'Enter'} />
+      <Link
+        onClick={() => {
+          dispatch(setStoreCharacter(character));
+          dispatch(storeCharacter(character));
+          console.log(char);
+        }}
+        to="/game"
+      >
+        <h1>GAME</h1>
+      </Link>
       <BGWrapperStyle width={'122px'} height={'100%'}>
         <BackgroundStyle
           background={`./assets/images/bg-manikins/${character.background}`}
