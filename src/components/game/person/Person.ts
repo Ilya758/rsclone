@@ -23,24 +23,34 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    if (personControlKeys.left.isDown) {
-      // left
+    if (personControlKeys.right.isDown && personControlKeys.up.isDown) {
+      this.anims.play('left');
+      this.setVelocity(this.speed, -this.speed);
+    } else if (
+      personControlKeys.right.isDown &&
+      personControlKeys.down.isDown
+    ) {
+      this.anims.play('left');
+      this.setVelocity(this.speed, this.speed);
+    } else if (personControlKeys.left.isDown && personControlKeys.down.isDown) {
+      this.anims.play('left');
+      this.setVelocity(-this.speed, this.speed);
+    } else if (personControlKeys.left.isDown && personControlKeys.up.isDown) {
+      this.anims.play('left');
+      this.setVelocity(-this.speed, -this.speed);
+    } else if (personControlKeys.left.isDown) {
       this.anims.play('left');
       this.setVelocity(-this.speed, 0);
     } else if (personControlKeys.right.isDown) {
-      // right
       this.anims.play('right');
       this.setVelocity(+this.speed, 0);
     } else if (personControlKeys.up.isDown) {
-      // up
       this.anims.play('up');
       this.setVelocity(0, -this.speed);
     } else if (personControlKeys.down.isDown) {
-      // down
       this.anims.play('down');
       this.setVelocity(0, +this.speed);
     } else {
-      // stand position
       this.anims.play('right');
       this.setVelocity(0, 0);
     }
