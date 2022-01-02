@@ -15,8 +15,8 @@ export default class Preloader extends Phaser.Scene {
     );
     this.load.atlas(
       'zombie',
-      './assets/game/zombie.png',
-      './assets/game/zombie.json'
+      './assets/game/zombie/zombie.png',
+      './assets/game/zombie/zombie.json'
     );
     this.load.image('bullet', './assets/game/bullet.png');
   }
