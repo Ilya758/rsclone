@@ -1,6 +1,10 @@
 /* eslint-disable no-dupe-else-if */
 import Phaser from 'phaser';
+import { createCharacterAnims } from '../anims/PersonAnims';
+import { createZombieAnims } from '../anims/ZombieAnims';
+import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
+import '../person/Person';
 
 export default class Game extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys | null;
@@ -8,8 +12,6 @@ export default class Game extends Phaser.Scene {
   private person: Phaser.Physics.Arcade.Sprite | null;
 
   private zombie: Phaser.Physics.Arcade.Sprite | null;
-
-  static target = new Phaser.Math.Vector2();
 
   private bullets: Phaser.GameObjects.Group | null;
 
@@ -26,7 +28,6 @@ export default class Game extends Phaser.Scene {
   constructor() {
     super('game');
     this.cursors = null;
-    this.cursors = null;
     this.person = null;
     this.zombie = null;
     this.bullets = null;
@@ -37,6 +38,8 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    createCharacterAnims(this.anims);
+    createZombieAnims(this.anims);
     // create map
     const map = this.make.tilemap({
       key: 'prison',
@@ -62,37 +65,8 @@ export default class Game extends Phaser.Scene {
       faceColor: new Phaser.Display.Color(40, 39, 47, 255),
     });
 
-    this.person = this.physics.add.sprite(240, 240, 'person');
-
-    this.zombie = this.physics.add.sprite(360, 360, 'zombie');
-
-    this.anims.create({
-      key: 'left',
-      frames: [{ key: 'person', frame: 'Human_5_Idle0.png' }],
-    });
-    this.anims.create({
-      key: 'right',
-      frames: [{ key: 'person', frame: 'Human_1_Idle0.png' }],
-    });
-    this.anims.create({
-      key: 'up',
-      frames: [{ key: 'person', frame: 'Human_7_Idle0.png' }],
-    });
-    this.anims.create({
-      key: 'down',
-      frames: [{ key: 'person', frame: 'Human_3_Idle0.png' }],
-    });
-
-    this.input.on('pointermove', (pointer: PointerEvent) => {
-      Game.target.x = pointer.x;
-      Game.target.y = pointer.y;
-    });
-
-    // following sprite for user-pointer
-    this.input.on('pointermove', (pointer: PointerEvent) => {
-      Game.target.x = pointer.x;
-      Game.target.y = pointer.y;
-    });
+    this.person = this.add.person(240, 240, 'person');
+    this.zombie = this.add.zombie(360, 360, 'zombie');
 
     // this.cameras.main.startFollow(this.person, true);
 
@@ -145,8 +119,12 @@ export default class Game extends Phaser.Scene {
   }
 
   update(time: number): void {
+    if (this.zombie === null || this.person === null) {
+      throw new Error();
+    }
+
     if (!this.zombie?.scene) {
-      this.zombie = this.physics.add.sprite(
+      this.zombie = this.add.zombie(
         Math.random() * 480,
         Math.random() * 480,
         'zombie'
@@ -163,6 +141,10 @@ export default class Game extends Phaser.Scene {
         this.zombie,
         this.handleBulletCollision.bind(this)
       );
+    }
+
+    if (this.person) {
+      this.person.update(this.cursors);
     }
 
     if (!this.cursors || !this.person) {
@@ -184,101 +166,22 @@ export default class Game extends Phaser.Scene {
       }
     }
 
-    const speed = 100;
-
-    if (this.cursors.left.isDown) {
-      // left
-      this.person.anims.play('left');
-      this.person.setVelocity(-speed, 0);
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-    } else if (this.cursors.right.isDown) {
-      // right
-      this.person.anims.play('right');
-      this.person.setVelocity(+speed, 0);
-      // this.person.angle = 90;
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-    } else if (this.cursors.up.isDown && this.cursors.left.isDown) {
-      this.person.anims.play('up');
-      this.person.setVelocity(-speed);
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-    } else if (this.cursors.up.isDown) {
-      // up
-      this.person.anims.play('up');
-      this.person.setVelocity(0, -speed);
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-      // this.person.angle = -180;
-    } else if (this.cursors.down.isDown) {
-      // down
-      this.person.anims.play('down');
-      this.person.setVelocity(0, +speed);
-      // this.person.angle = 180;
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-    } else {
-      // stand position
-      this.person.anims.play('right');
-      this.person.setVelocity(0, 0);
-      // this.person.angle = 0;
-      this.person.setRotation(
-        Phaser.Math.Angle.Between(
-          Game.target.x,
-          Game.target.y,
-          this.person.x,
-          this.person.y
-        ) -
-          Math.PI / 2
-      );
-    }
-
-    if (this.zombie === null) {
-      throw new Error();
-    }
+    this.person.setRotation(
+      Phaser.Math.Angle.Between(
+        this.mouseX,
+        this.mouseY,
+        this.person.x,
+        this.person.y
+      ) -
+        Math.PI / 2
+    );
 
     if (
       Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 10000 &&
       Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) > 25
     ) {
       if (this.zombie.scene) {
-        this.physics.moveToObject(this.zombie, this.person, 70);
+        this.physics.moveToObject(this.zombie, this.person, Zombie.speed);
       }
     } else {
       this.physics.moveToObject(this.zombie, this.person, 0);
