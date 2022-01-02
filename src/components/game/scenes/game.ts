@@ -61,9 +61,12 @@ export default class Game extends Phaser.Scene {
 
     this.person = this.add.person(240, 240, 'person');
     this.person.body.setSize(20, 20);
-    this.zombie = this.add.zombie(360, 360, 'zombie');
+    this.zombie = this.add
+      .zombie(360, 360, 'zombie')
+      .setInteractive({ cursor: 'url(assets/game/cursors/aim.cur), pointer' });
     this.zombie.setDisplaySize(80, 80);
     this.zombie.body.setSize(40, 40);
+
     // this.cameras.main.startFollow(this.person, true);
 
     this.bullets = this.physics.add.group({
@@ -120,11 +123,11 @@ export default class Game extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
-      this.zombie = this.add.zombie(
-        Math.random() * 480,
-        Math.random() * 480,
-        'zombie'
-      );
+      this.zombie = this.add
+        .zombie(Math.random() * 480, Math.random() * 480, 'zombie')
+        .setInteractive({
+          cursor: 'url(assets/game/cursors/aim.cur), pointer',
+        });
       this.zombie.setDisplaySize(80, 80);
       this.zombie.body.setSize(40, 40);
 
