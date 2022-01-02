@@ -1,0 +1,39 @@
+{
+  "frames": {
+    "zombie.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 31.25,
+        "h": 28.875
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 31.25,
+        "h": 28.875
+      },
+      "sourceSize": {
+        "w": 31.25,
+        "h": 28.875
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "zombie.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 31,
+      "h": 29
+    },
+    "scale": 0.125
+  }
+}
