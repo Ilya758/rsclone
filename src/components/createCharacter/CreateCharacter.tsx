@@ -1,4 +1,3 @@
-import RegistrationButton from '../buttons/registrationButton/RegistrationButton';
 import Select from '../inputs/select/Select';
 import { ChangeEvent, useEffect } from "react";
 import { getNameFromUrl } from '../../utils/getNameFromUrl';
@@ -81,7 +80,7 @@ function CreateCharacter() {
 
   return (
     <WrapperStyle>
-      <Link onClick={e => {
+      <Link onClick={() => {
         dispatch(setStoreCharacter(character));
         dispatch(storeCharacter(character));
         console.log(char);
