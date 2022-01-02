@@ -2,10 +2,9 @@ import { ContainerStyle } from './game.style';
 import Phaser from 'phaser';
 import Game from './scenes/game';
 import Preloader from './scenes/preloader';
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 const GameInitializer = () => {
-  
   const config = {
     type: Phaser.AUTO,
     parent: 'canvasPoint',
@@ -22,9 +21,7 @@ const GameInitializer = () => {
   };
   useEffect(() => {
     new Phaser.Game(config);
-  }, [])
-
-
+  }, []);
 
   console.log('Game Entry Point. Warning!!!');
   return <ContainerStyle id={'canvasPoint'} />;
