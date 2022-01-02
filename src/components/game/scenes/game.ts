@@ -66,8 +66,10 @@ export default class Game extends Phaser.Scene {
     });
 
     this.person = this.add.person(240, 240, 'person');
+    this.person.body.setSize(20, 20);
     this.zombie = this.add.zombie(360, 360, 'zombie');
-
+    this.zombie.setDisplaySize(80, 80);
+    this.zombie.body.setSize(40, 40);
     // this.cameras.main.startFollow(this.person, true);
 
     this.bullets = this.physics.add.group({
@@ -129,6 +131,8 @@ export default class Game extends Phaser.Scene {
         Math.random() * 480,
         'zombie'
       );
+      this.zombie.setDisplaySize(80, 80);
+      this.zombie.body.setSize(40, 40);
 
       this.zombieHealth = 100;
 
@@ -182,9 +186,29 @@ export default class Game extends Phaser.Scene {
     ) {
       if (this.zombie.scene) {
         this.physics.moveToObject(this.zombie, this.person, Zombie.speed);
+        this.zombie.setRotation(
+          Phaser.Math.Angle.Between(
+            this.person.x,
+            this.person.y,
+            this.zombie.x,
+            this.zombie.y
+          ) -
+            Math.PI / 2
+        );
+        this.zombie.anims.play('walk', true);
       }
     } else {
       this.physics.moveToObject(this.zombie, this.person, 0);
+      this.zombie.setRotation(
+        Phaser.Math.Angle.Between(
+          this.person.x,
+          this.person.y,
+          this.zombie.x,
+          this.zombie.y
+        ) -
+          Math.PI / 2
+      );
+      this.zombie.anims.play('kick', true);
     }
   }
 }
