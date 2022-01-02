@@ -1,5 +1,6 @@
 /* eslint-disable no-dupe-else-if */
 import Phaser from 'phaser';
+import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
@@ -7,8 +8,6 @@ import Bullet from '../entities/bullet';
 import '../person/Person';
 
 export default class Game extends Phaser.Scene {
-  private cursors: Phaser.Types.Input.Keyboard.CursorKeys | null;
-
   private person: Phaser.Physics.Arcade.Sprite | null;
 
   private zombie: Phaser.Physics.Arcade.Sprite | null;
@@ -27,14 +26,9 @@ export default class Game extends Phaser.Scene {
 
   constructor() {
     super('game');
-    this.cursors = null;
     this.person = null;
     this.zombie = null;
     this.bullets = null;
-  }
-
-  preload() {
-    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   create() {
@@ -148,10 +142,10 @@ export default class Game extends Phaser.Scene {
     }
 
     if (this.person) {
-      this.person.update(this.cursors);
+      this.person.update(createUserKeys(this.input));
     }
 
-    if (!this.cursors || !this.person) {
+    if (!this.person) {
       return;
     }
 
