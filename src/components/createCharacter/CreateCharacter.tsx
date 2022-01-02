@@ -25,6 +25,7 @@ import HealthIndicator from '../healthIndicator/HealthIndicator';
 import CoinIndicator from '../coinIndicator/CoinIndicator';
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { setStoreCharacter, storeCharacter } from "../../stores/reducers/characterReducer";
+import { Link } from "react-router-dom";
 
 function CreateCharacter() {
   const char = useAppSelector((state) => state.character);
@@ -80,12 +81,11 @@ function CreateCharacter() {
 
   return (
     <WrapperStyle>
-      <RegistrationButton onClick={e => {
-        e.preventDefault();
+      <Link onClick={e => {
         dispatch(setStoreCharacter(character));
         dispatch(storeCharacter(character));
         console.log(char);
-      }} text={'Enter'} />
+      }} to="/game"><h1>GAME</h1></Link>
       <BGWrapperStyle width={'122px'} height={'100%'}>
         <BackgroundStyle
           background={`./assets/images/bg-manikins/${character.background}`}
