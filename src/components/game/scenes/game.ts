@@ -1,6 +1,8 @@
 /* eslint-disable no-dupe-else-if */
 import Phaser from 'phaser';
 import { createCharacterAnims } from '../anims/PersonAnims';
+import { createZombieAnims } from '../anims/ZombieAnims';
+import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
 
@@ -37,6 +39,7 @@ export default class Game extends Phaser.Scene {
 
   create() {
     createCharacterAnims(this.anims);
+    createZombieAnims(this.anims);
     // create map
     const map = this.make.tilemap({
       key: 'prison',
@@ -63,7 +66,7 @@ export default class Game extends Phaser.Scene {
     });
 
     this.person = this.add.person(240, 240, 'person');
-    this.zombie = this.physics.add.sprite(360, 360, 'zombie');
+    this.zombie = this.add.zombie(360, 360, 'zombie');
 
     // this.cameras.main.startFollow(this.person, true);
 
@@ -121,7 +124,7 @@ export default class Game extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
-      this.zombie = this.physics.add.sprite(
+      this.zombie = this.add.zombie(
         Math.random() * 480,
         Math.random() * 480,
         'zombie'
@@ -178,7 +181,7 @@ export default class Game extends Phaser.Scene {
       Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) > 25
     ) {
       if (this.zombie.scene) {
-        this.physics.moveToObject(this.zombie, this.person, 70);
+        this.physics.moveToObject(this.zombie, this.person, Zombie.speed);
       }
     } else {
       this.physics.moveToObject(this.zombie, this.person, 0);
