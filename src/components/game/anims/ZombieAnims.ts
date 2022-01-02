@@ -2,8 +2,15 @@ import Phaser from 'phaser';
 
 const createZombieAnims = (anims: Phaser.Animations.AnimationManager) => {
   anims.create({
-    key: 'left',
-    frames: [{ key: 'zombie', frame: '1.png' }], // enter the frame-info
+    key: 'stay',
+    frames: anims.generateFrameNames('zombie', {
+      start: 152,
+      end: 167,
+      prefix: '',
+      suffix: '.png',
+    }),
+    repeat: -1,
+    frameRate: 8,
   });
   anims.create({
     key: 'kick',
