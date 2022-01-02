@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { IUserKeys } from '../../../types/globals';
 
 export default class Person extends Phaser.Physics.Arcade.Sprite {
   private speed = 100;
@@ -17,24 +18,24 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.setTexture('person');
   }
 
-  update(cursors: Phaser.Types.Input.Keyboard.CursorKeys): void {
-    if (!cursors || !this) {
+  update(personControlKeys: IUserKeys): void {
+    if (!personControlKeys || !this) {
       return;
     }
 
-    if (cursors.left.isDown) {
+    if (personControlKeys.left.isDown) {
       // left
       this.anims.play('left');
       this.setVelocity(-this.speed, 0);
-    } else if (cursors.right.isDown) {
+    } else if (personControlKeys.right.isDown) {
       // right
       this.anims.play('right');
       this.setVelocity(+this.speed, 0);
-    } else if (cursors.up.isDown) {
+    } else if (personControlKeys.up.isDown) {
       // up
       this.anims.play('up');
       this.setVelocity(0, -this.speed);
-    } else if (cursors.down.isDown) {
+    } else if (personControlKeys.down.isDown) {
       // down
       this.anims.play('down');
       this.setVelocity(0, +this.speed);
