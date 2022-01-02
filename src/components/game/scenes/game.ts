@@ -178,7 +178,7 @@ export default class Game extends Phaser.Scene {
     );
 
     if (
-      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 10000 &&
+      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 200 &&
       Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) > 25
     ) {
       if (this.zombie.scene) {
@@ -194,7 +194,9 @@ export default class Game extends Phaser.Scene {
         );
         this.zombie.anims.play('walk', true);
       }
-    } else {
+    } else if (
+      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 25
+    ) {
       this.physics.moveToObject(this.zombie, this.person, 0);
       this.zombie.setRotation(
         Phaser.Math.Angle.Between(
@@ -206,6 +208,9 @@ export default class Game extends Phaser.Scene {
           Math.PI / 2
       );
       this.zombie.anims.play('kick', true);
+    } else {
+      this.physics.moveToObject(this.zombie, this.person, 0);
+      this.zombie.anims.play('stay', true);
     }
   }
 }
