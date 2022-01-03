@@ -6,6 +6,7 @@ import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
+import Pointer = Phaser.Input.Pointer;
 
 export default class Game extends Phaser.Scene {
   private person: Phaser.Physics.Arcade.Sprite | null;
@@ -67,7 +68,7 @@ export default class Game extends Phaser.Scene {
     this.zombie.setDisplaySize(80, 80);
     this.zombie.body.setSize(40, 40);
 
-    // this.cameras.main.startFollow(this.person, true);
+    this.cameras.main.startFollow(this.person, true);
 
     this.bullets = this.physics.add.group({
       classType: Bullet,
@@ -89,15 +90,15 @@ export default class Game extends Phaser.Scene {
       this.handleBulletCollision.bind(this)
     );
 
-    this.input.on('pointerdown', (pointer: PointerEvent) => {
+    this.input.on('pointerdown', (pointer: Pointer) => {
       this.isDown = true;
-      this.mouseX = pointer.x;
-      this.mouseY = pointer.y;
+      this.mouseX = pointer.worldX;
+      this.mouseY = pointer.worldY;
     });
 
-    this.input.on('pointermove', (pointer: PointerEvent) => {
-      this.mouseX = pointer.x;
-      this.mouseY = pointer.y;
+    this.input.on('pointermove', (pointer: Pointer) => {
+      this.mouseX = pointer.worldX;
+      this.mouseY = pointer.worldY;
     });
 
     this.input.on('pointerup', () => {
