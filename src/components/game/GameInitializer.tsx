@@ -7,9 +7,21 @@ import { useEffect } from 'react';
 const GameInitializer = () => {
   const config = {
     type: Phaser.AUTO,
-    parent: 'canvasPoint',
-    width: 480,
-    height: 480,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      parent: 'canvasPoint',
+      width: 800,
+      height: 400,
+      min: {
+        width: 800,
+        height: 400
+      },
+      max: {
+        width: 1600,
+        height: 1200
+      }
+    },
     physics: {
       default: 'arcade',
       arcade: {
@@ -17,6 +29,7 @@ const GameInitializer = () => {
         debug: true,
       },
     },
+    zoom: 2,
     scene: [Preloader, Game],
   };
   useEffect(() => {
