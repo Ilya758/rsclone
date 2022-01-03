@@ -31,11 +31,16 @@ Phaser.GameObjects.GameObjectFactory.register(
 
     this.displayList.add(sprite);
     this.updateList.add(sprite);
-
+    sprite.setInteractive({
+      cursor: 'url(assets/game/cursors/aim.cur), pointer',
+    });
     this.scene.physics.world.enableBody(
       sprite,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
+
+    sprite.setDisplaySize(80, 80);
+    sprite.body.setSize(40, 40);
 
     return sprite;
   }
