@@ -60,11 +60,10 @@ export default class Game extends Phaser.Scene {
       faceColor: new Phaser.Display.Color(40, 39, 47, 255),
     });
 
+    // person and enemies initialization
+
     this.person = this.add.person(240, 240, 'person');
-    this.person.body.setSize(20, 20);
     this.zombie = this.add.zombie(360, 360, 'zombie');
-    this.zombie.setDisplaySize(80, 80);
-    this.zombie.body.setSize(40, 40);
 
     this.cameras.main.startFollow(this.person, true);
 
@@ -127,8 +126,6 @@ export default class Game extends Phaser.Scene {
         Math.random() * 480,
         'zombie'
       );
-      this.zombie.setDisplaySize(80, 80);
-      this.zombie.body.setSize(40, 40);
 
       this.zombieHealth = 100;
 

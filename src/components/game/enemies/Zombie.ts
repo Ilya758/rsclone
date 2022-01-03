@@ -39,6 +39,9 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
+    sprite.setDisplaySize(80, 80);
+    sprite.body.setSize(40, 40);
+
     return sprite;
   }
 );

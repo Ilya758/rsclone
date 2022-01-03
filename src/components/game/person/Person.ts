@@ -16,6 +16,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   create() {
     this.setTexture('person');
+    this.width = 10;
   }
 
   update(personControlKeys: IUserKeys): void {
@@ -76,6 +77,7 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
 
+    sprite.body.setSize(20, 20);
     return sprite;
   }
 );
