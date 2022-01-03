@@ -60,7 +60,12 @@ export default class Game extends Phaser.Scene {
     });
 
     this.person = this.add.person(240, 240, 'person');
-    this.zombie = this.add.zombie(360, 360, 'zombie');
+    this.person.body.setSize(20, 20);
+    this.zombie = this.add
+      .zombie(360, 360, 'zombie')
+      .setInteractive({ cursor: 'url(assets/game/cursors/aim.cur), pointer' });
+    this.zombie.setDisplaySize(80, 80);
+    this.zombie.body.setSize(40, 40);
 
     // this.cameras.main.startFollow(this.person, true);
 
@@ -118,11 +123,13 @@ export default class Game extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
-      this.zombie = this.add.zombie(
-        Math.random() * 480,
-        Math.random() * 480,
-        'zombie'
-      );
+      this.zombie = this.add
+        .zombie(Math.random() * 480, Math.random() * 480, 'zombie')
+        .setInteractive({
+          cursor: 'url(assets/game/cursors/aim.cur), pointer',
+        });
+      this.zombie.setDisplaySize(80, 80);
+      this.zombie.body.setSize(40, 40);
 
       this.zombieHealth = 100;
 
@@ -171,14 +178,39 @@ export default class Game extends Phaser.Scene {
     );
 
     if (
-      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 10000 &&
+      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 200 &&
       Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) > 25
     ) {
       if (this.zombie.scene) {
         this.physics.moveToObject(this.zombie, this.person, Zombie.speed);
+        this.zombie.setRotation(
+          Phaser.Math.Angle.Between(
+            this.person.x,
+            this.person.y,
+            this.zombie.x,
+            this.zombie.y
+          ) -
+            Math.PI / 2
+        );
+        this.zombie.anims.play('walk', true);
       }
+    } else if (
+      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 25
+    ) {
+      this.physics.moveToObject(this.zombie, this.person, 0);
+      this.zombie.setRotation(
+        Phaser.Math.Angle.Between(
+          this.person.x,
+          this.person.y,
+          this.zombie.x,
+          this.zombie.y
+        ) -
+          Math.PI / 2
+      );
+      this.zombie.anims.play('kick', true);
     } else {
       this.physics.moveToObject(this.zombie, this.person, 0);
+      this.zombie.anims.play('stay', true);
     }
   }
 }
