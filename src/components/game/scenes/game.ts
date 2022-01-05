@@ -1,49 +1,48 @@
 /* eslint-disable no-dupe-else-if */
-import Phaser from 'phaser';
+import Phaser, { Scene } from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
-import Pointer = Phaser.Input.Pointer;
+import '../enemies/Zombie';
+import Person from '../person/Person';
+import PersonUI from '../ui-kit/PersonUi';
 
 export default class Game extends Phaser.Scene {
-  private person: Phaser.Physics.Arcade.Sprite | null;
+  private personUi: PersonUI | null;
+
+  private person: Phaser.Physics.Arcade.Sprite | null | Person;
 
   private zombie: Phaser.Physics.Arcade.Sprite | null;
 
   private bullets: Phaser.GameObjects.Group | null;
-
-  private lastFired = 0;
-
-  private isDown = false;
-
-  private mouseX = 0;
-
-  private mouseY = 0;
-
-  private zombieHealth = 100;
 
   constructor() {
     super('game');
     this.person = null;
     this.zombie = null;
     this.bullets = null;
+    this.personUi = null;
   }
 
   create() {
     createCharacterAnims(this.anims);
     createZombieAnims(this.anims);
+
     // create map
+
     const map = this.make.tilemap({
       key: 'prison',
     });
 
     // added tilesets
+
     const tileset = map.addTilesetImage('dungeon');
 
     // create layer
+
     map.createLayer('floor', tileset, 0, 0);
     const walls = map.createLayer('walls', tileset, 0, 0);
     const assets = map.createLayer('assets', tileset, 0, 0);
@@ -67,6 +66,8 @@ export default class Game extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.person, true);
 
+    // TODO: creating bullets need to be generalized or smth the same
+
     this.bullets = this.physics.add.group({
       classType: Bullet,
       maxSize: 30,
@@ -87,35 +88,46 @@ export default class Game extends Phaser.Scene {
       this.handleBulletCollision.bind(this)
     );
 
-    this.input.on('pointerdown', (pointer: Pointer) => {
-      this.isDown = true;
-      this.mouseX = pointer.worldX;
-      this.mouseY = pointer.worldY;
-    });
+    (this.person as Person).createRotationAndAttacking(this);
 
-    this.input.on('pointermove', (pointer: Pointer) => {
-      this.mouseX = pointer.worldX;
-      this.mouseY = pointer.worldY;
-    });
+    // appending scene PersonUI
 
-    this.input.on('pointerup', () => {
-      this.isDown = false;
-    });
+    this.personUi = new PersonUI(this, this.person as Person);
+    this.scene.add('person-ui', this.personUi as unknown as Scene);
+    this.physics.add.collider(
+      this.zombie,
+      this.person,
+      (this.person as Person).handleEnemyDamage.bind(
+        this,
+        this.zombie,
+        this.person,
+        this,
+        this.personUi
+      )
+    );
   }
 
   private handleBulletCollision(
     _: Phaser.GameObjects.GameObject,
-    obj2: Phaser.GameObjects.GameObject
+    bullet: Phaser.GameObjects.GameObject
   ) {
-    this.zombieHealth -= 10;
-    obj2.destroy(true);
+    const zombie = _ as Zombie;
+    zombie.hp.decrease(10);
+    bullet.destroy(true);
 
-    if (!this.zombieHealth) {
-      this.zombie?.destroy(true);
+    if (!zombie.hp.value) {
+      zombie.kill();
     }
   }
 
   update(time: number): void {
+    if (!this.personUi) {
+      throw new Error("PersonUI isn't found");
+    }
+
+    this.personUi?.selfHealing(this);
+    this.zombie?.update();
+
     if (this.zombie === null || this.person === null) {
       throw new Error();
     }
@@ -127,7 +139,17 @@ export default class Game extends Phaser.Scene {
         'zombie'
       );
 
-      this.zombieHealth = 100;
+      this.physics.add.collider(
+        this.zombie,
+        this.person,
+        (this.person as Person).handleEnemyDamage.bind(
+          this,
+          this.zombie,
+          this.person,
+          this,
+          this.personUi
+        )
+      );
 
       if (this.bullets === null) {
         throw new Error('No bullets');
@@ -141,72 +163,9 @@ export default class Game extends Phaser.Scene {
     }
 
     if (this.person) {
-      this.person.update(createUserKeys(this.input));
+      this.person.update(createUserKeys(this.input), time, this.bullets);
     }
 
-    if (!this.person) {
-      return;
-    }
-
-    if (this.isDown && time > this.lastFired) {
-      const bullet = this.bullets?.get() as Bullet;
-
-      if (bullet) {
-        bullet.callFireMethod(
-          this.mouseX,
-          this.mouseY,
-          this.person.x,
-          this.person.y
-        );
-
-        this.lastFired = time + 100;
-      }
-    }
-
-    this.person.setRotation(
-      Phaser.Math.Angle.Between(
-        this.mouseX,
-        this.mouseY,
-        this.person.x,
-        this.person.y
-      ) -
-        Math.PI / 2
-    );
-
-    if (
-      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 200 &&
-      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) > 25
-    ) {
-      if (this.zombie.scene) {
-        this.physics.moveToObject(this.zombie, this.person, Zombie.speed);
-        this.zombie.setRotation(
-          Phaser.Math.Angle.Between(
-            this.person.x,
-            this.person.y,
-            this.zombie.x,
-            this.zombie.y
-          ) -
-            Math.PI / 2
-        );
-        this.zombie.anims.play('walk', true);
-      }
-    } else if (
-      Phaser.Math.Distance.BetweenPoints(this.zombie, this.person) < 25
-    ) {
-      this.physics.moveToObject(this.zombie, this.person, 0);
-      this.zombie.setRotation(
-        Phaser.Math.Angle.Between(
-          this.person.x,
-          this.person.y,
-          this.zombie.x,
-          this.zombie.y
-        ) -
-          Math.PI / 2
-      );
-      this.zombie.anims.play('kick', true);
-    } else {
-      this.physics.moveToObject(this.zombie, this.person, 0);
-      this.zombie.anims.play('stay', true);
-    }
+    (this.zombie as Zombie).movingToPerson(this.person as Person, this);
   }
 }

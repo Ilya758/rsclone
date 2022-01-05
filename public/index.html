@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="overflow: hidden">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon"
-          type="image/x-icon"
-          href="./assets/favicon.ico">
-    <meta
-      name="description"
-      content="RSClone project"
-    />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <meta name="description" content="RSClone project" />
     <title>CloneZero</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <audio id="1" style="position: absolute; top: 50px; left: 50px">
+      <source src="./assets/audio/1.mp3" />
+      <source src="./assets/audio/2.mp3" />
+      <source src="./assets/audio/3.mp3" />
+      <source src="./assets/audio/4.mp3" />
+      <source src="./assets/audio/5.mp3" />
+    </audio>
+    <button
+      style="position: absolute; top: 90px; left: 30px"
+      onclick="
+        const audio = document.querySelector('audio');
+        let c = +audio.id + 1 <= 5 ? + audio.id + 1 : 1;
+        audio.src = `./assets/audio/${c}.mp3`;
+        audio.id = c;
+        audio.play();
+      "
+    >
+      Next
+    </button>
     <div id="root"></div>
   </body>
 </html>
