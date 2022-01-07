@@ -17,6 +17,17 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     key: 'down',
     frames: [{ key: 'person', frame: '.png' }],
   });
+  anims.create({
+    key: 'Walk_riffle',
+    frames: anims.generateFrameNames('person', {
+      start: 0,
+      end: 5,
+      prefix: 'Walk_riffle_00',
+      suffix: '.png',
+    }),
+    repeat: -1,
+    frameRate: 8,
+  });
 };
 
 export { createCharacterAnims };
