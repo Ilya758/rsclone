@@ -96,7 +96,7 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.zombie,
-      this.handleBulletAndEnemyCollision.bind(this)
+      Bullet.handleBulletAndEnemyCollision.bind(this)
     );
 
     (this.person as Person).createRotationAndAttacking(this);
@@ -116,19 +116,6 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       )
     );
-  }
-
-  private handleBulletAndEnemyCollision(
-    obj: Phaser.GameObjects.GameObject,
-    bullet: Phaser.GameObjects.GameObject
-  ) {
-    const zombie = obj as Zombie;
-    zombie.hp.decrease(10);
-    bullet.destroy(true);
-
-    if (!zombie.hp.value) {
-      zombie.kill();
-    }
   }
 
   update(time?: number): void {
@@ -169,7 +156,7 @@ export default class Dungeon extends Phaser.Scene {
       this.physics.add.collider(
         this.bullets,
         this.zombie,
-        this.handleBulletAndEnemyCollision.bind(this)
+        Bullet.handleBulletAndEnemyCollision.bind(this)
       );
     }
 
