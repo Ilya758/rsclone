@@ -8,6 +8,7 @@ import '../person/Person';
 import '../enemies/Zombie';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
+import debugGraphicsDraw from '../../../utils/debug';
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -67,12 +68,7 @@ export default class Dungeon extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     assets.setCollisionByProperty({ collides: true });
 
-    const debugGraphics = this.add.graphics().setAlpha(0.25);
-    walls.renderDebug(debugGraphics, {
-      tileColor: null,
-      collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-      faceColor: new Phaser.Display.Color(40, 39, 47, 255),
-    });
+    debugGraphicsDraw(walls, this);
 
     // person and enemies initialization
 
