@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Person from '../person/Person';
+import Person from '../../person/Person';
 import { TUnionHealthBar } from './enemy.types';
 
 export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {

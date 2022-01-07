@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import ZombieHealthBar from '../ui-kit/health-bars/ZombieHealthBar';
-import Enemy from './Enemy';
+import Enemy from './abstract/Enemy';
 
 export default class Zombie extends Enemy {
   protected _speed: number;
