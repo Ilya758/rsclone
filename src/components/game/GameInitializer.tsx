@@ -1,7 +1,6 @@
 import { ContainerStyle } from './game.style';
 import Phaser from 'phaser';
-import Game from './scenes/game';
-import Preloader from './scenes/preloader';
+import Dungeon from './scenes/Dungeon';
 import { useEffect } from 'react';
 
 const GameInitializer = () => {
@@ -15,12 +14,12 @@ const GameInitializer = () => {
       height: 400,
       min: {
         width: 800,
-        height: 400
+        height: 400,
       },
       max: {
         width: 1600,
-        height: 1200
-      }
+        height: 1200,
+      },
     },
     physics: {
       default: 'arcade',
@@ -30,10 +29,10 @@ const GameInitializer = () => {
       },
     },
     zoom: 2,
-    scene: [Preloader, Game],
+    scene: [Dungeon],
   };
   useEffect(() => {
-    new Phaser.Game(config);
+    new Phaser.Game(config).scene.start('dungeon');
   }, []);
 
   console.log('Game Entry Point. Warning!!!');
