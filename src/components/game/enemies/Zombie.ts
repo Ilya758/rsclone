@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import Person from '../person/Person';
 import ZombieHealthBar from '../ui-kit/health-bars/ZombieHealthBar';
+import Enemy from './Enemy';
 
-export default class Zombie extends Phaser.Physics.Arcade.Sprite {
-  static speed = 50;
+export default class Zombie extends Enemy {
+  protected _speed: number;
 
-  private _damage: number;
+  protected _damage: number;
 
   public hp: ZombieHealthBar;
 
@@ -17,58 +17,9 @@ export default class Zombie extends Phaser.Physics.Arcade.Sprite {
     frame?: string | number
   ) {
     super(scene, x, y, texture, frame);
+    this._speed = 50;
     this._damage = 10;
     this.hp = new ZombieHealthBar(scene, this.x, this.y, this);
-  }
-
-  create(): void {
-    this.setTexture('zombie');
-    this.update();
-  }
-
-  get damage() {
-    return this._damage;
-  }
-
-  update(): void {
-    this.hp.update();
-  }
-
-  movingToPerson(person: Person, scene: Phaser.Scene) {
-    if (person.isDead) {
-      scene.physics.moveToObject(this, person, 0);
-      this.anims.play('stay', true);
-      return;
-    }
-
-    if (
-      Phaser.Math.Distance.BetweenPoints(this, person) < 200 &&
-      Phaser.Math.Distance.BetweenPoints(this, person) > 60
-    ) {
-      if (this.scene) {
-        scene.physics.moveToObject(this, person, Zombie.speed);
-        this.setRotation(
-          Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) -
-            Math.PI / 2
-        );
-        this.anims.play('walk', true);
-      }
-    } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
-      scene.physics.moveToObject(this, person, Zombie.speed);
-      this.setRotation(
-        Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) -
-          Math.PI / 2
-      );
-      this.anims.play('kick', true);
-    } else {
-      scene.physics.moveToObject(this, person, 0);
-      this.anims.play('stay', true);
-    }
-  }
-
-  kill(): void {
-    this.hp.destroy();
-    this.destroy(true);
   }
 }
 
