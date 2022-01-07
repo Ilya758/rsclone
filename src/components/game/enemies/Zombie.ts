@@ -7,7 +7,9 @@ export default class Zombie extends Enemy {
 
   protected _damage: number;
 
-  public hp: ZombieHealthBar;
+  protected _hp: number;
+
+  public hpBar: ZombieHealthBar;
 
   constructor(
     scene: Phaser.Scene,
@@ -17,9 +19,10 @@ export default class Zombie extends Enemy {
     frame?: string | number
   ) {
     super(scene, x, y, texture, frame);
+    this._hp = 150;
     this._speed = 50;
     this._damage = 10;
-    this.hp = new ZombieHealthBar(scene, this.x, this.y, this);
+    this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
   }
 }
 

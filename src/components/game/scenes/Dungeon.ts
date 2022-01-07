@@ -123,7 +123,7 @@ export default class Dungeon extends Phaser.Scene {
       throw new Error("PersonUI isn't found");
     }
 
-    this.personUi?.selfHealing(this);
+    (this.person as Person).selfHealing(this);
     this.zombie?.update();
 
     if (this.zombie === null || this.person === null) {

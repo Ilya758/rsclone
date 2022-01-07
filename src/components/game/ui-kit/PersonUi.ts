@@ -5,15 +5,11 @@ import PersonHealthBar from './health-bars/PersonHealthBar';
 export default class PersonUI extends Phaser.Scene {
   parentScene: Phaser.Scene;
 
-  public hp: PersonHealthBar;
+  public hpBar: PersonHealthBar;
 
   constructor(scene: Phaser.Scene, person: Person) {
     super({ key: 'person-ui' });
     this.parentScene = scene;
-    this.hp = new PersonHealthBar(this.parentScene, 0, 0, person);
-  }
-
-  selfHealing(scene: Phaser.Scene) {
-    this.hp.heal(scene, 5);
+    this.hpBar = person.hpBar;
   }
 }

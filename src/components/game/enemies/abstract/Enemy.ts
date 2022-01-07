@@ -7,7 +7,9 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
   protected abstract _damage: number;
 
-  public abstract hp: TUnionHealthBar;
+  protected abstract _hp: number;
+
+  public abstract hpBar: TUnionHealthBar;
 
   get damage() {
     return this._damage;
@@ -17,8 +19,12 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     return this._speed;
   }
 
+  get hp() {
+    return this._hp;
+  }
+
   update(): void {
-    this.hp.update();
+    this.hpBar.update();
   }
 
   movingToPerson(person: Person, scene: Phaser.Scene) {
@@ -54,7 +60,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   kill(): void {
-    this.hp.destroy();
+    this.hpBar.destroy();
     this.destroy(true);
   }
 }
