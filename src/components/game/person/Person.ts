@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
+import PersonHealthBar from '../ui-kit/health-bars/PersonHealthBar';
 import PersonUI from '../ui-kit/PersonUi';
 import Pointer = Phaser.Input.Pointer;
 
@@ -10,7 +11,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   public isDead = false;
 
-  private speed = 100;
+  private _speed = 100;
+
+  private _hp: number;
 
   private mouseX = 0;
 
@@ -20,6 +23,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private isDown = false;
 
+  public hpBar: PersonHealthBar;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -28,6 +33,20 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     frame?: string | number
   ) {
     super(scene, x, y, texture, frame);
+    this._hp = 100;
+    this.hpBar = new PersonHealthBar(scene, 0, 0, this);
+  }
+
+  selfHealing(scene: Phaser.Scene) {
+    this.hpBar.heal(scene, 5);
+  }
+
+  get speed() {
+    return this._speed;
+  }
+
+  get hp() {
+    return this._hp;
   }
 
   create() {
@@ -133,20 +152,20 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         const dy = person.y - zombie.y;
         const vector = new Phaser.Math.Vector2(dx, dy).normalize().scale(100); // calculating estimate delta-debouncing after collision
 
-        personUi.hp.decrease(zombie.damage);
+        personUi.hpBar.decrease(zombie.damage);
         person.setVelocity(vector.x, vector.y); // and sets the debounce to the person
 
         scene.time.addEvent({
           delay: 500,
           callback: () => {
             person.hit = false; // removing the kick-immune
-            personUi.hp.isHealing = true; // activating self-healing
+            personUi.hpBar.isHealing = true; // activating self-healing
             person.clearTint();
           },
         });
       }
 
-      if (personUi.hp.value === 0) {
+      if (personUi.hpBar.value === 0) {
         person.isDead = true;
       }
     }

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Enemy from '../enemies/abstract/Enemy';
 
 export default class Bullet extends Phaser.Physics.Arcade.Image {
   private incX = 0;
@@ -33,6 +34,19 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     personY: number
   ) {
     return this.fire(x, y, personX, personY);
+  }
+
+  static handleBulletAndEnemyCollision(
+    obj: Phaser.GameObjects.GameObject,
+    bullet: Phaser.GameObjects.GameObject
+  ) {
+    const enemy = obj as Enemy;
+    enemy.hpBar.decrease(10);
+    bullet.destroy(true);
+
+    if (!enemy.hpBar.value) {
+      enemy.kill();
+    }
   }
 
   update(_: number, delta: number) {

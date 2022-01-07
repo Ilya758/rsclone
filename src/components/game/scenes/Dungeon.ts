@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-else-if */
 import Phaser, { Scene } from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
@@ -9,22 +8,39 @@ import '../person/Person';
 import '../enemies/Zombie';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
+import debugGraphicsDraw from '../../../utils/debug';
 
-export default class Game extends Phaser.Scene {
-  private personUi: PersonUI | null;
+export default class Dungeon extends Phaser.Scene {
+  protected personUi: PersonUI | null;
 
-  private person: Phaser.Physics.Arcade.Sprite | null | Person;
+  protected person: Phaser.Physics.Arcade.Sprite | null;
 
   private zombie: Phaser.Physics.Arcade.Sprite | null;
 
   private bullets: Phaser.GameObjects.Group | null;
 
   constructor() {
-    super('game');
+    super('dungeon');
     this.person = null;
     this.zombie = null;
     this.bullets = null;
     this.personUi = null;
+  }
+
+  preload() {
+    this.load.image('dungeon', './assets/game/dungeon.png');
+    this.load.tilemapTiledJSON('prison', './assets/game/prison.json');
+    this.load.atlas(
+      'person',
+      './assets/game/person.png',
+      './assets/game/person.json'
+    );
+    this.load.atlas(
+      'zombie',
+      './assets/game/zombie/zombie.png',
+      './assets/game/zombie/zombie.json'
+    );
+    this.load.image('bullet', './assets/game/bullet.png');
   }
 
   create() {
@@ -52,12 +68,7 @@ export default class Game extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     assets.setCollisionByProperty({ collides: true });
 
-    const debugGraphics = this.add.graphics().setAlpha(0.25);
-    walls.renderDebug(debugGraphics, {
-      tileColor: null,
-      collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
-      faceColor: new Phaser.Display.Color(40, 39, 47, 255),
-    });
+    debugGraphicsDraw(walls, this);
 
     // person and enemies initialization
 
@@ -85,7 +96,7 @@ export default class Game extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.zombie,
-      this.handleBulletCollision.bind(this)
+      Bullet.handleBulletAndEnemyCollision.bind(this)
     );
 
     (this.person as Person).createRotationAndAttacking(this);
@@ -107,25 +118,12 @@ export default class Game extends Phaser.Scene {
     );
   }
 
-  private handleBulletCollision(
-    _: Phaser.GameObjects.GameObject,
-    bullet: Phaser.GameObjects.GameObject
-  ) {
-    const zombie = _ as Zombie;
-    zombie.hp.decrease(10);
-    bullet.destroy(true);
-
-    if (!zombie.hp.value) {
-      zombie.kill();
-    }
-  }
-
-  update(time: number): void {
+  update(time?: number): void {
     if (!this.personUi) {
       throw new Error("PersonUI isn't found");
     }
 
-    this.personUi?.selfHealing(this);
+    (this.person as Person).selfHealing(this);
     this.zombie?.update();
 
     if (this.zombie === null || this.person === null) {
@@ -158,7 +156,7 @@ export default class Game extends Phaser.Scene {
       this.physics.add.collider(
         this.bullets,
         this.zombie,
-        this.handleBulletCollision.bind(this)
+        Bullet.handleBulletAndEnemyCollision.bind(this)
       );
     }
 
