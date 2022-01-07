@@ -1,7 +1,15 @@
 import Phaser from 'phaser';
+import ZombieHealthBar from '../ui-kit/health-bars/ZombieHealthBar';
+import Enemy from './abstract/Enemy';
 
-export default class Zombie extends Phaser.Physics.Arcade.Sprite {
-  static speed = 50;
+export default class Zombie extends Enemy {
+  protected _speed: number;
+
+  protected _damage: number;
+
+  protected _hp: number;
+
+  public hpBar: ZombieHealthBar;
 
   constructor(
     scene: Phaser.Scene,
@@ -11,10 +19,10 @@ export default class Zombie extends Phaser.Physics.Arcade.Sprite {
     frame?: string | number
   ) {
     super(scene, x, y, texture, frame);
-  }
-
-  create() {
-    this.setTexture('zombie');
+    this._hp = 150;
+    this._speed = 50;
+    this._damage = 10;
+    this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
   }
 }
 
@@ -40,7 +48,7 @@ Phaser.GameObjects.GameObjectFactory.register(
     );
 
     sprite.setDisplaySize(80, 80);
-    sprite.body.setSize(40, 40);
+    sprite.body.setSize(45, 45);
 
     return sprite;
   }
