@@ -1,0 +1,523 @@
+{
+	"textures": [
+		{
+			"image": "woman2",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1004,
+				"h": 1020
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Death_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 154,
+						"y": 88,
+						"w": 171,
+						"h": 246
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 171,
+						"h": 246
+					}
+				},
+				{
+					"filename": "Death_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 161,
+						"y": 92,
+						"w": 166,
+						"h": 242
+					},
+					"frame": {
+						"x": 0,
+						"y": 246,
+						"w": 166,
+						"h": 242
+					}
+				},
+				{
+					"filename": "Death_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 186,
+						"y": 103,
+						"w": 137,
+						"h": 231
+					},
+					"frame": {
+						"x": 0,
+						"y": 488,
+						"w": 137,
+						"h": 231
+					}
+				},
+				{
+					"filename": "Attack_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 217,
+						"y": 294,
+						"w": 173,
+						"h": 176
+					},
+					"frame": {
+						"x": 0,
+						"y": 719,
+						"w": 173,
+						"h": 176
+					}
+				},
+				{
+					"filename": "Walk_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 188,
+						"y": 286,
+						"w": 143,
+						"h": 125
+					},
+					"frame": {
+						"x": 0,
+						"y": 895,
+						"w": 143,
+						"h": 125
+					}
+				},
+				{
+					"filename": "Death_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 187,
+						"y": 286,
+						"w": 143,
+						"h": 122
+					},
+					"frame": {
+						"x": 143,
+						"y": 895,
+						"w": 143,
+						"h": 122
+					}
+				},
+				{
+					"filename": "Walk_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 188,
+						"y": 286,
+						"w": 143,
+						"h": 122
+					},
+					"frame": {
+						"x": 286,
+						"y": 895,
+						"w": 143,
+						"h": 122
+					}
+				},
+				{
+					"filename": "Attack_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 230,
+						"y": 245,
+						"w": 138,
+						"h": 169
+					},
+					"frame": {
+						"x": 137,
+						"y": 488,
+						"w": 138,
+						"h": 169
+					}
+				},
+				{
+					"filename": "Walk_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 206,
+						"y": 269,
+						"w": 127,
+						"h": 164
+					},
+					"frame": {
+						"x": 173,
+						"y": 657,
+						"w": 127,
+						"h": 164
+					}
+				},
+				{
+					"filename": "Walk_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 179,
+						"y": 265,
+						"w": 124,
+						"h": 163
+					},
+					"frame": {
+						"x": 166,
+						"y": 246,
+						"w": 124,
+						"h": 163
+					}
+				},
+				{
+					"filename": "Walk_003.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 179,
+						"y": 267,
+						"w": 127,
+						"h": 162
+					},
+					"frame": {
+						"x": 171,
+						"y": 0,
+						"w": 127,
+						"h": 162
+					}
+				},
+				{
+					"filename": "Walk_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 200,
+						"y": 273,
+						"w": 130,
+						"h": 156
+					},
+					"frame": {
+						"x": 275,
+						"y": 409,
+						"w": 130,
+						"h": 156
+					}
+				},
+				{
+					"filename": "Attack_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 183,
+						"y": 313,
+						"w": 137,
+						"h": 152
+					},
+					"frame": {
+						"x": 290,
+						"y": 162,
+						"w": 137,
+						"h": 152
+					}
+				},
+				{
+					"filename": "Walk_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 196,
+						"y": 277,
+						"w": 133,
+						"h": 149
+					},
+					"frame": {
+						"x": 405,
+						"y": 0,
+						"w": 133,
+						"h": 149
+					}
+				},
+				{
+					"filename": "Attack_007.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 168,
+						"y": 284,
+						"w": 107,
+						"h": 135
+					},
+					"frame": {
+						"x": 298,
+						"y": 0,
+						"w": 107,
+						"h": 135
+					}
+				},
+				{
+					"filename": "Walk_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 182,
+						"y": 278,
+						"w": 131,
+						"h": 147
+					},
+					"frame": {
+						"x": 300,
+						"y": 565,
+						"w": 131,
+						"h": 147
+					}
+				},
+				{
+					"filename": "Attack_005.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 174,
+						"y": 284,
+						"w": 101,
+						"h": 141
+					},
+					"frame": {
+						"x": 300,
+						"y": 712,
+						"w": 101,
+						"h": 141
+					}
+				},
+				{
+					"filename": "Death_002.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 137,
+						"y": 194,
+						"w": 241,
+						"h": 140
+					},
+					"frame": {
+						"x": 401,
+						"y": 712,
+						"w": 241,
+						"h": 140
+					}
+				},
+				{
+					"filename": "Walk_004.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 183,
+						"y": 281,
+						"w": 133,
+						"h": 140
+					},
+					"frame": {
+						"x": 429,
+						"y": 852,
+						"w": 133,
+						"h": 140
+					}
+				},
+				{
+					"filename": "Attack_008.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 159,
+						"y": 284,
+						"w": 128,
+						"h": 137
+					},
+					"frame": {
+						"x": 562,
+						"y": 852,
+						"w": 128,
+						"h": 137
+					}
+				},
+				{
+					"filename": "Attack_006.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 176,
+						"y": 283,
+						"w": 98,
+						"h": 132
+					},
+					"frame": {
+						"x": 690,
+						"y": 852,
+						"w": 98,
+						"h": 132
+					}
+				},
+				{
+					"filename": "Attack_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 120,
+						"y": 324,
+						"w": 216,
+						"h": 120
+					},
+					"frame": {
+						"x": 788,
+						"y": 852,
+						"w": 216,
+						"h": 120
+					}
+				},
+				{
+					"filename": "Attack_000.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 187,
+						"y": 286,
+						"w": 143,
+						"h": 121
+					},
+					"frame": {
+						"x": 405,
+						"y": 314,
+						"w": 143,
+						"h": 121
+					}
+				},
+				{
+					"filename": "Death_001.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 512,
+						"h": 512
+					},
+					"spriteSourceSize": {
+						"x": 175,
+						"y": 272,
+						"w": 167,
+						"h": 120
+					},
+					"frame": {
+						"x": 427,
+						"y": 435,
+						"w": 167,
+						"h": 120
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
