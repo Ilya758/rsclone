@@ -53,6 +53,15 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.setTexture('person');
   }
 
+  getMouseCoords() {
+    this.scene.input.activePointer.updateWorldPoint(this.scene.cameras.main);
+    const pointer = this.scene.input.activePointer;
+    return {
+      mouseX: pointer.worldX,
+      mouseY: pointer.worldY,
+    };
+  }
+
   createRotationAndAttacking(scene: Phaser.Scene) {
     // if the person is dead, he cannot rotate/shoot
 
