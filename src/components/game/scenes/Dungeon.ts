@@ -28,19 +28,30 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('dungeon', './assets/game/dungeon.png');
-    this.load.tilemapTiledJSON('prison', './assets/game/prison.json');
+    this.load.image('floor', './assets/game/tiles/floor.png');
+    this.load.image('walls', './assets/game/tiles/walls.png');
+    this.load.image('other', './assets/game/tiles/other.png');
+    this.load.image('furniture', './assets/game/tiles/furniture.png');
+    this.load.image('other2', './assets/game/tiles/other2.png');
+    this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
     this.load.atlas(
       'person',
-      './assets/game/person.png',
-      './assets/game/person.json'
+      './assets/game/characters/man.png',
+      './assets/game/characters/man.json'
     );
     this.load.atlas(
       'zombie',
-      './assets/game/zombie/zombie.png',
-      './assets/game/zombie/zombie.json'
+      './assets/game/enemies/man1.png',
+      './assets/game/enemies/man1.json'
     );
-    this.load.image('bullet', './assets/game/bullet.png');
+    this.load.image('bullet', './assets/game/bullet1.png');
+  }
+
+  handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
+    if (!this.zombie || !this.person) {
+      throw new Error('There are no person or zombie ');
+    }
+    this.physics.add.collider([this.zombie, this.person], targetsArray);
   }
 
   create() {
@@ -50,29 +61,52 @@ export default class Dungeon extends Phaser.Scene {
     // create map
 
     const map = this.make.tilemap({
-      key: 'prison',
+      key: 'main',
     });
 
     // added tilesets
 
-    const tileset = map.addTilesetImage('dungeon');
+    const tileset = map.addTilesetImage('floor');
+    const tilesetWalls = map.addTilesetImage('walls');
+    const tilesetOther2 = map.addTilesetImage('other2');
+    const tilesetFurniture = map.addTilesetImage('furniture');
 
     // create layer
 
-    map.createLayer('floor', tileset, 0, 0);
-    const walls = map.createLayer('walls', tileset, 0, 0);
-    const assets = map.createLayer('assets', tileset, 0, 0);
+    const floor = map.createLayer('floor', [tileset, tilesetWalls], 0, 0);
+    const floor2 = map.createLayer(
+      'floor2',
+      [tileset, tilesetWalls, tilesetFurniture],
+      0,
+      0
+    );
+    map.createLayer('shadows', tilesetOther2, 0, 0);
+    const walls2 = map.createLayer(
+      'walls2',
+      [tilesetWalls, tilesetFurniture, tilesetOther2],
+      0,
+      0
+    );
+    const walls = map.createLayer(
+      'walls',
+      [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
+      0,
+      0
+    );
 
     // create collision
 
+    floor.setCollisionByProperty({ collides: true });
+    floor2.setCollisionByProperty({ collides: true });
     walls.setCollisionByProperty({ collides: true });
-    assets.setCollisionByProperty({ collides: true });
+    walls2.setCollisionByProperty({ collides: true });
 
     debugGraphicsDraw(walls, this);
+    debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 
-    this.person = this.add.person(240, 240, 'person');
+    this.person = this.add.person(440, 440, 'person');
     this.zombie = this.add.zombie(360, 360, 'zombie');
 
     this.cameras.main.startFollow(this.person, true);
@@ -86,13 +120,9 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     // add collision between game objects
+    this.handleCollides([walls, walls2, floor2]);
 
-    this.physics.add.collider(this.zombie, assets);
-    this.physics.add.collider(this.zombie, walls);
-    this.physics.add.collider(this.person, walls);
-    this.physics.add.collider(this.person, assets);
     this.physics.add.collider(this.bullets, walls, () => console.log('wall'));
-    this.physics.add.collider(this.bullets, assets, () => console.log('asset'));
     this.physics.add.collider(
       this.bullets,
       this.zombie,
@@ -132,8 +162,8 @@ export default class Dungeon extends Phaser.Scene {
 
     if (!this.zombie?.scene) {
       this.zombie = this.add.zombie(
-        Math.random() * 480,
-        Math.random() * 480,
+        Math.random() * 480 + 350,
+        Math.random() * 480 + 350,
         'zombie'
       );
 

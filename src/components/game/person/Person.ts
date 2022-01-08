@@ -4,7 +4,6 @@ import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import PersonHealthBar from '../ui-kit/health-bars/PersonHealthBar';
 import PersonUI from '../ui-kit/PersonUi';
-import Pointer = Phaser.Input.Pointer;
 
 export default class Person extends Phaser.Physics.Arcade.Sprite {
   public hit = false;
@@ -53,21 +52,29 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.setTexture('person');
   }
 
+  getMouseCoords() {
+    this.scene.input.activePointer.updateWorldPoint(this.scene.cameras.main);
+    const pointer = this.scene.input.activePointer;
+    return {
+      mouseX: pointer.worldX,
+      mouseY: pointer.worldY,
+    };
+  }
+
   createRotationAndAttacking(scene: Phaser.Scene) {
     // if the person is dead, he cannot rotate/shoot
 
-    scene.input.on('pointerdown', (pointer: Pointer) => {
+    scene.input.on('pointerdown', () => {
       if (!this.isDead) {
         this.isDown = true;
-        this.mouseX = pointer.worldX;
-        this.mouseY = pointer.worldY;
+        this.handleFiring('riffle');
       }
     });
 
-    scene.input.on('pointermove', (pointer: Pointer) => {
+    scene.input.on('pointermove', () => {
       if (!this.isDead) {
-        this.mouseX = pointer.worldX;
-        this.mouseY = pointer.worldY;
+        this.mouseX = this.getMouseCoords().mouseX;
+        this.mouseY = this.getMouseCoords().mouseY;
       }
     });
 
@@ -78,41 +85,60 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   handleMoving(personControlKeys: IUserInteractiveButtons) {
     // checking pressing buttons
-
     if (personControlKeys.right.isDown && personControlKeys.up.isDown) {
-      this.anims.play('left');
       this.setVelocity(this.speed, -this.speed);
+      this.handleAnims('riffle', 'walk');
     } else if (
       personControlKeys.right.isDown &&
       personControlKeys.down.isDown
     ) {
-      this.anims.play('left');
       this.setVelocity(this.speed, this.speed);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.left.isDown && personControlKeys.down.isDown) {
-      this.anims.play('left');
       this.setVelocity(-this.speed, this.speed);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.left.isDown && personControlKeys.up.isDown) {
-      this.anims.play('left');
       this.setVelocity(-this.speed, -this.speed);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.left.isDown) {
-      this.anims.play('left');
       this.setVelocity(-this.speed, 0);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.right.isDown) {
-      this.anims.play('right');
       this.setVelocity(+this.speed, 0);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.up.isDown) {
-      this.anims.play('up');
       this.setVelocity(0, -this.speed);
+      this.handleAnims('riffle', 'walk');
     } else if (personControlKeys.down.isDown) {
-      this.anims.play('down');
       this.setVelocity(0, +this.speed);
+      this.handleAnims('riffle', 'walk');
     } else {
-      this.anims.play('right');
-
       if (!this.hit) {
         // is the person isn't in kick-immune state
         this.setVelocity(0, 0);
       }
+      if (!this.isDown) {
+        this.handleAnims('riffle', 'idle');
+      }
+    }
+  }
+
+  handleAnims(weapon: string, type: string) {
+    if (
+      !this.anims.currentAnim ||
+      this.anims.currentAnim.key !== `${type}_${weapon}`
+    ) {
+      if (!this.isDown) {
+        this.anims.play(`${type}_${weapon}`);
+      } else {
+        this.handleFiring('riffle');
+      }
+    }
+  }
+
+  handleFiring(weaponType: string) {
+    if (!this.anims.currentAnim || this.anims.currentAnim.key !== weaponType) {
+      this.anims.play(weaponType);
     }
   }
 
@@ -126,6 +152,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         bullet.callFireMethod(this.mouseX, this.mouseY, this.x, this.y);
 
         this.lastFired = time + 100;
+      }
+
+      if (!this.anims.currentAnim || this.anims.currentAnim.key !== 'riffle') {
+        this.anims.play('riffle');
       }
     }
   }
@@ -144,7 +174,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     const person = obj2 as Person;
 
     if (!person.hit) {
-      if (zombie.anims.currentFrame.index >= 25) {
+      if (zombie.anims.currentFrame.index >= 3) {
         person.hit = true; // after kicking from one enemy, the person gets a bit of kick-immune
         person.setTint(0xff0000);
 
@@ -180,16 +210,21 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       throw new Error('Cannot find bullets');
     }
     // set rotation to the person
-
-    this.setRotation(
-      Phaser.Math.Angle.Between(this.mouseX, this.mouseY, this.x, this.y) -
-        Math.PI / 2
-    );
+    this.mouseX = this.getMouseCoords().mouseX;
+    this.mouseY = this.getMouseCoords().mouseY;
+    if (!this.isDead) {
+      this.setRotation(
+        Phaser.Math.Angle.Between(this.mouseX, this.mouseY, this.x, this.y) +
+          Math.PI / 2
+      );
+    }
 
     if (this.isDead) {
       // if person is dead, he can't walk
+      if (!this.anims.currentAnim || this.anims.currentAnim.key !== 'death') {
+        this.anims.play('death');
+      }
 
-      this.setTint(0x000000);
       this.setVelocity(0, 0);
       return;
     }
@@ -218,8 +253,9 @@ Phaser.GameObjects.GameObjectFactory.register(
       sprite,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
-
-    sprite.body.setSize(20, 20);
+    sprite.setOrigin(0.55, 0.25);
+    sprite.body.setSize(30, 30);
+    sprite.setOffset(55, 15);
     return sprite;
   }
 );

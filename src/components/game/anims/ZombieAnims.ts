@@ -4,35 +4,46 @@ const createZombieAnims = (anims: Phaser.Animations.AnimationManager) => {
   anims.create({
     key: 'stay',
     frames: anims.generateFrameNames('zombie', {
-      start: 152,
-      end: 167,
-      prefix: '',
+      start: 6,
+      end: 8,
+      prefix: 'Attack_00',
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 8,
+    frameRate: 4,
   });
   anims.create({
     key: 'kick',
     frames: anims.generateFrameNames('zombie', {
-      start: 30,
-      end: 69,
-      prefix: '',
+      start: 0,
+      end: 8,
+      prefix: 'Attack_00',
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 20,
+    frameRate: 9,
   });
   anims.create({
     key: 'walk',
     frames: anims.generateFrameNames('zombie', {
       start: 0,
-      end: 29,
-      prefix: '',
+      end: 8,
+      prefix: 'walk_00',
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 20,
+    frameRate: 9,
+  });
+  anims.create({
+    key: 'death',
+    frames: anims.generateFrameNames('zombie', {
+      start: 0,
+      end: 5,
+      prefix: 'Death_00',
+      suffix: '.png',
+    }),
+    repeat: -1,
+    frameRate: 9,
   });
 };
 
