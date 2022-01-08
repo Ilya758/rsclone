@@ -213,10 +213,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.mouseX = this.getMouseCoords().mouseX;
     this.mouseY = this.getMouseCoords().mouseY;
     if (!this.isDead) {
-    this.setRotation(
+      this.setRotation(
         Phaser.Math.Angle.Between(this.mouseX, this.mouseY, this.x, this.y) +
-        Math.PI / 2
-    );
+          Math.PI / 2
+      );
     }
 
     if (this.isDead) {
