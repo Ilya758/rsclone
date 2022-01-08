@@ -28,19 +28,24 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('dungeon', './assets/game/dungeon.png');
-    this.load.tilemapTiledJSON('prison', './assets/game/prison.json');
+    this.load.image('floor', './assets/game/tiles/floor.png');
+    this.load.image('walls', './assets/game/tiles/walls.png');
+    this.load.image('other', './assets/game/tiles/other.png');
+    this.load.image('furniture', './assets/game/tiles/furniture.png');
+    this.load.image('other2', './assets/game/tiles/other2.png');
+    this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
     this.load.atlas(
       'person',
-      './assets/game/person.png',
-      './assets/game/person.json'
+      './assets/game/characters/man.png',
+      './assets/game/characters/man.json'
     );
     this.load.atlas(
       'zombie',
-      './assets/game/zombie/zombie.png',
-      './assets/game/zombie/zombie.json'
+      './assets/game/enemies/man1.png',
+      './assets/game/enemies/man1.json'
     );
-    this.load.image('bullet', './assets/game/bullet.png');
+    this.load.image('bullet', './assets/game/bullet1.png');
+  }
   }
 
   create() {
@@ -50,18 +55,38 @@ export default class Dungeon extends Phaser.Scene {
     // create map
 
     const map = this.make.tilemap({
-      key: 'prison',
+      key: 'main',
     });
 
     // added tilesets
 
-    const tileset = map.addTilesetImage('dungeon');
+    const tileset = map.addTilesetImage('floor');
+    const tilesetWalls = map.addTilesetImage('walls');
+    const tilesetOther2 = map.addTilesetImage('other2');
+    const tilesetFurniture = map.addTilesetImage('furniture');
 
     // create layer
 
-    map.createLayer('floor', tileset, 0, 0);
-    const walls = map.createLayer('walls', tileset, 0, 0);
-    const assets = map.createLayer('assets', tileset, 0, 0);
+    const floor = map.createLayer('floor', [tileset, tilesetWalls], 0, 0);
+    const floor2 = map.createLayer(
+      'floor2',
+      [tileset, tilesetWalls, tilesetFurniture],
+      0,
+      0
+    );
+    map.createLayer('shadows', tilesetOther2, 0, 0);
+    const walls2 = map.createLayer(
+      'walls2',
+      [tilesetWalls, tilesetFurniture, tilesetOther2],
+      0,
+      0
+    );
+    const walls = map.createLayer(
+      'walls',
+      [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
+      0,
+      0
+    );
 
     // create collision
 
