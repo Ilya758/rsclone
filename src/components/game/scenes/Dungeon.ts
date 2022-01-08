@@ -102,10 +102,11 @@ export default class Dungeon extends Phaser.Scene {
     walls2.setCollisionByProperty({ collides: true });
 
     debugGraphicsDraw(walls, this);
+    debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 
-    this.person = this.add.person(240, 240, 'person');
+    this.person = this.add.person(440, 440, 'person');
     this.zombie = this.add.zombie(360, 360, 'zombie');
 
     this.cameras.main.startFollow(this.person, true);
@@ -161,8 +162,8 @@ export default class Dungeon extends Phaser.Scene {
 
     if (!this.zombie?.scene) {
       this.zombie = this.add.zombie(
-        Math.random() * 480,
-        Math.random() * 480,
+        Math.random() * 480 + 350,
+        Math.random() * 480 + 350,
         'zombie'
       );
 
