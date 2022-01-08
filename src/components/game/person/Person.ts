@@ -229,8 +229,9 @@ Phaser.GameObjects.GameObjectFactory.register(
       sprite,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
-
-    sprite.body.setSize(20, 20);
+    sprite.setOrigin(0.55, 0.25);
+    sprite.body.setSize(30, 30);
+    sprite.setOffset(55, 15);
     return sprite;
   }
 );
