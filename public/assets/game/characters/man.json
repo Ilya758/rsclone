@@ -1,2518 +1,2518 @@
 {
-	"textures": [
-		{
-			"image": "man",
-			"format": "RGBA8888",
-			"size": {
-				"w": 2546,
-				"h": 2048
-			},
-			"scale": 1,
-			"frames": [
-				{
-					"filename": "FlameThrower_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 42,
-						"w": 152,
-						"h": 470
-					},
-					"frame": {
-						"x": 0,
-						"y": 0,
-						"w": 152,
-						"h": 470
-					}
-				},
-				{
-					"filename": "FlameThrower_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 178,
-						"y": 42,
-						"w": 169,
-						"h": 468
-					},
-					"frame": {
-						"x": 0,
-						"y": 470,
-						"w": 169,
-						"h": 468
-					}
-				},
-				{
-					"filename": "Riffle_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 179,
-						"y": 34,
-						"w": 168,
-						"h": 460
-					},
-					"frame": {
-						"x": 152,
-						"y": 0,
-						"w": 168,
-						"h": 460
-					}
-				},
-				{
-					"filename": "Riffle_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 179,
-						"y": 34,
-						"w": 168,
-						"h": 460
-					},
-					"frame": {
-						"x": 0,
-						"y": 938,
-						"w": 168,
-						"h": 460
-					}
-				},
-				{
-					"filename": "Riffle_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 179,
-						"y": 38,
-						"w": 168,
-						"h": 457
-					},
-					"frame": {
-						"x": 0,
-						"y": 1398,
-						"w": 168,
-						"h": 457
-					}
-				},
-				{
-					"filename": "Walk_bat_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 17,
-						"w": 162,
-						"h": 192
-					},
-					"frame": {
-						"x": 0,
-						"y": 1855,
-						"w": 162,
-						"h": 192
-					}
-				},
-				{
-					"filename": "Bat_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 14,
-						"w": 160,
-						"h": 192
-					},
-					"frame": {
-						"x": 162,
-						"y": 1855,
-						"w": 160,
-						"h": 192
-					}
-				},
-				{
-					"filename": "Bat_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 200,
-						"y": 0,
-						"w": 143,
-						"h": 192
-					},
-					"frame": {
-						"x": 322,
-						"y": 1855,
-						"w": 143,
-						"h": 192
-					}
-				},
-				{
-					"filename": "FlameThrower_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 189,
-						"y": 48,
-						"w": 158,
-						"h": 410
-					},
-					"frame": {
-						"x": 168,
-						"y": 938,
-						"w": 158,
-						"h": 410
-					}
-				},
-				{
-					"filename": "Riffle_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 36,
-						"w": 150,
-						"h": 399
-					},
-					"frame": {
-						"x": 169,
-						"y": 460,
-						"w": 150,
-						"h": 399
-					}
-				},
-				{
-					"filename": "Riffle_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 39,
-						"w": 150,
-						"h": 397
-					},
-					"frame": {
-						"x": 319,
-						"y": 460,
-						"w": 150,
-						"h": 397
-					}
-				},
-				{
-					"filename": "Riffle_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 40,
-						"w": 150,
-						"h": 396
-					},
-					"frame": {
-						"x": 320,
-						"y": 0,
-						"w": 150,
-						"h": 396
-					}
-				},
-				{
-					"filename": "FlameThrower_008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 184,
-						"y": 64,
-						"w": 163,
-						"h": 375
-					},
-					"frame": {
-						"x": 168,
-						"y": 1348,
-						"w": 163,
-						"h": 375
-					}
-				},
-				{
-					"filename": "death_0001_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 213,
-						"y": 83,
-						"w": 127,
-						"h": 122
-					},
-					"frame": {
-						"x": 168,
-						"y": 1723,
-						"w": 127,
-						"h": 122
-					}
-				},
-				{
-					"filename": "death_0005_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 155,
-						"y": 90,
-						"w": 242,
-						"h": 109
-					},
-					"frame": {
-						"x": 295,
-						"y": 1723,
-						"w": 242,
-						"h": 109
-					}
-				},
-				{
-					"filename": "Walk_firethrower_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 70,
-						"w": 152,
-						"h": 216
-					},
-					"frame": {
-						"x": 469,
-						"y": 1832,
-						"w": 152,
-						"h": 216
-					}
-				},
-				{
-					"filename": "Walk_firethrower_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 68,
-						"w": 152,
-						"h": 215
-					},
-					"frame": {
-						"x": 621,
-						"y": 1832,
-						"w": 152,
-						"h": 215
-					}
-				},
-				{
-					"filename": "Walk_firethrower_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 69,
-						"w": 152,
-						"h": 212
-					},
-					"frame": {
-						"x": 773,
-						"y": 1832,
-						"w": 152,
-						"h": 212
-					}
-				},
-				{
-					"filename": "Knife_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 175,
-						"y": 61,
-						"w": 222,
-						"h": 204
-					},
-					"frame": {
-						"x": 925,
-						"y": 1832,
-						"w": 222,
-						"h": 204
-					}
-				},
-				{
-					"filename": "Walk_bat_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 175,
-						"y": 28,
-						"w": 183,
-						"h": 191
-					},
-					"frame": {
-						"x": 1147,
-						"y": 1832,
-						"w": 183,
-						"h": 191
-					}
-				},
-				{
-					"filename": "Idle_Bat_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 192,
-						"y": 18,
-						"w": 166,
-						"h": 191
-					},
-					"frame": {
-						"x": 1330,
-						"y": 1832,
-						"w": 166,
-						"h": 191
-					}
-				},
-				{
-					"filename": "FlameThrower_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 42,
-						"w": 150,
-						"h": 342
-					},
-					"frame": {
-						"x": 326,
-						"y": 857,
-						"w": 150,
-						"h": 342
-					}
-				},
-				{
-					"filename": "Bat_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 115,
-						"y": 64,
-						"w": 232,
-						"h": 141
-					},
-					"frame": {
-						"x": 326,
-						"y": 1199,
-						"w": 232,
-						"h": 141
-					}
-				},
-				{
-					"filename": "Riffle_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 198,
-						"y": 53,
-						"w": 149,
-						"h": 327
-					},
-					"frame": {
-						"x": 476,
-						"y": 1340,
-						"w": 149,
-						"h": 327
-					}
-				},
-				{
-					"filename": "Idle_gun_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 202,
-						"y": 62,
-						"w": 145,
-						"h": 176
-					},
-					"frame": {
-						"x": 331,
-						"y": 1340,
-						"w": 145,
-						"h": 176
-					}
-				},
-				{
-					"filename": "Idle_gun_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 202,
-						"y": 63,
-						"w": 145,
-						"h": 175
-					},
-					"frame": {
-						"x": 331,
-						"y": 1516,
-						"w": 145,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Walk_knife_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 175,
-						"y": 70,
-						"w": 185,
-						"h": 165
-					},
-					"frame": {
-						"x": 537,
-						"y": 1667,
-						"w": 185,
-						"h": 165
-					}
-				},
-				{
-					"filename": "Bat_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 62,
-						"w": 160,
-						"h": 285
-					},
-					"frame": {
-						"x": 469,
-						"y": 396,
-						"w": 160,
-						"h": 285
-					}
-				},
-				{
-					"filename": "Idle_gun_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 202,
-						"y": 63,
-						"w": 145,
-						"h": 175
-					},
-					"frame": {
-						"x": 470,
-						"y": 681,
-						"w": 145,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Idle_gun_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 63,
-						"w": 144,
-						"h": 175
-					},
-					"frame": {
-						"x": 615,
-						"y": 681,
-						"w": 144,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Idle_gun_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 203,
-						"y": 63,
-						"w": 144,
-						"h": 175
-					},
-					"frame": {
-						"x": 759,
-						"y": 681,
-						"w": 144,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Bat_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 238,
-						"y": 56,
-						"w": 166,
-						"h": 273
-					},
-					"frame": {
-						"x": 476,
-						"y": 856,
-						"w": 166,
-						"h": 273
-					}
-				},
-				{
-					"filename": "Idle_Bat_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 18,
-						"w": 164,
-						"h": 191
-					},
-					"frame": {
-						"x": 558,
-						"y": 1129,
-						"w": 164,
-						"h": 191
-					}
-				},
-				{
-					"filename": "FlameThrower_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 53,
-						"w": 150,
-						"h": 267
-					},
-					"frame": {
-						"x": 642,
-						"y": 856,
-						"w": 150,
-						"h": 267
-					}
-				},
-				{
-					"filename": "Gun_Shot_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 61,
-						"w": 142,
-						"h": 263
-					},
-					"frame": {
-						"x": 625,
-						"y": 1320,
-						"w": 142,
-						"h": 263
-					}
-				},
-				{
-					"filename": "Idle_riffle_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 61,
-						"w": 150,
-						"h": 249
-					},
-					"frame": {
-						"x": 722,
-						"y": 1583,
-						"w": 150,
-						"h": 249
-					}
-				},
-				{
-					"filename": "Idle_riffle_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 61,
-						"w": 150,
-						"h": 249
-					},
-					"frame": {
-						"x": 872,
-						"y": 1583,
-						"w": 150,
-						"h": 249
-					}
-				},
-				{
-					"filename": "Gun_Shot_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 189,
-						"y": 52,
-						"w": 157,
-						"h": 248
-					},
-					"frame": {
-						"x": 1022,
-						"y": 1583,
-						"w": 157,
-						"h": 248
-					}
-				},
-				{
-					"filename": "Idle_riffle_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 61,
-						"w": 150,
-						"h": 247
-					},
-					"frame": {
-						"x": 1179,
-						"y": 1583,
-						"w": 150,
-						"h": 247
-					}
-				},
-				{
-					"filename": "Idle_riffle_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 61,
-						"w": 150,
-						"h": 247
-					},
-					"frame": {
-						"x": 1329,
-						"y": 1583,
-						"w": 150,
-						"h": 247
-					}
-				},
-				{
-					"filename": "Idle_Bat_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 18,
-						"w": 164,
-						"h": 191
-					},
-					"frame": {
-						"x": 722,
-						"y": 1123,
-						"w": 164,
-						"h": 191
-					}
-				},
-				{
-					"filename": "Idle_riffle_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 60,
-						"w": 150,
-						"h": 250
-					},
-					"frame": {
-						"x": 792,
-						"y": 856,
-						"w": 150,
-						"h": 250
-					}
-				},
-				{
-					"filename": "Walk_riffle_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 68,
-						"w": 151,
-						"h": 246
-					},
-					"frame": {
-						"x": 767,
-						"y": 1314,
-						"w": 151,
-						"h": 246
-					}
-				},
-				{
-					"filename": "Idle_Bat_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 17,
-						"w": 163,
-						"h": 191
-					},
-					"frame": {
-						"x": 886,
-						"y": 1106,
-						"w": 163,
-						"h": 191
-					}
-				},
-				{
-					"filename": "Idle_riffle_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 62,
-						"w": 152,
-						"h": 245
-					},
-					"frame": {
-						"x": 918,
-						"y": 1297,
-						"w": 152,
-						"h": 245
-					}
-				},
-				{
-					"filename": "Idle_riffle_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 62,
-						"w": 152,
-						"h": 245
-					},
-					"frame": {
-						"x": 470,
-						"y": 0,
-						"w": 152,
-						"h": 245
-					}
-				},
-				{
-					"filename": "Knife_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 96,
-						"y": 62,
-						"w": 276,
-						"h": 151
-					},
-					"frame": {
-						"x": 470,
-						"y": 245,
-						"w": 276,
-						"h": 151
-					}
-				},
-				{
-					"filename": "Walk_riffle_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 65,
-						"w": 151,
-						"h": 245
-					},
-					"frame": {
-						"x": 622,
-						"y": 0,
-						"w": 151,
-						"h": 245
-					}
-				},
-				{
-					"filename": "Idle_riffle_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 62,
-						"w": 152,
-						"h": 244
-					},
-					"frame": {
-						"x": 629,
-						"y": 396,
-						"w": 152,
-						"h": 244
-					}
-				},
-				{
-					"filename": "Knife_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 97,
-						"y": 62,
-						"w": 275,
-						"h": 151
-					},
-					"frame": {
-						"x": 746,
-						"y": 245,
-						"w": 275,
-						"h": 151
-					}
-				},
-				{
-					"filename": "Walk_riffle_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 64,
-						"w": 151,
-						"h": 243
-					},
-					"frame": {
-						"x": 773,
-						"y": 0,
-						"w": 151,
-						"h": 243
-					}
-				},
-				{
-					"filename": "Walk_riffle_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 70,
-						"w": 151,
-						"h": 242
-					},
-					"frame": {
-						"x": 924,
-						"y": 0,
-						"w": 151,
-						"h": 242
-					}
-				},
-				{
-					"filename": "Walk_riffle_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 68,
-						"w": 151,
-						"h": 241
-					},
-					"frame": {
-						"x": 781,
-						"y": 396,
-						"w": 151,
-						"h": 241
-					}
-				},
-				{
-					"filename": "Idle_firethrower_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 152,
-						"h": 219
-					},
-					"frame": {
-						"x": 903,
-						"y": 637,
-						"w": 152,
-						"h": 219
-					}
-				},
-				{
-					"filename": "Idle_firethrower_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 152,
-						"h": 219
-					},
-					"frame": {
-						"x": 1055,
-						"y": 637,
-						"w": 152,
-						"h": 219
-					}
-				},
-				{
-					"filename": "Walk_firethrower_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 65,
-						"w": 152,
-						"h": 219
-					},
-					"frame": {
-						"x": 1207,
-						"y": 637,
-						"w": 152,
-						"h": 219
-					}
-				},
-				{
-					"filename": "Walk_riffle_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 69,
-						"w": 151,
-						"h": 238
-					},
-					"frame": {
-						"x": 932,
-						"y": 396,
-						"w": 151,
-						"h": 238
-					}
-				},
-				{
-					"filename": "Riffle_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 198,
-						"y": 64,
-						"w": 149,
-						"h": 238
-					},
-					"frame": {
-						"x": 942,
-						"y": 856,
-						"w": 149,
-						"h": 238
-					}
-				},
-				{
-					"filename": "Idle_Bat_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 17,
-						"w": 163,
-						"h": 191
-					},
-					"frame": {
-						"x": 1049,
-						"y": 1094,
-						"w": 163,
-						"h": 191
-					}
-				},
-				{
-					"filename": "Idle_firethrower_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 61,
-						"w": 150,
-						"h": 224
-					},
-					"frame": {
-						"x": 1091,
-						"y": 856,
-						"w": 150,
-						"h": 224
-					}
-				},
-				{
-					"filename": "death_0002_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 217,
-						"y": 90,
-						"w": 117,
-						"h": 109
-					},
-					"frame": {
-						"x": 1021,
-						"y": 242,
-						"w": 117,
-						"h": 109
-					}
-				},
-				{
-					"filename": "Idle_firethrower_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 62,
-						"w": 150,
-						"h": 223
-					},
-					"frame": {
-						"x": 1083,
-						"y": 0,
-						"w": 150,
-						"h": 223
-					}
-				},
-				{
-					"filename": "Idle_firethrower_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 62,
-						"w": 150,
-						"h": 223
-					},
-					"frame": {
-						"x": 1233,
-						"y": 0,
-						"w": 150,
-						"h": 223
-					}
-				},
-				{
-					"filename": "Idle_firethrower_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 62,
-						"w": 150,
-						"h": 221
-					},
-					"frame": {
-						"x": 1083,
-						"y": 351,
-						"w": 150,
-						"h": 221
-					}
-				},
-				{
-					"filename": "death_0004_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 161,
-						"y": 95,
-						"w": 231,
-						"h": 99
-					},
-					"frame": {
-						"x": 1138,
-						"y": 223,
-						"w": 231,
-						"h": 99
-					}
-				},
-				{
-					"filename": "Idle_firethrower_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 62,
-						"w": 150,
-						"h": 221
-					},
-					"frame": {
-						"x": 1070,
-						"y": 1285,
-						"w": 150,
-						"h": 221
-					}
-				},
-				{
-					"filename": "Idle_Bat_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 17,
-						"w": 162,
-						"h": 191
-					},
-					"frame": {
-						"x": 1212,
-						"y": 1080,
-						"w": 162,
-						"h": 191
-					}
-				},
-				{
-					"filename": "Walk_firethrower_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 68,
-						"w": 152,
-						"h": 220
-					},
-					"frame": {
-						"x": 1241,
-						"y": 856,
-						"w": 152,
-						"h": 220
-					}
-				},
-				{
-					"filename": "Idle_firethrower_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 152,
-						"h": 218
-					},
-					"frame": {
-						"x": 1220,
-						"y": 1271,
-						"w": 152,
-						"h": 218
-					}
-				},
-				{
-					"filename": "Walk_firethrower_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 64,
-						"w": 152,
-						"h": 217
-					},
-					"frame": {
-						"x": 1372,
-						"y": 1271,
-						"w": 152,
-						"h": 217
-					}
-				},
-				{
-					"filename": "Idle_Bat_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 17,
-						"w": 162,
-						"h": 191
-					},
-					"frame": {
-						"x": 1374,
-						"y": 1076,
-						"w": 162,
-						"h": 191
-					}
-				},
-				{
-					"filename": "FlameThrower_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 197,
-						"y": 64,
-						"w": 150,
-						"h": 217
-					},
-					"frame": {
-						"x": 1233,
-						"y": 322,
-						"w": 150,
-						"h": 217
-					}
-				},
-				{
-					"filename": "death_0003_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 187,
-						"y": 96,
-						"w": 178,
-						"h": 96
-					},
-					"frame": {
-						"x": 1233,
-						"y": 539,
-						"w": 178,
-						"h": 96
-					}
-				},
-				{
-					"filename": "Idle_Bat_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 17,
-						"w": 160,
-						"h": 190
-					},
-					"frame": {
-						"x": 1359,
-						"y": 635,
-						"w": 160,
-						"h": 190
-					}
-				},
-				{
-					"filename": "Walk_bat_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 15,
-						"w": 160,
-						"h": 190
-					},
-					"frame": {
-						"x": 1393,
-						"y": 825,
-						"w": 160,
-						"h": 190
-					}
-				},
-				{
-					"filename": "Walk_bat_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 171,
-						"y": 34,
-						"w": 188,
-						"h": 187
-					},
-					"frame": {
-						"x": 1479,
-						"y": 1488,
-						"w": 188,
-						"h": 187
-					}
-				},
-				{
-					"filename": "Bat_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 129,
-						"y": 61,
-						"w": 225,
-						"h": 155
-					},
-					"frame": {
-						"x": 1479,
-						"y": 1675,
-						"w": 225,
-						"h": 155
-					}
-				},
-				{
-					"filename": "Bat_008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 207,
-						"y": 33,
-						"w": 141,
-						"h": 187
-					},
-					"frame": {
-						"x": 1496,
-						"y": 1830,
-						"w": 141,
-						"h": 187
-					}
-				},
-				{
-					"filename": "Knife_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 214,
-						"y": 61,
-						"w": 191,
-						"h": 186
-					},
-					"frame": {
-						"x": 1637,
-						"y": 1830,
-						"w": 191,
-						"h": 186
-					}
-				},
-				{
-					"filename": "Knife_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 198,
-						"y": 63,
-						"w": 165,
-						"h": 184
-					},
-					"frame": {
-						"x": 1828,
-						"y": 1830,
-						"w": 165,
-						"h": 184
-					}
-				},
-				{
-					"filename": "Walk_bat_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 167,
-						"y": 39,
-						"w": 193,
-						"h": 182
-					},
-					"frame": {
-						"x": 1993,
-						"y": 1830,
-						"w": 193,
-						"h": 182
-					}
-				},
-				{
-					"filename": "Bat_009.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 183,
-						"y": 26,
-						"w": 163,
-						"h": 180
-					},
-					"frame": {
-						"x": 2186,
-						"y": 1830,
-						"w": 163,
-						"h": 180
-					}
-				},
-				{
-					"filename": "Walk_bat_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 164,
-						"y": 42,
-						"w": 197,
-						"h": 178
-					},
-					"frame": {
-						"x": 2349,
-						"y": 1830,
-						"w": 197,
-						"h": 178
-					}
-				},
-				{
-					"filename": "Bat_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 188,
-						"y": 27,
-						"w": 160,
-						"h": 179
-					},
-					"frame": {
-						"x": 1524,
-						"y": 1267,
-						"w": 160,
-						"h": 179
-					}
-				},
-				{
-					"filename": "Idle_gun_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 203,
-						"y": 63,
-						"w": 144,
-						"h": 175
-					},
-					"frame": {
-						"x": 1667,
-						"y": 1446,
-						"w": 144,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Idle_gun_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 63,
-						"w": 144,
-						"h": 175
-					},
-					"frame": {
-						"x": 1704,
-						"y": 1621,
-						"w": 144,
-						"h": 175
-					}
-				},
-				{
-					"filename": "Gun_Shot_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 64,
-						"w": 142,
-						"h": 174
-					},
-					"frame": {
-						"x": 1536,
-						"y": 1015,
-						"w": 142,
-						"h": 174
-					}
-				},
-				{
-					"filename": "Idle_gun_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 206,
-						"y": 64,
-						"w": 142,
-						"h": 174
-					},
-					"frame": {
-						"x": 1383,
-						"y": 0,
-						"w": 142,
-						"h": 174
-					}
-				},
-				{
-					"filename": "Walk_gun_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 64,
-						"w": 142,
-						"h": 174
-					},
-					"frame": {
-						"x": 1383,
-						"y": 174,
-						"w": 142,
-						"h": 174
-					}
-				},
-				{
-					"filename": "Bat_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 177,
-						"y": 28,
-						"w": 167,
-						"h": 171
-					},
-					"frame": {
-						"x": 1383,
-						"y": 348,
-						"w": 167,
-						"h": 171
-					}
-				},
-				{
-					"filename": "Idle_Knife_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 192,
-						"y": 62,
-						"w": 166,
-						"h": 171
-					},
-					"frame": {
-						"x": 1519,
-						"y": 519,
-						"w": 166,
-						"h": 171
-					}
-				},
-				{
-					"filename": "Walk_gun_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 69,
-						"w": 142,
-						"h": 171
-					},
-					"frame": {
-						"x": 1553,
-						"y": 690,
-						"w": 142,
-						"h": 171
-					}
-				},
-				{
-					"filename": "Walk_gun_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 68,
-						"w": 142,
-						"h": 171
-					},
-					"frame": {
-						"x": 1525,
-						"y": 0,
-						"w": 142,
-						"h": 171
-					}
-				},
-				{
-					"filename": "Walk_gun_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 68,
-						"w": 142,
-						"h": 171
-					},
-					"frame": {
-						"x": 1525,
-						"y": 171,
-						"w": 142,
-						"h": 171
-					}
-				},
-				{
-					"filename": "Idle_Knife_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 63,
-						"w": 164,
-						"h": 170
-					},
-					"frame": {
-						"x": 1550,
-						"y": 342,
-						"w": 164,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Idle_Knife_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 63,
-						"w": 164,
-						"h": 170
-					},
-					"frame": {
-						"x": 1685,
-						"y": 512,
-						"w": 164,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Idle_Knife_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 63,
-						"w": 163,
-						"h": 170
-					},
-					"frame": {
-						"x": 1667,
-						"y": 0,
-						"w": 163,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Idle_Knife_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 63,
-						"w": 163,
-						"h": 170
-					},
-					"frame": {
-						"x": 1667,
-						"y": 170,
-						"w": 163,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Walk_gun_002.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 70,
-						"w": 142,
-						"h": 170
-					},
-					"frame": {
-						"x": 1714,
-						"y": 340,
-						"w": 142,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Walk_gun_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 65,
-						"w": 142,
-						"h": 170
-					},
-					"frame": {
-						"x": 1830,
-						"y": 0,
-						"w": 142,
-						"h": 170
-					}
-				},
-				{
-					"filename": "Idle_Knife_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 64,
-						"w": 162,
-						"h": 168
-					},
-					"frame": {
-						"x": 1830,
-						"y": 170,
-						"w": 162,
-						"h": 168
-					}
-				},
-				{
-					"filename": "Idle_Knife_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 194,
-						"y": 64,
-						"w": 162,
-						"h": 168
-					},
-					"frame": {
-						"x": 1972,
-						"y": 0,
-						"w": 162,
-						"h": 168
-					}
-				},
-				{
-					"filename": "Walk_knife_005.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 173,
-						"y": 68,
-						"w": 189,
-						"h": 166
-					},
-					"frame": {
-						"x": 2134,
-						"y": 0,
-						"w": 189,
-						"h": 166
-					}
-				},
-				{
-					"filename": "Walk_knife_001.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 178,
-						"y": 69,
-						"w": 181,
-						"h": 166
-					},
-					"frame": {
-						"x": 2323,
-						"y": 0,
-						"w": 181,
-						"h": 166
-					}
-				},
-				{
-					"filename": "Idle_Knife_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 196,
-						"y": 63,
-						"w": 160,
-						"h": 168
-					},
-					"frame": {
-						"x": 1678,
-						"y": 861,
-						"w": 160,
-						"h": 168
-					}
-				},
-				{
-					"filename": "Walk_knife_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 181,
-						"y": 68,
-						"w": 177,
-						"h": 167
-					},
-					"frame": {
-						"x": 1695,
-						"y": 682,
-						"w": 177,
-						"h": 167
-					}
-				},
-				{
-					"filename": "Walk_knife_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 193,
-						"y": 65,
-						"w": 163,
-						"h": 167
-					},
-					"frame": {
-						"x": 1849,
-						"y": 510,
-						"w": 163,
-						"h": 167
-					}
-				},
-				{
-					"filename": "Knife_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 160,
-						"h": 167
-					},
-					"frame": {
-						"x": 1872,
-						"y": 338,
-						"w": 160,
-						"h": 167
-					}
-				},
-				{
-					"filename": "Walk_knife_000.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 64,
-						"w": 160,
-						"h": 166
-					},
-					"frame": {
-						"x": 2012,
-						"y": 168,
-						"w": 160,
-						"h": 166
-					}
-				},
-				{
-					"filename": "Gun_Shot_003.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 58,
-						"w": 142,
-						"h": 164
-					},
-					"frame": {
-						"x": 2032,
-						"y": 334,
-						"w": 142,
-						"h": 164
-					}
-				},
-				{
-					"filename": "death_0000_Man.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 205,
-						"y": 64,
-						"w": 142,
-						"h": 161
-					},
-					"frame": {
-						"x": 2172,
-						"y": 166,
-						"w": 142,
-						"h": 161
-					}
-				},
-				{
-					"filename": "Bat_010.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 14,
-						"w": 160,
-						"h": 192
-					},
-					"frame": {
-						"x": 162,
-						"y": 1855,
-						"w": 160,
-						"h": 192
-					}
-				},
-				{
-					"filename": "Bat_011.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 14,
-						"w": 160,
-						"h": 192
-					},
-					"frame": {
-						"x": 162,
-						"y": 1855,
-						"w": 160,
-						"h": 192
-					}
-				},
-				{
-					"filename": "FlameThrower_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 178,
-						"y": 42,
-						"w": 169,
-						"h": 468
-					},
-					"frame": {
-						"x": 0,
-						"y": 470,
-						"w": 169,
-						"h": 468
-					}
-				},
-				{
-					"filename": "FlameThrower_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 178,
-						"y": 42,
-						"w": 169,
-						"h": 468
-					},
-					"frame": {
-						"x": 0,
-						"y": 470,
-						"w": 169,
-						"h": 468
-					}
-				},
-				{
-					"filename": "Gun_Shot_004.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 204,
-						"y": 64,
-						"w": 142,
-						"h": 174
-					},
-					"frame": {
-						"x": 1536,
-						"y": 1015,
-						"w": 142,
-						"h": 174
-					}
-				},
-				{
-					"filename": "Knife_006.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 160,
-						"h": 167
-					},
-					"frame": {
-						"x": 1872,
-						"y": 338,
-						"w": 160,
-						"h": 167
-					}
-				},
-				{
-					"filename": "Knife_007.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 195,
-						"y": 63,
-						"w": 160,
-						"h": 167
-					},
-					"frame": {
-						"x": 1872,
-						"y": 338,
-						"w": 160,
-						"h": 167
-					}
-				},
-				{
-					"filename": "Riffle_008.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 512,
-						"h": 512
-					},
-					"spriteSourceSize": {
-						"x": 198,
-						"y": 64,
-						"w": 149,
-						"h": 238
-					},
-					"frame": {
-						"x": 942,
-						"y": 856,
-						"w": 149,
-						"h": 238
-					}
-				}
-			]
-		}
-	],
-	"meta": {
-		"app": "http://free-tex-packer.com",
-		"version": "0.6.7"
-	}
+  "textures": [
+    {
+      "image": "man",
+      "format": "RGBA8888",
+      "size": {
+        "w": 1408,
+        "h": 1408
+      },
+      "scale": 0.25,
+      "frames": [
+        {
+          "filename": "Bat_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_008.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_009.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "death_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_008.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Gun_Shot_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Gun_Shot_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Gun_Shot_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Gun_Shot_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Bat_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 128,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_Knife_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 256,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_firethrower_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 256,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_gun_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 384,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Idle_riffle_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 512,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_bat_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 640,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_firethrower_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_gun_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_knife_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1280,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_000.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_001.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 1024,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_002.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 1152,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 896,
+            "y": 1280,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1024,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Walk_riffle_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 896,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_010.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Bat_011.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "FlameThrower_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Gun_Shot_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Knife_007.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 768,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "Riffle_008.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 512,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7"
+  }
 }
