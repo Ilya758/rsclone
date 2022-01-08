@@ -65,18 +65,17 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   createRotationAndAttacking(scene: Phaser.Scene) {
     // if the person is dead, he cannot rotate/shoot
 
-    scene.input.on('pointerdown', (pointer: Pointer) => {
+    scene.input.on('pointerdown', () => {
       if (!this.isDead) {
         this.isDown = true;
-        this.mouseX = pointer.worldX;
-        this.mouseY = pointer.worldY;
+        this.handleFiring('riffle');
       }
     });
 
-    scene.input.on('pointermove', (pointer: Pointer) => {
+    scene.input.on('pointermove', () => {
       if (!this.isDead) {
-        this.mouseX = pointer.worldX;
-        this.mouseY = pointer.worldY;
+        this.mouseX = this.getMouseCoords().mouseX;
+        this.mouseY = this.getMouseCoords().mouseY;
       }
     });
 
@@ -189,11 +188,14 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       throw new Error('Cannot find bullets');
     }
     // set rotation to the person
-
+    this.mouseX = this.getMouseCoords().mouseX;
+    this.mouseY = this.getMouseCoords().mouseY;
+    if (!this.isDead) {
     this.setRotation(
-      Phaser.Math.Angle.Between(this.mouseX, this.mouseY, this.x, this.y) -
+        Phaser.Math.Angle.Between(this.mouseX, this.mouseY, this.x, this.y) +
         Math.PI / 2
     );
+    }
 
     if (this.isDead) {
       // if person is dead, he can't walk
