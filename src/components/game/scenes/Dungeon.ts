@@ -46,6 +46,12 @@ export default class Dungeon extends Phaser.Scene {
     );
     this.load.image('bullet', './assets/game/bullet1.png');
   }
+
+  handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
+    if (!this.zombie || !this.person) {
+      throw new Error('There are no person or zombie ');
+    }
+    this.physics.add.collider([this.zombie, this.person], targetsArray);
   }
 
   create() {
@@ -90,8 +96,10 @@ export default class Dungeon extends Phaser.Scene {
 
     // create collision
 
+    floor.setCollisionByProperty({ collides: true });
+    floor2.setCollisionByProperty({ collides: true });
     walls.setCollisionByProperty({ collides: true });
-    assets.setCollisionByProperty({ collides: true });
+    walls2.setCollisionByProperty({ collides: true });
 
     debugGraphicsDraw(walls, this);
 
@@ -111,13 +119,9 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     // add collision between game objects
+    this.handleCollides([walls, walls2, floor2]);
 
-    this.physics.add.collider(this.zombie, assets);
-    this.physics.add.collider(this.zombie, walls);
-    this.physics.add.collider(this.person, walls);
-    this.physics.add.collider(this.person, assets);
     this.physics.add.collider(this.bullets, walls, () => console.log('wall'));
-    this.physics.add.collider(this.bullets, assets, () => console.log('asset'));
     this.physics.add.collider(
       this.bullets,
       this.zombie,
