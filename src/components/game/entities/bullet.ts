@@ -62,6 +62,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     });
 
     if (!enemy.hpBar.value) {
+      enemy.isDead = true;
       enemy.kill();
     }
   }

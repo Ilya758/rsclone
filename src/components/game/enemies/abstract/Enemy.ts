@@ -11,6 +11,8 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
   public abstract hpBar: TUnionHealthBar;
 
+  public isDead = false;
+
   get damage() {
     return this._damage;
   }
@@ -34,33 +36,43 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    if (
-      Phaser.Math.Distance.BetweenPoints(this, person) < 200 &&
-      Phaser.Math.Distance.BetweenPoints(this, person) > 60
-    ) {
-      if (this.scene) {
+    if (!this.isDead) {
+      if (
+        Phaser.Math.Distance.BetweenPoints(this, person) < 200 &&
+        Phaser.Math.Distance.BetweenPoints(this, person) > 60
+      ) {
+        if (this.scene) {
+          scene.physics.moveToObject(this, person, this.speed);
+          this.setRotation(
+            Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
+              Math.PI / 2
+          );
+          this.anims.play('walk', true);
+        }
+      } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
         scene.physics.moveToObject(this, person, this.speed);
         this.setRotation(
           Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
             Math.PI / 2
         );
-        this.anims.play('walk', true);
+        this.anims.play('kick', true);
+      } else {
+        scene.physics.moveToObject(this, person, 0);
+        this.anims.play('stay', true);
       }
-    } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
-      scene.physics.moveToObject(this, person, this.speed);
-      this.setRotation(
-        Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
-          Math.PI / 2
-      );
-      this.anims.play('kick', true);
     } else {
-      scene.physics.moveToObject(this, person, 0);
-      this.anims.play('stay', true);
+      this.setVelocity(0, 0);
     }
   }
 
   kill(): void {
     this.hpBar.destroy();
-    this.destroy(true);
+    this.anims.play('zombie-death');
+    this.disableBody();
+
+    this.scene.time.addEvent({
+      delay: 1500,
+      callback: () => this.destroy(),
+    });
   }
 }
