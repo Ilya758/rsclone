@@ -35,15 +35,14 @@ const createZombieAnims = (anims: Phaser.Animations.AnimationManager) => {
     frameRate: 9,
   });
   anims.create({
-    key: 'death',
+    key: 'zombie-death',
     frames: anims.generateFrameNames('zombie', {
       start: 0,
       end: 5,
       prefix: 'Death_00',
       suffix: '.png',
     }),
-    repeat: -1,
-    frameRate: 9,
+    frameRate: 5,
   });
 };
 

@@ -9,24 +9,36 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <audio id="1" style="position: absolute; top: 50px; left: 50px">
+    <audio id="9" style="position: absolute; top: 50px; left: 50px">
+      <source src="./assets/audio/0.mp3" />
       <source src="./assets/audio/1.mp3" />
       <source src="./assets/audio/2.mp3" />
       <source src="./assets/audio/3.mp3" />
       <source src="./assets/audio/4.mp3" />
       <source src="./assets/audio/5.mp3" />
+      <source src="./assets/audio/6.mp3" />
+      <source src="./assets/audio/7.mp3" />
+      <source src="./assets/audio/8.mp3" />
+      <source src="./assets/audio/9.mp3" />
     </audio>
     <button
       style="position: absolute; top: 90px; left: 30px"
       onclick="
         const audio = document.querySelector('audio');
-        let c = +audio.id + 1 <= 5 ? + audio.id + 1 : 1;
+        let c = +audio.id + 1 <= 9 ? + audio.id + 1 : 0;
         audio.src = `./assets/audio/${c}.mp3`;
+        audio.volume = 0.7;
         audio.id = c;
         audio.play();
       "
     >
       Next
+    </button>
+    <button
+      style="position: absolute; top: 90px; left: 90px"
+      onclick="const audio = document.querySelector('audio'); audio.pause()"
+    >
+      Stop
     </button>
     <div id="root"></div>
   </body>

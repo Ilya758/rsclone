@@ -15,9 +15,18 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     this.body.setSize(this.width, this.height);
     this.setActive(true);
     this.setVisible(true);
-    this.setPosition(personX, personY);
     const angle = Phaser.Math.Angle.Between(x, y, personX, personY);
     this.setRotation(angle);
+
+    // calculate delta coords of the bullet
+
+    const xA = -25 * Math.cos(angle) + 10 * Math.sin(angle) + personX;
+    const yA = -25 * Math.sin(angle) - 10 * Math.cos(angle) + personY;
+
+    // set initial position of the bullet
+
+    this.setPosition(xA, yA);
+
     this.incX = Math.cos(angle);
     this.incY = Math.sin(angle);
     this.setVelocity(
@@ -41,12 +50,25 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     bullet: Phaser.GameObjects.GameObject
   ) {
     const enemy = obj as Enemy;
+    enemy.setTint(0xff0000);
     enemy.hpBar.decrease(10);
     bullet.destroy(true);
 
+    obj.scene.time.addEvent({
+      delay: 150,
+      callback: () => {
+        enemy.clearTint();
+      },
+    });
+
     if (!enemy.hpBar.value) {
+      enemy.isDead = true;
       enemy.kill();
     }
+  }
+
+  static handleBulletAndWallsCollision(bullet: Phaser.GameObjects.GameObject) {
+    bullet.destroy();
   }
 
   update(_: number, delta: number) {

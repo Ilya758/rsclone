@@ -61,13 +61,20 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     };
   }
 
-  createRotationAndAttacking(scene: Phaser.Scene) {
+  createRotationAndAttacking(
+    scene: Phaser.Scene,
+    attackSound: Phaser.Sound.BaseSound
+  ) {
     // if the person is dead, he cannot rotate/shoot
 
     scene.input.on('pointerdown', () => {
       if (!this.isDead) {
         this.isDown = true;
         this.handleFiring('riffle');
+
+        if (!attackSound.isPlaying) {
+          attackSound.play();
+        }
       }
     });
 
@@ -80,38 +87,74 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     scene.input.on('pointerup', () => {
       this.isDown = false;
+      attackSound.stop();
     });
   }
 
-  handleMoving(personControlKeys: IUserInteractiveButtons) {
+  handleMoving(
+    personControlKeys: IUserInteractiveButtons,
+    personWalkSound: Phaser.Sound.BaseSound
+  ) {
     // checking pressing buttons
     if (personControlKeys.right.isDown && personControlKeys.up.isDown) {
       this.setVelocity(this.speed, -this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (
       personControlKeys.right.isDown &&
       personControlKeys.down.isDown
     ) {
       this.setVelocity(this.speed, this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.left.isDown && personControlKeys.down.isDown) {
       this.setVelocity(-this.speed, this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.left.isDown && personControlKeys.up.isDown) {
       this.setVelocity(-this.speed, -this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.left.isDown) {
       this.setVelocity(-this.speed, 0);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.right.isDown) {
       this.setVelocity(+this.speed, 0);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.up.isDown) {
       this.setVelocity(0, -this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else if (personControlKeys.down.isDown) {
       this.setVelocity(0, +this.speed);
       this.handleAnims('riffle', 'walk');
+
+      if (!personWalkSound.isPlaying) {
+        personWalkSound.play();
+      }
     } else {
       if (!this.hit) {
         // is the person isn't in kick-immune state
@@ -119,6 +162,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       }
       if (!this.isDown) {
         this.handleAnims('riffle', 'idle');
+        personWalkSound.stop();
       }
     }
   }
@@ -204,7 +248,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   update(
     personControlKeys: IUserInteractiveButtons,
     time: number,
-    bullets: Phaser.GameObjects.Group | null
+    bullets: Phaser.GameObjects.Group | null,
+    personWalkSound: Phaser.Sound.BaseSound
   ): void {
     if (!bullets) {
       throw new Error('Cannot find bullets');
@@ -231,7 +276,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     this.handleShooting(time, bullets);
 
-    this.handleMoving(personControlKeys);
+    this.handleMoving(personControlKeys, personWalkSound);
   }
 }
 

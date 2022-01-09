@@ -56,7 +56,9 @@ export default abstract class HealthBar {
   }
 
   heal(scene: Phaser.Scene, amount: number) {
-    if (!(this.object as Person).hit) {
+    const person = this.object as Person;
+
+    if (!person.hit && !person.isDead) {
       // when the person is in the cooldown
 
       if (this.value !== this.maxHealth && this.isHealing) {
