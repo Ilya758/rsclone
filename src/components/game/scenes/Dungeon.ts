@@ -55,6 +55,7 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   create() {
+    this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
     createCharacterAnims(this.anims);
     createZombieAnims(this.anims);
 
