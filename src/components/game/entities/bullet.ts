@@ -50,8 +50,16 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     bullet: Phaser.GameObjects.GameObject
   ) {
     const enemy = obj as Enemy;
+    enemy.setTint(0xff0000);
     enemy.hpBar.decrease(10);
     bullet.destroy(true);
+
+    obj.scene.time.addEvent({
+      delay: 150,
+      callback: () => {
+        enemy.clearTint();
+      },
+    });
 
     if (!enemy.hpBar.value) {
       enemy.kill();
