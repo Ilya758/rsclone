@@ -122,7 +122,11 @@ export default class Dungeon extends Phaser.Scene {
     // add collision between game objects
     this.handleCollides([walls, walls2, floor2]);
 
-    this.physics.add.collider(this.bullets, walls, () => console.log('wall'));
+    this.physics.add.collider(
+      this.bullets,
+      walls,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
     this.physics.add.collider(
       this.bullets,
       this.zombie,

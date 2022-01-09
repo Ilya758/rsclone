@@ -49,6 +49,10 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     }
   }
 
+  static handleBulletAndWallsCollision(bullet: Phaser.GameObjects.GameObject) {
+    bullet.destroy();
+  }
+
   update(_: number, delta: number) {
     this.lifespan -= delta;
 
