@@ -15,9 +15,18 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     this.body.setSize(this.width, this.height);
     this.setActive(true);
     this.setVisible(true);
-    this.setPosition(personX, personY);
     const angle = Phaser.Math.Angle.Between(x, y, personX, personY);
     this.setRotation(angle);
+
+    // calculate delta coords of the bullet
+
+    const xA = -25 * Math.cos(angle) + 10 * Math.sin(angle) + personX;
+    const yA = -25 * Math.sin(angle) - 10 * Math.cos(angle) + personY;
+
+    // set initial position of the bullet
+
+    this.setPosition(xA, yA);
+
     this.incX = Math.cos(angle);
     this.incY = Math.sin(angle);
     this.setVelocity(
