@@ -19,12 +19,17 @@ export default class Dungeon extends Phaser.Scene {
 
   private bullets: Phaser.GameObjects.Group | null;
 
+  private personWalkSound: Phaser.Sound.BaseSound | null;
+
+  private personRifleSound: Phaser.Sound.BaseSound | null;
+
   constructor() {
     super('dungeon');
     this.person = null;
     this.zombie = null;
     this.bullets = null;
     this.personUi = null;
+    this.personWalkSound = this.personRifleSound = null;
   }
 
   preload() {
@@ -45,6 +50,9 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.json'
     );
     this.load.image('bullet', './assets/game/bullet1.png');
+
+    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
+    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
 
   handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
@@ -112,6 +120,17 @@ export default class Dungeon extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.person, true);
 
+    // creating the sounds
+
+    this.personWalkSound = this.sound.add('person-walk', {
+      volume: 0.5,
+    });
+
+    this.personRifleSound = this.sound.add('rifle-shot', {
+      volume: 0.8,
+      loop: true,
+    });
+
     // TODO: creating bullets need to be generalized or smth the same
 
     this.bullets = this.physics.add.group({
@@ -134,7 +153,10 @@ export default class Dungeon extends Phaser.Scene {
       Bullet.handleBulletAndEnemyCollision.bind(this)
     );
 
-    (this.person as Person).createRotationAndAttacking(this);
+    (this.person as Person).createRotationAndAttacking(
+      this,
+      this.personRifleSound
+    );
 
     // appending scene PersonUI
 
@@ -196,7 +218,12 @@ export default class Dungeon extends Phaser.Scene {
     }
 
     if (this.person) {
-      this.person.update(createUserKeys(this.input), time, this.bullets);
+      this.person.update(
+        createUserKeys(this.input),
+        time,
+        this.bullets,
+        this.personWalkSound
+      );
     }
 
     (this.zombie as Zombie).movingToPerson(this.person as Person, this);
