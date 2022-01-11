@@ -10,7 +10,7 @@
       "scale": 0.25,
       "frames": [
         {
-          "filename": "Bat_000.png",
+          "filename": "bat_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -31,7 +31,7 @@
           }
         },
         {
-          "filename": "Bat_001.png",
+          "filename": "bat_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -52,7 +52,7 @@
           }
         },
         {
-          "filename": "Bat_002.png",
+          "filename": "bat_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -73,7 +73,7 @@
           }
         },
         {
-          "filename": "Bat_003.png",
+          "filename": "bat_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -94,7 +94,7 @@
           }
         },
         {
-          "filename": "Bat_004.png",
+          "filename": "bat_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -115,7 +115,7 @@
           }
         },
         {
-          "filename": "Bat_005.png",
+          "filename": "bat_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -136,7 +136,7 @@
           }
         },
         {
-          "filename": "Bat_006.png",
+          "filename": "bat_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -157,7 +157,7 @@
           }
         },
         {
-          "filename": "Bat_007.png",
+          "filename": "bat_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -178,7 +178,7 @@
           }
         },
         {
-          "filename": "Bat_008.png",
+          "filename": "bat_008.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -199,7 +199,7 @@
           }
         },
         {
-          "filename": "Bat_009.png",
+          "filename": "bat_009.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -346,7 +346,7 @@
           }
         },
         {
-          "filename": "FlameThrower_000.png",
+          "filename": "firethrower_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -367,7 +367,7 @@
           }
         },
         {
-          "filename": "FlameThrower_001.png",
+          "filename": "firethrower_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -388,7 +388,7 @@
           }
         },
         {
-          "filename": "FlameThrower_002.png",
+          "filename": "firethrower_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -409,7 +409,7 @@
           }
         },
         {
-          "filename": "FlameThrower_003.png",
+          "filename": "firethrower_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -430,7 +430,7 @@
           }
         },
         {
-          "filename": "FlameThrower_005.png",
+          "filename": "firethrower_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -451,7 +451,7 @@
           }
         },
         {
-          "filename": "FlameThrower_007.png",
+          "filename": "firethrower_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -472,7 +472,7 @@
           }
         },
         {
-          "filename": "FlameThrower_008.png",
+          "filename": "firethrower_008.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -493,7 +493,7 @@
           }
         },
         {
-          "filename": "Gun_Shot_000.png",
+          "filename": "gun_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -514,7 +514,7 @@
           }
         },
         {
-          "filename": "Gun_Shot_001.png",
+          "filename": "gun_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -535,7 +535,7 @@
           }
         },
         {
-          "filename": "Gun_Shot_002.png",
+          "filename": "gun_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -556,7 +556,7 @@
           }
         },
         {
-          "filename": "Gun_Shot_003.png",
+          "filename": "gun_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -577,7 +577,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_000.png",
+          "filename": "Idle_bat_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -598,7 +598,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_001.png",
+          "filename": "Idle_bat_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -619,7 +619,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_002.png",
+          "filename": "Idle_bat_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -640,7 +640,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_003.png",
+          "filename": "Idle_bat_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -661,7 +661,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_004.png",
+          "filename": "Idle_bat_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -682,7 +682,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_005.png",
+          "filename": "Idle_bat_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -703,7 +703,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_006.png",
+          "filename": "Idle_bat_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -724,7 +724,7 @@
           }
         },
         {
-          "filename": "Idle_Bat_007.png",
+          "filename": "Idle_bat_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -745,7 +745,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_000.png",
+          "filename": "Idle_knife_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -766,7 +766,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_001.png",
+          "filename": "Idle_knife_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -787,7 +787,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_002.png",
+          "filename": "Idle_knife_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -808,7 +808,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_003.png",
+          "filename": "Idle_knife_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -829,7 +829,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_004.png",
+          "filename": "Idle_knife_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -850,7 +850,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_005.png",
+          "filename": "Idle_knife_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -871,7 +871,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_006.png",
+          "filename": "Idle_knife_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -892,7 +892,7 @@
           }
         },
         {
-          "filename": "Idle_Knife_007.png",
+          "filename": "Idle_knife_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1249,7 +1249,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_000.png",
+          "filename": "Idle_rifle_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1270,7 +1270,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_001.png",
+          "filename": "Idle_rifle_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1291,7 +1291,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_002.png",
+          "filename": "Idle_rifle_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1312,7 +1312,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_003.png",
+          "filename": "Idle_rifle_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1333,7 +1333,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_004.png",
+          "filename": "Idle_rifle_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1354,7 +1354,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_005.png",
+          "filename": "Idle_rifle_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1375,7 +1375,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_006.png",
+          "filename": "Idle_rifle_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1396,7 +1396,7 @@
           }
         },
         {
-          "filename": "Idle_riffle_007.png",
+          "filename": "Idle_rifle_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1417,7 +1417,7 @@
           }
         },
         {
-          "filename": "Knife_000.png",
+          "filename": "knife_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1438,7 +1438,7 @@
           }
         },
         {
-          "filename": "Knife_001.png",
+          "filename": "knife_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1459,7 +1459,7 @@
           }
         },
         {
-          "filename": "Knife_002.png",
+          "filename": "knife_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1480,7 +1480,7 @@
           }
         },
         {
-          "filename": "Knife_003.png",
+          "filename": "knife_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1501,7 +1501,7 @@
           }
         },
         {
-          "filename": "Knife_004.png",
+          "filename": "knife_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1522,7 +1522,7 @@
           }
         },
         {
-          "filename": "Knife_005.png",
+          "filename": "knife_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1543,7 +1543,7 @@
           }
         },
         {
-          "filename": "Riffle_000.png",
+          "filename": "rifle_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1564,7 +1564,7 @@
           }
         },
         {
-          "filename": "Riffle_001.png",
+          "filename": "rifle_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1585,7 +1585,7 @@
           }
         },
         {
-          "filename": "Riffle_002.png",
+          "filename": "rifle_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1606,7 +1606,7 @@
           }
         },
         {
-          "filename": "Riffle_003.png",
+          "filename": "rifle_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1627,7 +1627,7 @@
           }
         },
         {
-          "filename": "Riffle_004.png",
+          "filename": "rifle_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1648,7 +1648,7 @@
           }
         },
         {
-          "filename": "Riffle_005.png",
+          "filename": "rifle_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1669,7 +1669,7 @@
           }
         },
         {
-          "filename": "Riffle_006.png",
+          "filename": "rifle_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1690,7 +1690,7 @@
           }
         },
         {
-          "filename": "Riffle_007.png",
+          "filename": "rifle_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2215,7 +2215,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_000.png",
+          "filename": "Walk_rifle_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2236,7 +2236,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_001.png",
+          "filename": "Walk_rifle_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2257,7 +2257,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_002.png",
+          "filename": "Walk_rifle_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2278,7 +2278,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_003.png",
+          "filename": "Walk_rifle_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2299,7 +2299,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_004.png",
+          "filename": "Walk_rifle_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2320,7 +2320,7 @@
           }
         },
         {
-          "filename": "Walk_riffle_005.png",
+          "filename": "Walk_rifle_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2341,7 +2341,7 @@
           }
         },
         {
-          "filename": "Bat_010.png",
+          "filename": "bat_010.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2362,7 +2362,7 @@
           }
         },
         {
-          "filename": "Bat_011.png",
+          "filename": "bat_011.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2383,28 +2383,7 @@
           }
         },
         {
-          "filename": "FlameThrower_004.png",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 128,
-            "h": 128
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 128,
-            "h": 128
-          },
-          "frame": {
-            "x": 1152,
-            "y": 0,
-            "w": 128,
-            "h": 128
-          }
-        },
-        {
-          "filename": "FlameThrower_006.png",
+          "filename": "firethrower_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2425,7 +2404,28 @@
           }
         },
         {
-          "filename": "Gun_Shot_004.png",
+          "filename": "firethrower_006.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 1152,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "gun_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2446,7 +2446,7 @@
           }
         },
         {
-          "filename": "Knife_006.png",
+          "filename": "knife_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2467,7 +2467,7 @@
           }
         },
         {
-          "filename": "Knife_007.png",
+          "filename": "knife_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2488,7 +2488,7 @@
           }
         },
         {
-          "filename": "Riffle_008.png",
+          "filename": "rifle_008.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
