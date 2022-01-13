@@ -18,13 +18,14 @@ export const HeaderStyle = styled.div`
   flex: 5;
   // animation: ${changeHeightTop} 4s linear;
   min-height: 80px;
-  background-image: url('./assets/registration-form/bg-line2.png'),
-    url('./assets/registration-form/left-triangle2.png'),
-    url('./assets/registration-form/right-triangle2.png');
-  background-position-x: 33px, -0.1%, 100.1%;
-  background-position-y: 100%, 100.4%, 100.4%;
+  background-image: url('./assets/game/ui/element_0048_Layer-50.png'),
+    url('./assets/game/ui/element_0041_Layer-43.png'),
+    url('./assets/game/ui/element_0038_Layer-40.png'),
+    url('./assets/game/ui/element_0104_Layer-106.png');
+  background-position-x: 33px, -0.1%, 100.1%, 50%;
+  background-position-y: 100%, 102.4%, 102.4%, 102.4%;
   background-repeat: no-repeat;
-  background-size: calc(100% - 66px) 7px, 35px 18px, 35px 18px;
+  background-size: calc(100% - 66px) 9px, 49px 20px, 49px 20px, 680px 66px;
 `;
 
 export const FooterStyle = styled.div`
@@ -32,27 +33,11 @@ export const FooterStyle = styled.div`
   width: 100%;
   flex: 5;
   z-index: 1;
-  background-image: url('./assets/registration-form/bg-line2.png');
-  background-position-x: 0;
+  background-image: url('./assets/game/ui/element_0109_Layer-111.png');
+  background-repeat: no-repeat;
+  background-position-x: 50%;
   background-position-y: 0;
-  background-repeat: no-repeat;
-  background-size: 100% 9px;
-`;
-
-export const FooterWrapperStyle = styled.div`
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background-image: url('./assets/registration-form/top-triangle-left.png'),
-    url('./assets/registration-form/top-triangle-right.png');
-  background-position-x: 0%, 100%;
-  background-position-y: 9px, 9px;
-  background-repeat: no-repeat;
-  background-size: 35px 18px, 35px 18px;
+  background-size: 564px 40px;
 `;
 
 export const RegistrationWrapperStyle = styled.div`

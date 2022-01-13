@@ -1,7 +1,6 @@
 import {
   MainStyle,
   ContainerStyle,
-  ButtonContainerStyle,
   RegistrationWrapperStyle,
 } from './registration.style';
 import FormRegistration from '../formRegistration/FormRegistration';
@@ -14,9 +13,6 @@ const Registration = () => {
           <FormRegistration />
         </RegistrationWrapperStyle>
       </ContainerStyle>
-      <ButtonContainerStyle>
-        <div>Наши Гитхабы</div>
-      </ButtonContainerStyle>
     </MainStyle>
   );
 };

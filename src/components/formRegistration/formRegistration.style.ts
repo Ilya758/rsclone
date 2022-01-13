@@ -35,14 +35,14 @@ export const WrapperStyle = styled.form`
   align-items: center;
   animation: ${showForm} 2.2s linear;
   box-sizing: border-box;
-  color: white;
+  color: black;
 `;
 
 export const HeaderStyle = styled.h1`
   padding: 0px;
   font-size: 18px;
   margin: 0px;
-  color: white;
+  color: black;
 `;
 
 export const FormRegistrationStyle = styled.div<IGenericRegistration>`
@@ -55,12 +55,12 @@ export const FormRegistrationStyle = styled.div<IGenericRegistration>`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-  background-image: url('./assets/registration-form/form.png'),
+  border-radius: 35px;
+  background-image: url('./assets/game/ui/element_0081_Layer-83.png'),
+    url('./assets/game/ui/element_0082_Layer-84.png'),
     url('./assets/svg/form-bg.svg');
   background-repeat: no-repeat;
-  background-size: 100% 100%, 93% 88%;
-  background-position-x: 50%;
-  background-position-y: 50%;
+  background-size: 30px 100%, 30px 100%, 100% 100%;
+  background-position-x: 0%, 100%;
+  background-position-y: 50%, 50%;
 `;
