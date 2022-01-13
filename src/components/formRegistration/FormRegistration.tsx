@@ -23,7 +23,6 @@ function FormRegistration() {
 
   useEffect(() => {
     const isAuth = tokenValidation(state.token);
-    console.log(state);
     setAuth(isAuth);
   }, [state]);
 
@@ -55,7 +54,7 @@ function FormRegistration() {
               value={login}
               width="204px"
               height="30px"
-              backgroundImage="./assets/svg/text-field.svg"
+              backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
             />
             <Input
               callback={onChange(setPassword)}
@@ -67,7 +66,7 @@ function FormRegistration() {
               value={password}
               width="204px"
               height="30px"
-              backgroundImage="./assets/svg/text-field.svg"
+              backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
             />
             <RegistrationButton
               onClick={e => submitHandler(e)}
