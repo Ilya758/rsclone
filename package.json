@@ -22,7 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint src/**/* --fix --max-warnings=0",
+    "lint": "eslint src/**/* --fix --max-warnings=10",
     "prettier": "prettier --write src/**/*",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
