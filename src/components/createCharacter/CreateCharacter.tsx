@@ -93,6 +93,16 @@ function CreateCharacter() {
       >
         <h1>GAME</h1>
       </Link>
+      <Link
+        onClick={() => {
+          dispatch(setStoreCharacter(character));
+          dispatch(storeCharacter(character));
+          console.log(char);
+        }}
+        to="/multiplayer"
+      >
+        <h1>ARENA</h1>
+      </Link>
       <BGWrapperStyle width={'122px'} height={'100%'}>
         <BackgroundStyle
           background={`./assets/images/bg-manikins/${character.background}`}
