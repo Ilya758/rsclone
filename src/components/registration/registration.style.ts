@@ -23,20 +23,6 @@ opacity: 0;
   }
 `;
 
-const showButtonsContainer = keyframes`
-  0% {
-opacity: 0;
-  }
-  80% {
-    opacity: 0;
-    bottom: -55px;
-  }
-  100% {
-    opacity: 1;
-    bottom: -65px;
-  }
-`;
-
 const showButtons = keyframes`
   0% {
 opacity: 0;
@@ -64,36 +50,20 @@ export const MainStyle = styled.div`
     content: '';
     animation: ${showHeader} 2s linear;
     position: absolute;
-    top: -65px;
+    top: -80px;
     z-index: 10;
     left: calc(50% - 300px);
     display: block;
     width: 601px;
     height: 100px;
-    background-image: url('./assets/registration-form/header-styled.png'),
-      url('./assets/registration-form/bg-header-styled.png');
-    background-size: 601px 99px, 600px 90px;
+    background-image: url('./assets/game/ui/element_0000_Layer-2.png');
+    background-size: 601px 99px;
+    background-repeat: no-repeat;
     font: 500 40px Arial, sans-serif;
     color: #fff;
     content: 'CloneZero';
     line-height: 100px;
     text-align: center;
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: 5;
-    left: calc(50% - 293px);
-    bottom: -65px;
-    width: 587px;
-    height: 68px;
-    animation: ${showButtonsContainer} 2s linear;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-image: url('./assets/registration-form/bottom-button.png');
-    background-repeat: no-repeat;
-    background-size: cover;
   }
 `;
 
@@ -139,16 +109,4 @@ export const ButtonWrapperStyle = styled.button`
   &:hover {
     color: blue;
   }
-`;
-
-export const ButtonContainerStyle = styled.div`
-  width: 300px;
-  position: absolute;
-  z-index: 10;
-  bottom: -55px;
-  left: calc(50% - 150px);
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;
