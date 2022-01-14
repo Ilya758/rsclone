@@ -43,12 +43,11 @@ function FormRegistration() {
       {!auth ? (
         <FormRegistrationStyle width={'300px'} height={'260px'}>
           <WrapperStyle>
-            <HeaderStyle>Enter to the CloneZero!</HeaderStyle>
+            <HeaderStyle>Enter to the Clone Zero!</HeaderStyle>
             <Input
               callback={onChange(setLogin)}
               type="text"
               text="Login"
-              labelText="Login"
               placeholder="Enter login"
               id="login"
               value={login}
@@ -60,7 +59,6 @@ function FormRegistration() {
               callback={onChange(setPassword)}
               type="password"
               text="Password"
-              labelText="Password"
               placeholder="Enter password"
               id="password"
               value={password}
@@ -85,7 +83,7 @@ function FormRegistration() {
           </WrapperStyle>
         </FormRegistrationStyle>
       ) : (
-        <FormRegistrationStyle width={'600px'} height={'300px'}>
+        <FormRegistrationStyle width={'500px'} height={'300px'}>
           <WrapperStyle>
             <CreateCharacter />
           </WrapperStyle>
