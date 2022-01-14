@@ -9,4 +9,9 @@ interface IUserInteractiveButtons {
   down: Phaser.Input.Keyboard.Key;
   up: Phaser.Input.Keyboard.Key;
   mouseButtons: Phaser.Input.Pointer;
+  one: Phaser.Input.Keyboard.Key;
+  two: Phaser.Input.Keyboard.Key;
+  three: Phaser.Input.Keyboard.Key;
+  four: Phaser.Input.Keyboard.Key;
+  five: Phaser.Input.Keyboard.Key;
 }

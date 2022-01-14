@@ -36,6 +36,11 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('floor', './assets/game/tiles/floor.png');
     this.load.image('walls', './assets/game/tiles/walls.png');
     this.load.image('other', './assets/game/tiles/other.png');
+    this.load.image('gun', './assets/game/items/gun.png');
+    this.load.image('rifle', './assets/game/items/rifle.png');
+    this.load.image('bat', './assets/game/items/bat.png');
+    this.load.image('firethrower', './assets/game/items/firethrower.png');
+    this.load.image('knife', './assets/game/items/knife.png');
     this.load.image('furniture', './assets/game/tiles/furniture.png');
     this.load.image('other2', './assets/game/tiles/other2.png');
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
@@ -50,7 +55,11 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.json'
     );
     this.load.image('bullet', './assets/game/bullet1.png');
-
+    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
+    this.load.image(
+      'active-item',
+      './assets/game/ui/element_0017_Layer-19.png'
+    );
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
@@ -161,6 +170,7 @@ export default class Dungeon extends Phaser.Scene {
     // appending scene PersonUI
 
     this.personUi = new PersonUI(this, this.person as Person);
+
     this.scene.add('person-ui', this.personUi as unknown as Scene);
     this.physics.add.collider(
       this.zombie,
@@ -173,6 +183,7 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       )
     );
+    this.scene.run('person-ui');
   }
 
   update(time?: number): void {
@@ -222,7 +233,8 @@ export default class Dungeon extends Phaser.Scene {
         createUserKeys(this.input),
         time,
         this.bullets,
-        this.personWalkSound
+        this.personWalkSound,
+        this.personUi
       );
     }
 
