@@ -17,8 +17,7 @@ export default class Zombie extends Enemy {
     y: number,
     texture: string,
     frame?: string | number
-  ) {
-    super(scene, x, y, texture, frame);
+  ) {    super(scene, x, y, texture, frame);
     this._hp = 150;
     this._speed = 50;
     this._damage = 10;
