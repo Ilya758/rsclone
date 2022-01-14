@@ -2,10 +2,6 @@ import Phaser from 'phaser';
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
   anims.create({
-    key: 'left',
-    frames: [{ key: 'person', frame: '.png' }],
-  });
-  anims.create({
     key: 'idle_riffle',
     frames: anims.generateFrameNames('person', {
       start: 0,
