@@ -14,19 +14,18 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private _hp: number;
 
-  public mouseX = 0;
-  
-  public mouseY = 0;
+  private mouseX = 0;
+
+  private mouseY = 0;
 
   private lastFired = 0;
 
   private isDown = false;
 
   public hpBar: PersonHealthBar;
-  
-  public playerId: string | undefined;
 
   public currentWeapon = 'knife';
+  playerId: string | undefined;
 
   constructor(
     scene: Phaser.Scene,
@@ -223,6 +222,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
       if (bullet) {
         bullet.callFireMethod(this.mouseX, this.mouseY, this.x, this.y);
+
         this.lastFired = time + 100;
       }
 

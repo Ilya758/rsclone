@@ -20,7 +20,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   set damage(value) {
     this._damage = value;
   }
-
+  
   get speed() {
     return this._speed;
   }
@@ -32,7 +32,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   get hp() {
     return this._hp;
   }
-  
+
   update(): void {
     this.hpBar.update();
   }
@@ -45,6 +45,10 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (!this.isDead) {
+      if (
+        Phaser.Math.Distance.BetweenPoints(this, person) < 200 &&
+        Phaser.Math.Distance.BetweenPoints(this, person) > 60
+      ) {
         if (this.scene) {
           scene.physics.moveToObject(this, person, this.speed);
           this.setRotation(
@@ -52,7 +56,8 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
               Math.PI / 2
           );
           this.anims.play('walk', true);
-        } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
+        }
+      } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
         scene.physics.moveToObject(this, person, this.speed);
         this.setRotation(
           Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +

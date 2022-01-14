@@ -9,7 +9,7 @@ import '../enemies/Zombie';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import debugGraphicsDraw from '../../../utils/debug';
-import io, { Socket } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 export interface IPlayer {
   x: number,
@@ -23,15 +23,15 @@ export interface IPlayers {[index: string]: IPlayer}
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
-  
+
   protected person: Phaser.Physics.Arcade.Sprite | null;
-  
+
   private zombie: Phaser.Physics.Arcade.Sprite | null;
-  
+
   private bullets: Phaser.GameObjects.Group | null;
-  
+
   private personWalkSound: Phaser.Sound.BaseSound | null;
-  
+
   private personRifleSound: Phaser.Sound.BaseSound | null;
   private socket: Socket | undefined;
   private otherPlayers: Phaser.GameObjects.Group | undefined;
@@ -39,7 +39,7 @@ export default class Dungeon extends Phaser.Scene {
   private hp: number;
   private speed: number;
   private damage: number;
-  
+
   constructor() {
     super('dungeon');
     this.person = null;
@@ -51,7 +51,7 @@ export default class Dungeon extends Phaser.Scene {
     this.damage = 10;
     this.personWalkSound = this.personRifleSound = null;
   }
-  
+
   preload() {
     this.load.image('floor', './assets/game/tiles/floor.png');
     this.load.image('walls', './assets/game/tiles/walls.png');
@@ -75,18 +75,18 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.json'
     );
     this.load.image('bullet', './assets/game/bullet1.png');
-    
+
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
-  
+
   handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
     if (!this.zombie || !this.person) {
       throw new Error('There are no person or zombie ');
     }
     this.physics.add.collider([this.zombie, this.person], targetsArray);
   }
-  
+
   create() {
     this.socket = io("https://rscloneback.herokuapp.com/");
     console.log(this.socket)
@@ -103,14 +103,14 @@ export default class Dungeon extends Phaser.Scene {
         }
       });
     });
-    
+
     this.socket.on('newPlayer', (playerInfo: IPlayer) => {
       const otherPerson: Person = this.add.person(playerInfo.x, playerInfo.y, 'person');
       otherPerson.playerId = playerInfo.playerId;
       otherPerson.anims.play('idle_riffle');
       if(this.otherPlayers) this.otherPlayers.add(otherPerson);
     });
-    
+
     this.socket.on('discon', (playerId: string) => {
       if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
         if (playerId === (otherPlayer as Person).playerId) {
@@ -118,85 +118,85 @@ export default class Dungeon extends Phaser.Scene {
         }
       });
     });
-    
+
     this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
     createCharacterAnims(this.anims);
     createZombieAnims(this.anims);
-    
+
     // create map
-    
+
     const map = this.make.tilemap({
       key: 'main',
     });
-    
+
     // added tilesets
-    
+
     const tileset = map.addTilesetImage('floor');
     const tilesetWalls = map.addTilesetImage('walls');
     const tilesetFurniture = map.addTilesetImage('furniture');
     const tilesetTech = map.addTilesetImage('tech');
-    
+
     // create layer
-    
+
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
     const walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
     map.createLayer('shadow', [tilesetTech], 0, 0);
     const assets = map.createLayer('assets', [ tilesetFurniture, tilesetTech], 0, 0);
     // create collision
-    
+
     ground.setCollisionByProperty({ collides: true });
     walls.setCollisionByProperty({ collides: true });
     assets.setCollisionByProperty({ collides: true });
     debugGraphicsDraw(walls, this);
     debugGraphicsDraw(assets, this);
-    
+
     // person and enemies initialization
-    
+
     this.person = this.add.person(225, 1355, 'person');
     this.zombie = this.add.zombie(570, 190, 'zombie');
     this.cameras.main.startFollow(this.person, true);
-    
+
     // creating the sounds
-    
+
     this.personWalkSound = this.sound.add('person-walk', {
       volume: 0.5,
     });
-    
+
     this.personRifleSound = this.sound.add('rifle-shot', {
       volume: 0.8,
       loop: true,
     });
-    
+
     // TODO: creating bullets need to be generalized or smth the same
-    
+
     this.bullets = this.physics.add.group({
       classType: Bullet,
       maxSize: 30,
       runChildUpdate: true,
     });
-    
+
     // add collision between game objects
     this.handleCollides([walls, assets]);
-    
+
     this.physics.add.collider(
       this.bullets,
       walls,
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
-    
+
     this.physics.add.collider(
       this.bullets,
       this.zombie,
       Bullet.handleBulletAndEnemyCollision.bind(this)
     );
-    
+
     (this.person as Person).createRotationAndAttacking(
       this,
       this.personRifleSound
     );
-    
+
     // appending scene PersonUI
-    
+
     this.personUi = new PersonUI(this, this.person as Person);
     this.scene.add('person-ui', this.personUi as unknown as Scene);
     this.physics.add.collider(
@@ -210,7 +210,7 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       )
     );
-    
+
     this.socket.on('playerMoved', (playerInfo: IPlayer) => {
       if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
         if (playerInfo.playerId === (otherPlayer as Person).playerId) {
@@ -219,52 +219,52 @@ export default class Dungeon extends Phaser.Scene {
         }
       });
     });
-    
+
     this.socket.on('enemyInteraction', (enemyInfo) => {
       this.zombie?.setRotation(enemyInfo.rotation);
       this.zombie?.setPosition(enemyInfo.x, enemyInfo.y);
       (this.zombie as Zombie).hpBar.setValue(enemyInfo.hp)
     });
-  
+
     this.socket.on('firing', (playerInfo: IPlayer) => {
       if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
         if (playerInfo.playerId === (otherPlayer as Person).playerId) {
           if(playerInfo.firing) {
-            (otherPlayer as Person).anims.play('riffle');
+            (otherPlayer as Person).anims.play('rifle');
           }
           if(!playerInfo.firing) {
-            (otherPlayer as Person).anims.play('idle_riffle');
+            (otherPlayer as Person).anims.play('idle_rifle');
           }
         }
       });
     });
-  
-  
+
+
     this.input.on('pointerdown', () => {
       if(this.socket) this.socket.emit('firing', { status: true });
     });
-  
+
     this.input.on('pointerup', () => {
       if(this.socket) this.socket.emit('firing', { status: false });
     });
 
   }
-  
+
   update(time?: number): void {
 
     // TODO: update all
-    
+
     if (!this.personUi) {
       throw new Error("PersonUI isn't found");
     }
-    
+
     (this.person as Person).selfHealing(this);
     this.zombie?.update();
-    
+
     if (this.zombie === null || this.person === null) {
       throw new Error();
     }
-    
+
     if (!this.zombie?.scene) {
       this.zombie = this.add.zombie(
         Math.random() * 1300 + 88,
@@ -277,8 +277,8 @@ export default class Dungeon extends Phaser.Scene {
       (this.zombie as Zombie).damage = this.damage;
       (this.zombie as Zombie).speed = this.speed;
       (this.zombie as Zombie).hpBar.setValue(this.hp)
-      
-      
+
+
       this.physics.add.collider(
         this.zombie,
         this.person,
@@ -290,18 +290,18 @@ export default class Dungeon extends Phaser.Scene {
           this.personUi
         )
       );
-      
+
       if (this.bullets === null) {
         throw new Error('No bullets');
       }
-      
+
       this.physics.add.collider(
         this.bullets,
         this.zombie,
         Bullet.handleBulletAndEnemyCollision.bind(this)
       );
     }
-    
+
     if (this.person) {
       this.person.update(
         createUserKeys(this.input),
