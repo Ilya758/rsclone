@@ -47,7 +47,7 @@ export const MainStyle = styled.div`
   background-position: 50%;
   background-size: cover;
   &::before {
-    content: '';
+    content: 'Clone Zero';
     animation: ${showHeader} 2s linear;
     position: absolute;
     top: -80px;
@@ -59,9 +59,8 @@ export const MainStyle = styled.div`
     background-image: url('./assets/game/ui/element_0000_Layer-2.png');
     background-size: 601px 99px;
     background-repeat: no-repeat;
-    font: 500 40px Arial, sans-serif;
-    color: #fff;
-    content: 'CloneZero';
+    font: 700 44px 'Orbitron', sans-serif;
+    color: rgb(15, 4, 82);
     line-height: 100px;
     text-align: center;
   }
