@@ -27,9 +27,12 @@ export const ButtonStyle = styled.button`
   background-position-y: 50%;
   background-repeat: no-repeat;
   background-size: cover, 60%;
+  color: rgb(15, 4, 82);
+  font: 600 16px 'Orbitron', sans-serif;
   cursor: pointer;
   outline: none;
   &:hover {
-    color: blue;
+    color: rgb(115, 4, 82);
+    font-weight: 700;
   }
 `;
