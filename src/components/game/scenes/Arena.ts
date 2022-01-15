@@ -90,8 +90,7 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   create() {
-    this.socket = io('ws://localhost:5000');
-    // this.socket = io('https://rscloneback.herokuapp.com/');
+    this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', (players: IPlayers) => {
       Object.keys(players).forEach(id => {
