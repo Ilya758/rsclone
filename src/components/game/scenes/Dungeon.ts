@@ -3,16 +3,9 @@ import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
-//import ArmyZombie from '../enemies/ArmyZombie';
-//import FemaleZombie from '../enemies/FemaleZombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
 import '../enemies/Zombie';
-import '../enemies/ZombieBrunet';
-import '../enemies/ArmyZombie';
-import '../enemies/PoliceZombie';
-import '../enemies/FemaleZombie';
-import '../enemies/FemaleZombieBrunet';
 import '../enemies/HandBoss';
 import '../enemies/ClawBoss';
 import '../enemies/MegaBoss';
@@ -65,7 +58,7 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.json'
     );
     this.load.atlas(
-      'zombieBrunet',
+      'athlete',
       './assets/game/enemies/man2.png',
       './assets/game/enemies/man2.json'
     );
@@ -160,7 +153,7 @@ export default class Dungeon extends Phaser.Scene {
     // person and enemies initialization
 
     this.person = this.add.person(440, 440, 'person');
-    this.zombie = this.add.zombie(360, 360, 'Zombie');
+    this.zombie = this.add.zombie(360, 360, 'zombie');
 
     this.cameras.main.startFollow(this.person, true);
 
