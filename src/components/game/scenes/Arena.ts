@@ -9,17 +9,19 @@ import '../enemies/Zombie';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import debugGraphicsDraw from '../../../utils/debug';
-import { io, Socket } from "socket.io-client";
+import { io, Socket } from 'socket.io-client';
 
 export interface IPlayer {
-  x: number,
-  y: number,
-  rotation: number,
-  playerId: string,
-  firing: boolean
+  x: number;
+  y: number;
+  rotation: number;
+  playerId: string;
+  firing: boolean;
 }
 
-export interface IPlayers {[index: string]: IPlayer}
+export interface IPlayers {
+  [index: string]: IPlayer;
+}
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -35,7 +37,7 @@ export default class Dungeon extends Phaser.Scene {
   private personRifleSound: Phaser.Sound.BaseSound | null;
   private socket: Socket | undefined;
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-  private oldPosition: { rotation: number; x: number; y: number; } | undefined;
+  private oldPosition: { rotation: number; x: number; y: number } | undefined;
   private hp: number;
   private speed: number;
   private damage: number;
@@ -88,35 +90,43 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   create() {
-    this.socket = io("https://rscloneback.herokuapp.com/");
-    console.log(this.socket)
+    this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', (players: IPlayers) => {
-      Object.keys(players).forEach((id) => {
+      Object.keys(players).forEach(id => {
         if (this.socket && players[id].playerId === this.socket.id) {
-          console.log(players)
+          console.log(players);
         } else {
-          const otherPerson = this.add.person(players[id].x, players[id].y, 'person');
+          const otherPerson = this.add.person(
+            players[id].x,
+            players[id].y,
+            'person'
+          );
           otherPerson.playerId = players[id].playerId;
-          if(this.otherPlayers) this.otherPlayers.add(otherPerson);
+          if (this.otherPlayers) this.otherPlayers.add(otherPerson);
           otherPerson.anims.play('idle_riffle');
         }
       });
     });
 
     this.socket.on('newPlayer', (playerInfo: IPlayer) => {
-      const otherPerson: Person = this.add.person(playerInfo.x, playerInfo.y, 'person');
+      const otherPerson: Person = this.add.person(
+        playerInfo.x,
+        playerInfo.y,
+        'person'
+      );
       otherPerson.playerId = playerInfo.playerId;
       otherPerson.anims.play('idle_riffle');
-      if(this.otherPlayers) this.otherPlayers.add(otherPerson);
+      if (this.otherPlayers) this.otherPlayers.add(otherPerson);
     });
 
     this.socket.on('discon', (playerId: string) => {
-      if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
-        if (playerId === (otherPlayer as Person).playerId) {
-          otherPlayer.destroy();
-        }
-      });
+      if (this.otherPlayers)
+        this.otherPlayers.getChildren().forEach(otherPlayer => {
+          if (playerId === (otherPlayer as Person).playerId) {
+            otherPlayer.destroy();
+          }
+        });
     });
 
     this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
@@ -141,7 +151,12 @@ export default class Dungeon extends Phaser.Scene {
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
     const walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
     map.createLayer('shadow', [tilesetTech], 0, 0);
-    const assets = map.createLayer('assets', [ tilesetFurniture, tilesetTech], 0, 0);
+    const assets = map.createLayer(
+      'assets',
+      [tilesetFurniture, tilesetTech],
+      0,
+      0
+    );
     // create collision
 
     ground.setCollisionByProperty({ collides: true });
@@ -212,46 +227,47 @@ export default class Dungeon extends Phaser.Scene {
     );
 
     this.socket.on('playerMoved', (playerInfo: IPlayer) => {
-      if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
-        if (playerInfo.playerId === (otherPlayer as Person).playerId) {
-          (otherPlayer as Person).setRotation(playerInfo.rotation);
-          (otherPlayer as Person).setPosition(playerInfo.x, playerInfo.y);
-        }
-      });
+      if (this.otherPlayers)
+        this.otherPlayers.getChildren().forEach(otherPlayer => {
+          if (playerInfo.playerId === (otherPlayer as Person).playerId) {
+            (otherPlayer as Person).setRotation(playerInfo.rotation);
+            (otherPlayer as Person).setPosition(playerInfo.x, playerInfo.y);
+          }
+        });
     });
 
-    this.socket.on('enemyInteraction', (enemyInfo) => {
+    this.socket.on('enemyInteraction', enemyInfo => {
       this.zombie?.setRotation(enemyInfo.rotation);
       this.zombie?.setPosition(enemyInfo.x, enemyInfo.y);
-      (this.zombie as Zombie).hpBar.setValue(enemyInfo.hp)
+      (this.zombie as Zombie).hpBar.setValue(enemyInfo.hp);
     });
 
     this.socket.on('firing', (playerInfo: IPlayer) => {
-      if(this.otherPlayers) this.otherPlayers.getChildren().forEach((otherPlayer) => {
-        if (playerInfo.playerId === (otherPlayer as Person).playerId) {
-          if(playerInfo.firing) {
-            (otherPlayer as Person).anims.play('rifle');
+      if (this.otherPlayers)
+        this.otherPlayers.getChildren().forEach(otherPlayer => {
+          if (playerInfo.playerId === (otherPlayer as Person).playerId) {
+            if (playerInfo.firing) {
+              (otherPlayer as Person).anims.play('rifle');
+            }
+            if (!playerInfo.firing) {
+              (otherPlayer as Person).anims.play('idle_rifle');
+            }
           }
-          if(!playerInfo.firing) {
-            (otherPlayer as Person).anims.play('idle_rifle');
-          }
-        }
-      });
+        });
     });
 
-
     this.input.on('pointerdown', () => {
-      if(this.socket) this.socket.emit('firing', { status: true });
+      if (this.socket) this.socket.emit('firing', { status: true });
     });
 
     this.input.on('pointerup', () => {
-      if(this.socket) this.socket.emit('firing', { status: false });
+      if (this.socket) this.socket.emit('firing', { status: false });
     });
 
+    this.scene.run('person-ui');
   }
 
   update(time?: number): void {
-
     // TODO: update all
 
     if (!this.personUi) {
@@ -276,8 +292,7 @@ export default class Dungeon extends Phaser.Scene {
       this.damage += 1;
       (this.zombie as Zombie).damage = this.damage;
       (this.zombie as Zombie).speed = this.speed;
-      (this.zombie as Zombie).hpBar.setValue(this.hp)
-
+      (this.zombie as Zombie).hpBar.setValue(this.hp);
 
       this.physics.add.collider(
         this.zombie,
@@ -307,25 +322,44 @@ export default class Dungeon extends Phaser.Scene {
         createUserKeys(this.input),
         time,
         this.bullets,
-        this.personWalkSound
+        this.personWalkSound,
+        this.personUi
       );
     }
 
-    (this.zombie as Zombie).movingToPerson(<Person>this.physics.closest(this.zombie as Zombie), this);
+    (this.zombie as Zombie).movingToPerson(
+      <Person>this.physics.closest(this.zombie as Zombie),
+      this
+    );
     const x = this.person.x;
     const y = this.person.y;
-    const r = this.person.rotation
-    if (this.oldPosition && (x !== this.oldPosition.x || y !== this.oldPosition.y || r !== this.oldPosition.rotation)) {
-      if(this.socket) this.socket.emit('playerMovement', { x: this.person.x, y: this.person.y, rotation: this.person.rotation });
+    const r = this.person.rotation;
+    if (
+      this.oldPosition &&
+      (x !== this.oldPosition.x ||
+        y !== this.oldPosition.y ||
+        r !== this.oldPosition.rotation)
+    ) {
+      if (this.socket)
+        this.socket.emit('playerMovement', {
+          x: this.person.x,
+          y: this.person.y,
+          rotation: this.person.rotation,
+        });
     }
-    console.log('X: ' + this.person.x, 'Y: ' + this.person.y)
 
     // save old position data
     this.oldPosition = {
       x: this.person.x,
       y: this.person.y,
-      rotation: this.person.rotation
+      rotation: this.person.rotation,
     };
-    if(this.socket) this.socket.emit('enemyInteraction', {x: this.zombie.x, y: this.zombie.y, rotation: this.zombie.rotation, hp: (this.zombie as Zombie).hpBar.value});
+    if (this.socket)
+      this.socket.emit('enemyInteraction', {
+        x: this.zombie.x,
+        y: this.zombie.y,
+        rotation: this.zombie.rotation,
+        hp: (this.zombie as Zombie).hpBar.value,
+      });
   }
 }
