@@ -90,7 +90,8 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   create() {
-    this.socket = io('https://rscloneback.herokuapp.com/');
+    this.socket = io('ws://localhost:5000');
+    // this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', (players: IPlayers) => {
       Object.keys(players).forEach(id => {
@@ -168,7 +169,7 @@ export default class Dungeon extends Phaser.Scene {
     // person and enemies initialization
 
     this.person = this.add.person(225, 1355, 'person');
-    this.zombie = this.add.zombie(570, 190, 'zombie');
+    if (!this.zombie?.scene) this.zombie = this.add.zombie(570, 190, 'zombie');
     this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
@@ -239,7 +240,13 @@ export default class Dungeon extends Phaser.Scene {
     this.socket.on('enemyInteraction', enemyInfo => {
       this.zombie?.setRotation(enemyInfo.rotation);
       this.zombie?.setPosition(enemyInfo.x, enemyInfo.y);
-      (this.zombie as Zombie).hpBar.setValue(enemyInfo.hp);
+    });
+  
+    this.socket.on('enemyHp', value => {
+      (this.zombie as Zombie).hpBar.setValue(value);
+      if((this.zombie as Zombie).hpBar.value <= 0) {
+        (this.zombie as Zombie).kill();
+      }
     });
 
     this.socket.on('firing', (playerInfo: IPlayer) => {
@@ -269,6 +276,7 @@ export default class Dungeon extends Phaser.Scene {
 
   update(time?: number): void {
     // TODO: update all
+    
 
     if (!this.personUi) {
       throw new Error("PersonUI isn't found");
@@ -283,8 +291,8 @@ export default class Dungeon extends Phaser.Scene {
 
     if (!this.zombie?.scene) {
       this.zombie = this.add.zombie(
-        Math.random() * 1300 + 88,
-        Math.random() * 650 + 168,
+        700,
+        200,
         'zombie'
       );
       this.hp += 50;
@@ -334,6 +342,8 @@ export default class Dungeon extends Phaser.Scene {
     const x = this.person.x;
     const y = this.person.y;
     const r = this.person.rotation;
+    console.log(x)
+    console.log(y)
     if (
       this.oldPosition &&
       (x !== this.oldPosition.x ||
@@ -354,12 +364,16 @@ export default class Dungeon extends Phaser.Scene {
       y: this.person.y,
       rotation: this.person.rotation,
     };
-    if (this.socket)
+    if (this.socket) {
       this.socket.emit('enemyInteraction', {
         x: this.zombie.x,
         y: this.zombie.y,
         rotation: this.zombie.rotation,
-        hp: (this.zombie as Zombie).hpBar.value,
       });
+  
+      this.socket.emit('enemyHp', {
+        value: (this.zombie as Zombie).hpBar.value,
+      });
+    }
   }
 }
