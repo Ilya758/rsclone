@@ -42,6 +42,11 @@ export default abstract class HealthBar {
   appendToScene() {
     this.scene.add.existing(this.bar);
   }
+  
+  setValue(value: number) {
+    this._value = value;
+    this.draw();
+  }
 
   decrease(amount: number) {
     this._value -= amount; // every damage decreases hp

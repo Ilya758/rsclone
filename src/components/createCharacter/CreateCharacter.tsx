@@ -64,7 +64,7 @@ function CreateCharacter() {
         />
         <LinkButton
           text={'Arena'}
-          address={'/arena'}
+          address={'/multiplayer'}
           onClick={() => {
             console.log('arena');
           }}

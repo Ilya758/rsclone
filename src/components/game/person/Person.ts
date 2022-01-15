@@ -25,6 +25,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   public hpBar: PersonHealthBar;
 
   public currentWeapon = 'knife';
+  playerId: string | undefined;
 
   constructor(
     scene: Phaser.Scene,
