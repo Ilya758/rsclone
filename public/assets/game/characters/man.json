@@ -556,7 +556,49 @@
           }
         },
         {
+          "filename": "gun_005.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 640,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
           "filename": "gun_003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 768,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "gun_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2426,6 +2468,27 @@
         },
         {
           "filename": "gun_004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": {
+            "w": 128,
+            "h": 128
+          },
+          "spriteSourceSize": {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128
+          },
+          "frame": {
+            "x": 128,
+            "y": 384,
+            "w": 128,
+            "h": 128
+          }
+        },
+        {
+          "filename": "gun_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
