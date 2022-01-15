@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import ZombieHealthBar from '../ui-kit/health-bars/ZombieHealthBar';
 import Enemy from './abstract/Enemy';
 
-export default class Zombie extends Enemy {
+export default class ZombieBrunet extends Enemy {
   protected _speed: number;
 
   protected _damage: number;
@@ -27,7 +27,7 @@ export default class Zombie extends Enemy {
 }
 
 Phaser.GameObjects.GameObjectFactory.register(
-  'zombie',
+  'zombieBrunet',
   function (
     this: Phaser.GameObjects.GameObjectFactory,
     x: number,
@@ -35,7 +35,7 @@ Phaser.GameObjects.GameObjectFactory.register(
     texture: string,
     frame?: string | number
   ) {
-    const sprite = new Zombie(this.scene, x, y, texture, frame);
+    const sprite = new ZombieBrunet(this.scene, x, y, texture, frame);
 
     this.displayList.add(sprite);
     this.updateList.add(sprite);
@@ -46,9 +46,8 @@ Phaser.GameObjects.GameObjectFactory.register(
       sprite,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
-    // sprite.setOrigin(0.5, 0.65);
     sprite.setScale(0.5, 0.5);
-    sprite.body.setSize(50, 50);
+    sprite.body.setSize(60, 60);
     sprite.setOffset(15, 15);
     return sprite;
   }
