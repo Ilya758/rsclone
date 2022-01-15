@@ -25,6 +25,21 @@ const showForm = keyframes`
   }
 `;
 
+const textColor = keyframes`
+  0% {
+    color: rgb(15, 4, 82);
+  }
+  45% {
+    color: rgb(15, 4, 82);
+  }
+  75% {
+  color: rgb(115, 4, 82);
+  }
+  100% {
+    color: rgb(15, 4, 82);
+  }
+`;
+
 export const WrapperStyle = styled.form`
   width: 100%;
   height: 100%;
@@ -39,10 +54,12 @@ export const WrapperStyle = styled.form`
 `;
 
 export const HeaderStyle = styled.h1`
+  animation: ${textColor} 2s linear infinite;
+  font-family: 'Orbitron', sans-serif;
   padding: 0px;
   font-size: 18px;
   margin: 0px;
-  color: black;
+  color: rgb(15, 4, 82);
 `;
 
 export const FormRegistrationStyle = styled.div<IGenericRegistration>`

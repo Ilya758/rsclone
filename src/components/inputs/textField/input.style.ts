@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { IInputStyle } from './inputField.types';
 
 export const LabelStyle = styled.label<IInputStyle>`
+  font-family: 'Orbitron', sans-serif;
   width: ${props => props.width};
   padding-left: 10px;
   box-sizing: border-box;
@@ -10,6 +11,7 @@ export const LabelStyle = styled.label<IInputStyle>`
 `;
 
 export const InputStyle = styled.input<IInputStyle>`
+  font-family: 'Orbitron', sans-serif;
   outline: none;
   border: none;
   width: ${props => props.width};

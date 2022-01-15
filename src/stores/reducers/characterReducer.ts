@@ -6,7 +6,7 @@ import { BASE_ROUTE } from '../../constants/apiConstants';
 const initialState: ICharacterType = {
   name: '',
   userId: '',
-  background: 'bg-manikin1.jpg',
+  background: 'man.png',
   profession: 'stalker',
   city: 'moscow.jpg',
   coins: 100,

@@ -13,15 +13,20 @@ const showForm = keyframes`
   }
 `;
 
-export const LocationHeaderStyle = styled.div`
-  width: 100%;
+export const LinkWrapperStyle = styled.div`
+  position: relative;
+  width: 250px;
+  height: 150px;
+  left: -49px;
   box-sizing: border-box;
+  flex-direction: column;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const WrapperStyle = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   animation: ${showForm} 2.2s linear;
@@ -31,64 +36,41 @@ export const WrapperStyle = styled.div`
   justify-content: space-between;
 `;
 
-export const SettingsWrapperStyle = styled.div`
-  width: 200px;
-  height: 100%;
-  box-sizing: border-box;
+export const PaginationWrapperStyle = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  padding: 0px 5px;
-  background: rgba(95, 82, 65, 1);
-  border: 3px solid rgba(50, 39, 27, 1);
-  border-radius: 4px;
+  margin-top: 5px;
+  width: 128px;
+  justify-content: space-around;
 `;
 
-export const ButtonWrapperStyle = styled.div`
-  position: relative;
+export const BGWrapperStyle = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 170px;
-  height: 100%;
-  align-items: flex-start;
-  flex-direction: column;
-`;
-
-export const LabelStyle = styled.div`
   position: absolute;
-  top: 3px;
-  left: 0px;
-  width: 27px;
-  height: 14px;
+  right: 10px;
+  padding: 0px 20px;
   box-sizing: border-box;
-  background-image: url('./assets/images/small-icons/name.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-`;
-
-export const BGWrapperStyle = styled.div<IGenericButtonStyle>`
-  display: flex;
   justify-content: flex-start;
-  padding: ${props => props.padding};
-  margin: ${props => props.margin};
-  width: ${props => props.width};
-  height: ${props => props.height};
-  align-items: space-between;
+  width: 240px;
+  height: 100%;
+  align-items: center;
   align-content: space-between;
-  flex-wrap: wrap;
+  background: url('./assets/game/ui/element_0075_Layer-77.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  flex-direction: column;
 `;
 
 export const PaginationButtonStyle = styled.div<IGenericButtonStyle>`
-  width: 27px;
-  height: 14px;
+  width: 28px;
+  height: 34px;
   margin: ${props => props.margin};
   background-image: url(${props => props.background});
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
   :hover {
-    background-image: url(${props => props.backgroundHover});
+    transform: scale(1.05);
   }
 `;
 
@@ -106,18 +88,4 @@ export const BackgroundStyle = styled.div<IGenericButtonStyle>`
   justify-content: center;
   border: 3px solid rgba(50, 39, 27, 1);
   border-radius: 4px;
-`;
-
-export const CityLabelStyle = styled.div`
-  position: absolute;
-  bottom: 20px;
-`;
-
-export const ManikinStyle = styled.div`
-  width: 90%;
-  height: 90%;
-  background-image: url('../assets/images/manikin.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 50%;
 `;
