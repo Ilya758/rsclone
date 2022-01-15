@@ -65,7 +65,7 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.json'
     );
     this.load.atlas(
-      'zombieBrunet',
+      'athlete',
       './assets/game/enemies/man2.png',
       './assets/game/enemies/man2.json'
     );
@@ -160,7 +160,7 @@ export default class Dungeon extends Phaser.Scene {
     // person and enemies initialization
 
     this.person = this.add.person(440, 440, 'person');
-    this.zombie = this.add.zombie(360, 360, 'Zombie');
+    this.zombie = this.add.zombie(360, 360, 'zombie');
 
     this.cameras.main.startFollow(this.person, true);
 
