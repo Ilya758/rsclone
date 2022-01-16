@@ -190,10 +190,7 @@ export default class Dungeon extends Phaser.Scene {
       Bullet.handleBulletAndEnemyCollision.bind(this)
     );
 
-    (this.person as Person).createRotationAndAttacking(
-      this,
-      this.personRifleSound
-    );
+    (this.person as Person).createRotationAndAttacking(this, this.personRifleSound);
 
     // appending scene PersonUI
 

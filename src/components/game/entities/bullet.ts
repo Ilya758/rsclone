@@ -9,6 +9,8 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
   private lifespan = 0;
 
   private speed = 1000;
+  
+  private _damage = 10;
 
   private fire(x: number, y: number, personX: number, personY: number) {
     this.setTexture('bullet');
@@ -52,7 +54,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
   ) {
     const enemy = obj as Enemy;
     enemy.setTint(0xff0000);
-    enemy.hpBar.decrease(10);
+    enemy.hpBar.decrease(30);
     bullet.destroy(true);
 
     obj.scene.time.addEvent({
@@ -70,6 +72,10 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
 
   static handleBulletAndWallsCollision(bullet: Phaser.GameObjects.GameObject) {
     bullet.destroy();
+  }
+  
+  get damage() {
+    return this._damage
   }
 
   update(_: number, delta: number) {
