@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 const createZombieAnims = (
-  anims: Phaser.Animations.AnimationManager,
+  anims: Phaser.Animations.AnimationManager | Phaser.Animations.AnimationState,
   zombieType: string
 ) => {
   anims.create({

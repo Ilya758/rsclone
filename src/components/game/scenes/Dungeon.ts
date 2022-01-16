@@ -11,7 +11,8 @@ import '../enemies/ClawBoss';
 import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
-import debugGraphicsDraw from '../../../utils/debug';
+// import debugGraphicsDraw from '../../../utils/debug';
+import { ZOMBIES } from '../../../constants/zombies';
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -26,10 +27,15 @@ export default class Dungeon extends Phaser.Scene {
 
   private personRifleSound: Phaser.Sound.BaseSound | null;
 
+  private zombies: Phaser.Physics.Arcade.Group | null;
+
+  private tmpEnemyCount = 5;
+
   constructor() {
     super('dungeon');
     this.person = null;
     this.zombie = null;
+    this.zombies = null;
     this.bullets = null;
     this.personUi = null;
     this.personWalkSound = this.personRifleSound = null;
@@ -147,8 +153,8 @@ export default class Dungeon extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     walls2.setCollisionByProperty({ collides: true });
 
-    debugGraphicsDraw(walls, this);
-    debugGraphicsDraw(walls2, this);
+    // debugGraphicsDraw(walls, this);
+    // debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 
@@ -209,15 +215,83 @@ export default class Dungeon extends Phaser.Scene {
       )
     );
     this.scene.run('person-ui');
+
+    this.createGroupOfZombies();
+  }
+
+  createGroupOfZombies() {
+    if (!this.person && !this.bullets) {
+      throw new Error('Not found');
+    }
+
+    this.zombies = this.physics.add.group({
+      classType: Zombie,
+      maxSize: this.tmpEnemyCount,
+    });
+
+    function getCoord() {
+      return 500 + Math.random() * 300;
+    }
+
+    for (let i = 0; i < this.tmpEnemyCount; i += 1) {
+      const texture = Object.keys(ZOMBIES)[Math.floor(Math.random() * 5)];
+      const zombie = this.add.zombie(getCoord(), getCoord(), texture);
+
+      createZombieAnims(zombie.anims, texture);
+
+      this.zombies.add(zombie);
+
+      this.physics.add.collider(
+        this.bullets as Phaser.GameObjects.Group,
+        zombie,
+        Bullet.handleBulletAndEnemyCollision.bind(this)
+      );
+
+      this.physics.add.collider(
+        zombie,
+        this.person as Phaser.Physics.Arcade.Sprite,
+        () =>
+          (this.person as Person).handleEnemyDamage(
+            zombie,
+            this.person as Person,
+            this,
+            this.personUi as PersonUI
+          )
+      );
+    }
+
+    this.setCollisionBetweenZombies();
+
+    this.tmpEnemyCount += 1;
+  }
+
+  setCollisionBetweenZombies() {
+    const zombieArray = this.zombies?.children
+      .entries as Phaser.GameObjects.GameObject[];
+
+    for (let i = 0; i < zombieArray.length; i += 1) {
+      for (let j = 0; j <= zombieArray.length; j += 1) {
+        this.physics.add.collider(zombieArray[i], zombieArray[j]);
+      }
+    }
   }
 
   update(time?: number): void {
+    if (!this.zombies?.children.entries.length) {
+      this.createGroupOfZombies();
+    }
+
     if (!this.personUi) {
       throw new Error("PersonUI isn't found");
     }
 
     (this.person as Person).selfHealing(this);
     this.zombie?.update();
+
+    Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
+      zombie.update();
+      zombie.movingToPerson(this.person as Person, this);
+    });
 
     if (this.zombie === null || this.person === null) {
       throw new Error();
