@@ -42,7 +42,7 @@ export default abstract class HealthBar {
   appendToScene() {
     this.scene.add.existing(this.bar);
   }
-  
+
   setValue(value: number) {
     this._value = value;
     this.draw();
@@ -131,6 +131,7 @@ export default abstract class HealthBar {
     );
 
     this.bar.fillRect(this.x + 2, this.y + 2, delta, this.barHeight - 4);
+    this.bar.depth = 20;
   }
 
   get value() {
