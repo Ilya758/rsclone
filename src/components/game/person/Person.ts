@@ -62,10 +62,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       mouseY: pointer.worldY,
     };
   }
-
+  
   createRotationAndAttacking(
     scene: Phaser.Scene,
-    attackSound: Phaser.Sound.BaseSound
+    attackSound: Phaser.Sound.BaseSound | null
   ) {
     // if the person is dead, he cannot rotate/shoot
 
@@ -74,7 +74,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         this.isDown = true;
         this.handleFiring('rifle');
 
-        if (!attackSound.isPlaying) {
+        if (attackSound && !attackSound.isPlaying) {
           attackSound.play();
         }
       }
@@ -89,7 +89,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     scene.input.on('pointerup', () => {
       this.isDown = false;
-      attackSound.stop();
+      if(attackSound) attackSound.stop();
     });
   }
 
@@ -350,7 +350,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       personUi.hpBar.decrease(bullet.damage);
       person.setVelocity(0, 0)
   
-  
       scene.time.addEvent({
         delay: 500,
         callback: () => {
@@ -362,8 +361,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       if (personUi.hpBar.value === 0) {
         person.isDead = true;
       }
+      return personUi.hpBar.value
     }
-    
   }
 }
 

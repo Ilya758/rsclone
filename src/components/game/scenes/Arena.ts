@@ -32,19 +32,13 @@ export default class Dungeon extends Phaser.Scene {
   private personRifleSound: Phaser.Sound.BaseSound | null;
   private socket: Socket | undefined;
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-  private oldPosition: { rotation: number; x: number; y: number } | undefined;
-  private hp: number;
-  private speed: number;
-  private damage: number;
+  private spawn: ({x : number; y: number; })[] | undefined;
 
   constructor() {
     super('dungeon');
     this.person = null;
     this.bullets = null;
     this.personUi = null;
-    this.hp = 150;
-    this.speed = 50;
-    this.damage = 10;
     this.personWalkSound = this.personRifleSound = null;
   }
 
@@ -71,11 +65,31 @@ export default class Dungeon extends Phaser.Scene {
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
 
-  // handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
-  //   this.physics.add.collider([this.person], targetsArray);
-  // }
-
   create() {
+    this.spawn = [
+      { x: 120, y: 174 },
+      { x: 711, y: 483 },
+      { x: 1028, y: 173 },
+      { x: 1505, y: 173 },
+      { x: 1356, y: 529 },
+      { x: 834, y: 558 },
+      { x: 345, y: 611 },
+      { x: 98, y: 947 },
+      { x: 581, y: 934 },
+      { x: 903, y: 921 },
+      { x: 1498, y: 962 },
+      { x: 1498, y: 1224 },
+      { x: 1445, y: 1553 },
+      { x: 960, y: 1436 },
+      { x: 476, y: 1541 },
+      { x: 126, y: 1423 },
+      { x: 104, y: 1104 },
+      { x: 865, y: 1032 },
+      { x: 990, y: 644 },
+      { x: 717, y: 417 },
+    ];
+
+    
     // this.socket = io('ws://localhost:5000');
     this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
@@ -84,14 +98,19 @@ export default class Dungeon extends Phaser.Scene {
         if (this.socket && players[id].playerId === this.socket.id) {
           console.log(players);
         } else {
-          const otherPerson = this.add.person(
-            players[id].x,
-            players[id].y,
-            'person'
-          );
-          otherPerson.playerId = players[id].playerId;
-          if (this.otherPlayers) this.otherPlayers.add(otherPerson);
-          otherPerson.anims.play('idle_riffle');
+          let otherPerson;
+          if(this.spawn) {
+            const spawnPoint = Math.floor(Math.random() * this.spawn.length)
+            otherPerson = this.add.person(
+              this.spawn[spawnPoint].x,
+              this.spawn[spawnPoint].y,
+              'person'
+            );
+          } if(otherPerson) {
+            otherPerson.playerId = players[id].playerId;
+            (otherPerson as Person).anims.play('idle_rifle');
+            if (this.otherPlayers) this.otherPlayers.add(otherPerson);
+          }
         }
       });
     });
@@ -103,7 +122,7 @@ export default class Dungeon extends Phaser.Scene {
         'person'
       );
       otherPerson.playerId = playerInfo.playerId;
-      otherPerson.anims.play('idle_riffle');
+      otherPerson.anims.play('idle_rifle');
       if (this.otherPlayers) this.otherPlayers.add(otherPerson);
     });
 
@@ -152,8 +171,9 @@ export default class Dungeon extends Phaser.Scene {
     debugGraphicsDraw(assets, this);
 
     // person and enemies initialization
-
-    this.person = this.add.person(225, 1355, 'person');
+  
+    const spawnPoint = Math.floor(Math.random() * this.spawn.length)
+    this.person = this.add.person(this.spawn[spawnPoint].x, this.spawn[spawnPoint].y, 'person');
     this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
@@ -172,11 +192,7 @@ export default class Dungeon extends Phaser.Scene {
       maxSize: 10,
       runChildUpdate: true,
     });
-
-    // add collision between game objects
-    // handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
-    //   this.physics.add.collider([this.person], targetsArray);
-    // }
+    
     this.physics.add.collider(this.person, walls);
     this.physics.add.collider(this.person, assets);
 
@@ -190,19 +206,30 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.otherPlayers,
-      (arg1, arg2) => Person.handleBulletDamage(
-        arg1,
-        arg2,
-        this,
-        this.personUi
-      )
+      (arg1, arg2) => {
+        const resolvedHp = Person.handleBulletDamage(
+          arg1,
+          arg2,
+          this,
+          this.personUi,
+        )
+        arg1.destroy(true);
+        const data = arg2 as Person;
+        if (this.socket) {
+          this.socket.emit('playerMovement', {
+            x: data.x,
+            y: data.y,
+            rotation: data.rotation,
+          });
+          this.socket.emit('damaged', {
+            hp: resolvedHp
+          });
+        }
+      }
     );
     
 
-    (this.person as Person).createRotationAndAttacking(
-      this,
-      this.personRifleSound
-    );
+    (this.person as Person).createRotationAndAttacking(this, this.personRifleSound);
 
     // appending scene PersonUI
 
@@ -215,6 +242,23 @@ export default class Dungeon extends Phaser.Scene {
           if (playerInfo.playerId === (otherPlayer as Person).playerId) {
             (otherPlayer as Person).setRotation(playerInfo.rotation);
             (otherPlayer as Person).setPosition(playerInfo.x, playerInfo.y);
+          }
+        });
+    });
+  
+    this.socket.on('damaged', (playerInfo: any) => {
+      if (this.otherPlayers)
+        this.otherPlayers.getChildren().forEach(otherPlayer => {
+          if (playerInfo.playerId === (otherPlayer as Person).playerId) {
+            (otherPlayer as Person).hpBar.setValue(playerInfo.hp);
+            if((otherPlayer as Person).hpBar.value <= 0) {
+              this.person?.destroy(true);
+              //This is cringe, but works for now. Fix later.
+              if(this.socket) this.socket.emit('damaged', {
+                hp: 100
+              });
+              location.reload();
+            }
           }
         });
     });
@@ -246,13 +290,7 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    // TODO: update all
-    
-
-    if (!this.personUi) {
-      throw new Error("PersonUI isn't found");
-    }
-
+    if((this.person as Person).hpBar.value === 0) (this.person as Person).hpBar.setValue((this.person as Person).hp);
     (this.person as Person).selfHealing(this);
     
 
@@ -266,30 +304,12 @@ export default class Dungeon extends Phaser.Scene {
       );
     }
     if(this.person) {
-    
-    const x = this.person.x;
-    const y = this.person.y;
-    const r = this.person.rotation;
-    if (
-      this.oldPosition &&
-      (x !== this.oldPosition.x ||
-        y !== this.oldPosition.y ||
-        r !== this.oldPosition.rotation)
-    ) {
       if (this.socket)
         this.socket.emit('playerMovement', {
           x: this.person.x,
           y: this.person.y,
           rotation: this.person.rotation,
         });
-    }
-
-    // save old position data
-    this.oldPosition = {
-      x: this.person.x,
-      y: this.person.y,
-      rotation: this.person.rotation,
-    };
     }
   }
 }
