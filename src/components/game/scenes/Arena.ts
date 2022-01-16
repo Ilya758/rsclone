@@ -16,6 +16,11 @@ export interface IPlayer {
   firing: boolean;
 }
 
+interface IPlayerInfo {
+  hp: number,
+  playerId: string
+}
+
 export interface IPlayers {
   [index: string]: IPlayer;
 }
@@ -245,7 +250,8 @@ export default class Dungeon extends Phaser.Scene {
         });
     });
   
-    this.socket.on('damaged', (playerInfo: any) => {
+    this.socket.on('damaged', (playerInfo: IPlayerInfo) => {
+      console.log(playerInfo)
       if (this.otherPlayers)
         this.otherPlayers.getChildren().forEach(otherPlayer => {
           if (playerInfo.playerId === (otherPlayer as Person).playerId) {
