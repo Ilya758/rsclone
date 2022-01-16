@@ -13,18 +13,23 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
   public isDead = false;
 
+  public isShooted = {
+    state: false,
+    once: false,
+  };
+
   get damage() {
     return this._damage;
   }
-  
+
   set damage(value) {
     this._damage = value;
   }
-  
+
   get speed() {
     return this._speed;
   }
-  
+
   set speed(value) {
     this._speed = value;
   }
@@ -45,19 +50,20 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (!this.isDead) {
+      if (!this.isShooted.once && this.isShooted.state) {
+        this.isShooted.once = true;
+        this.speed *= 2;
+      }
+
+      scene.physics.moveToObject(this, person, this.speed);
+      this.setRotation(
+        Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
+          Math.PI / 2
+      );
+
       if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
-        scene.physics.moveToObject(this, person, this.speed);
-        this.setRotation(
-          Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
-            Math.PI / 2
-        );
         this.anims.play('kick', true);
       } else {
-        scene.physics.moveToObject(this, person, this.speed);
-        this.setRotation(
-          Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
-            Math.PI / 2
-        );
         this.anims.play('walk', true);
       }
     } else {

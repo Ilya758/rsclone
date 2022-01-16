@@ -51,6 +51,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     bullet: Phaser.GameObjects.GameObject
   ) {
     const enemy = obj as Enemy;
+    enemy.isShooted.state = true;
     enemy.setTint(0xff0000);
     enemy.hpBar.decrease(10);
     bullet.destroy(true);
