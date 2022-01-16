@@ -1,11 +1,8 @@
 import Phaser, { Scene } from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
-import { createZombieAnims } from '../anims/ZombieAnims';
-import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
-import '../enemies/Zombie';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import debugGraphicsDraw from '../../../utils/debug';
@@ -19,6 +16,11 @@ export interface IPlayer {
   firing: boolean;
 }
 
+interface IPlayerInfo {
+  hp: number,
+  playerId: string
+}
+
 export interface IPlayers {
   [index: string]: IPlayer;
 }
@@ -28,8 +30,6 @@ export default class Dungeon extends Phaser.Scene {
 
   protected person: Phaser.Physics.Arcade.Sprite | null;
 
-  private zombie: Phaser.Physics.Arcade.Sprite | null;
-
   private bullets: Phaser.GameObjects.Group | null;
 
   private personWalkSound: Phaser.Sound.BaseSound | null;
@@ -37,20 +37,13 @@ export default class Dungeon extends Phaser.Scene {
   private personRifleSound: Phaser.Sound.BaseSound | null;
   private socket: Socket | undefined;
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-  private oldPosition: { rotation: number; x: number; y: number } | undefined;
-  private hp: number;
-  private speed: number;
-  private damage: number;
+  private spawn: ({x : number; y: number; })[] | undefined;
 
   constructor() {
     super('dungeon');
     this.person = null;
-    this.zombie = null;
     this.bullets = null;
     this.personUi = null;
-    this.hp = 150;
-    this.speed = 50;
-    this.damage = 10;
     this.personWalkSound = this.personRifleSound = null;
   }
 
@@ -71,25 +64,38 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/characters/man.png',
       './assets/game/characters/man.json'
     );
-    this.load.atlas(
-      'zombie',
-      './assets/game/enemies/man1.png',
-      './assets/game/enemies/man1.json'
-    );
     this.load.image('bullet', './assets/game/bullet1.png');
 
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
 
-  handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
-    if (!this.zombie || !this.person) {
-      throw new Error('There are no person or zombie ');
-    }
-    this.physics.add.collider([this.zombie, this.person], targetsArray);
-  }
-
   create() {
+    this.spawn = [
+      { x: 120, y: 174 },
+      { x: 711, y: 483 },
+      { x: 1028, y: 173 },
+      { x: 1505, y: 173 },
+      { x: 1356, y: 529 },
+      { x: 834, y: 558 },
+      { x: 345, y: 611 },
+      { x: 98, y: 947 },
+      { x: 581, y: 934 },
+      { x: 903, y: 921 },
+      { x: 1498, y: 962 },
+      { x: 1498, y: 1224 },
+      { x: 1445, y: 1553 },
+      { x: 960, y: 1436 },
+      { x: 476, y: 1541 },
+      { x: 126, y: 1423 },
+      { x: 104, y: 1104 },
+      { x: 865, y: 1032 },
+      { x: 990, y: 644 },
+      { x: 717, y: 417 },
+    ];
+
+    
+    // this.socket = io('ws://localhost:5000');
     this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', (players: IPlayers) => {
@@ -97,14 +103,19 @@ export default class Dungeon extends Phaser.Scene {
         if (this.socket && players[id].playerId === this.socket.id) {
           console.log(players);
         } else {
-          const otherPerson = this.add.person(
-            players[id].x,
-            players[id].y,
-            'person'
-          );
-          otherPerson.playerId = players[id].playerId;
-          if (this.otherPlayers) this.otherPlayers.add(otherPerson);
-          otherPerson.anims.play('idle_riffle');
+          let otherPerson;
+          if(this.spawn) {
+            const spawnPoint = Math.floor(Math.random() * this.spawn.length)
+            otherPerson = this.add.person(
+              this.spawn[spawnPoint].x,
+              this.spawn[spawnPoint].y,
+              'person'
+            );
+          } if(otherPerson) {
+            otherPerson.playerId = players[id].playerId;
+            (otherPerson as Person).anims.play('idle_rifle');
+            if (this.otherPlayers) this.otherPlayers.add(otherPerson);
+          }
         }
       });
     });
@@ -116,7 +127,7 @@ export default class Dungeon extends Phaser.Scene {
         'person'
       );
       otherPerson.playerId = playerInfo.playerId;
-      otherPerson.anims.play('idle_riffle');
+      otherPerson.anims.play('idle_rifle');
       if (this.otherPlayers) this.otherPlayers.add(otherPerson);
     });
 
@@ -131,8 +142,6 @@ export default class Dungeon extends Phaser.Scene {
 
     this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
     createCharacterAnims(this.anims);
-    createZombieAnims(this.anims, 'zombie');
-
     // create map
 
     const map = this.make.tilemap({
@@ -166,9 +175,9 @@ export default class Dungeon extends Phaser.Scene {
     debugGraphicsDraw(assets, this);
 
     // person and enemies initialization
-
-    this.person = this.add.person(225, 1355, 'person');
-    this.zombie = this.add.zombie(570, 190, 'zombie');
+  
+    const spawnPoint = Math.floor(Math.random() * this.spawn.length)
+    this.person = this.add.person(this.spawn[spawnPoint].x, this.spawn[spawnPoint].y, 'person');
     this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
@@ -182,49 +191,54 @@ export default class Dungeon extends Phaser.Scene {
       loop: true,
     });
 
-    // TODO: creating bullets need to be generalized or smth the same
-
     this.bullets = this.physics.add.group({
       classType: Bullet,
-      maxSize: 30,
+      maxSize: 10,
       runChildUpdate: true,
     });
-
-    // add collision between game objects
-    this.handleCollides([walls, assets]);
+    
+    this.physics.add.collider(this.person, walls);
+    this.physics.add.collider(this.person, assets);
 
     this.physics.add.collider(
       this.bullets,
       walls,
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
+  
 
     this.physics.add.collider(
       this.bullets,
-      this.zombie,
-      Bullet.handleBulletAndEnemyCollision.bind(this)
+      this.otherPlayers,
+      (arg1, arg2) => {
+        const resolvedHp = Person.handleBulletDamage(
+          arg1,
+          arg2,
+          this,
+          this.personUi,
+        )
+        arg1.destroy(true);
+        const data = arg2 as Person;
+        if (this.socket) {
+          this.socket.emit('playerMovement', {
+            x: data.x,
+            y: data.y,
+            rotation: data.rotation,
+          });
+          this.socket.emit('damaged', {
+            hp: resolvedHp
+          });
+        }
+      }
     );
+    
 
-    (this.person as Person).createRotationAndAttacking(
-      this,
-      this.personRifleSound
-    );
+    (this.person as Person).createRotationAndAttacking(this, this.personRifleSound);
 
     // appending scene PersonUI
 
     this.personUi = new PersonUI(this, this.person as Person);
     this.scene.add('person-ui', this.personUi as unknown as Scene);
-    this.physics.add.collider(
-      this.zombie,
-      this.person,
-      (this.person as Person).handleEnemyDamage.bind(
-        this,
-        this.zombie,
-        this.person,
-        this,
-        this.personUi
-      )
-    );
 
     this.socket.on('playerMoved', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
@@ -235,12 +249,25 @@ export default class Dungeon extends Phaser.Scene {
           }
         });
     });
-
-    this.socket.on('enemyInteraction', enemyInfo => {
-      this.zombie?.setRotation(enemyInfo.rotation);
-      this.zombie?.setPosition(enemyInfo.x, enemyInfo.y);
-      (this.zombie as Zombie).hpBar.setValue(enemyInfo.hp);
+  
+    this.socket.on('damaged', (playerInfo: IPlayerInfo) => {
+      console.log(playerInfo)
+      if (this.otherPlayers)
+        this.otherPlayers.getChildren().forEach(otherPlayer => {
+          if (playerInfo.playerId === (otherPlayer as Person).playerId) {
+            (otherPlayer as Person).hpBar.setValue(playerInfo.hp);
+            if((otherPlayer as Person).hpBar.value <= 0) {
+              this.person?.destroy(true);
+              //This is cringe, but works for now. Fix later.
+              if(this.socket) this.socket.emit('damaged', {
+                hp: 100
+              });
+              location.reload();
+            }
+          }
+        });
     });
+    
 
     this.socket.on('firing', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
@@ -268,54 +295,9 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    // TODO: update all
-
-    if (!this.personUi) {
-      throw new Error("PersonUI isn't found");
-    }
-
+    if((this.person as Person).hpBar.value === 0) (this.person as Person).hpBar.setValue((this.person as Person).hp);
     (this.person as Person).selfHealing(this);
-    this.zombie?.update();
-
-    if (this.zombie === null || this.person === null) {
-      throw new Error();
-    }
-
-    if (!this.zombie?.scene) {
-      this.zombie = this.add.zombie(
-        Math.random() * 1300 + 88,
-        Math.random() * 650 + 168,
-        'zombie'
-      );
-      this.hp += 50;
-      this.speed += 10;
-      this.damage += 1;
-      (this.zombie as Zombie).damage = this.damage;
-      (this.zombie as Zombie).speed = this.speed;
-      (this.zombie as Zombie).hpBar.setValue(this.hp);
-
-      this.physics.add.collider(
-        this.zombie,
-        this.person,
-        (this.person as Person).handleEnemyDamage.bind(
-          this,
-          this.zombie,
-          this.person,
-          this,
-          this.personUi
-        )
-      );
-
-      if (this.bullets === null) {
-        throw new Error('No bullets');
-      }
-
-      this.physics.add.collider(
-        this.bullets,
-        this.zombie,
-        Bullet.handleBulletAndEnemyCollision.bind(this)
-      );
-    }
+    
 
     if (this.person) {
       this.person.update(
@@ -326,20 +308,7 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       );
     }
-
-    (this.zombie as Zombie).movingToPerson(
-      <Person>this.physics.closest(this.zombie as Zombie),
-      this
-    );
-    const x = this.person.x;
-    const y = this.person.y;
-    const r = this.person.rotation;
-    if (
-      this.oldPosition &&
-      (x !== this.oldPosition.x ||
-        y !== this.oldPosition.y ||
-        r !== this.oldPosition.rotation)
-    ) {
+    if(this.person) {
       if (this.socket)
         this.socket.emit('playerMovement', {
           x: this.person.x,
@@ -347,19 +316,5 @@ export default class Dungeon extends Phaser.Scene {
           rotation: this.person.rotation,
         });
     }
-
-    // save old position data
-    this.oldPosition = {
-      x: this.person.x,
-      y: this.person.y,
-      rotation: this.person.rotation,
-    };
-    if (this.socket)
-      this.socket.emit('enemyInteraction', {
-        x: this.zombie.x,
-        y: this.zombie.y,
-        rotation: this.zombie.rotation,
-        hp: (this.zombie as Zombie).hpBar.value,
-      });
   }
 }
