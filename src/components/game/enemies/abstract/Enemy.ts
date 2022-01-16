@@ -45,14 +45,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (!this.isDead) {
-        if (this.scene) {
-          scene.physics.moveToObject(this, person, this.speed);
-          this.setRotation(
-            Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
-              Math.PI / 2
-          );
-          this.anims.play('walk', true);
-        } else if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
+      if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
         scene.physics.moveToObject(this, person, this.speed);
         this.setRotation(
           Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
@@ -60,8 +53,12 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         );
         this.anims.play('kick', true);
       } else {
-        scene.physics.moveToObject(this, person, 0);
-        this.anims.play('stay', true);
+        scene.physics.moveToObject(this, person, this.speed);
+        this.setRotation(
+          Phaser.Math.Angle.Between(person.x, person.y, this.x, this.y) +
+            Math.PI / 2
+        );
+        this.anims.play('walk', true);
       }
     } else {
       this.setVelocity(0, 0);

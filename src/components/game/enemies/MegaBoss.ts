@@ -1,10 +1,8 @@
 import Phaser from 'phaser';
-import { ZOMBIES } from '../../../constants/zombies';
 import ZombieHealthBar from '../ui-kit/health-bars/ZombieHealthBar';
 import Enemy from './abstract/Enemy';
-import { IZombieChars } from './zombie.types';
 
-export default class Zombie extends Enemy {
+export default class MegaBoss extends Enemy {
   protected _speed: number;
 
   protected _damage: number;
@@ -13,24 +11,31 @@ export default class Zombie extends Enemy {
 
   public hpBar: ZombieHealthBar;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture);
-    this._hp = ZOMBIES[texture as keyof IZombieChars].hp;
-    this._speed = ZOMBIES[texture as keyof IZombieChars].speed;
-    this._damage = ZOMBIES[texture as keyof IZombieChars].damage;
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    texture: string,
+    frame?: string | number
+  ) {
+    super(scene, x, y, texture, frame);
+    this._hp = 1070;
+    this._speed = 50;
+    this._damage = 25;
     this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
   }
 }
 
 Phaser.GameObjects.GameObjectFactory.register(
-  'zombie',
+  'megaBoss',
   function (
     this: Phaser.GameObjects.GameObjectFactory,
     x: number,
     y: number,
-    texture: string
+    texture: string,
+    frame?: string | number
   ) {
-    const sprite = new Zombie(this.scene, x, y, texture);
+    const sprite = new MegaBoss(this.scene, x, y, texture, frame);
 
     this.displayList.add(sprite);
     this.updateList.add(sprite);
@@ -42,7 +47,7 @@ Phaser.GameObjects.GameObjectFactory.register(
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
     sprite.setScale(0.5, 0.5);
-    sprite.body.setSize(50, 50);
+    sprite.body.setSize(60, 60);
     sprite.setOffset(15, 15);
     return sprite;
   }

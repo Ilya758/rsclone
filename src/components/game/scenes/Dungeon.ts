@@ -6,6 +6,9 @@ import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import '../person/Person';
 import '../enemies/Zombie';
+import '../enemies/HandBoss';
+import '../enemies/ClawBoss';
+import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import debugGraphicsDraw from '../../../utils/debug';
@@ -54,6 +57,31 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/enemies/man1.png',
       './assets/game/enemies/man1.json'
     );
+    this.load.atlas(
+      'athlete',
+      './assets/game/enemies/man2.png',
+      './assets/game/enemies/man2.json'
+    );
+    this.load.atlas(
+      'armyZombie',
+      './assets/game/enemies/army1.png',
+      './assets/game/enemies/army1.json'
+    );
+    this.load.atlas(
+      'femaleZombie',
+      './assets/game/enemies/woman1.png',
+      './assets/game/enemies/woman1.json'
+    );
+    this.load.atlas(
+      'femaleZombieBrunet',
+      './assets/game/enemies/woman2.png',
+      './assets/game/enemies/woman2.json'
+    );
+    this.load.atlas(
+      'policeZombie',
+      './assets/game/enemies/police1.png',
+      './assets/game/enemies/police1.json'
+    );
     this.load.image('bullet', './assets/game/bullet1.png');
     this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
     this.load.image(
@@ -74,7 +102,7 @@ export default class Dungeon extends Phaser.Scene {
   create() {
     this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
     createCharacterAnims(this.anims);
-    createZombieAnims(this.anims);
+    createZombieAnims(this.anims, 'zombie');
 
     // create map
 
