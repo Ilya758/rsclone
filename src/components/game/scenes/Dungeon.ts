@@ -11,7 +11,7 @@ import '../enemies/ClawBoss';
 import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
-import debugGraphicsDraw from '../../../utils/debug';
+// import debugGraphicsDraw from '../../../utils/debug';
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -147,8 +147,8 @@ export default class Dungeon extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     walls2.setCollisionByProperty({ collides: true });
 
-    debugGraphicsDraw(walls, this);
-    debugGraphicsDraw(walls2, this);
+    // debugGraphicsDraw(walls, this);
+    // debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 

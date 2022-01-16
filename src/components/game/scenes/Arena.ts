@@ -5,7 +5,7 @@ import Bullet from '../entities/bullet';
 import '../person/Person';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
-import debugGraphicsDraw from '../../../utils/debug';
+// import debugGraphicsDraw from '../../../utils/debug';
 import { io, Socket } from 'socket.io-client';
 
 export interface IPlayer {
@@ -17,8 +17,8 @@ export interface IPlayer {
 }
 
 interface IPlayerInfo {
-  hp: number,
-  playerId: string
+  hp: number;
+  playerId: string;
 }
 
 export interface IPlayers {
@@ -37,7 +37,7 @@ export default class Dungeon extends Phaser.Scene {
   private personRifleSound: Phaser.Sound.BaseSound | null;
   private socket: Socket | undefined;
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-  private spawn: ({x : number; y: number; })[] | undefined;
+  private spawn: { x: number; y: number }[] | undefined;
 
   constructor() {
     super('dungeon');
@@ -94,7 +94,6 @@ export default class Dungeon extends Phaser.Scene {
       { x: 717, y: 417 },
     ];
 
-    
     // this.socket = io('ws://localhost:5000');
     this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
@@ -104,14 +103,15 @@ export default class Dungeon extends Phaser.Scene {
           console.log(players);
         } else {
           let otherPerson;
-          if(this.spawn) {
-            const spawnPoint = Math.floor(Math.random() * this.spawn.length)
+          if (this.spawn) {
+            const spawnPoint = Math.floor(Math.random() * this.spawn.length);
             otherPerson = this.add.person(
               this.spawn[spawnPoint].x,
               this.spawn[spawnPoint].y,
               'person'
             );
-          } if(otherPerson) {
+          }
+          if (otherPerson) {
             otherPerson.playerId = players[id].playerId;
             (otherPerson as Person).anims.play('idle_rifle');
             if (this.otherPlayers) this.otherPlayers.add(otherPerson);
@@ -171,13 +171,17 @@ export default class Dungeon extends Phaser.Scene {
     ground.setCollisionByProperty({ collides: true });
     walls.setCollisionByProperty({ collides: true });
     assets.setCollisionByProperty({ collides: true });
-    debugGraphicsDraw(walls, this);
-    debugGraphicsDraw(assets, this);
+    // debugGraphicsDraw(walls, this);
+    // debugGraphicsDraw(assets, this);
 
     // person and enemies initialization
-  
-    const spawnPoint = Math.floor(Math.random() * this.spawn.length)
-    this.person = this.add.person(this.spawn[spawnPoint].x, this.spawn[spawnPoint].y, 'person');
+
+    const spawnPoint = Math.floor(Math.random() * this.spawn.length);
+    this.person = this.add.person(
+      this.spawn[spawnPoint].x,
+      this.spawn[spawnPoint].y,
+      'person'
+    );
     this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
@@ -196,7 +200,7 @@ export default class Dungeon extends Phaser.Scene {
       maxSize: 10,
       runChildUpdate: true,
     });
-    
+
     this.physics.add.collider(this.person, walls);
     this.physics.add.collider(this.person, assets);
 
@@ -205,35 +209,32 @@ export default class Dungeon extends Phaser.Scene {
       walls,
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
-  
 
-    this.physics.add.collider(
-      this.bullets,
-      this.otherPlayers,
-      (arg1, arg2) => {
-        const resolvedHp = Person.handleBulletDamage(
-          arg1,
-          arg2,
-          this,
-          this.personUi,
-        )
-        arg1.destroy(true);
-        const data = arg2 as Person;
-        if (this.socket) {
-          this.socket.emit('playerMovement', {
-            x: data.x,
-            y: data.y,
-            rotation: data.rotation,
-          });
-          this.socket.emit('damaged', {
-            hp: resolvedHp
-          });
-        }
+    this.physics.add.collider(this.bullets, this.otherPlayers, (arg1, arg2) => {
+      const resolvedHp = Person.handleBulletDamage(
+        arg1,
+        arg2,
+        this,
+        this.personUi
+      );
+      arg1.destroy(true);
+      const data = arg2 as Person;
+      if (this.socket) {
+        this.socket.emit('playerMovement', {
+          x: data.x,
+          y: data.y,
+          rotation: data.rotation,
+        });
+        this.socket.emit('damaged', {
+          hp: resolvedHp,
+        });
       }
-    );
-    
+    });
 
-    (this.person as Person).createRotationAndAttacking(this, this.personRifleSound);
+    (this.person as Person).createRotationAndAttacking(
+      this,
+      this.personRifleSound
+    );
 
     // appending scene PersonUI
 
@@ -249,25 +250,25 @@ export default class Dungeon extends Phaser.Scene {
           }
         });
     });
-  
+
     this.socket.on('damaged', (playerInfo: IPlayerInfo) => {
-      console.log(playerInfo)
+      console.log(playerInfo);
       if (this.otherPlayers)
         this.otherPlayers.getChildren().forEach(otherPlayer => {
           if (playerInfo.playerId === (otherPlayer as Person).playerId) {
             (otherPlayer as Person).hpBar.setValue(playerInfo.hp);
-            if((otherPlayer as Person).hpBar.value <= 0) {
+            if ((otherPlayer as Person).hpBar.value <= 0) {
               this.person?.destroy(true);
               //This is cringe, but works for now. Fix later.
-              if(this.socket) this.socket.emit('damaged', {
-                hp: 100
-              });
+              if (this.socket)
+                this.socket.emit('damaged', {
+                  hp: 100,
+                });
               location.reload();
             }
           }
         });
     });
-    
 
     this.socket.on('firing', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
@@ -295,9 +296,9 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    if((this.person as Person).hpBar.value === 0) (this.person as Person).hpBar.setValue((this.person as Person).hp);
+    if ((this.person as Person).hpBar.value === 0)
+      (this.person as Person).hpBar.setValue((this.person as Person).hp);
     (this.person as Person).selfHealing(this);
-    
 
     if (this.person) {
       this.person.update(
@@ -308,7 +309,7 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       );
     }
-    if(this.person) {
+    if (this.person) {
       if (this.socket)
         this.socket.emit('playerMovement', {
           x: this.person.x,
