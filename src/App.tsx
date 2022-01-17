@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import GameInitializer from './components/game/GameInitializer';
-import Multiplayer from "./components/game/Multiplayer";
+import Multiplayer from './components/game/Multiplayer';
 
 export function App() {
   return (

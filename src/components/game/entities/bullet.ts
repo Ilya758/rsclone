@@ -9,7 +9,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
   private lifespan = 0;
 
   private speed = 1000;
-  
+
   private _damage = 10;
 
   private fire(x: number, y: number, personX: number, personY: number) {
@@ -74,9 +74,9 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
   static handleBulletAndWallsCollision(bullet: Phaser.GameObjects.GameObject) {
     bullet.destroy();
   }
-  
+
   get damage() {
-    return this._damage
+    return this._damage;
   }
 
   update(_: number, delta: number) {
