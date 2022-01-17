@@ -1,8 +1,9 @@
+import { COORDINATES } from './../../../constants/coordinates';
 import Phaser from 'phaser';
 import DialogBox from '../plot/DialogBox';
 import { DIALOGS } from '../../../constants/dialogs';
 import sceneEvents from './eventCenter';
-
+import '../enemies/Zombie';
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
   private scene: Phaser.Scene;
@@ -27,6 +28,14 @@ export default class EventFactory {
         duration: 800,
       });
     });
+    sceneEvents.on('zombie', (number: number) => {
+      this.scene.add.zombie(
+        COORDINATES.zombie[number][0],
+        COORDINATES.zombie[number][1],
+        'zombie'
+      );
+    });
+
     sceneEvents.on(
       'dialog',
       (number: number) => {
