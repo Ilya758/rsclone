@@ -37,12 +37,13 @@ export default abstract class HealthBar {
     this.scene = scene;
     this.bar = new Phaser.GameObjects.Graphics(this.scene);
     this.appendToScene();
+    this.bar.depth = 20;
   }
 
   appendToScene() {
     this.scene.add.existing(this.bar);
   }
-  
+
   setValue(value: number) {
     this._value = value;
     this.draw();
@@ -109,13 +110,13 @@ export default abstract class HealthBar {
 
     // health fill
 
-    this.bar.fillStyle(0xffffff);
-    this.bar.fillRect(
-      this.x + 2,
-      this.y + 2,
-      this.barWidth - 4,
-      this.barHeight - 4
-    );
+    // this.bar.fillStyle(0xffffff);
+    // this.bar.fillRect(
+    //   this.x + 2,
+    //   this.y + 2,
+    //   this.barWidth - 4,
+    //   this.barHeight - 4
+    // );
 
     if (this.value <= 0.3 * this.maxHealth) {
       // when the health state is low
@@ -131,6 +132,7 @@ export default abstract class HealthBar {
     );
 
     this.bar.fillRect(this.x + 2, this.y + 2, delta, this.barHeight - 4);
+    this.bar.depth = 20;
   }
 
   get value() {

@@ -1,6 +1,5 @@
-import Dungeon from "./scenes/Arena";
-import { useEffect } from "react";
-
+import Dungeon from './scenes/Arena';
+import { useEffect } from 'react';
 
 const Multiplayer = () => {
   const config = {
@@ -33,7 +32,7 @@ const Multiplayer = () => {
   useEffect(() => {
     new Phaser.Game(config).scene.start('dungeon');
   }, []);
-  
+
   console.log('MultiPlayer Entry Point. Warning!!!');
   return <div id={'canvasPoint'} />;
 };

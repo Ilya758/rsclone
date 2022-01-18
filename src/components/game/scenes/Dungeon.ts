@@ -11,10 +11,13 @@ import '../enemies/ClawBoss';
 import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
+import EventFactory from '../events/eventFactory';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
+import { COORDINATES } from '../../../constants/coordinates';
+import plotHandle from '../plot/plotHandle';
+import sceneEvents from '../events/eventCenter';
 import { IWall } from './dungeon.types';
-
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
 
@@ -32,22 +35,29 @@ export default class Dungeon extends Phaser.Scene {
 
   private tmpEnemyCount = 5;
 
+  private points: Phaser.Physics.Arcade.StaticGroup | null;
+  private dialogNumber: number;
   private walls: IWall | [null];
 
   constructor() {
     super('dungeon');
+    this.dialogNumber = 0;
     this.person = null;
     this.zombie = null;
     this.zombies = null;
     this.bullets = null;
     this.personUi = null;
+    this.points = null;
     this.personWalkSound = this.personRifleSound = null;
     this.walls = Array(2).fill(null) as [null];
   }
 
   preload() {
+    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
     this.load.image('floor', './assets/game/tiles/floor.png');
+    this.load.image('iconMan', './assets/game/icons/manicon.png');
     this.load.image('walls', './assets/game/tiles/walls.png');
+    this.load.image('roof2', './assets/game/tiles/roof2.png');
     this.load.image('other', './assets/game/tiles/other.png');
     this.load.image('gun', './assets/game/items/gun.png');
     this.load.image('rifle', './assets/game/items/rifle.png');
@@ -110,10 +120,10 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   create() {
+    this.points = this.physics.add.staticGroup();
     this.input.setDefaultCursor('url(assets/game/cursors/cursor.cur), pointer');
     createCharacterAnims(this.anims);
     createZombieAnims(this.anims, 'zombie');
-
     // create map
 
     const map = this.make.tilemap({
@@ -126,16 +136,42 @@ export default class Dungeon extends Phaser.Scene {
     const tilesetWalls = map.addTilesetImage('walls');
     const tilesetOther2 = map.addTilesetImage('other2');
     const tilesetFurniture = map.addTilesetImage('furniture');
+    const tilesetRoof = map.addTilesetImage('roof2');
 
     // create layer
 
-    const floor = map.createLayer('floor', [tileset, tilesetWalls], 0, 0);
+    const floor = map.createLayer(
+      'floor',
+      [tileset, tilesetWalls, tilesetFurniture],
+      0,
+      0
+    );
+
+    const roof = map.createLayer('roof', tilesetRoof, 0, 0);
+    roof.depth = 10;
+    const roof0 = map.createLayer('roofQuest0', tilesetRoof, 0, 0);
+    roof0.depth = 10;
+    const roof1 = map.createLayer('roofQuest1', tilesetRoof, 0, 0);
+    roof1.depth = 10;
+    const roof2 = map.createLayer('roofQuest2', tilesetRoof, 0, 0);
+    roof2.depth = 10;
+    const roof3 = map.createLayer('roofQuest3', tilesetRoof, 0, 0);
+    roof3.depth = 10;
     const floor2 = map.createLayer(
       'floor2',
       [tileset, tilesetWalls, tilesetFurniture],
       0,
       0
     );
+    if (!this.points) {
+      throw new Error('Not found');
+    }
+
+    const checkPoints = map.getObjectLayer('CheckPoints');
+    checkPoints.objects.forEach(point => {
+      this.points?.get(point.x, point.y, point.name);
+    });
+
     map.createLayer('shadows', tilesetOther2, 0, 0);
 
     this.walls = {
@@ -169,7 +205,23 @@ export default class Dungeon extends Phaser.Scene {
 
     // person and enemies initialization
 
-    this.person = this.add.person(440, 440, 'person');
+    this.person = this.add.person(
+      COORDINATES.start[0],
+      COORDINATES.start[1],
+      'person'
+    );
+
+    this.points.setVisible(false);
+    this.points.children.entries.forEach((el, ind) => {
+      if (!this.person) {
+        throw new Error('Not found');
+      }
+      this.physics.add.overlap(this.person, el, () => {
+        plotHandle(checkPoints.objects[ind].name);
+        el.destroy(true);
+      });
+    });
+
     this.zombie = this.add.zombie(360, 360, 'zombie');
 
     this.cameras.main.startFollow(this.person, true);
@@ -208,12 +260,20 @@ export default class Dungeon extends Phaser.Scene {
       Bullet.handleBulletAndEnemyCollision.bind(this)
     );
 
-    (this.person as Person).createRotationAndAttacking(this, this.personRifleSound);
+    (this.person as Person).createRotationAndAttacking(
+      this,
+      this.personRifleSound
+    );
 
     // appending scene PersonUI
 
     this.personUi = new PersonUI(this, this.person as Person);
-
+    new EventFactory(
+      this,
+      this.person,
+      [roof0, roof1, roof2, roof3],
+      this.personUi
+    );
     this.scene.add('person-ui', this.personUi as unknown as Scene);
     this.physics.add.collider(
       this.zombie,
@@ -314,6 +374,8 @@ export default class Dungeon extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
+      //TODO
+      sceneEvents.emit(`killZombieEvent`);
       this.zombie = this.add.zombie(
         Math.random() * 480 + 350,
         Math.random() * 480 + 350,

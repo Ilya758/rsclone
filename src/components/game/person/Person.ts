@@ -22,7 +22,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private isDown = false;
 
-  public hpBar: PersonHealthBar | null;
+  public hpBar: PersonHealthBar;
 
   public currentWeapon = 'knife';
   playerId: string | undefined;
@@ -36,13 +36,12 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, texture, frame);
     this._hp = 100;
-    this.hpBar = null;
+    this.hpBar = new PersonHealthBar(scene, 0, 0, this);
   }
 
   selfHealing(scene: Phaser.Scene) {
-    this.hpBar?.heal(scene, 5);
+    this.hpBar.heal(scene, 5);
   }
-
   get speed() {
     return this._speed;
   }
@@ -63,7 +62,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       mouseY: pointer.worldY,
     };
   }
-  
+
   createRotationAndAttacking(
     scene: Phaser.Scene,
     attackSound: Phaser.Sound.BaseSound | null
@@ -90,7 +89,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     scene.input.on('pointerup', () => {
       this.isDown = false;
-      if(attackSound) attackSound.stop();
+      if (attackSound) attackSound.stop();
     });
   }
 
@@ -235,33 +234,34 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       }
     }
   }
-  
+
   handleBulletDamage(
     obj1: Phaser.GameObjects.GameObject,
     obj2: Phaser.GameObjects.GameObject,
     scene: Phaser.Scene,
-    personUi: PersonUI,
+    personUi: PersonUI
   ) {
     const bullet = obj1 as Bullet;
     const person = obj2 as Person;
-    
+
     person.setTint(0xff0000);
+    if (!personUi.hpBar) throw new Error('error');
     personUi.hpBar.decrease(bullet.damage);
-  
+
     const dx = person.x - bullet.x;
     const dy = person.y - bullet.y;
     const vector = new Phaser.Math.Vector2(dx, dy).normalize().scale(100); // calculating estimate delta-debouncing after collision
-    person.setVelocity(vector.x, vector.y)
-    
-  
+    person.setVelocity(vector.x, vector.y);
+
     scene.time.addEvent({
       delay: 500,
       callback: () => {
+        if (!personUi.hpBar) throw new Error('error');
         personUi.hpBar.isHealing = true; // activating self-healing
         person.clearTint();
       },
     });
-    
+
     if (personUi.hpBar.value === 0) {
       person.isDead = true;
     }
@@ -271,7 +271,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     obj1: Phaser.GameObjects.GameObject,
     obj2: Phaser.GameObjects.GameObject,
     scene: Phaser.Scene,
-    personUi: PersonUI,
+    personUi: PersonUI
   ) {
     if (!this) {
       throw new Error("Person isn't created or found");
@@ -282,6 +282,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     if (!person.hit) {
       if (zombie.anims.currentFrame.index >= 3) {
+        if (!personUi.hpBar) throw new Error('error');
         person.hit = true; // after kicking from one enemy, the person gets a bit of kick-immune
         person.setTint(0xff0000);
 
@@ -294,13 +295,14 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         scene.time.addEvent({
           delay: 500,
           callback: () => {
+            if (!personUi.hpBar) throw new Error('error');
             person.hit = false; // removing the kick-immune
             personUi.hpBar.isHealing = true; // activating self-healing
             person.clearTint();
           },
         });
       }
-
+      if (!personUi.hpBar) throw new Error('error');
       if (personUi.hpBar.value === 0) {
         person.isDead = true;
       }
@@ -342,27 +344,34 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.handleMoving(personControlKeys, personWalkSound);
     this.handleChangeWeapons(personControlKeys, personUi);
   }
-  
-  static handleBulletDamage(arg1: Phaser.Types.Physics.Arcade.GameObjectWithBody, arg2: Phaser.Types.Physics.Arcade.GameObjectWithBody, scene: Phaser.Scene, personUi: PersonUI | null) {
+
+  static handleBulletDamage(
+    arg1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    arg2: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    scene: Phaser.Scene,
+    personUi: PersonUI | null
+  ) {
     const bullet = arg1 as Bullet;
     const person = arg2 as Person;
-    if(personUi) {
+    if (personUi) {
+      if (!personUi.hpBar) throw new Error('error');
       person.setTint(0xff0000);
       personUi.hpBar.decrease(bullet.damage);
-      person.setVelocity(0, 0)
-  
+      person.setVelocity(0, 0);
+
       scene.time.addEvent({
         delay: 500,
         callback: () => {
+          if (!personUi.hpBar) throw new Error('error');
           personUi.hpBar.isHealing = true; // activating self-healing
           person.clearTint();
         },
       });
-  
+
       if (personUi.hpBar.value === 0) {
         person.isDead = true;
       }
-      return personUi.hpBar.value
+      return personUi.hpBar.value;
     }
   }
 }

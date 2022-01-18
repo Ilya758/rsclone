@@ -11,7 +11,7 @@ export function App() {
   useEffect(() => {
     if (data.status === 'authenticated' || data.status === 'logged')
       setIsAuthenticated(true);
-  }, []);
+  }, [data]);
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
