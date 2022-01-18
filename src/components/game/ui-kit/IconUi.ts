@@ -8,12 +8,14 @@ export default class IconUi {
   public zombieCounter: number;
   public deathCounter: number;
   public icon: Phaser.GameObjects.Image;
+  public iconWrapper: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene) {
     this.zombieCounter = 0;
     this.deathCounter = 0;
     this.scene = scene;
-    this.icon = this.scene.add.image(80, 120, 'secondIcon');
+    this.iconWrapper = this.scene.add.image(70, 40, 'secondIcon');
+    this.icon = this.scene.add.image(70, 40, 'iconMan');
     this.totalZombies = this.createTotalZombies();
     this.totalDeaths = this.createTotalDeaths();
     this.start();
@@ -21,7 +23,8 @@ export default class IconUi {
   }
 
   start() {
-    this.icon.setScale(0.3, 0.3);
+    this.icon.setScale(0.83, 0.83);
+    this.iconWrapper.setScale(0.4, 0.4);
     sceneEvents.on('killZombieEvent', () => {
       console.log('kill');
       this.zombieCounter += 1;
@@ -50,7 +53,7 @@ export default class IconUi {
     );
     content.depth = 19;
 
-    content.setPosition(42, 112);
+    content.setPosition(22, 32);
     return content;
   }
 
@@ -69,7 +72,7 @@ export default class IconUi {
     );
     content.depth = 19;
 
-    content.setPosition(104, 112);
+    content.setPosition(105, 32);
     return content;
   }
 
