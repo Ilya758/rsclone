@@ -42,10 +42,6 @@ export const MainStyle = styled.div`
   min-height: 430px;
   animation: ${changeFlex} 1.5s linear;
   box-sizing: border-box;
-  background-color: black;
-  background-image: url('./assets/registration-form/registration-bg.jpg');
-  background-position: 50%;
-  background-size: cover;
   &::before {
     content: 'Clone Zero';
     animation: ${showHeader} 2s linear;
@@ -71,14 +67,6 @@ export const ContainerStyle = styled.div`
   z-index: 5;
   width: 100%;
   height: 100%;
-  background-image: url('./assets/registration-form/bg-man.png'),
-    url('./assets/registration-form/bg-woman.png'),
-    url('./assets/registration-form/destroyed-structure.png'),
-    url('./assets/registration-form/destroyed-structure-small.png');
-  background-position-x: 15%, 85%, 5%, 85%;
-  background-position-y: 50%, 100%, 100%, 100%;
-  background-repeat: no-repeat;
-  background-size: 353px 447px, 227px 421px, 582px 393px, 329px 60px;
 `;
 
 export const RegistrationWrapperStyle = styled.div`
@@ -88,13 +76,6 @@ export const RegistrationWrapperStyle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('./assets/registration-form/bg-line-bottom.png'),
-    url('./assets/registration-form/left-triangle.png'),
-    url('./assets/registration-form/right-triangle.png');
-  background-position-x: 29px, 0%, 100%;
-  background-position-y: 100%, 100%, 100%;
-  background-repeat: no-repeat;
-  background-size: calc(100% - 58px) 9px, 29px 19px, 29px 19px;
 `;
 
 export const ButtonWrapperStyle = styled.button`
