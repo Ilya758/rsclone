@@ -58,7 +58,7 @@ export const HeaderStyle = styled.h1`
   font-family: 'Orbitron', sans-serif;
   padding: 0px;
   font-size: 18px;
-  margin: 0px;
+  margin: 0 0 15px 0;
   color: rgb(15, 4, 82);
 `;
 
