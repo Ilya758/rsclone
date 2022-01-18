@@ -12,10 +12,11 @@ import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import EventFactory from '../events/eventFactory';
-// import debugGraphicsDraw from '../../../utils/debug';
+import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
 import { COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
+import sceneEvents from '../events/eventCenter';
 
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -50,6 +51,7 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
     this.load.image('floor', './assets/game/tiles/floor.png');
     this.load.image('walls', './assets/game/tiles/walls.png');
     this.load.image('roof2', './assets/game/tiles/roof2.png');
@@ -174,12 +176,14 @@ export default class Dungeon extends Phaser.Scene {
       0,
       0
     );
+    walls2.depth = 10;
     const walls = map.createLayer(
       'walls',
       [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
       0,
       0
     );
+    walls.depth = 10;
 
     // create collision
 
@@ -188,8 +192,8 @@ export default class Dungeon extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     walls2.setCollisionByProperty({ collides: true });
 
-    // debugGraphicsDraw(walls, this);
-    // debugGraphicsDraw(walls2, this);
+    debugGraphicsDraw(walls, this);
+    debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 
@@ -253,9 +257,14 @@ export default class Dungeon extends Phaser.Scene {
     );
 
     // appending scene PersonUI
-    new EventFactory(this, this.person, [roof0, roof1, roof2, roof3]);
-    this.personUi = new PersonUI(this, this.person as Person);
 
+    this.personUi = new PersonUI(this, this.person as Person);
+    new EventFactory(
+      this,
+      this.person,
+      [roof0, roof1, roof2, roof3],
+      this.personUi
+    );
     this.scene.add('person-ui', this.personUi as unknown as Scene);
     this.physics.add.collider(
       this.zombie,
@@ -352,6 +361,8 @@ export default class Dungeon extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
+      //TODO
+      sceneEvents.emit(`killZombieEvent`);
       this.zombie = this.add.zombie(
         Math.random() * 480 + 350,
         Math.random() * 480 + 350,
