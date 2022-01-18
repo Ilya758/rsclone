@@ -28,7 +28,7 @@ export const RegistrationWrapperStyle = styled.div`
 `;
 
 export const VideoOverlayStyle = styled.video`
-position: fixed;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;

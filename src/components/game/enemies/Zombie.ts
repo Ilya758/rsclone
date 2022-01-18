@@ -13,11 +13,11 @@ export default class Zombie extends Enemy {
 
   public hpBar: ZombieHealthBar;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, texture: string) {
-    super(scene, x, y, texture);
-    this._hp = ZOMBIES[texture as keyof IZombieChars].hp;
-    this._speed = ZOMBIES[texture as keyof IZombieChars].speed / 2;
-    this._damage = ZOMBIES[texture as keyof IZombieChars].damage;
+  constructor(scene: Phaser.Scene, x: number, y: number, typeOfZombie: string) {
+    super(scene, x, y, typeOfZombie);
+    this._hp = ZOMBIES[typeOfZombie as keyof IZombieChars].hp;
+    this._speed = ZOMBIES[typeOfZombie as keyof IZombieChars].speed / 2;
+    this._damage = ZOMBIES[typeOfZombie as keyof IZombieChars].damage;
     this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
   }
 }

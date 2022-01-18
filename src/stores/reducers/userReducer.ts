@@ -18,7 +18,7 @@ const initialState: IUser = {
   password: '',
   status: localStorage.getItem('clone_zero_auth_token') ? 'authenticated' : '',
   token: localStorage.getItem('clone_zero_auth_token') || '',
-  userId: localStorage.getItem('clone_zero_userId') ||'',
+  userId: localStorage.getItem('clone_zero_userId') || '',
   message: '',
 };
 
@@ -33,7 +33,7 @@ export const userSlice = createSlice({
     loadUserStatus(state, action) {
       state.status = action.payload.status;
       state.token = action.payload.token;
-      localStorage.setItem('clone_zero_auth_token', state.token)
+      localStorage.setItem('clone_zero_auth_token', state.token);
       state.password = '';
       state.userId = action.payload.userId;
       localStorage.setItem('clone_zero_userId', state.userId);
