@@ -10,7 +10,7 @@ export function App() {
   const data = useAppSelector((state) => state.user)
   useEffect(() => {
     if(data.status === 'authenticated' || data.status === 'logged') setIsAuthenticated(true);
-  }, [])
+  }, [data])
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
