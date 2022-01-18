@@ -7,13 +7,13 @@ export default class PersonHealthBar extends HealthBar {
 
   protected _value: number;
 
-  protected barWidth = 200;
+  protected barWidth = 49;
 
-  protected barHeight = 10;
+  protected barHeight = 49;
 
-  public x = 150;
+  public x = 46;
 
-  public y = 15;
+  public y = 16;
 
   constructor(scene: Phaser.Scene, x: number, y: number, object: Person) {
     super(scene, x, y, object);
@@ -23,6 +23,7 @@ export default class PersonHealthBar extends HealthBar {
 
   appendToScene(): void {
     super.appendToScene();
+    this.bar.alpha = 0.35;
     this.bar.setScrollFactor(0);
   }
 

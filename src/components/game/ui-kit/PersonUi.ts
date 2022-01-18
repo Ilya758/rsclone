@@ -6,7 +6,7 @@ import IconUi from './IconUi';
 export default class PersonUI extends Phaser.Scene {
   parentScene: Phaser.Scene;
 
-  public hpBar: PersonHealthBar;
+  public hpBar: PersonHealthBar | null;
   public items: number;
   public knife: Phaser.GameObjects.Image | null;
   public bat: Phaser.GameObjects.Image | null;
@@ -17,14 +17,15 @@ export default class PersonUI extends Phaser.Scene {
   public itemKeys: {
     [key: string]: number;
   };
+  private person: Person;
 
   constructor(scene: Phaser.Scene, person: Person) {
     super({ key: 'person-ui' });
     this.parentScene = scene;
-    this.hpBar = new PersonHealthBar(scene, 0, 0, person);
-    person.hpBar = this.hpBar;
+    this.person = person;
     this.items = 0;
     this.knife = null;
+    this.hpBar = null;
     this.rifle = null;
     this.bat = null;
     this.fire = null;
@@ -71,6 +72,8 @@ export default class PersonUI extends Phaser.Scene {
     this.fire.setScale(0.15, 0.15);
     this.changeWeapon('knife');
     new IconUi(this);
+    this.hpBar = new PersonHealthBar(this, 0, 0, this.person);
+    this.person.hpBar = this.hpBar;
   }
 
   changeWeapon(type: string) {
