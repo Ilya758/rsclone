@@ -12,7 +12,7 @@ import '../enemies/MegaBoss';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import EventFactory from '../events/eventFactory';
-import debugGraphicsDraw from '../../../utils/debug';
+// import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
 import { COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
@@ -55,6 +55,7 @@ export default class Dungeon extends Phaser.Scene {
   preload() {
     this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
     this.load.image('floor', './assets/game/tiles/floor.png');
+    this.load.image('iconMan', './assets/game/icons/manicon.png');
     this.load.image('walls', './assets/game/tiles/walls.png');
     this.load.image('roof2', './assets/game/tiles/roof2.png');
     this.load.image('other', './assets/game/tiles/other.png');
