@@ -1,8 +1,8 @@
 import {
   FooterStyle,
   HeaderStyle,
-  RegistrationWrapperStyle,
-} from './homePage.style';
+  RegistrationWrapperStyle, VideoOverlayStyle
+} from "./homePage.style";
 
 import Registration from '../../components/registration/Registration';
 import { useState } from 'react';
@@ -15,6 +15,10 @@ const HomePage = () => {
       <HeaderStyle />
       <Registration />
       <FooterStyle />
+      <VideoOverlayStyle loop={true} autoPlay muted={true}>
+        <source src="./assets/video/logo.mp4"
+                type="video/mp4" />
+      </VideoOverlayStyle>
     </RegistrationWrapperStyle>
   ) : (
     <button
