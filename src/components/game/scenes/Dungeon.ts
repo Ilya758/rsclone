@@ -17,7 +17,7 @@ import { ZOMBIES } from '../../../constants/zombies';
 import { COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
 import sceneEvents from '../events/eventCenter';
-
+import { IWall } from './dungeon.types';
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
 
@@ -37,6 +37,7 @@ export default class Dungeon extends Phaser.Scene {
 
   private points: Phaser.Physics.Arcade.StaticGroup | null;
   private dialogNumber: number;
+  private walls: IWall | [null];
 
   constructor() {
     super('dungeon');
@@ -48,6 +49,7 @@ export default class Dungeon extends Phaser.Scene {
     this.personUi = null;
     this.points = null;
     this.personWalkSound = this.personRifleSound = null;
+    this.walls = Array(2).fill(null) as [null];
   }
 
   preload() {
@@ -170,30 +172,35 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     map.createLayer('shadows', tilesetOther2, 0, 0);
-    const walls2 = map.createLayer(
-      'walls2',
-      [tilesetWalls, tilesetFurniture, tilesetOther2],
-      0,
-      0
-    );
-    walls2.depth = 10;
-    const walls = map.createLayer(
-      'walls',
-      [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
-      0,
-      0
-    );
-    walls.depth = 10;
+
+    this.walls = {
+      0: map.createLayer(
+        'walls',
+        [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
+        0,
+        0
+      ),
+      1: map.createLayer(
+        'walls2',
+        [tilesetWalls, tilesetFurniture, tilesetOther2],
+        0,
+        0
+      ),
+    };
 
     // create collision
 
     floor.setCollisionByProperty({ collides: true });
     floor2.setCollisionByProperty({ collides: true });
-    walls.setCollisionByProperty({ collides: true });
-    walls2.setCollisionByProperty({ collides: true });
 
-    debugGraphicsDraw(walls, this);
-    debugGraphicsDraw(walls2, this);
+    Object.values(this.walls).forEach(wall => {
+      (wall as Phaser.Tilemaps.TilemapLayer).setCollisionByProperty({
+        collides: true,
+      });
+    });
+
+    // debugGraphicsDraw(walls, this);
+    // debugGraphicsDraw(walls2, this);
 
     // person and enemies initialization
 
@@ -238,13 +245,14 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     // add collision between game objects
-    this.handleCollides([walls, walls2, floor2]);
+    this.handleCollides([this.walls[0], this.walls[1], floor2]);
 
     this.physics.add.collider(
       this.bullets,
-      walls,
+      this.walls[0],
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
+
     this.physics.add.collider(
       this.bullets,
       this.zombie,
@@ -309,6 +317,10 @@ export default class Dungeon extends Phaser.Scene {
         zombie,
         Bullet.handleBulletAndEnemyCollision.bind(this)
       );
+
+      Object.values(this.walls).forEach(wall => {
+        this.physics.add.collider(zombie, wall as Phaser.Tilemaps.TilemapLayer);
+      });
 
       this.physics.add.collider(
         zombie,

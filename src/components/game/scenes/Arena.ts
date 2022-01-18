@@ -256,8 +256,8 @@ export default class Dungeon extends Phaser.Scene {
       if (this.otherPlayers)
         this.otherPlayers.getChildren().forEach(otherPlayer => {
           if (playerInfo.playerId === (otherPlayer as Person).playerId) {
-            (otherPlayer as Person).hpBar.setValue(playerInfo.hp);
-            if ((otherPlayer as Person).hpBar.value <= 0) {
+            (otherPlayer as Person).hpBar?.setValue(playerInfo.hp);
+            if (((otherPlayer as Person).hpBar?.value as number) <= 0) {
               this.person?.destroy(true);
               //This is cringe, but works for now. Fix later.
               if (this.socket)
@@ -296,8 +296,8 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    if ((this.person as Person).hpBar.value === 0)
-      (this.person as Person).hpBar.setValue((this.person as Person).hp);
+    if ((this.person as Person).hpBar?.value === 0)
+      (this.person as Person).hpBar?.setValue((this.person as Person).hp);
     (this.person as Person).selfHealing(this);
 
     if (this.person) {

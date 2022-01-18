@@ -22,7 +22,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private isDown = false;
 
-  public hpBar: PersonHealthBar;
+  public hpBar: PersonHealthBar | null;
 
   public currentWeapon = 'knife';
   playerId: string | undefined;
@@ -36,12 +36,13 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   ) {
     super(scene, x, y, texture, frame);
     this._hp = 100;
-    this.hpBar = new PersonHealthBar(scene, 0, 0, this);
+    this.hpBar = null;
   }
 
   selfHealing(scene: Phaser.Scene) {
-    this.hpBar.heal(scene, 5);
+    this.hpBar?.heal(scene, 5);
   }
+
   get speed() {
     return this._speed;
   }

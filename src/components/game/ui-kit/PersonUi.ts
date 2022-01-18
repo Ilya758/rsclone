@@ -21,7 +21,8 @@ export default class PersonUI extends Phaser.Scene {
   constructor(scene: Phaser.Scene, person: Person) {
     super({ key: 'person-ui' });
     this.parentScene = scene;
-    this.hpBar = person.hpBar;
+    this.hpBar = new PersonHealthBar(scene, 0, 0, person);
+    person.hpBar = this.hpBar;
     this.items = 0;
     this.knife = null;
     this.rifle = null;
