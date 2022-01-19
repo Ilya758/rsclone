@@ -374,8 +374,6 @@ export default class Dungeon extends Phaser.Scene {
     }
 
     if (!this.zombie?.scene) {
-      //TODO
-      sceneEvents.emit(`killZombieEvent`);
       this.zombie = this.add.zombie(
         Math.random() * 480 + 350,
         Math.random() * 480 + 350,

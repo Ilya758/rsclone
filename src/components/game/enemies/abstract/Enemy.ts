@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import sceneEvents from '../../events/eventCenter';
 import Person from '../../person/Person';
 import { TUnionHealthBar } from './enemy.types';
 
@@ -72,6 +73,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   kill(): void {
+    sceneEvents.emit(`killZombieEvent`);
     this.hpBar.destroy();
     this.anims.play('zombie-death');
     this.disableBody();
