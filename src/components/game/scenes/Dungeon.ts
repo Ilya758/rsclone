@@ -23,8 +23,6 @@ export default class Dungeon extends Phaser.Scene {
 
   protected person: Phaser.Physics.Arcade.Sprite | null;
 
-  private zombie: Phaser.Physics.Arcade.Sprite | null;
-
   private bullets: Phaser.GameObjects.Group | null;
 
   private personWalkSound: Phaser.Sound.BaseSound | null;
@@ -43,7 +41,6 @@ export default class Dungeon extends Phaser.Scene {
     super('dungeon');
     this.dialogNumber = 0;
     this.person = null;
-    this.zombie = null;
     this.zombies = null;
     this.bullets = null;
     this.personUi = null;
@@ -222,8 +219,6 @@ export default class Dungeon extends Phaser.Scene {
       });
     });
 
-    this.zombie = this.add.zombie(360, 360, 'zombie');
-
     this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
@@ -254,12 +249,6 @@ export default class Dungeon extends Phaser.Scene {
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
 
-    this.physics.add.collider(
-      this.bullets,
-      this.zombie,
-      Bullet.handleBulletAndEnemyCollision.bind(this)
-    );
-
     (this.person as Person).createRotationAndAttacking(
       this,
       this.personRifleSound
@@ -275,17 +264,6 @@ export default class Dungeon extends Phaser.Scene {
       this.personUi
     );
     this.scene.add('person-ui', this.personUi as unknown as Scene);
-    this.physics.add.collider(
-      this.zombie,
-      this.person,
-      (this.person as Person).handleEnemyDamage.bind(
-        this,
-        this.zombie,
-        this.person,
-        this,
-        this.personUi
-      )
-    );
     this.scene.run('person-ui');
 
     this.createGroupOfZombies();
@@ -366,40 +344,8 @@ export default class Dungeon extends Phaser.Scene {
       zombie.movingToPerson(this.person as Person, this);
     });
 
-    if (this.zombie === null || this.person === null) {
+    if (this.person === null) {
       throw new Error();
-    }
-
-    if (!this.zombie?.scene) {
-      //TODO
-      sceneEvents.emit(`killZombieEvent`);
-      this.zombie = this.add.zombie(
-        Math.random() * 480 + 350,
-        Math.random() * 480 + 350,
-        'zombie'
-      );
-
-      this.physics.add.collider(
-        this.zombie,
-        this.person,
-        (this.person as Person).handleEnemyDamage.bind(
-          this,
-          this.zombie,
-          this.person,
-          this,
-          this.personUi
-        )
-      );
-
-      if (this.bullets === null) {
-        throw new Error('No bullets');
-      }
-
-      this.physics.add.collider(
-        this.bullets,
-        this.zombie,
-        Bullet.handleBulletAndEnemyCollision.bind(this)
-      );
     }
 
     if (this.person) {
@@ -411,7 +357,5 @@ export default class Dungeon extends Phaser.Scene {
         this.personUi
       );
     }
-
-    (this.zombie as Zombie).movingToPerson(this.person as Person, this);
   }
 }
