@@ -361,9 +361,6 @@ export default class Dungeon extends Phaser.Scene {
       throw new Error("PersonUI isn't found");
     }
 
-    (this.person as Person).selfHealing(this);
-    this.zombie?.update();
-
     Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
       zombie.update();
       zombie.movingToPerson(this.person as Person, this);
