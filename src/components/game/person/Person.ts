@@ -283,38 +283,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  handleBulletDamage(
-    obj1: Phaser.GameObjects.GameObject,
-    obj2: Phaser.GameObjects.GameObject,
-    scene: Phaser.Scene,
-    personUi: PersonUI
-  ) {
-    const bullet = obj1 as Bullet;
-    const person = obj2 as Person;
-
-    person.setTint(0xff0000);
-    if (!personUi.hpBar) throw new Error('error');
-    personUi.hpBar.decrease(bullet.damage);
-
-    const dx = person.x - bullet.x;
-    const dy = person.y - bullet.y;
-    const vector = new Phaser.Math.Vector2(dx, dy).normalize().scale(100); // calculating estimate delta-debouncing after collision
-    person.setVelocity(vector.x, vector.y);
-
-    scene.time.addEvent({
-      delay: 500,
-      callback: () => {
-        if (!personUi.hpBar) throw new Error('error');
-        personUi.hpBar.isHealing = true; // activating self-healing
-        person.clearTint();
-      },
-    });
-
-    if (personUi.hpBar.value === 0) {
-      person.isDead = true;
-    }
-  }
-
   handleEnemyDamage(
     obj1: Phaser.GameObjects.GameObject,
     obj2: Phaser.GameObjects.GameObject,
