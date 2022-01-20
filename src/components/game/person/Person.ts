@@ -4,6 +4,7 @@ import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
 import PersonHealthBar from '../ui-kit/health-bars/PersonHealthBar';
 import PersonUI from '../ui-kit/PersonUi';
+import { IMouseCoords } from './person.types';
 
 export default class Person extends Phaser.Physics.Arcade.Sprite {
   public hit = false;
@@ -99,13 +100,15 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.setTexture('person');
   }
 
-  getMouseCoords() {
-    this.scene.input.activePointer.updateWorldPoint(this.scene.cameras.main);
-    const pointer = this.scene.input.activePointer;
-    return {
-      mouseX: pointer.worldX,
-      mouseY: pointer.worldY,
-    };
+  getMouseCoords(): IMouseCoords | undefined {
+    if (this.scene) {
+      this.scene.input.activePointer.updateWorldPoint(this.scene.cameras.main);
+      const pointer = this.scene.input.activePointer;
+      return {
+        mouseX: pointer.worldX,
+        mouseY: pointer.worldY,
+      };
+    }
   }
 
   createRotationAndAttacking(
@@ -115,7 +118,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     // if the person is dead, he cannot rotate/shoot
 
     scene.input.on('pointerdown', () => {
-      if (!this.isDead) {
+      if (!this.isDead && this.scene) {
         this.isDown = true;
         this.handleFiring('rifle');
 
@@ -126,9 +129,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     });
 
     scene.input.on('pointermove', () => {
-      if (!this.isDead) {
-        this.mouseX = this.getMouseCoords().mouseX;
-        this.mouseY = this.getMouseCoords().mouseY;
+      if (!this.isDead && this.scene) {
+        this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
+        this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
       }
     });
 
@@ -363,9 +366,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       throw new Error('Cannot find bullets');
     }
     // set rotation to the person
-    this.mouseX = this.getMouseCoords().mouseX;
-    this.mouseY = this.getMouseCoords().mouseY;
+
     if (!this.isDead) {
+      this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
+      this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
 
       if (this._hp !== this.maxHealth) {
         this.heal(this.scene, 5);
