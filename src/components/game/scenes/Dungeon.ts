@@ -16,7 +16,6 @@ import EventFactory from '../events/eventFactory';
 import { ZOMBIES } from '../../../constants/zombies';
 import { COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
-import sceneEvents from '../events/eventCenter';
 import { IWall } from './dungeon.types';
 export default class Dungeon extends Phaser.Scene {
   protected personUi: PersonUI | null;
@@ -34,7 +33,9 @@ export default class Dungeon extends Phaser.Scene {
   private tmpEnemyCount = 5;
 
   private points: Phaser.Physics.Arcade.StaticGroup | null;
+
   private dialogNumber: number;
+
   private walls: IWall | [null];
 
   constructor() {
@@ -107,13 +108,6 @@ export default class Dungeon extends Phaser.Scene {
     );
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-  }
-
-  handleCollides(targetsArray: Phaser.Tilemaps.TilemapLayer[]) {
-    if (!this.zombie || !this.person) {
-      throw new Error('There are no person or zombie ');
-    }
-    this.physics.add.collider([this.zombie, this.person], targetsArray);
   }
 
   create() {
@@ -241,7 +235,12 @@ export default class Dungeon extends Phaser.Scene {
     });
 
     // add collision between game objects
-    this.handleCollides([this.walls[0], this.walls[1], floor2]);
+
+    this.physics.add.collider(this.person, [
+      this.walls[0],
+      this.walls[1],
+      floor2,
+    ]);
 
     this.physics.add.collider(
       this.bullets,
@@ -308,8 +307,7 @@ export default class Dungeon extends Phaser.Scene {
           (this.person as Person).handleEnemyDamage(
             zombie,
             this.person as Person,
-            this,
-            this.personUi as PersonUI
+            this
           )
       );
     }
