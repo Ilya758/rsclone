@@ -4,8 +4,6 @@ import HealthBar from './HealthBar';
 export default class ZombieHealthBar extends HealthBar {
   protected maxHealth: number;
 
-  protected _value: number;
-
   protected barWidth = 34;
 
   protected barHeight = 10;
@@ -15,10 +13,10 @@ export default class ZombieHealthBar extends HealthBar {
     x: number,
     y: number,
     object: Phaser.Physics.Arcade.Sprite,
-    value: number
+    hp: number
   ) {
     super(scene, x, y, object);
-    this.maxHealth = this._value = value;
-    super.draw();
+    this.maxHealth = hp;
+    super.draw(this.maxHealth);
   }
 }

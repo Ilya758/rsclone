@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import sceneEvents from '../../events/eventCenter';
 import Person from '../../person/Person';
 import { TUnionHealthBar } from './enemy.types';
 
@@ -38,6 +39,24 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     return this._hp;
   }
 
+  set hp(value: number) {
+    this._hp = value;
+  }
+
+  decreaseHp(amount: number) {
+    this.hp -= amount; // every damage decreases hp
+
+    console.log(this.hp);
+
+    if (this.hp < 0) {
+      this.hp = 0; // character is dead
+    }
+
+    this.hpBar.draw(this.hp);
+
+    return this.hp === 0;
+  }
+
   update(): void {
     this.hpBar.update();
   }
@@ -72,6 +91,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   kill(): void {
+    sceneEvents.emit('killZombieEvent');
     this.hpBar.destroy();
     this.anims.play('zombie-death');
     this.disableBody();
