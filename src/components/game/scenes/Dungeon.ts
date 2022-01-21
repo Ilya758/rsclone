@@ -13,7 +13,10 @@ import Person from '../person/Person';
 import EventFactory from '../events/eventFactory';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
-import { COORDINATES } from '../../../constants/coordinates';
+import {
+  PERSON_COORDINATES,
+  ZOMBIE_COORDINATES,
+} from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
 import { IWall } from './dungeon.types';
 
@@ -28,17 +31,14 @@ export default class Dungeon extends Phaser.Scene {
 
   private zombies: Phaser.Physics.Arcade.Group | null;
 
-  private tmpEnemyCount = 5;
+  private tmpEnemyCount = 10;
 
   private points: Phaser.Physics.Arcade.StaticGroup | null;
-
-  private dialogNumber: number;
 
   private walls: IWall | [null];
 
   constructor() {
     super('dungeon');
-    this.dialogNumber = 0;
     this.person = null;
     this.zombies = null;
     this.bullets = null;
@@ -197,8 +197,8 @@ export default class Dungeon extends Phaser.Scene {
     // person and enemies initialization
 
     this.person = this.add.person(
-      COORDINATES.start[0],
-      COORDINATES.start[1],
+      PERSON_COORDINATES.start[0],
+      PERSON_COORDINATES.start[1],
       'person'
     );
 
@@ -265,10 +265,10 @@ export default class Dungeon extends Phaser.Scene {
     this.scene.add('person-ui', this.person.userInterface);
     this.scene.run('person-ui');
 
-    this.createGroupOfZombies();
+    this.createGroupOfZombies(3);
   }
 
-  createGroupOfZombies() {
+  createGroupOfZombies(ndx: number) {
     if (!this.person && !this.bullets) {
       throw new Error('Not found');
     }
@@ -278,13 +278,16 @@ export default class Dungeon extends Phaser.Scene {
       maxSize: this.tmpEnemyCount,
     });
 
-    function getCoord() {
-      return 500 + Math.random() * 300;
-    }
-
-    for (let i = 0; i < this.tmpEnemyCount; i += 1) {
+    // function getCoord() {
+    //   return 500 + Math.random() * 300;
+    // }
+    for (let i = 0; i < ZOMBIE_COORDINATES[ndx].length; i += 1) {
       const texture = Object.keys(ZOMBIES)[Math.floor(Math.random() * 5)];
-      const zombie = this.add.zombie(getCoord(), getCoord(), texture);
+      const zombie = this.add.zombie(
+        ZOMBIE_COORDINATES[ndx][i][0],
+        ZOMBIE_COORDINATES[ndx][i][1],
+        texture
+      );
 
       createZombieAnims(zombie.anims, texture);
 
@@ -330,7 +333,7 @@ export default class Dungeon extends Phaser.Scene {
 
   update(time?: number): void {
     if (!this.zombies?.children.entries.length) {
-      this.createGroupOfZombies();
+      // this.createGroupOfZombies();
     }
 
     Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
