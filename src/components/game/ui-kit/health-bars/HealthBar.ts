@@ -15,17 +15,17 @@ export default abstract class HealthBar {
 
   protected scene: Phaser.Scene;
 
-  private object?: Phaser.Physics.Arcade.Sprite;
+  private person?: Phaser.Physics.Arcade.Sprite;
 
   constructor(
     scene: Phaser.Scene,
     x?: number,
     y?: number,
-    object?: Phaser.Physics.Arcade.Sprite
+    person?: Phaser.Physics.Arcade.Sprite
   ) {
     this.x = x || 0;
     this.y = y || 0;
-    this.object = object;
+    this.person = person;
     this.scene = scene;
     this.bar = new Phaser.GameObjects.Graphics(this.scene);
     this.appendToScene();
@@ -65,11 +65,11 @@ export default abstract class HealthBar {
   }
 
   update() {
-    if (this.object) {
+    if (this.person) {
       // if the object-variable is existed, then position of the bar relates with a character
 
-      this.bar.y = this.object.y - this.y - 30;
-      this.bar.x = this.object.x - this.x - 18;
+      this.bar.x = this.person.x - this.x - 18;
+      this.bar.y = this.person.y - this.y - 30;
     }
   }
 

@@ -2,22 +2,38 @@ import Phaser from 'phaser';
 import Person from '../person/Person';
 import PersonHealthBar from './health-bars/PersonHealthBar';
 import IconUi from './IconUi';
+import SettingsMenu from './SettingsMenu';
 
 export default class PersonUI extends Phaser.Scene {
   parentScene: Phaser.Scene;
 
   public hpBar: PersonHealthBar | null;
+
   public items: number;
+
   public knife: Phaser.GameObjects.Image | null;
+
   public bat: Phaser.GameObjects.Image | null;
+
   public gun: Phaser.GameObjects.Image | null;
+
   public fire: Phaser.GameObjects.Image | null;
+
   public rifle: Phaser.GameObjects.Image | null;
+
   public active: Phaser.GameObjects.Image | null;
+
   public itemKeys: {
     [key: string]: number;
   };
+
   private person: Person;
+
+  private settingsButton: Phaser.GameObjects.Image | null;
+
+  private settingsMenu: SettingsMenu | null;
+
+  private menuIsOpened = false;
 
   constructor(scene: Phaser.Scene, person: Person) {
     super({ key: 'person-ui' });
@@ -38,6 +54,7 @@ export default class PersonUI extends Phaser.Scene {
       gun: 422,
       fire: 542,
     };
+    this.settingsButton = this.settingsMenu = null;
   }
 
   create() {
@@ -73,7 +90,7 @@ export default class PersonUI extends Phaser.Scene {
     this.changeWeapon('knife');
     new IconUi(this);
     this.hpBar = new PersonHealthBar(this, 0, 0, this.person);
-    this.person.hpBar = this.hpBar;
+    this.settingsButton = this.createSettingsButton();
   }
 
   changeWeapon(type: string) {
@@ -85,5 +102,45 @@ export default class PersonUI extends Phaser.Scene {
       'active-item'
     );
     this.active.setScale(0.13, 0.13);
+  }
+
+  createSettingsButton() {
+    const settingsButton = this.add.image(0, 0, 'btn-settings');
+
+    Phaser.Display.Align.In.BottomLeft(
+      settingsButton,
+      this.add.zone(
+        this.scale.width / 2,
+        this.scale.height / 2,
+        this.scale.width,
+        this.scale.height
+      )
+    );
+
+    settingsButton.setOrigin(1).setScale(0.35).setScrollFactor(0).setAlpha(0.6);
+
+    const setVisibility = (method = 'out') => {
+      this.tweens.add({
+        targets: settingsButton,
+        alpha: method === 'over' ? 1 : 0.6,
+        duration: 250,
+      });
+    };
+
+    settingsButton
+      .setInteractive()
+      .on('pointerover', setVisibility.bind(this, 'over'))
+      .on('pointerout', setVisibility.bind(this))
+      .on('pointerdown', () => {
+        if (!this.menuIsOpened) {
+          this.menuIsOpened = true;
+          this.settingsMenu = new SettingsMenu(this);
+        } else {
+          this.menuIsOpened = false;
+          this.settingsMenu?.destroy();
+        }
+      });
+
+    return settingsButton;
   }
 }

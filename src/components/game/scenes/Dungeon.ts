@@ -1,4 +1,4 @@
-import Phaser, { Scene } from 'phaser';
+import Phaser from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
@@ -10,17 +10,15 @@ import '../enemies/HandBoss';
 import '../enemies/ClawBoss';
 import '../enemies/MegaBoss';
 import Person from '../person/Person';
-import PersonUI from '../ui-kit/PersonUi';
 import EventFactory from '../events/eventFactory';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
 import { COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
 import { IWall } from './dungeon.types';
-export default class Dungeon extends Phaser.Scene {
-  protected personUi: PersonUI | null;
 
-  protected person: Phaser.Physics.Arcade.Sprite | null;
+export default class Dungeon extends Phaser.Scene {
+  protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
 
@@ -44,7 +42,6 @@ export default class Dungeon extends Phaser.Scene {
     this.person = null;
     this.zombies = null;
     this.bullets = null;
-    this.personUi = null;
     this.points = null;
     this.personWalkSound = this.personRifleSound = null;
     this.walls = Array(2).fill(null) as [null];
@@ -108,6 +105,9 @@ export default class Dungeon extends Phaser.Scene {
     );
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
+    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 
   create() {
@@ -253,16 +253,16 @@ export default class Dungeon extends Phaser.Scene {
       this.personRifleSound
     );
 
-    // appending scene PersonUI
-
-    this.personUi = new PersonUI(this, this.person as Person);
     new EventFactory(
       this,
       this.person,
       [roof0, roof1, roof2, roof3],
-      this.personUi
+      this.person.userInterface
     );
-    this.scene.add('person-ui', this.personUi as unknown as Scene);
+
+    // appending scene PersonUI
+
+    this.scene.add('person-ui', this.person.userInterface);
     this.scene.run('person-ui');
 
     this.createGroupOfZombies();
@@ -333,10 +333,6 @@ export default class Dungeon extends Phaser.Scene {
       this.createGroupOfZombies();
     }
 
-    if (!this.personUi) {
-      throw new Error("PersonUI isn't found");
-    }
-
     Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
       zombie.update();
       zombie.movingToPerson(this.person as Person, this);
@@ -349,10 +345,10 @@ export default class Dungeon extends Phaser.Scene {
     if (this.person) {
       this.person.update(
         createUserKeys(this.input),
-        time,
+        time as number,
         this.bullets,
-        this.personWalkSound,
-        this.personUi
+        this.personWalkSound as Phaser.Sound.BaseSound,
+        this.person.userInterface
       );
     }
   }
