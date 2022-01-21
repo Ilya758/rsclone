@@ -14,7 +14,7 @@ export interface IUser {
 }
 
 const initialState: IUser = {
-  login: '',
+  login: localStorage.getItem('clone_zero_login_name') || '',
   password: '',
   status: localStorage.getItem('clone_zero_auth_token') ? 'authenticated' : '',
   token: localStorage.getItem('clone_zero_auth_token') || '',
@@ -28,6 +28,7 @@ export const userSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.login = action.payload.login;
+      localStorage.setItem('clone_zero_login_name', state.login);
       state.password = action.payload.password;
     },
     loadUserStatus(state, action) {
