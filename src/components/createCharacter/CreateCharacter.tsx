@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   WrapperStyle,
   BackgroundStyle,
@@ -7,7 +7,6 @@ import {
   LinkWrapperStyle,
   PaginationWrapperStyle,
 } from './createCharacter.style';
-import Input from '../inputs/textField/Input';
 import { useState } from 'react';
 import { BG_ARRAY } from '../../constants/bgManikins';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -22,6 +21,7 @@ function CreateCharacter() {
   const [character, setCharacter] = useState(() => char);
   const options = useAppSelector(state => state.user.userId);
   const dispatch = useAppDispatch();
+  const playerName = useAppSelector((state) => state.user.login);
 
   useEffect(() => {
     const calculated = JSON.parse(JSON.stringify(character));
@@ -44,12 +44,12 @@ function CreateCharacter() {
     setCharacter({ ...character, [type]: array[index] });
   };
 
-  const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
-    e: ChangeEvent<T>,
-    type: string
-  ) => {
-    setCharacter({ ...character, [type]: e.target.value });
-  };
+  // const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
+  //   e: ChangeEvent<T>,
+  //   type: string
+  // ) => {
+  //   setCharacter({ ...character, [type]: e.target.value });
+  // };
 
   return (
     <WrapperStyle>
@@ -69,24 +69,23 @@ function CreateCharacter() {
             console.log('arena');
           }}
         />
+        <LinkButton
+          text={'Logout'}
+          address={'/'}
+          onClick={() => {
+            localStorage.clear();
+            location.reload();
+          }}
+        />
       </LinkWrapperStyle>
       <BGWrapperStyle>
-        <Input
-          callback={e => handleSettings(e, 'name')}
-          type="text"
-          text={character.name}
-          placeholder="Enter name"
-          id="name"
-          width="164px"
-          height="27px"
-          backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
-        />
+        <h3>{`Welcome ${playerName}`}</h3>
         <BackgroundStyle
           background={`./assets/game/icons/${character.background}`}
-          width={'128px'}
-          height={'128px'}
-          margin={'5px 0px 0px 0px'}
-        ></BackgroundStyle>
+          width={"128px"}
+          height={"128px"}
+          margin={"5px 0px 0px 0px"}
+          />
         <PaginationWrapperStyle>
           <PaginationButtonStyle
             background={'./assets/game/ui/element_0142_Layer-144.png'}

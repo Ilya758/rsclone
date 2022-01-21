@@ -1,12 +1,12 @@
-import Phaser, { Scene } from 'phaser';
+import Phaser from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import Bullet from '../entities/bullet';
 import '../person/Person';
 import Person from '../person/Person';
-import PersonUI from '../ui-kit/PersonUi';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { io, Socket } from 'socket.io-client';
+import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
 
 export interface IPlayer {
   x: number;
@@ -16,34 +16,34 @@ export interface IPlayer {
   firing: boolean;
 }
 
-interface IPlayerInfo {
-  hp: number;
-  playerId: string;
-}
-
 export interface IPlayers {
   [index: string]: IPlayer;
 }
 
 export default class Dungeon extends Phaser.Scene {
-  protected personUi: PersonUI | null;
-
-  protected person: Phaser.Physics.Arcade.Sprite | null;
+  protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
 
   private personWalkSound: Phaser.Sound.BaseSound | null;
 
   private personRifleSound: Phaser.Sound.BaseSound | null;
+
   private socket: Socket | undefined;
+
   private otherPlayers: Phaser.GameObjects.Group | undefined;
+
   private spawn: { x: number; y: number }[] | undefined;
+
+  private assets: Phaser.Tilemaps.TilemapLayer | null;
+
+  private walls: Phaser.Tilemaps.TilemapLayer | null;
 
   constructor() {
     super('dungeon');
     this.person = null;
     this.bullets = null;
-    this.personUi = null;
+    this.assets = this.walls = null;
     this.personWalkSound = this.personRifleSound = null;
   }
 
@@ -68,46 +68,43 @@ export default class Dungeon extends Phaser.Scene {
 
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    this.load.image('gun', './assets/game/items/gun.png');
+    this.load.image('rifle', './assets/game/items/rifle.png');
+    this.load.image('bat', './assets/game/items/bat.png');
+    this.load.image('firethrower', './assets/game/items/firethrower.png');
+    this.load.image('knife', './assets/game/items/knife.png');
+
+    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
+    this.load.image(
+      'active-item',
+      './assets/game/ui/element_0017_Layer-19.png'
+    );
+
+    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
+    this.load.image('iconMan', './assets/game/icons/manicon.png');
+
+    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
+    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 
   create() {
-    this.spawn = [
-      { x: 120, y: 174 },
-      { x: 711, y: 483 },
-      { x: 1028, y: 173 },
-      { x: 1505, y: 173 },
-      { x: 1356, y: 529 },
-      { x: 834, y: 558 },
-      { x: 345, y: 611 },
-      { x: 98, y: 947 },
-      { x: 581, y: 934 },
-      { x: 903, y: 921 },
-      { x: 1498, y: 962 },
-      { x: 1498, y: 1224 },
-      { x: 1445, y: 1553 },
-      { x: 960, y: 1436 },
-      { x: 476, y: 1541 },
-      { x: 126, y: 1423 },
-      { x: 104, y: 1104 },
-      { x: 865, y: 1032 },
-      { x: 990, y: 644 },
-      { x: 717, y: 417 },
-    ];
-
     // this.socket = io('ws://localhost:5000');
     this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
     this.socket.on('currentPlayers', (players: IPlayers) => {
       Object.keys(players).forEach(id => {
         if (this.socket && players[id].playerId === this.socket.id) {
-          console.log(players);
+          (this.person as Person).playerId = this.socket.id;
         } else {
           let otherPerson;
-          if (this.spawn) {
-            const spawnPoint = Math.floor(Math.random() * this.spawn.length);
+          if (PERSON_SPAWN_POINTS) {
+            const spawnPoint = Math.floor(
+              Math.random() * PERSON_SPAWN_POINTS.length
+            );
             otherPerson = this.add.person(
-              this.spawn[spawnPoint].x,
-              this.spawn[spawnPoint].y,
+              PERSON_SPAWN_POINTS[spawnPoint].x,
+              PERSON_SPAWN_POINTS[spawnPoint].y,
               'person'
             );
           }
@@ -158,9 +155,9 @@ export default class Dungeon extends Phaser.Scene {
     // create layer
 
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
-    const walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
+    this.walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
     map.createLayer('shadow', [tilesetTech], 0, 0);
-    const assets = map.createLayer(
+    this.assets = map.createLayer(
       'assets',
       [tilesetFurniture, tilesetTech],
       0,
@@ -169,20 +166,10 @@ export default class Dungeon extends Phaser.Scene {
     // create collision
 
     ground.setCollisionByProperty({ collides: true });
-    walls.setCollisionByProperty({ collides: true });
-    assets.setCollisionByProperty({ collides: true });
+    this.walls.setCollisionByProperty({ collides: true });
+    this.assets.setCollisionByProperty({ collides: true });
     // debugGraphicsDraw(walls, this);
     // debugGraphicsDraw(assets, this);
-
-    // person and enemies initialization
-
-    const spawnPoint = Math.floor(Math.random() * this.spawn.length);
-    this.person = this.add.person(
-      this.spawn[spawnPoint].x,
-      this.spawn[spawnPoint].y,
-      'person'
-    );
-    this.cameras.main.startFollow(this.person, true);
 
     // creating the sounds
 
@@ -201,12 +188,11 @@ export default class Dungeon extends Phaser.Scene {
       runChildUpdate: true,
     });
 
-    this.physics.add.collider(this.person, walls);
-    this.physics.add.collider(this.person, assets);
+    this.createPerson();
 
     this.physics.add.collider(
       this.bullets,
-      walls,
+      this.walls,
       Bullet.handleBulletAndWallsCollision.bind(this)
     );
 
@@ -215,7 +201,7 @@ export default class Dungeon extends Phaser.Scene {
         arg1,
         arg2,
         this,
-        this.personUi
+        this.person?.userInterface as Person['userInterface']
       );
       arg1.destroy(true);
       const data = arg2 as Person;
@@ -227,19 +213,14 @@ export default class Dungeon extends Phaser.Scene {
         });
         this.socket.emit('damaged', {
           hp: resolvedHp,
+          id: data.playerId,
         });
       }
     });
 
-    (this.person as Person).createRotationAndAttacking(
-      this,
-      this.personRifleSound
-    );
-
     // appending scene PersonUI
 
-    this.personUi = new PersonUI(this, this.person as Person);
-    this.scene.add('person-ui', this.personUi as unknown as Scene);
+    this.scene.add('person-ui', this.person?.userInterface as Phaser.Scene);
 
     this.socket.on('playerMoved', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
@@ -251,24 +232,33 @@ export default class Dungeon extends Phaser.Scene {
         });
     });
 
-    this.socket.on('damaged', (playerInfo: IPlayerInfo) => {
-      console.log(playerInfo);
-      if (this.otherPlayers)
-        this.otherPlayers.getChildren().forEach(otherPlayer => {
-          if (playerInfo.playerId === (otherPlayer as Person).playerId) {
-            (otherPlayer as Person).hpBar?.setValue(playerInfo.hp);
-            if (((otherPlayer as Person).hpBar?.value as number) <= 0) {
-              this.person?.destroy(true);
-              //This is cringe, but works for now. Fix later.
-              if (this.socket)
-                this.socket.emit('damaged', {
-                  hp: 100,
-                });
-              location.reload();
+    this.socket.on(
+      'damaged',
+      (hpData: { id: string; hp: number; playerId: string }) => {
+        console.log(hpData);
+        if ((this.person as Person).playerId === hpData.id) {
+          (this.person as Person).hp = hpData.hp;
+
+          if ((this.person as Person).hp <= 0) {
+            this.person?.destroy(true);
+            this.createPerson();
+            if (this.socket) (this.person as Person).playerId = this.socket.id;
+            this.socket &&
+              this.socket.emit('damaged', {
+                hp: 100,
+                id: (this.person as Person).playerId,
+              });
+            if (this.person && this.socket) {
+              this.socket.emit('playerMovement', {
+                x: this.person.x,
+                y: this.person.y,
+                rotation: this.person.rotation,
+              });
             }
           }
-        });
-    });
+        }
+      }
+    );
 
     this.socket.on('firing', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
@@ -295,20 +285,52 @@ export default class Dungeon extends Phaser.Scene {
     this.scene.run('person-ui');
   }
 
-  update(time?: number): void {
-    if ((this.person as Person).hpBar?.value === 0)
-      (this.person as Person).hpBar?.setValue((this.person as Person).hp);
-    (this.person as Person).selfHealing(this);
+  createPerson() {
+    const spawnPoint = Math.floor(Math.random() * PERSON_SPAWN_POINTS.length);
+    this.person = this.add.person(
+      PERSON_SPAWN_POINTS[spawnPoint].x,
+      PERSON_SPAWN_POINTS[spawnPoint].y,
+      'person'
+    );
 
+    this.cameras.main.startFollow(this.person, true);
+
+    this.physics.add.collider(
+      this.person,
+      this.walls as Phaser.Tilemaps.TilemapLayer
+    );
+
+    this.physics.add.collider(
+      this.person,
+      this.assets as Phaser.Tilemaps.TilemapLayer
+    );
+
+    (this.person as Person).createRotationAndAttacking(
+      this,
+      this.personRifleSound
+    );
+  }
+
+  update(time?: number): void {
     if (this.person) {
       this.person.update(
         createUserKeys(this.input),
-        time,
+        time as number,
         this.bullets,
-        this.personWalkSound,
-        this.personUi
+        this.personWalkSound as Phaser.Sound.BaseSound,
+        this.person.userInterface
       );
+
+      this.person?.userInterface.hpBar?.draw(this.person.hp);
     }
+
+    if (this.otherPlayers)
+      this.otherPlayers.getChildren().forEach(otherPlayer => {
+        if ((otherPlayer as Person).hp <= 0) {
+          (otherPlayer as Person).hp = 100;
+        }
+      });
+
     if (this.person) {
       if (this.socket)
         this.socket.emit('playerMovement', {

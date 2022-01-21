@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import Person from '../../person/Person';
 
 export default abstract class HealthBar {
   protected abstract barWidth: number;
@@ -7,8 +6,6 @@ export default abstract class HealthBar {
   protected abstract barHeight: number;
 
   protected abstract maxHealth: number;
-
-  protected abstract _value: number;
 
   public x: number;
 
@@ -18,22 +15,17 @@ export default abstract class HealthBar {
 
   protected scene: Phaser.Scene;
 
-  private object?: Phaser.Physics.Arcade.Sprite;
-
-  public isHealing = false;
-
-  private timeHealingTimer: Phaser.Time.TimerEvent;
+  private person?: Phaser.Physics.Arcade.Sprite;
 
   constructor(
     scene: Phaser.Scene,
     x?: number,
     y?: number,
-    object?: Phaser.Physics.Arcade.Sprite
+    person?: Phaser.Physics.Arcade.Sprite
   ) {
-    this.timeHealingTimer = scene.time.addEvent({});
     this.x = x || 0;
     this.y = y || 0;
-    this.object = object;
+    this.person = person;
     this.scene = scene;
     this.bar = new Phaser.GameObjects.Graphics(this.scene);
     this.appendToScene();
@@ -44,61 +36,7 @@ export default abstract class HealthBar {
     this.scene.add.existing(this.bar);
   }
 
-  setValue(value: number) {
-    this._value = value;
-    this.draw();
-  }
-
-  decrease(amount: number) {
-    this._value -= amount; // every damage decreases hp
-
-    if (this._value < 0) {
-      this._value = 0; // character is dead
-    }
-
-    this.draw();
-
-    return this._value === 0;
-  }
-
-  heal(scene: Phaser.Scene, amount: number) {
-    const person = this.object as Person;
-
-    if (!person.hit && !person.isDead) {
-      // when the person is in the cooldown
-
-      if (this.value !== this.maxHealth && this.isHealing) {
-        // he starts to healing
-        this.isHealing = false;
-
-        this.timeHealingTimer = scene.time.addEvent({
-          // after 30 seconds, health increases for 10 pts
-          delay: 30000,
-          callback: () => {
-            this._value += amount;
-
-            if (this._value > this.maxHealth) {
-              this._value = this.maxHealth;
-            }
-
-            this.draw();
-
-            this.isHealing = true;
-
-            return this._value === this.maxHealth;
-          },
-        });
-
-        this.isHealing = false;
-      }
-    } else {
-      // otherwise time-healing-timer is removing
-
-      this.timeHealingTimer.remove();
-    }
-  }
-
-  draw() {
+  draw(hp: number) {
     // clearing bar
 
     this.bar.clear();
@@ -110,15 +48,7 @@ export default abstract class HealthBar {
 
     // health fill
 
-    // this.bar.fillStyle(0xffffff);
-    // this.bar.fillRect(
-    //   this.x + 2,
-    //   this.y + 2,
-    //   this.barWidth - 4,
-    //   this.barHeight - 4
-    // );
-
-    if (this.value <= 0.3 * this.maxHealth) {
+    if (hp <= 0.3 * this.maxHealth) {
       // when the health state is low
       this.bar.fillStyle(0xff0000);
     } else {
@@ -127,28 +57,19 @@ export default abstract class HealthBar {
 
     // using delta to fill bar with a current percentage of health
     const delta = Math.floor(
-      (this.barWidth * this.value) / this.maxHealth -
-        (4 * this.value) / this.maxHealth
+      (this.barWidth * hp) / this.maxHealth - (4 * hp) / this.maxHealth
     );
 
     this.bar.fillRect(this.x + 2, this.y + 2, delta, this.barHeight - 4);
     this.bar.depth = 20;
   }
 
-  get value() {
-    return this._value;
-  }
-
-  set value(v) {
-    this._value = v;
-  }
-
   update() {
-    if (this.object) {
+    if (this.person) {
       // if the object-variable is existed, then position of the bar relates with a character
 
-      this.bar.y = this.object.y - this.y - 30;
-      this.bar.x = this.object.x - this.x - 18;
+      this.bar.x = this.person.x - this.x - 18;
+      this.bar.y = this.person.y - this.y - 30;
     }
   }
 

@@ -55,7 +55,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     const enemy = obj as Enemy;
     enemy.isShooted.state = true;
     enemy.setTint(0xff0000);
-    enemy.hpBar.decrease(10);
+    enemy.decreaseHp(10);
     bullet.destroy(true);
 
     obj.scene.time.addEvent({
@@ -65,7 +65,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
       },
     });
 
-    if (!enemy.hpBar.value) {
+    if (!enemy.hp) {
       enemy.isDead = true;
       enemy.kill();
     }
