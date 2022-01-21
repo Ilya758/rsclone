@@ -7,16 +7,25 @@ export default class PersonUI extends Phaser.Scene {
   parentScene: Phaser.Scene;
 
   public hpBar: PersonHealthBar | null;
+
   public items: number;
+
   public knife: Phaser.GameObjects.Image | null;
+
   public bat: Phaser.GameObjects.Image | null;
+
   public gun: Phaser.GameObjects.Image | null;
+
   public fire: Phaser.GameObjects.Image | null;
+
   public rifle: Phaser.GameObjects.Image | null;
+
   public active: Phaser.GameObjects.Image | null;
+
   public itemKeys: {
     [key: string]: number;
   };
+
   private person: Person;
 
   constructor(scene: Phaser.Scene, person: Person) {
