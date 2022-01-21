@@ -26,6 +26,8 @@ export default class SettingsMenu {
 
   private settingsMenuButtons: ReturnType<typeof getSettingsMenuButtonsParams>;
 
+  private overlay: Phaser.GameObjects.Graphics | null;
+
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.size = {
@@ -33,6 +35,7 @@ export default class SettingsMenu {
       height: this.scene.scale.height,
     };
     this.soundsButton = this.musicButton = this.backToMenuButton = null;
+    this.overlay = null;
     this.settingsMenu = this.createMenu();
     this.settingsMenuButtons = getSettingsMenuButtonsParams(this.settingsMenu);
     this.createButtons();
@@ -55,7 +58,19 @@ export default class SettingsMenu {
       )
     );
 
+    this.overlay = this.createOverlay();
+
     return settingsMenu;
+  }
+
+  createOverlay() {
+    const overlay = this.scene.add.graphics();
+
+    overlay.fillStyle(0x000000);
+    overlay.setAlpha(0.45);
+    overlay.fillRect(0, 0, this.scene.scale.width, this.scene.scale.height);
+
+    return overlay;
   }
 
   createButtons() {
@@ -130,6 +145,7 @@ export default class SettingsMenu {
 
   destroy() {
     this.settingsMenu.destroy();
+    this.overlay?.destroy();
 
     ['soundsButton', 'musicButton', 'backToMenuButton'].forEach(
       (btn: string) => {
