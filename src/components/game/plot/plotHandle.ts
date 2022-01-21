@@ -5,6 +5,7 @@ const plotHandle = (type: string) => {
     case 'roofQuest0':
       sceneEvents.emit(`dialog`, 0);
       sceneEvents.emit(`roof`, 0);
+      sceneEvents.emit(`questLabel`, 3);
       sceneEvents.emit(`questLabel`, 0);
       break;
     case 'roofQuest1':
@@ -21,17 +22,29 @@ const plotHandle = (type: string) => {
       sceneEvents.emit(`dialog`, 3);
       sceneEvents.emit(`questLabelDestroy`, 1);
       break;
+    case 'killSecondZombies':
+      sceneEvents.emit(`dialog`, 6);
+      sceneEvents.emit(`questLabelDestroy`, 2);
+      break;
+    case 'killLastZombies':
+      sceneEvents.emit(`dialog`, 7);
+      sceneEvents.emit(`questLabelDestroy`, 5);
+      break;
     case 'roofQuest2':
       sceneEvents.emit(`roof`, 2);
-      sceneEvents.emit(`zombies`, 0);
+      sceneEvents.emit(`zombie`, 1);
       sceneEvents.emit(`dialog`, 4);
+      sceneEvents.emit(`questLabel`, 2);
       break;
     case 'roofQuest3':
       sceneEvents.emit(`roof`, 3);
-      sceneEvents.emit(`zombies`, 1);
-      sceneEvents.emit(`zombieBoss`, 1);
+      sceneEvents.emit(`zombie`, 2);
+      sceneEvents.emit(`dialog`, 4);
+      sceneEvents.emit(`questLabel`, 5);
+      // sceneEvents.emit(`zombieBoss`, 1);
       break;
     case 'roofQuest4':
+      sceneEvents.emit(`questLabelDestroy`, 3);
       sceneEvents.emit(`hide`);
       break;
 

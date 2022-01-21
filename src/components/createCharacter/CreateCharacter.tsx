@@ -21,7 +21,7 @@ function CreateCharacter() {
   const [character, setCharacter] = useState(() => char);
   const options = useAppSelector(state => state.user.userId);
   const dispatch = useAppDispatch();
-  const playerName = useAppSelector((state) => state.user.login);
+  const playerName = useAppSelector(state => state.user.login);
 
   useEffect(() => {
     const calculated = JSON.parse(JSON.stringify(character));
@@ -82,10 +82,10 @@ function CreateCharacter() {
         <h3>{`Welcome ${playerName}`}</h3>
         <BackgroundStyle
           background={`./assets/game/icons/${character.background}`}
-          width={"128px"}
-          height={"128px"}
-          margin={"5px 0px 0px 0px"}
-          />
+          width={'128px'}
+          height={'128px'}
+          margin={'5px 0px 0px 0px'}
+        />
         <PaginationWrapperStyle>
           <PaginationButtonStyle
             background={'./assets/game/ui/element_0142_Layer-144.png'}

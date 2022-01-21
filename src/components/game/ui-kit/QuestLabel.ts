@@ -6,7 +6,7 @@ export default class QuestLabel {
   protected scene: Phaser.Scene;
   private text: Phaser.GameObjects.Text;
   private content: string;
-  private number: number;
+  public number: number;
 
   constructor(
     scene: Phaser.Scene,

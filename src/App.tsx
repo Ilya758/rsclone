@@ -23,10 +23,7 @@ export function App() {
         path="multiplayer"
         element={isAuthenticated ? <Multiplayer /> : <Navigate to="/" />}
       />
-      <Route
-        path="*"
-        element={<Navigate to="/" />}
-      />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

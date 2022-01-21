@@ -1,20 +1,21 @@
-import { COORDINATES } from './../../../constants/coordinates';
 import { QUESTLABELS } from './../../../constants/questLabels';
 import Phaser from 'phaser';
+import Dungeon from '../scenes/Dungeon';
 import DialogBox from '../plot/DialogBox';
 import { DIALOGS } from '../../../constants/dialogs';
 import sceneEvents from './eventCenter';
 import QuestLabel from '../ui-kit/QuestLabel';
 import '../enemies/Zombie';
+import plotHandle from '../plot/plotHandle';
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
-  private scene: Phaser.Scene;
+  private scene: Dungeon;
   private person: Phaser.Physics.Arcade.Sprite;
   private personUi: Phaser.Scene;
   private questLabels: QuestLabel[];
 
   constructor(
-    scene: Phaser.Scene,
+    scene: Dungeon,
     person: Phaser.Physics.Arcade.Sprite,
     roofs: Phaser.Tilemaps.TilemapLayer[],
     personUi: Phaser.Scene
@@ -28,7 +29,17 @@ export default class EventFactory {
   }
 
   run() {
-    // sceneEvents.on('killZombieEvent', () => {})
+    sceneEvents.on('killZombieCounter', (counter: number) => {
+      if (counter === 1) {
+        plotHandle('killFirstZombie');
+      }
+      if (counter === 6) {
+        plotHandle('killSecondZombies');
+      }
+      if (counter === 16) {
+        plotHandle('killLastZombies');
+      }
+    });
 
     sceneEvents.on('hide', () => {
       this.scene.cameras.main.fadeOut(2000);
@@ -44,12 +55,25 @@ export default class EventFactory {
 
     sceneEvents.on('questLabel', (number: number) => {
       this.questLabels.push(
-        new QuestLabel(this.personUi, QUESTLABELS[number], number, 10, 150)
+        new QuestLabel(
+          this.personUi,
+          QUESTLABELS[number],
+          number,
+          10,
+          this.questLabels.length * 15 + 80
+        )
       );
     });
 
     sceneEvents.on('questLabelDestroy', (number: number) => {
-      this.questLabels[number].crossLine();
+      this.questLabels = this.questLabels.filter((quest: QuestLabel) => {
+        if (quest.number === number) {
+          console.log('delete', number);
+          quest.crossLine();
+          return false;
+        }
+        return true;
+      });
     });
 
     sceneEvents.on('roof', (number: number) => {
@@ -60,29 +84,7 @@ export default class EventFactory {
       });
     });
     sceneEvents.on('zombie', (number: number) => {
-      this.scene.add.zombie(
-        COORDINATES.zombie[number][0],
-        COORDINATES.zombie[number][1],
-        'zombie'
-      );
-    });
-    sceneEvents.on('zombies', (number: number) => {
-      this.scene.add.zombie(
-        COORDINATES.zombies[number][0],
-        COORDINATES.zombies[number][1],
-        'zombie'
-      );
-      this.scene.add.zombie(
-        COORDINATES.zombies[number][0],
-        COORDINATES.zombies[number][1],
-        'zombie'
-      );
-      this.scene.add.zombie(
-        COORDINATES.zombies[number][0],
-        COORDINATES.zombies[number][1],
-        'zombie'
-      );
-      //TODO зареспать много мобов
+      this.scene.createGroupOfZombies(number);
     });
 
     sceneEvents.on(
