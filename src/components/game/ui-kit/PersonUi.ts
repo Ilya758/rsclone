@@ -5,7 +5,7 @@ import IconUi from './IconUi';
 import SettingsMenu from './SettingsMenu';
 
 export default class PersonUI extends Phaser.Scene {
-  parentScene: Phaser.Scene;
+  public parentScene: Phaser.Scene;
 
   public hpBar: PersonHealthBar | null;
 
