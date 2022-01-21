@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
-import PersonHealthBar from '../ui-kit/health-bars/PersonHealthBar';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
 
@@ -25,8 +24,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private isDown = false;
 
-  public hpBar: PersonHealthBar;
-
   public currentWeapon = 'knife';
 
   public playerId: string | undefined;
@@ -34,6 +31,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   public isHealing = false;
 
   private timeHealingTimer: Phaser.Time.TimerEvent;
+
+  public userInterface: PersonUI;
 
   constructor(
     scene: Phaser.Scene,
@@ -45,7 +44,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, frame);
     this._hp = this.maxHealth = 100;
     this.timeHealingTimer = scene.time.addEvent({});
-    this.hpBar = new PersonHealthBar(scene, 0, 0, this);
+    this.scene = scene;
+    this.userInterface = new PersonUI(this.scene, this);
   }
 
   heal(scene: Phaser.Scene, amount: number) {
@@ -66,7 +66,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
               this.hp = this.maxHealth;
             }
 
-            this.hpBar.draw(this.hp);
+            this.userInterface.hpBar?.draw(this.hp);
 
             this.isHealing = true;
 
@@ -93,7 +93,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   set hp(value: number) {
     this._hp = value;
-    this.hpBar.draw(this.hp);
+    this.userInterface.hpBar?.draw(this.hp);
   }
 
   create() {
