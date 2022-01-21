@@ -132,15 +132,19 @@ export default class PersonUI extends Phaser.Scene {
       .on('pointerover', setVisibility.bind(this, 'over'))
       .on('pointerout', setVisibility.bind(this))
       .on('pointerdown', () => {
-        if (!this.menuIsOpened) {
-          this.menuIsOpened = true;
-          this.settingsMenu = new SettingsMenu(this);
-        } else {
-          this.menuIsOpened = false;
-          this.settingsMenu?.destroy();
-        }
+        this.toggleSettingsMenu();
       });
 
     return settingsButton;
+  }
+
+  toggleSettingsMenu() {
+    if (!this.menuIsOpened) {
+      this.menuIsOpened = true;
+      this.settingsMenu = new SettingsMenu(this);
+    } else {
+      this.menuIsOpened = false;
+      this.settingsMenu?.destroy();
+    }
   }
 }
