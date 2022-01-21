@@ -12,7 +12,11 @@ const show = keyframes`
 }
 `;
 
-export const ButtonStyle = styled.button`
+interface IProps {
+  status: boolean
+}
+
+export const ButtonStyle = styled.button<IProps>`
   position: absolute;
   z-index: 15;
   bottom: -30px;
@@ -29,10 +33,10 @@ export const ButtonStyle = styled.button`
   background-size: cover, 60%;
   color: rgb(15, 4, 82);
   font: 600 16px 'Orbitron', sans-serif;
-  cursor: pointer;
+  cursor: ${(props) => props.status ? 'pointer' : 'not-allowed'};
   outline: none;
   &:hover {
-    color: rgb(115, 4, 82);
+    color: ${(props) => props.status ? 'rgb(115, 4, 82)' : 'rgb(15, 4, 82)'};
     font-weight: 700;
   }
 `;
