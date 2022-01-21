@@ -1,3 +1,4 @@
+import { ITEMS } from './../../../constants/items';
 import { QUESTLABELS } from './../../../constants/questLabels';
 import Phaser from 'phaser';
 import Dungeon from '../scenes/Dungeon';
@@ -13,6 +14,7 @@ export default class EventFactory {
   private person: Phaser.Physics.Arcade.Sprite;
   private personUi: Phaser.Scene;
   private questLabels: QuestLabel[];
+  private dialogQueue: number[];
 
   constructor(
     scene: Dungeon,
@@ -26,9 +28,26 @@ export default class EventFactory {
     this.personUi = personUi;
     this.run();
     this.questLabels = [];
+    this.dialogQueue = [];
   }
 
   run() {
+    this.checkQueueLength();
+    sceneEvents.on('dropItem', (coords: number[]) => {
+      const random = Phaser.Math.Between(0, 99);
+      const itemRandom = Phaser.Math.Between(0, 3);
+      if (random <= 100) {
+        const item = this.scene.add.image(
+          coords[0],
+          coords[1],
+          ITEMS[itemRandom]
+        );
+        item.depth = 1;
+        item.setScale(0.4, 0.4);
+        sceneEvents.emit('dialog', 8);
+      }
+    });
+
     sceneEvents.on('killZombieCounter', (counter: number) => {
       if (counter === 1) {
         plotHandle('killFirstZombie');
@@ -68,7 +87,6 @@ export default class EventFactory {
     sceneEvents.on('questLabelDestroy', (number: number) => {
       this.questLabels = this.questLabels.filter((quest: QuestLabel) => {
         if (quest.number === number) {
-          console.log('delete', number);
           quest.crossLine();
           return false;
         }
@@ -90,24 +108,45 @@ export default class EventFactory {
     sceneEvents.on(
       'dialog',
       (number: number) => {
-        if (!this.person) throw new Error('error');
-        const coords = (
-          DIALOGS[number].coordinates
-            ? DIALOGS[number].coordinates
-            : [this.person.x, this.person.y]
-        ) as number[];
-        new DialogBox(
-          coords[0] - DIALOGS[number].width / 7,
-          coords[1] -
-            (DIALOGS[number].height + DIALOGS[number].height / 4 + 10),
-          DIALOGS[number].width,
-          DIALOGS[number].height,
-          DIALOGS[number].text,
-          DIALOGS[number].delay,
-          this.scene
-        );
+        this.dialogQueue.push(number);
       },
       this
     );
+  }
+
+  async checkQueueLength() {
+    if (this.dialogQueue && this.dialogQueue.length >= 1) {
+      this.dialogHandle();
+    } else {
+      setTimeout(() => {
+        this.checkQueueLength();
+      }, 500);
+    }
+  }
+  async dialogHandle() {
+    if (!this.person) throw new Error('error');
+    const coords = (
+      DIALOGS[this.dialogQueue[0]].coordinates
+        ? DIALOGS[this.dialogQueue[0]].coordinates
+        : [this.person.x, this.person.y]
+    ) as number[];
+    new DialogBox(
+      coords[0] - DIALOGS[this.dialogQueue[0]].width / 7,
+      coords[1] -
+        (DIALOGS[this.dialogQueue[0]].height +
+          DIALOGS[this.dialogQueue[0]].height / 4 +
+          10),
+      DIALOGS[this.dialogQueue[0]].width,
+      DIALOGS[this.dialogQueue[0]].height,
+      DIALOGS[this.dialogQueue[0]].text,
+      DIALOGS[this.dialogQueue[0]].delay,
+      this.scene
+    );
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.dialogQueue.shift();
+        this.checkQueueLength();
+      }, DIALOGS[this.dialogQueue[0]].delay);
+    });
   }
 }
