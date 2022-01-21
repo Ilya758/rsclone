@@ -72,6 +72,24 @@ export default class Dungeon extends Phaser.Scene {
 
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    this.load.image('gun', './assets/game/items/gun.png');
+    this.load.image('rifle', './assets/game/items/rifle.png');
+    this.load.image('bat', './assets/game/items/bat.png');
+    this.load.image('firethrower', './assets/game/items/firethrower.png');
+    this.load.image('knife', './assets/game/items/knife.png');
+
+    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
+    this.load.image(
+      'active-item',
+      './assets/game/ui/element_0017_Layer-19.png'
+    );
+
+    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
+    this.load.image('iconMan', './assets/game/icons/manicon.png');
+
+    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
+    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 
   create() {
