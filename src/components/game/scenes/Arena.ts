@@ -84,7 +84,6 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
     this.load.image('iconMan', './assets/game/icons/manicon.png');
 
-    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 

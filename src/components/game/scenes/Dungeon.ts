@@ -106,7 +106,6 @@ export default class Dungeon extends Phaser.Scene {
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
 
-    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 
