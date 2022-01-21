@@ -8,17 +8,12 @@ const GameInitializer = () => {
     type: Phaser.AUTO,
     scale: {
       mode: Phaser.Scale.FIT,
-      autoCenter: Phaser.Scale.CENTER_BOTH,
       parent: 'canvasPoint',
       width: 800,
       height: 400,
       min: {
-        width: 800,
-        height: 400,
-      },
-      max: {
-        width: 1600,
-        height: 1200,
+        width: window.innerWidth / 2,
+        height: window.innerHeight / 2,
       },
     },
     physics: {
