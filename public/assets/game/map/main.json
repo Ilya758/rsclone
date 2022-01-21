@@ -117,7 +117,7 @@
          "name":"roofQuest3",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":200,
          "x":0,
          "y":0
@@ -181,6 +181,17 @@
                  "width":8.66666666666697,
                  "x":5108.66666666667,
                  "y":5695.33333333333
+                }, 
+                {
+                 "height":7.75,
+                 "id":16,
+                 "name":"roofQuest4",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":9,
+                 "x":5192.5,
+                 "y":3854.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -189,7 +200,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":16,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

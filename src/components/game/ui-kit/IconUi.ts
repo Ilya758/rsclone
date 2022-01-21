@@ -26,10 +26,10 @@ export default class IconUi {
     this.icon.setScale(0.83, 0.83);
     this.iconWrapper.setScale(0.4, 0.4);
     sceneEvents.on('killZombieEvent', () => {
-      console.log('kill');
       this.zombieCounter += 1;
       this.totalZombies.destroy();
       this.totalZombies = this.createTotalZombies();
+      sceneEvents.emit(`killZombieCounter`, this.zombieCounter);
     });
     sceneEvents.on('deathEvent', () => {
       this.deathCounter += 1;
