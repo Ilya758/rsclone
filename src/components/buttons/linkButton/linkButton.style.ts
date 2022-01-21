@@ -15,7 +15,7 @@ const show = keyframes`
 export const ButtonStyle = styled.button`
   font-family: 'Orbitron', sans-serif;
   width: 250px;
-  height: 69px;
+  height: 80px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -38,7 +38,7 @@ export const ButtonStyle = styled.button`
     display: inline-block;
     height: 45px;
     width: 180px;
-    line-height: 45px;
+    line-height: 55px;
     text-decoration: none;
   }
   &:hover a {

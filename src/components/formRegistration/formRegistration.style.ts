@@ -80,4 +80,5 @@ export const FormRegistrationStyle = styled.div<IGenericRegistration>`
   background-size: 30px 100%, 30px 100%, 100% 100%;
   background-position-x: 0%, 100%;
   background-position-y: 50%, 50%;
+  backdrop-filter: blur(10px);
 `;
