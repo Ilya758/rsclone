@@ -20,20 +20,20 @@ function FormRegistration() {
   const [auth, setAuth] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
   const state = useAppSelector(state => state.user);
 
   useEffect(() => {
     const isAuth = tokenValidation(state.token);
     setAuth(isAuth);
-    if(state.status === 'denied') setError(true);
+    if (state.status === 'denied') setError(true);
     const timer = setTimeout(() => {
       setLoading(false);
       setError(false);
-    },5000);
+    }, 5000);
     return () => {
       clearTimeout(timer);
-    }
+    };
   }, [state]);
 
   const submitHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,21 +47,21 @@ function FormRegistration() {
     setPassword('');
     setLogin('');
   };
-  
+
   const validator = (data: string): boolean => {
     const regex = new RegExp('^([A-Za-z0-9]){4,20}$', 'gm');
     return regex.test(data);
-  }
+  };
   const validLogin = validator(login);
   const validPassword = validator(password);
-  
+
   return (
     <>
       {!auth ? (
         <FormRegistrationStyle width={'300px'} height={'260px'}>
           <WrapperStyle>
             <HeaderStyle>Enter to the Clone Zero!</HeaderStyle>
-            {!loading &&
+            {!loading && (
               <>
                 <Input
                   callback={onChange(setLogin)}
@@ -75,20 +75,22 @@ function FormRegistration() {
                   backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
                 />
                 <>
-                { !validLogin && <ErrorMessage
-                    text={'login not valid. (min 4, max 20)'}
-                    padding={0}
-                    hoverColor={''}
-                    margin={5}
-                    backgroundColor={'transparent'}
-                    color={'red'}
-                    border={'none'}
-                    cursor={'initial'}
-                  />}
+                  {!validLogin && (
+                    <ErrorMessage
+                      text={'login not valid. (min 4, max 20)'}
+                      padding={0}
+                      hoverColor={''}
+                      margin={5}
+                      backgroundColor={'transparent'}
+                      color={'red'}
+                      border={'none'}
+                      cursor={'initial'}
+                    />
+                  )}
                 </>
               </>
-            }
-            {!loading &&
+            )}
+            {!loading && (
               <>
                 <Input
                   callback={onChange(setPassword)}
@@ -102,30 +104,32 @@ function FormRegistration() {
                   backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
                 />
                 <>
-                  { !validPassword && <ErrorMessage
-                    text={'password not valid. (min 4, max 20)'}
-                    padding={0}
-                    hoverColor={''}
-                    margin={5}
-                    backgroundColor={'transparent'}
-                    color={'red'}
-                    border={'none'}
-                    cursor={'initial'}
-                  />}
+                  {!validPassword && (
+                    <ErrorMessage
+                      text={'password not valid. (min 4, max 20)'}
+                      padding={0}
+                      hoverColor={''}
+                      margin={5}
+                      backgroundColor={'transparent'}
+                      color={'red'}
+                      border={'none'}
+                      cursor={'initial'}
+                    />
+                  )}
                 </>
               </>
-            }
-            {!loading &&
+            )}
+            {!loading && (
               <RegistrationButton
                 onClick={e => {
-                  submitHandler(e)
-                  setLoading(true)
+                  submitHandler(e);
+                  setLoading(true);
                 }}
                 status={!(validPassword && validLogin)}
                 text={'Login / Registration'}
               />
-            }
-            {error &&
+            )}
+            {error && (
               <ErrorMessage
                 text={state.message}
                 padding={0}
@@ -136,7 +140,7 @@ function FormRegistration() {
                 border={'none'}
                 cursor={'initial'}
               />
-            }
+            )}
           </WrapperStyle>
         </FormRegistrationStyle>
       ) : (

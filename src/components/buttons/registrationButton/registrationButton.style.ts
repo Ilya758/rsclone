@@ -13,7 +13,7 @@ const show = keyframes`
 `;
 
 interface IProps {
-  status: boolean
+  status: boolean;
 }
 
 export const ButtonStyle = styled.button<IProps>`
@@ -33,10 +33,10 @@ export const ButtonStyle = styled.button<IProps>`
   background-size: cover, 60%;
   color: rgb(15, 4, 82);
   font: 600 16px 'Orbitron', sans-serif;
-  cursor: ${(props) => props.status ? 'pointer' : 'not-allowed'};
+  cursor: ${props => (props.status ? 'pointer' : 'not-allowed')};
   outline: none;
   &:hover {
-    color: ${(props) => props.status ? 'rgb(115, 4, 82)' : 'rgb(15, 4, 82)'};
+    color: ${props => (props.status ? 'rgb(115, 4, 82)' : 'rgb(15, 4, 82)')};
     font-weight: 700;
   }
 `;
