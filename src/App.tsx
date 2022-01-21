@@ -19,8 +19,14 @@ export function App() {
         path="game"
         element={isAuthenticated ? <GameInitializer /> : <Navigate to="/" />}
       />
-      <Route path="multiplayer" element={<Multiplayer />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route
+        path="multiplayer"
+        element={isAuthenticated ? <Multiplayer /> : <Navigate to="/" />}
+      />
+      <Route
+        path="*"
+        element={<Navigate to="/" />}
+      />
     </Routes>
   );
 }
