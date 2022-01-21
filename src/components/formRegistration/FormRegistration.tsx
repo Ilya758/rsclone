@@ -18,6 +18,8 @@ function FormRegistration() {
   const [login, setLogin] = useState<string>(() => '');
   const [password, setPassword] = useState<string>(() => '');
   const [auth, setAuth] = useState<boolean>(false);
+  // const [validLogin, setValidLogin] = useState<boolean>(false)
+  // const [validPassword, setValidPassword] = useState<boolean>(false)
   const dispatch = useAppDispatch();
   const state = useAppSelector(state => state.user);
 
@@ -37,7 +39,14 @@ function FormRegistration() {
     setPassword('');
     setLogin('');
   };
-
+  
+  const validator = (data: string): boolean => {
+    const regex = new RegExp('^([A-Za-z0-9]){4,20}$', 'gm');
+    return regex.test(data);
+  }
+  const validLogin = validator(login);
+  const validPassword = validator(password);
+  
   return (
     <>
       {!auth ? (
@@ -55,6 +64,16 @@ function FormRegistration() {
               height="30px"
               backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
             />
+            { !validLogin && <ErrorMessage
+              text={'login not valid. (min 4, max 20)'}
+              padding={0}
+              hoverColor={''}
+              margin={5}
+              backgroundColor={'transparent'}
+              color={'red'}
+              border={'none'}
+              cursor={'initial'}
+            />}
             <Input
               callback={onChange(setPassword)}
               type="password"
@@ -66,10 +85,21 @@ function FormRegistration() {
               height="30px"
               backgroundImage="./assets/game/ui/element_0071_Layer-73.png"
             />
+            { !validPassword && <ErrorMessage
+              text={'password not valid. (min 4, max 20)'}
+              padding={0}
+              hoverColor={''}
+              margin={5}
+              backgroundColor={'transparent'}
+              color={'red'}
+              border={'none'}
+              cursor={'initial'}
+            />}
             <RegistrationButton
-              onClick={e => submitHandler(e)}
-              text={'Login / Registration'}
-            />
+                onClick={e => submitHandler(e)}
+                status={!(validPassword && validLogin)}
+                text={'Login / Registration'}
+              />
             <ErrorMessage
               text={state.message}
               padding={0}
