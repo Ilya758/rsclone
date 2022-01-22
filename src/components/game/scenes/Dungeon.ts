@@ -1,3 +1,4 @@
+import { ATLASES } from './../../../constants/atlases';
 import Phaser from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
@@ -19,6 +20,7 @@ import {
 } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
 import { IWall } from './dungeon.types';
+import { IMAGES } from '../../../constants/images';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -48,66 +50,15 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
-    this.load.image('floor', './assets/game/tiles/floor.png');
-    this.load.image('iconMan', './assets/game/icons/manicon.png');
-    this.load.image('walls', './assets/game/tiles/walls.png');
-    this.load.image('roof2', './assets/game/tiles/roof2.png');
-    this.load.image('other', './assets/game/tiles/other.png');
-    this.load.image('gun', './assets/game/items/gun.png');
-    this.load.image('rifle', './assets/game/items/rifle.png');
-    this.load.image('bat', './assets/game/items/bat.png');
-    this.load.image('firethrower', './assets/game/items/firethrower.png');
-    this.load.image('knife', './assets/game/items/knife.png');
-    this.load.image('furniture', './assets/game/tiles/furniture.png');
-    this.load.image('other2', './assets/game/tiles/other2.png');
+    IMAGES.forEach(img => {
+      this.load.image(img.name, img.url);
+    });
+    ATLASES.forEach(atlas => {
+      this.load.atlas(atlas.name, atlas.urlPNG, atlas.urlJSON);
+    });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
-    this.load.atlas(
-      'person',
-      './assets/game/characters/man.png',
-      './assets/game/characters/man.json'
-    );
-    this.load.atlas(
-      'zombie',
-      './assets/game/enemies/man1.png',
-      './assets/game/enemies/man1.json'
-    );
-    this.load.atlas(
-      'athlete',
-      './assets/game/enemies/man2.png',
-      './assets/game/enemies/man2.json'
-    );
-    this.load.atlas(
-      'armyZombie',
-      './assets/game/enemies/army1.png',
-      './assets/game/enemies/army1.json'
-    );
-    this.load.atlas(
-      'femaleZombie',
-      './assets/game/enemies/woman1.png',
-      './assets/game/enemies/woman1.json'
-    );
-    this.load.atlas(
-      'femaleZombieBrunet',
-      './assets/game/enemies/woman2.png',
-      './assets/game/enemies/woman2.json'
-    );
-    this.load.atlas(
-      'policeZombie',
-      './assets/game/enemies/police1.png',
-      './assets/game/enemies/police1.json'
-    );
-    this.load.image('bullet', './assets/game/bullet1.png');
-    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
-    this.load.image(
-      'active-item',
-      './assets/game/ui/element_0017_Layer-19.png'
-    );
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
-    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
 
   create() {
@@ -201,6 +152,7 @@ export default class Dungeon extends Phaser.Scene {
       PERSON_COORDINATES.start[1],
       'person'
     );
+    this.person.depth = 2;
 
     this.points.setVisible(false);
     this.points.children.entries.forEach((el, ind) => {

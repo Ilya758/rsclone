@@ -6,6 +6,7 @@ import {
   PaginationButtonStyle,
   LinkWrapperStyle,
   PaginationWrapperStyle,
+  HeaderStyle,
 } from './createCharacter.style';
 import { useState } from 'react';
 import { BG_ARRAY } from '../../constants/bgManikins';
@@ -79,7 +80,7 @@ function CreateCharacter() {
         />
       </LinkWrapperStyle>
       <BGWrapperStyle>
-        <h3>{`Welcome ${playerName}`}</h3>
+        <HeaderStyle>{`Welcome, ${playerName}`}</HeaderStyle>
         <BackgroundStyle
           background={`./assets/game/icons/${character.background}`}
           width={'128px'}

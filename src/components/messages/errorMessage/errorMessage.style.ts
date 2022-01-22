@@ -2,6 +2,9 @@ import { IErrorMessage } from './errorMessage.types';
 import styled from 'styled-components';
 
 export const ErrorMessageStyle = styled.div<IErrorMessage>`
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
   padding: ${props => `${props.padding}px`};
   margin: ${props => `${props.margin}px`};
   background-color: ${props => props.backgroundColor};

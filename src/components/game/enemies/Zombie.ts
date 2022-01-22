@@ -31,6 +31,7 @@ Phaser.GameObjects.GameObjectFactory.register(
     texture: string
   ) {
     const sprite = new Zombie(this.scene, x, y, texture);
+    sprite.depth = 2;
 
     this.displayList.add(sprite);
     this.updateList.add(sprite);

@@ -13,11 +13,18 @@ const showForm = keyframes`
   }
 `;
 
+export const HeaderStyle = styled.h3`
+  font-family: 'Orbitron', sans-serif;
+  color: rgb(15, 4, 82);
+  margin: 20px 0px 10px 0px;
+`;
+
 export const LinkWrapperStyle = styled.div`
   position: relative;
   width: 250px;
-  height: 150px;
+  height: 240px;
   left: -49px;
+  margin-top: 10px;
   box-sizing: border-box;
   flex-direction: column;
   display: flex;
