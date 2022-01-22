@@ -5,4 +5,5 @@ export const QUESTLABELS = [
   '- Find an exit',
   '- Kill the Big Boss',
   '- Kill the Zombies',
+  '- Survive!!!',
 ];
