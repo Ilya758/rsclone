@@ -58,6 +58,13 @@ export const DIALOGS = [
   },
   {
     count: 9,
+    width: 120,
+    height: 120,
+    text: 'ENGLISH, MU*******, DO YOU SPEAK IT??!!',
+    delay: 3000,
+  },
+  {
+    count: 9,
     width: 100,
     height: 50,
     text: 'I am the Flash!!!',

@@ -5,7 +5,7 @@ import IconUi from './IconUi';
 import SettingsMenu from './SettingsMenu';
 
 export default class PersonUI extends Phaser.Scene {
-  parentScene: Phaser.Scene;
+  public parentScene: Phaser.Scene;
 
   public hpBar: PersonHealthBar | null;
 
@@ -28,8 +28,6 @@ export default class PersonUI extends Phaser.Scene {
   };
 
   private person: Person;
-
-  private settingsButton: Phaser.GameObjects.Image | null;
 
   private settingsMenu: SettingsMenu | null;
 
@@ -54,7 +52,7 @@ export default class PersonUI extends Phaser.Scene {
       gun: 422,
       firethrower: 542,
     };
-    this.settingsButton = this.settingsMenu = null;
+    this.settingsMenu = null;
   }
 
   create() {
@@ -90,7 +88,6 @@ export default class PersonUI extends Phaser.Scene {
     this.changeWeapon('knife');
     new IconUi(this);
     this.hpBar = new PersonHealthBar(this, 0, 0, this.person);
-    this.settingsButton = this.createSettingsButton();
   }
 
   changeWeapon(type: string) {
@@ -104,43 +101,23 @@ export default class PersonUI extends Phaser.Scene {
     this.active.setScale(0.15, 0.15);
   }
 
-  createSettingsButton() {
-    const settingsButton = this.add.image(0, 0, 'btn-settings');
+  toggleSettingsMenu() {
+    if (!this.menuIsOpened) {
+      this.menuIsOpened = true;
+      this.settingsMenu = new SettingsMenu(this);
+      this.parentScene.scene.pause();
+    } else {
+      this.menuIsOpened = false;
+      this.settingsMenu?.destroy();
+      this.parentScene.scene.resume();
+    }
+  }
 
-    Phaser.Display.Align.In.BottomLeft(
-      settingsButton,
-      this.add.zone(
-        this.scale.width / 2,
-        this.scale.height / 2,
-        this.scale.width,
-        this.scale.height
-      )
-    );
+  update(): void {
+    const esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-    settingsButton.setOrigin(1).setScale(0.35).setScrollFactor(0).setAlpha(0.6);
-
-    const setVisibility = (method = 'out') => {
-      this.tweens.add({
-        targets: settingsButton,
-        alpha: method === 'over' ? 1 : 0.6,
-        duration: 250,
-      });
-    };
-
-    settingsButton
-      .setInteractive()
-      .on('pointerover', setVisibility.bind(this, 'over'))
-      .on('pointerout', setVisibility.bind(this))
-      .on('pointerdown', () => {
-        if (!this.menuIsOpened) {
-          this.menuIsOpened = true;
-          this.settingsMenu = new SettingsMenu(this);
-        } else {
-          this.menuIsOpened = false;
-          this.settingsMenu?.destroy();
-        }
-      });
-
-    return settingsButton;
+    if (Phaser.Input.Keyboard.JustDown(esc)) {
+      this.toggleSettingsMenu();
+    }
   }
 }

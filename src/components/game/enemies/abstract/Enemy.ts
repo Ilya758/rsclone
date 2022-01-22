@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import sceneEvents from '../../events/eventCenter';
 import Person from '../../person/Person';
+import { IEnemySounds } from '../../scenes/dungeon.types';
 import { TUnionHealthBar } from './enemy.types';
 
 export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
@@ -59,7 +60,11 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     this.hpBar.update();
   }
 
-  movingToPerson(person: Person, scene: Phaser.Scene) {
+  movingToPerson(
+    person: Person,
+    scene: Phaser.Scene,
+    zombieSounds: IEnemySounds
+  ) {
     if (person.isDead) {
       scene.physics.moveToObject(this, person, 0);
       this.anims.play('stay', true);
@@ -68,6 +73,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     if (!this.isDead) {
       if (!this.isShooted.once && this.isShooted.state) {
+        zombieSounds.aggressive.play();
         this.isShooted.once = true;
         this.speed *= 2;
       }
@@ -99,5 +105,22 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       delay: 1500,
       callback: () => this.destroy(),
     });
+  }
+
+  static createEnemySounds(scene: Phaser.Scene): IEnemySounds {
+    return {
+      aggressive: scene.sound.add('zombie-aggressive', {
+        volume: 0.3,
+      }),
+      dead: scene.sound.add('zombie-dead', {
+        volume: 0.5,
+      }),
+      hit: scene.sound.add('zombie-hit', {
+        volume: 0.3,
+      }),
+      horde: scene.sound.add('zombie-horde', {
+        volume: 0.3,
+      }),
+    };
   }
 }
