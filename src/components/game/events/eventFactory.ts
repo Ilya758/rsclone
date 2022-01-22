@@ -31,20 +31,27 @@ export default class EventFactory {
     this.dialogQueue = [];
   }
 
+  handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
+    sceneEvents.emit('dialog', 8 + itemRandom);
+    item.destroy();
+  }
+
   run() {
     this.checkQueueLength();
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
       const itemRandom = Phaser.Math.Between(0, 3);
-      if (random <= 100) {
-        const item = this.scene.add.image(
+      if (random <= 20) {
+        const item = this.scene.physics.add.image(
           coords[0],
           coords[1],
           ITEMS[itemRandom]
         );
         item.depth = 1;
         item.setScale(0.4, 0.4);
-        sceneEvents.emit('dialog', 8);
+        this.scene.physics.add.overlap(item, this.person, () =>
+          this.handleGetItem(item, itemRandom)
+        );
       }
     });
 
@@ -57,6 +64,12 @@ export default class EventFactory {
       }
       if (counter === 16) {
         plotHandle('killLastZombies');
+      }
+      if (counter === 21) {
+        plotHandle('killZombie21');
+      }
+      if (counter === 100 || counter === 50) {
+        plotHandle('killZombie100');
       }
     });
 
@@ -114,7 +127,7 @@ export default class EventFactory {
     );
   }
 
-  async checkQueueLength() {
+  checkQueueLength() {
     if (this.dialogQueue && this.dialogQueue.length >= 1) {
       this.dialogHandle();
     } else {
@@ -123,7 +136,7 @@ export default class EventFactory {
       }, 500);
     }
   }
-  async dialogHandle() {
+  dialogHandle() {
     if (!this.person) throw new Error('error');
     const coords = (
       DIALOGS[this.dialogQueue[0]].coordinates
@@ -142,11 +155,11 @@ export default class EventFactory {
       DIALOGS[this.dialogQueue[0]].delay,
       this.scene
     );
-    return new Promise(() => {
+    {
       setTimeout(() => {
         this.dialogQueue.shift();
         this.checkQueueLength();
       }, DIALOGS[this.dialogQueue[0]].delay);
-    });
+    }
   }
 }
