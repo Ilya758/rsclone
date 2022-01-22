@@ -114,7 +114,7 @@ export default class EventFactory {
     );
   }
 
-  async checkQueueLength() {
+  checkQueueLength() {
     if (this.dialogQueue && this.dialogQueue.length >= 1) {
       this.dialogHandle();
     } else {
@@ -123,7 +123,7 @@ export default class EventFactory {
       }, 500);
     }
   }
-  async dialogHandle() {
+  dialogHandle() {
     if (!this.person) throw new Error('error');
     const coords = (
       DIALOGS[this.dialogQueue[0]].coordinates
@@ -142,11 +142,11 @@ export default class EventFactory {
       DIALOGS[this.dialogQueue[0]].delay,
       this.scene
     );
-    return new Promise(() => {
+    {
       setTimeout(() => {
         this.dialogQueue.shift();
         this.checkQueueLength();
       }, DIALOGS[this.dialogQueue[0]].delay);
-    });
+    }
   }
 }
