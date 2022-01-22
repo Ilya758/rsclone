@@ -31,20 +31,27 @@ export default class EventFactory {
     this.dialogQueue = [];
   }
 
+  handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
+    sceneEvents.emit('dialog', 8 + itemRandom);
+    item.destroy();
+  }
+
   run() {
     this.checkQueueLength();
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
       const itemRandom = Phaser.Math.Between(0, 3);
       if (random <= 100) {
-        const item = this.scene.add.image(
+        const item = this.scene.physics.add.image(
           coords[0],
           coords[1],
           ITEMS[itemRandom]
         );
         item.depth = 1;
         item.setScale(0.4, 0.4);
-        sceneEvents.emit('dialog', 8);
+        this.scene.physics.add.overlap(item, this.person, () =>
+          this.handleGetItem(item, itemRandom)
+        );
       }
     });
 
