@@ -18,14 +18,19 @@ import {
   ZOMBIE_COORDINATES,
 } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
-import { IWall } from './dungeon.types';
+import {
+  IEnemySounds,
+  IPersonPhrases,
+  IPersonSounds,
+  ITracks,
+  IWall,
+} from './dungeon.types';
+import Enemy from '../enemies/abstract/Enemy';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
-
-  private personWalkSound: Phaser.Sound.BaseSound | null;
 
   private personRifleSound: Phaser.Sound.BaseSound | null;
 
@@ -37,14 +42,27 @@ export default class Dungeon extends Phaser.Scene {
 
   private walls: IWall | [null];
 
+  private personSounds: IPersonSounds | null;
+
+  private enemySounds: IEnemySounds | null;
+
+  private tracks: ITracks | null;
+
+  private personPhrases: IPersonPhrases | null;
+
   constructor() {
     super('dungeon');
     this.person = null;
     this.zombies = null;
     this.bullets = null;
     this.points = null;
-    this.personWalkSound = this.personRifleSound = null;
+    this.personRifleSound = null;
     this.walls = Array(2).fill(null) as [null];
+    this.personSounds =
+      this.enemySounds =
+      this.tracks =
+      this.personPhrases =
+        null;
   }
 
   preload() {
@@ -228,13 +246,19 @@ export default class Dungeon extends Phaser.Scene {
       'person'
     );
 
+    this.enemySounds?.horde.play();
+
     this.points.setVisible(false);
     this.points.children.entries.forEach((el, ind) => {
       if (!this.person) {
         throw new Error('Not found');
       }
       this.physics.add.overlap(this.person, el, () => {
-        plotHandle(checkPoints.objects[ind].name);
+        plotHandle(checkPoints.objects[ind].name, {
+          ...(this.tracks as ITracks),
+          ...this.personSounds,
+          ...this.enemySounds,
+        });
         el.destroy(true);
       });
     });
@@ -243,14 +267,23 @@ export default class Dungeon extends Phaser.Scene {
 
     // creating the sounds
 
-    this.personWalkSound = this.sound.add('person-walk', {
-      volume: 0.5,
-    });
-
     this.personRifleSound = this.sound.add('rifle-shot', {
-      volume: 0.8,
+      volume: 0.5,
       loop: true,
     });
+
+    this.personSounds = Person.createPersonSounds(this);
+    this.enemySounds = Enemy.createEnemySounds(this);
+    this.tracks = {
+      static: this.sound.add('track-static', {
+        volume: 0.4,
+        loop: true,
+      }),
+      dynamic: this.sound.add('track-dynamic', {
+        volume: 0.4,
+        loop: true,
+      }),
+    };
 
     // TODO: creating bullets need to be generalized or smth the same
 
@@ -322,7 +355,12 @@ export default class Dungeon extends Phaser.Scene {
       this.physics.add.collider(
         this.bullets as Phaser.GameObjects.Group,
         zombie,
-        Bullet.handleBulletAndEnemyCollision.bind(this)
+        Bullet.handleBulletAndEnemyCollision.bind(
+          this,
+          zombie,
+          this.bullets?.getChildren() as Phaser.GameObjects.GameObject[],
+          this.enemySounds as IEnemySounds
+        )
       );
 
       Object.values(this.walls).forEach(wall => {
@@ -336,7 +374,8 @@ export default class Dungeon extends Phaser.Scene {
           (this.person as Person).handleEnemyDamage(
             zombie,
             this.person as Person,
-            this
+            this,
+            this.personSounds as IPersonSounds
           )
       );
     }
@@ -364,7 +403,11 @@ export default class Dungeon extends Phaser.Scene {
 
     Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
       zombie.update();
-      zombie.movingToPerson(this.person as Person, this);
+      zombie.movingToPerson(
+        this.person as Person,
+        this,
+        this.enemySounds as IEnemySounds
+      );
     });
 
     if (this.person === null) {
@@ -376,7 +419,7 @@ export default class Dungeon extends Phaser.Scene {
         createUserKeys(this.input),
         time as number,
         this.bullets,
-        this.personWalkSound as Phaser.Sound.BaseSound,
+        this.personSounds as IPersonSounds,
         this.person.userInterface
       );
     }

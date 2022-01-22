@@ -7,6 +7,7 @@ import Person from '../person/Person';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { io, Socket } from 'socket.io-client';
 import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
+import { IPersonSounds } from './dungeon.types';
 
 export interface IPlayer {
   x: number;
@@ -25,8 +26,6 @@ export default class Dungeon extends Phaser.Scene {
 
   private bullets: Phaser.GameObjects.Group | null;
 
-  private personWalkSound: Phaser.Sound.BaseSound | null;
-
   private personRifleSound: Phaser.Sound.BaseSound | null;
 
   private socket: Socket | undefined;
@@ -39,12 +38,14 @@ export default class Dungeon extends Phaser.Scene {
 
   private walls: Phaser.Tilemaps.TilemapLayer | null;
 
+  private personSounds: IPersonSounds | null;
+
   constructor() {
     super('dungeon');
     this.person = null;
     this.bullets = null;
     this.assets = this.walls = null;
-    this.personWalkSound = this.personRifleSound = null;
+    this.personSounds = this.personRifleSound = null;
   }
 
   preload() {
@@ -65,10 +66,6 @@ export default class Dungeon extends Phaser.Scene {
       './assets/game/characters/man.json'
     );
     this.load.image('bullet', './assets/game/bullet1.png');
-
-    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
     this.load.image('gun', './assets/game/items/gun.png');
     this.load.image('rifle', './assets/game/items/rifle.png');
     this.load.image('bat', './assets/game/items/bat.png');
@@ -85,6 +82,19 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('iconMan', './assets/game/icons/manicon.png');
 
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
+
+    this.load.audio('person-walk', './assets/audio/person/person-walk.mp3');
+    this.load.audio('person-hit', './assets/audio/person/person-hit.mp3');
+    this.load.audio('person-dead', './assets/audio/person/person-dead.mp3');
+
+    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    // person phrases
+
+    this.load.audio(
+      'first-phrase',
+      './assets/audio/person/phrases/first-phrase.mp3'
+    );
   }
 
   create() {
@@ -172,9 +182,7 @@ export default class Dungeon extends Phaser.Scene {
 
     // creating the sounds
 
-    this.personWalkSound = this.sound.add('person-walk', {
-      volume: 0.5,
-    });
+    this.personSounds = Person.createPersonSounds(this);
 
     this.personRifleSound = this.sound.add('rifle-shot', {
       volume: 0.8,
@@ -316,7 +324,7 @@ export default class Dungeon extends Phaser.Scene {
         createUserKeys(this.input),
         time as number,
         this.bullets,
-        this.personWalkSound as Phaser.Sound.BaseSound,
+        this.personSounds as IPersonSounds,
         this.person.userInterface
       );
 
