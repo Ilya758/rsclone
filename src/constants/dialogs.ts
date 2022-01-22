@@ -56,4 +56,11 @@ export const DIALOGS = [
     text: 'It was nice shot!',
     delay: 2000,
   },
+  {
+    count: 9,
+    width: 120,
+    height: 120,
+    text: 'ENGLISH, MU*******, DO YOU SPEAK IT??!!',
+    delay: 3000,
+  },
 ];
