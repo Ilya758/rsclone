@@ -7,6 +7,8 @@ import sceneEvents from './eventCenter';
 import QuestLabel from '../ui-kit/QuestLabel';
 import '../enemies/Zombie';
 import plotHandle from '../plot/plotHandle';
+import { IEnemySounds, IPersonSounds, ITracks } from '../scenes/dungeon.types';
+
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
   private scene: Dungeon;
@@ -29,6 +31,41 @@ export default class EventFactory {
   }
 
   run() {
+    sceneEvents.on(
+      'staticMusicStart',
+      (staticTrack: Phaser.Sound.BaseSound) => {
+        staticTrack.play();
+      }
+    );
+
+    sceneEvents.on(
+      'dynamicMusicStart',
+      (tracks: ITracks & IPersonSounds & IEnemySounds) => {
+        this.scene.time.addEvent({
+          delay: 2000,
+          callback: () => {
+            tracks.horde.play();
+          },
+        });
+
+        this.scene.time.addEvent({
+          delay: 5000,
+          callback: () => {
+            sceneEvents.emit(`dialog`, 8);
+            tracks.phrases['first-phrase'].play();
+          },
+        });
+
+        this.scene.time.addEvent({
+          delay: 8000,
+          callback: () => {
+            tracks.static.stop();
+            tracks.dynamic.play();
+          },
+        });
+      }
+    );
+
     sceneEvents.on('killZombieCounter', (counter: number) => {
       if (counter === 1) {
         plotHandle('killFirstZombie');
@@ -68,7 +105,6 @@ export default class EventFactory {
     sceneEvents.on('questLabelDestroy', (number: number) => {
       this.questLabels = this.questLabels.filter((quest: QuestLabel) => {
         if (quest.number === number) {
-          console.log('delete', number);
           quest.crossLine();
           return false;
         }
@@ -83,6 +119,7 @@ export default class EventFactory {
         duration: 800,
       });
     });
+
     sceneEvents.on('zombie', (number: number) => {
       this.scene.createGroupOfZombies(number);
     });
