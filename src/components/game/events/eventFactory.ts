@@ -142,7 +142,7 @@ export default class EventFactory {
       DIALOGS[this.dialogQueue[0]].delay,
       this.scene
     );
-    return new Promise(resolve => {
+    return new Promise(() => {
       setTimeout(() => {
         this.dialogQueue.shift();
         this.checkQueueLength();
