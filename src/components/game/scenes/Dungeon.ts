@@ -103,8 +103,35 @@ export default class Dungeon extends Phaser.Scene {
       'active-item',
       './assets/game/ui/element_0017_Layer-19.png'
     );
-    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
+
+    // person sounds
+
+    this.load.audio('person-walk', './assets/audio/person/person-walk.mp3');
+    this.load.audio('person-hit', './assets/audio/person/person-hit.mp3');
+    this.load.audio('person-dead', './assets/audio/person/person-dead.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    // person phrases
+
+    this.load.audio(
+      'first-phrase',
+      './assets/audio/person/phrases/first-phrase.mp3'
+    );
+
+    // zombie sounds
+
+    this.load.audio(
+      'zombie-aggressive',
+      './assets/audio/zombie/zombie-aggressive.mp3'
+    );
+    this.load.audio('zombie-hit', './assets/audio/zombie/zombie-hit.mp3');
+    this.load.audio('zombie-dead', './assets/audio/zombie/zombie-dead.mp3');
+    this.load.audio('zombie-horde', './assets/audio/zombie/zombie-horde.mp3');
+
+    // tracks
+
+    this.load.audio('track-static', './assets/audio/tracks/track-static.mp3');
+    this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
 
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
   }
