@@ -77,6 +77,7 @@ export default class Dungeon extends Phaser.Scene {
     const tileset = map.addTilesetImage('floor');
     const tilesetWalls = map.addTilesetImage('walls');
     const tilesetOther2 = map.addTilesetImage('other2');
+    const tilesetTech = map.addTilesetImage('tech');
     const tilesetFurniture = map.addTilesetImage('furniture');
     const tilesetRoof = map.addTilesetImage('roof2');
 
@@ -114,22 +115,23 @@ export default class Dungeon extends Phaser.Scene {
       this.points?.get(point.x, point.y, point.name);
     });
 
-    map.createLayer('shadows', tilesetOther2, 0, 0);
+    map.createLayer('shadows', [tilesetOther2, tilesetTech], 0, 0);
 
     this.walls = {
       0: map.createLayer(
         'walls',
-        [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
+        [tileset, tilesetWalls, tilesetOther2, tilesetFurniture, tilesetTech],
         0,
         0
       ),
       1: map.createLayer(
         'walls2',
-        [tilesetWalls, tilesetFurniture, tilesetOther2],
+        [tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
         0,
         0
       ),
     };
+    this.walls[0].depth = 4;
 
     // create collision
 
