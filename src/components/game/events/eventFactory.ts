@@ -65,6 +65,12 @@ export default class EventFactory {
       if (counter === 16) {
         plotHandle('killLastZombies');
       }
+      if (counter === 21) {
+        plotHandle('killZombie21');
+      }
+      if (counter === 100 || counter === 50) {
+        plotHandle('killZombie100');
+      }
     });
 
     sceneEvents.on('hide', () => {
