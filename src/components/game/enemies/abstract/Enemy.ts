@@ -47,8 +47,6 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   decreaseHp(amount: number) {
     this.hp -= amount; // every damage decreases hp
 
-    console.log(this.hp);
-
     if (this.hp < 0) {
       this.hp = 0; // character is dead
     }
@@ -98,6 +96,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
   kill(): void {
     sceneEvents.emit('killZombieEvent');
+    sceneEvents.emit('dropItem', [this.x, this.y]);
     this.hpBar.destroy();
     this.anims.play('zombie-death');
     this.disableBody();

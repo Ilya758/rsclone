@@ -32,6 +32,12 @@ const plotHandle = (type: string, tracks?: ITracks) => {
       sceneEvents.emit(`dialog`, 7);
       sceneEvents.emit(`questLabelDestroy`, 5);
       break;
+    case 'killZombie21':
+      sceneEvents.emit(`dialog`, 13);
+      break;
+    case 'killZombie100':
+      sceneEvents.emit(`dialog`, 14);
+      break;
     case 'roofQuest2':
       sceneEvents.emit(`roof`, 2);
       sceneEvents.emit(`zombie`, 1);

@@ -50,7 +50,7 @@ export default class PersonUI extends Phaser.Scene {
       knife: 302,
       bat: 362,
       gun: 422,
-      fire: 542,
+      firethrower: 542,
     };
     this.settingsMenu = null;
   }
@@ -98,7 +98,7 @@ export default class PersonUI extends Phaser.Scene {
       this.parentScene.scale.height - 55,
       'active-item'
     );
-    this.active.setScale(0.13, 0.13);
+    this.active.setScale(0.15, 0.15);
   }
 
   toggleSettingsMenu() {

@@ -1,3 +1,4 @@
+import { ATLASES } from './../../../constants/atlases';
 import Phaser from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
@@ -23,9 +24,10 @@ import {
   IPersonPhrases,
   IPersonSounds,
   ITracks,
-  IWall,
 } from './dungeon.types';
 import Enemy from '../enemies/abstract/Enemy';
+import { IWall } from './dungeon.types';
+import { IMAGES } from '../../../constants/images';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -66,19 +68,12 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
-    this.load.image('floor', './assets/game/tiles/floor.png');
-    this.load.image('iconMan', './assets/game/icons/manicon.png');
-    this.load.image('walls', './assets/game/tiles/walls.png');
-    this.load.image('roof2', './assets/game/tiles/roof2.png');
-    this.load.image('other', './assets/game/tiles/other.png');
-    this.load.image('gun', './assets/game/items/gun.png');
-    this.load.image('rifle', './assets/game/items/rifle.png');
-    this.load.image('bat', './assets/game/items/bat.png');
-    this.load.image('firethrower', './assets/game/items/firethrower.png');
-    this.load.image('knife', './assets/game/items/knife.png');
-    this.load.image('furniture', './assets/game/tiles/furniture.png');
-    this.load.image('other2', './assets/game/tiles/other2.png');
+    IMAGES.forEach(img => {
+      this.load.image(img.name, img.url);
+    });
+    ATLASES.forEach(atlas => {
+      this.load.atlas(atlas.name, atlas.urlPNG, atlas.urlJSON);
+    });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
     this.load.atlas(
       'person',
@@ -152,6 +147,8 @@ export default class Dungeon extends Phaser.Scene {
     this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
 
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
+    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
+    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
   }
 
   create() {
@@ -170,6 +167,7 @@ export default class Dungeon extends Phaser.Scene {
     const tileset = map.addTilesetImage('floor');
     const tilesetWalls = map.addTilesetImage('walls');
     const tilesetOther2 = map.addTilesetImage('other2');
+    const tilesetTech = map.addTilesetImage('tech');
     const tilesetFurniture = map.addTilesetImage('furniture');
     const tilesetRoof = map.addTilesetImage('roof2');
 
@@ -207,22 +205,23 @@ export default class Dungeon extends Phaser.Scene {
       this.points?.get(point.x, point.y, point.name);
     });
 
-    map.createLayer('shadows', tilesetOther2, 0, 0);
+    map.createLayer('shadows', [tilesetOther2, tilesetTech], 0, 0);
 
     this.walls = {
       0: map.createLayer(
         'walls',
-        [tileset, tilesetWalls, tilesetOther2, tilesetFurniture],
+        [tileset, tilesetWalls, tilesetOther2, tilesetFurniture, tilesetTech],
         0,
         0
       ),
       1: map.createLayer(
         'walls2',
-        [tilesetWalls, tilesetFurniture, tilesetOther2],
+        [tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
         0,
         0
       ),
     };
+    this.walls[0].depth = 4;
 
     // create collision
 
@@ -245,6 +244,7 @@ export default class Dungeon extends Phaser.Scene {
       PERSON_COORDINATES.start[1],
       'person'
     );
+    this.person.depth = 2;
 
     this.enemySounds?.horde.play();
 
