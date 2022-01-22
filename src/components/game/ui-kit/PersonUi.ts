@@ -105,9 +105,19 @@ export default class PersonUI extends Phaser.Scene {
     if (!this.menuIsOpened) {
       this.menuIsOpened = true;
       this.settingsMenu = new SettingsMenu(this);
+      this.parentScene.scene.pause();
     } else {
       this.menuIsOpened = false;
       this.settingsMenu?.destroy();
+      this.parentScene.scene.resume();
+    }
+  }
+
+  update(): void {
+    const esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+    if (Phaser.Input.Keyboard.JustDown(esc)) {
+      this.toggleSettingsMenu();
     }
   }
 }
