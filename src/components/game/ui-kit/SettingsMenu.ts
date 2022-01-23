@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS } from '../../../constants/colors';
 import getSettingsMenuButtonsParams from '../../../utils/getSettingsMenuButtonsParams';
+import { ISounds } from './settings-menu.types';
 
 export interface ISize {
   width: number;
@@ -111,10 +112,12 @@ export default class SettingsMenu {
             button.setColor(COLORS.yellow);
           }
         };
+        const sounds = (this.scene.sound as ISounds).sounds;
 
         switch (btn) {
           case 'soundsButton': {
             button.setInteractive().on('pointerdown', () => {
+              this.toggleSoundsMute(sounds);
               this.soundsAreMuted = !this.soundsAreMuted;
               setStateToButton(this.soundsAreMuted);
             });
@@ -122,6 +125,7 @@ export default class SettingsMenu {
           }
           case 'musicButton': {
             button.setInteractive().on('pointerdown', () => {
+              this.toggleSoundsMute(sounds, 'tracks');
               this.musicIsMuted = !this.musicIsMuted;
               setStateToButton(this.musicIsMuted);
             });
@@ -141,6 +145,19 @@ export default class SettingsMenu {
         ] as unknown as Phaser.GameObjects.Text) = button as Phaser.GameObjects.Text;
       }
     );
+  }
+
+  toggleSoundsMute(sounds: ISounds['sounds'], param = 'sounds') {
+    sounds.forEach(sound => {
+      const predicate =
+        param === 'sounds'
+          ? !sound.key.includes('track')
+          : sound.key.includes('track');
+
+      if (predicate) {
+        sound.mute = !sound.mute;
+      }
+    });
   }
 
   destroy() {
