@@ -55,6 +55,24 @@ export default class PersonUI extends Phaser.Scene {
     this.settingsMenu = null;
   }
 
+  createIcons({ xCoord, yCoords }: { xCoord: number; yCoords: number }) {
+    this.knife = this.add.image(xCoord, yCoords - 5, 'knife');
+    this.knife.setScale(0.3, 0.3);
+    this.bat = this.add.image(xCoord + 60, yCoords - 5, 'bat');
+    this.bat.setRotation(0.55);
+    this.bat.setScale(0.15, 0.15);
+    this.gun = this.add.image(xCoord + 120, yCoords - 5, 'gun');
+    this.gun.setRotation(0.45);
+    this.gun.setScale(0.3, 0.3);
+    this.rifle = this.add.image(xCoord + 180, yCoords - 5, 'rifle');
+    this.rifle.setRotation(0.45);
+    this.rifle.setScale(0.15, 0.15);
+    this.fire = this.add.image(xCoord + 240, yCoords - 5, 'firethrower');
+    this.fire.setRotation(0.45);
+    this.fire.setScale(0.15, 0.15);
+    this.changeWeapon('knife');
+  }
+
   create() {
     const xCoord = this.parentScene.scale.width / 2 - 100;
     const yCoords = this.parentScene.scale.height - 50;
@@ -71,21 +89,8 @@ export default class PersonUI extends Phaser.Scene {
       },
       quantity: 5,
     });
-    this.knife = this.add.image(xCoord, yCoords - 5, 'knife');
-    this.knife.setScale(0.3, 0.3);
-    this.bat = this.add.image(xCoord + 60, yCoords - 5, 'bat');
-    this.bat.setRotation(0.55);
-    this.bat.setScale(0.15, 0.15);
-    this.gun = this.add.image(xCoord + 120, yCoords - 5, 'gun');
-    this.gun.setRotation(0.45);
-    this.gun.setScale(0.3, 0.3);
-    this.rifle = this.add.image(xCoord + 180, yCoords - 5, 'rifle');
-    this.rifle.setRotation(0.45);
-    this.rifle.setScale(0.15, 0.15);
-    this.fire = this.add.image(xCoord + 240, yCoords - 5, 'firethrower');
-    this.fire.setRotation(0.45);
-    this.fire.setScale(0.15, 0.15);
-    this.changeWeapon('knife');
+
+    this.createIcons({ xCoord, yCoords });
     new IconUi(this);
     this.hpBar = new PersonHealthBar(this, 0, 0, this.person);
   }
@@ -93,12 +98,18 @@ export default class PersonUI extends Phaser.Scene {
   changeWeapon(type: string) {
     if (this.active) this.active.destroy();
 
-    this.active = this.add.image(
-      this.itemKeys[type],
-      this.parentScene.scale.height - 55,
-      'active-item'
-    );
-    this.active.setScale(0.15, 0.15);
+    // console.log(this.add.image);
+
+    console.log(type);
+    // console.log(this.itemKeys);
+    // console.log(this.itemKeys[type]);
+
+    // this.active = this.add.image(
+    //   this.itemKeys[type],
+    //   this.parentScene.scale.height - 55,
+    //   'active-item'
+    // );
+    // this.active.setScale(0.15, 0.15);
   }
 
   toggleSettingsMenu() {
