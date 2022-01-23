@@ -40,12 +40,14 @@ export default class Dungeon extends Phaser.Scene {
 
   private personSounds: IPersonSounds | null;
 
+  private trackDynamic: Phaser.Sound.BaseSound | null;
+
   constructor() {
     super('dungeon');
     this.person = null;
     this.bullets = null;
     this.assets = this.walls = null;
-    this.personSounds = this.personRifleSound = null;
+    this.personSounds = this.personRifleSound = this.trackDynamic = null;
   }
 
   preload() {
@@ -95,6 +97,8 @@ export default class Dungeon extends Phaser.Scene {
       'first-phrase',
       './assets/audio/person/phrases/first-phrase.mp3'
     );
+
+    this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
   }
 
   create() {
@@ -188,6 +192,13 @@ export default class Dungeon extends Phaser.Scene {
       volume: 0.8,
       loop: true,
     });
+
+    this.trackDynamic = this.sound.add('track-dynamic', {
+      loop: true,
+      volume: 0.5,
+    });
+
+    this.trackDynamic.play();
 
     this.bullets = this.physics.add.group({
       classType: Bullet,
