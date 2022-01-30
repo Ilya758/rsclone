@@ -7,7 +7,7 @@ const GameInitializer = () => {
   const config = {
     type: Phaser.AUTO,
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.RESIZE,
       parent: 'canvasPoint',
       width: 800,
       height: 400,

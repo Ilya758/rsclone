@@ -5,7 +5,7 @@ const Multiplayer = () => {
   const config = {
     type: Phaser.AUTO,
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.RESIZE,
       autoCenter: Phaser.Scale.CENTER_BOTH,
       parent: 'canvasPoint',
       width: 800,
