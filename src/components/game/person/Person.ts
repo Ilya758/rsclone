@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
+import sceneEvents from '../events/eventCenter';
 import { IPersonSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
@@ -324,6 +325,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         personSounds.dead.play();
         person.hp = 0;
         person.isDead = true;
+        sceneEvents.emit('person-death');
       }
     }
   }
