@@ -41,6 +41,7 @@ export default class Dungeon extends Phaser.Scene {
   private personSounds: IPersonSounds | null;
 
   private trackDynamic: Phaser.Sound.BaseSound | null;
+  private trees: Phaser.Tilemaps.TilemapLayer | undefined;
 
   constructor() {
     super('dungeon');
@@ -168,6 +169,8 @@ export default class Dungeon extends Phaser.Scene {
     // create layer
 
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
+    this.trees = map.createLayer('trunk', [tilesetTech], 0, 0);
+    this.trees.depth = 10;
     this.walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
     map.createLayer('shadow', [tilesetTech], 0, 0);
     this.assets = map.createLayer(
@@ -179,6 +182,7 @@ export default class Dungeon extends Phaser.Scene {
     // create collision
 
     ground.setCollisionByProperty({ collides: true });
+    this.trees.setCollisionByProperty({ collides: true });
     this.walls.setCollisionByProperty({ collides: true });
     this.assets.setCollisionByProperty({ collides: true });
     // debugGraphicsDraw(walls, this);
@@ -208,6 +212,24 @@ export default class Dungeon extends Phaser.Scene {
 
     this.createPerson();
 
+    this.physics.add.collider(
+      this.bullets,
+      this.walls,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
+    this.physics.add.collider(
+      this.bullets,
+      this.trees,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
+    this.physics.add.collider(
+      this.bullets,
+      this.assets,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
     this.physics.add.collider(
       this.bullets,
       this.walls,
@@ -317,6 +339,11 @@ export default class Dungeon extends Phaser.Scene {
       this.person,
       this.walls as Phaser.Tilemaps.TilemapLayer
     );
+    
+    this.physics.add.collider(
+      this.person,
+      this.trees as Phaser.Tilemaps.TilemapLayer
+    )
 
     this.physics.add.collider(
       this.person,
