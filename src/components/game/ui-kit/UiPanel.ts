@@ -37,23 +37,22 @@ export default class UIPanel {
     this.uiPanel.scale = 0.4;
 
     sceneEvents.on('killZombieEvent', () => {
-      this.zombieCounter += 1;
-      this.totalZombies.destroy();
-      this.totalZombies = this.createTotalZombies();
-      sceneEvents.emit(`killZombieCounter`, this.zombieCounter);
-    });
-    sceneEvents.on('deathEvent', () => {
-      this.deathCounter += 1;
-      this.totalDeaths.destroy();
-      this.totalDeaths = this.createTotalDeaths();
+      this.incrementZombieDeathCounter();
     });
   }
 
-  createTotalZombies() {
+  incrementZombieDeathCounter() {
+    this.zombieCounter += 1;
+    this.textZombiesCounter?.destroy();
+    this.textZombiesCounter = this.createCounter(this.zombieCounter, 22);
+    sceneEvents.emit(`killZombieCounter`, this.zombieCounter);
+  }
+
+  createCounter(elem: number, x: number) {
     const content = this.scene.add.text(
       0,
       0,
-      this.zombieCounter.toString().padStart(3, '0'),
+      elem.toString().padStart(3, '0'),
       {
         fontFamily: 'Arial',
         fontSize: '10px',
@@ -64,26 +63,7 @@ export default class UIPanel {
     );
     content.depth = 19;
 
-    content.setPosition(22, 32);
-    return content;
-  }
-
-  createTotalDeaths() {
-    const content = this.scene.add.text(
-      0,
-      0,
-      this.deathCounter.toString().padStart(2, '0'),
-      {
-        fontFamily: 'Arial',
-        fontSize: '10px',
-        color: '#ffffff',
-        align: 'justify',
-        wordWrap: { width: 30 },
-      }
-    );
-    content.depth = 19;
-
-    content.setPosition(105, 32);
+    content.setPosition(x, 32);
     return content;
   }
 }
