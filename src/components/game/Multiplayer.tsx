@@ -1,4 +1,4 @@
-import Dungeon from './scenes/Arena';
+import Arena from './scenes/Arena';
 import { useEffect } from 'react';
 
 const Multiplayer = () => {
@@ -23,7 +23,7 @@ const Multiplayer = () => {
       },
     },
     zoom: 2,
-    scene: [Dungeon],
+    scene: [Arena],
   };
   useEffect(() => {
     new Phaser.Game(config).scene.start('dungeon');

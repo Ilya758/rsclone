@@ -8,6 +8,8 @@ import Person from '../person/Person';
 import { io, Socket } from 'socket.io-client';
 import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
 import { IPersonSounds } from './dungeon.types';
+import { dataToLoad } from "../data/arenaData";
+import { preloader } from "../utils/preloader";
 
 export interface IPlayer {
   x: number;
@@ -21,7 +23,7 @@ export interface IPlayers {
   [index: string]: IPlayer;
 }
 
-export default class Dungeon extends Phaser.Scene {
+export default class Arena extends Phaser.Scene {
   protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
@@ -31,9 +33,7 @@ export default class Dungeon extends Phaser.Scene {
   private socket: Socket | undefined;
 
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-
-  private spawn: { x: number; y: number }[] | undefined;
-
+  
   private assets: Phaser.Tilemaps.TilemapLayer | null;
 
   private walls: Phaser.Tilemaps.TilemapLayer | null;
@@ -44,7 +44,7 @@ export default class Dungeon extends Phaser.Scene {
   private trees: Phaser.Tilemaps.TilemapLayer | undefined;
 
   constructor() {
-    super('dungeon');
+    super('Arena');
     this.person = null;
     this.bullets = null;
     this.assets = this.walls = null;
@@ -52,54 +52,21 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('floor', './assets/game/tiles/floor.png');
-    this.load.image('walls', './assets/game/tiles/walls.png');
-    this.load.image('other2', './assets/game/tiles/other2.png');
-    this.load.image('furniture', './assets/game/tiles/furniture.png');
-    this.load.image('tech', './assets/game/tiles/tech.png');
     this.load.tilemapTiledJSON('main', './assets/game/map/arena.json');
     this.load.atlas(
       'person',
       './assets/game/characters/man.png',
       './assets/game/characters/man.json'
     );
-    this.load.atlas(
-      'otherPerson',
-      './assets/game/characters/man.png',
-      './assets/game/characters/man.json'
-    );
-    this.load.image('bullet', './assets/game/bullet1.png');
-    this.load.image('gun', './assets/game/items/gun.png');
-    this.load.image('rifle', './assets/game/items/rifle.png');
-    this.load.image('bat', './assets/game/items/bat.png');
-    this.load.image('firethrower', './assets/game/items/firethrower.png');
-    this.load.image('knife', './assets/game/items/knife.png');
-
-    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
-    this.load.image(
-      'active-item',
-      './assets/game/ui/element_0017_Layer-19.png'
-    );
-
-    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
-    this.load.image('iconMan', './assets/game/icons/manicon.png');
-
-    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
-
-    this.load.audio('person-walk', './assets/audio/person/person-walk.mp3');
-    this.load.audio('person-hit', './assets/audio/person/person-hit.mp3');
-    this.load.audio('person-dead', './assets/audio/person/person-dead.mp3');
-
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    // person phrases
-
-    this.load.audio(
-      'first-phrase',
-      './assets/audio/person/phrases/first-phrase.mp3'
-    );
-
-    this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
+    for(let i = dataToLoad.length; i--; ) {
+     const data = dataToLoad[i];
+     if(data[0] === 'image') {
+       this.load.image(data[1], data[2]);
+     } else {
+       this.load.audio(data[1], data[2]);
+     }
+    }
+    preloader(this);
   }
 
   create() {
