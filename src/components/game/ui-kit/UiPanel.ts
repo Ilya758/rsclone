@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import sceneEvents from '../events/eventCenter';
-import { weaponsGraphicsChars } from '../../../constants/weaponsGraphicsChars';
+import { WEAPONS_GRAPHICS_CHARS } from '../../../constants/weaponsGraphicsChars';
 
 import { TWeapons } from './UiPanel.types';
+import { WEAPONS } from '../../../constants/weapons';
 export default class UIPanel {
   private scene: Phaser.Scene;
 
@@ -40,6 +41,31 @@ export default class UIPanel {
 
     sceneEvents.on('killZombieEvent', () => {
       this.incrementZombieDeathCounter();
+    });
+
+    this.createIcons();
+  }
+
+  createIcons() {
+    WEAPONS.forEach((texture, ndx) => {
+      const weapon = WEAPONS_GRAPHICS_CHARS[ndx];
+      const weaponTexture = this.scene.add
+        .image(70, 40, weapon.type)
+        .setRotation(weapon.rotation)
+        .setScale(weapon.scale)
+        .setVisible(false);
+
+      this.weapons[texture as keyof TWeapons] = weaponTexture;
+    });
+
+    this.setActiveWeapon('knife');
+  }
+
+  setActiveWeapon(key: string) {
+    WEAPONS.forEach(texture => {
+      key === texture
+        ? this.weapons[texture as keyof TWeapons]?.setVisible(true)
+        : this.weapons[texture as keyof TWeapons]?.setVisible(false);
     });
   }
 
