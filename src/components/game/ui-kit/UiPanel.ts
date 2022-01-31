@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import sceneEvents from '../events/eventCenter';
 
-export default class IconUi {
+export default class UIPanel {
   protected scene: Phaser.Scene;
   public totalZombies: Phaser.GameObjects.Text;
   public totalDeaths: Phaser.GameObjects.Text;
