@@ -29,6 +29,7 @@ import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
+import { preloader } from "../utils/preloader";
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -115,6 +116,9 @@ export default class Dungeon extends Phaser.Scene {
 
     // person-death
     this.load.video('person-death', './assets/video/game-over.mp4');
+    
+    // preloader
+    preloader(this);
   }
 
   create() {
