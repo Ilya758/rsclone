@@ -493,7 +493,7 @@
           }
         },
         {
-          "filename": "gun_000.png",
+          "filename": "pistol_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -514,7 +514,7 @@
           }
         },
         {
-          "filename": "gun_001.png",
+          "filename": "pistol_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -535,7 +535,7 @@
           }
         },
         {
-          "filename": "gun_002.png",
+          "filename": "pistol_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -556,7 +556,7 @@
           }
         },
         {
-          "filename": "gun_005.png",
+          "filename": "pistol_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -577,7 +577,7 @@
           }
         },
         {
-          "filename": "gun_003.png",
+          "filename": "pistol_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -598,7 +598,7 @@
           }
         },
         {
-          "filename": "gun_006.png",
+          "filename": "pistol_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1123,7 +1123,7 @@
           }
         },
         {
-          "filename": "Idle_gun_000.png",
+          "filename": "Idle_pistol_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1144,7 +1144,7 @@
           }
         },
         {
-          "filename": "Idle_gun_001.png",
+          "filename": "Idle_pistol_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1165,7 +1165,7 @@
           }
         },
         {
-          "filename": "Idle_gun_002.png",
+          "filename": "Idle_pistol_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1186,7 +1186,7 @@
           }
         },
         {
-          "filename": "Idle_gun_003.png",
+          "filename": "Idle_pistol_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1207,7 +1207,7 @@
           }
         },
         {
-          "filename": "Idle_gun_004.png",
+          "filename": "Idle_pistol_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1228,7 +1228,7 @@
           }
         },
         {
-          "filename": "Idle_gun_005.png",
+          "filename": "Idle_pistol_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1249,7 +1249,7 @@
           }
         },
         {
-          "filename": "Idle_gun_006.png",
+          "filename": "Idle_pistol_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1270,7 +1270,7 @@
           }
         },
         {
-          "filename": "Idle_gun_007.png",
+          "filename": "Idle_pistol_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2005,7 +2005,7 @@
           }
         },
         {
-          "filename": "Walk_gun_000.png",
+          "filename": "Walk_pistol_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2026,7 +2026,7 @@
           }
         },
         {
-          "filename": "Walk_gun_001.png",
+          "filename": "Walk_pistol_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2047,7 +2047,7 @@
           }
         },
         {
-          "filename": "Walk_gun_002.png",
+          "filename": "Walk_pistol_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2068,7 +2068,7 @@
           }
         },
         {
-          "filename": "Walk_gun_003.png",
+          "filename": "Walk_pistol_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2089,7 +2089,7 @@
           }
         },
         {
-          "filename": "Walk_gun_004.png",
+          "filename": "Walk_pistol_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2110,7 +2110,7 @@
           }
         },
         {
-          "filename": "Walk_gun_005.png",
+          "filename": "Walk_pistol_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2467,7 +2467,7 @@
           }
         },
         {
-          "filename": "gun_004.png",
+          "filename": "pistol_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2488,7 +2488,7 @@
           }
         },
         {
-          "filename": "gun_007.png",
+          "filename": "pistol_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {

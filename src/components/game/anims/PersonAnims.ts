@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
+import { WEAPONS } from '../../../constants/weapons';
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
-  const weapons = ['rifle', 'gun', 'bat', 'knife', 'firethrower'];
-  weapons.forEach(weapon => {
+  WEAPONS.forEach(weapon => {
     anims.create({
       key: `idle_${weapon}`,
       frames: anims.generateFrameNames('person', {

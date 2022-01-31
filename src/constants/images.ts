@@ -9,7 +9,7 @@ export const IMAGES = [
   { name: 'walls', url: './assets/game/tiles/walls.png' },
   { name: 'roof2', url: './assets/game/tiles/roof2.png' },
   { name: 'other', url: './assets/game/tiles/other.png' },
-  { name: 'gun', url: './assets/game/items/gun.png' },
+  { name: 'pistol', url: './assets/game/items/pistol.png' },
   { name: 'rifle', url: './assets/game/items/rifle.png' },
   { name: 'bat', url: './assets/game/items/bat.png' },
   { name: 'firethrower', url: './assets/game/items/firethrower.png' },
