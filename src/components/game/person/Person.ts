@@ -147,25 +147,36 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     personControlKeys: IUserInteractiveButtons,
     personUI: PersonUI
   ) {
-    if (personControlKeys.one.isDown) {
-      this.currentWeapon = 'knife';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.two.isDown) {
-      this.currentWeapon = 'bat';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.three.isDown) {
-      this.currentWeapon = 'gun';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.four.isDown) {
-      this.currentWeapon = 'rifle';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.five.isDown) {
-      this.currentWeapon = 'firethrower';
-      personUI.changeWeapon(this.currentWeapon);
+    switch (true) {
+      case personControlKeys.one.isDown: {
+        this.currentWeapon = 'knife';
+        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        break;
+      }
+
+      case personControlKeys.two.isDown: {
+        this.currentWeapon = 'bat';
+        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        break;
+      }
+
+      case personControlKeys.three.isDown: {
+        this.currentWeapon = 'pistol';
+        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        break;
+      }
+
+      case personControlKeys.four.isDown: {
+        this.currentWeapon = 'rifle';
+        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        break;
+      }
+
+      case personControlKeys.five.isDown: {
+        this.currentWeapon = 'flamethrower';
+        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        break;
+      }
     }
   }
 
