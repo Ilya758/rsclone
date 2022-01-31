@@ -5,7 +5,6 @@ export const IMAGES = [
   { name: 'slow', url: './assets/game/items/items_0007_slow_enemies.png' },
   { name: 'damage', url: './assets/game/items/items_0008_superpower.png' },
   { name: 'floor', url: './assets/game/tiles/floor.png' },
-  { name: 'iconMan', url: './assets/game/icons/manicon.png' },
   { name: 'tech', url: './assets/game/tiles/tech.png' },
   { name: 'walls', url: './assets/game/tiles/walls.png' },
   { name: 'roof2', url: './assets/game/tiles/roof2.png' },
