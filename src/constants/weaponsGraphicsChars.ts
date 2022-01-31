@@ -20,7 +20,7 @@ export const WEAPONS_GRAPHICS_CHARS = [
     scale: 0.22,
   },
   {
-    type: 'firethrower',
+    type: 'flamethrower',
     rotation: 0.45,
     scale: 0.22,
   },

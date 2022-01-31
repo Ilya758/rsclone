@@ -12,7 +12,7 @@ export const IMAGES = [
   { name: 'pistol', url: './assets/game/items/pistol.png' },
   { name: 'rifle', url: './assets/game/items/rifle.png' },
   { name: 'bat', url: './assets/game/items/bat.png' },
-  { name: 'firethrower', url: './assets/game/items/firethrower.png' },
+  { name: 'flamethrower', url: './assets/game/items/flamethrower.png' },
   { name: 'knife', url: './assets/game/items/knife.png' },
   { name: 'furniture', url: './assets/game/tiles/furniture.png' },
   { name: 'other2', url: './assets/game/tiles/other2.png' },
