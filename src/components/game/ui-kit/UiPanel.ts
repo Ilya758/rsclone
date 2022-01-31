@@ -19,7 +19,6 @@ export default class UIPanel {
     this.totalZombies = this.createTotalZombies();
     this.totalDeaths = this.createTotalDeaths();
     this.start();
-    this.appendToScene();
   }
 
   start() {
@@ -74,9 +73,5 @@ export default class UIPanel {
 
     content.setPosition(105, 32);
     return content;
-  }
-
-  appendToScene() {
-    this.scene.add.existing(this.totalZombies);
   }
 }
