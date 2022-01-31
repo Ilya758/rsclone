@@ -2,18 +2,30 @@ import Phaser from 'phaser';
 import sceneEvents from '../events/eventCenter';
 
 export default class UIPanel {
-  protected scene: Phaser.Scene;
-  public totalZombies: Phaser.GameObjects.Text;
-  public totalDeaths: Phaser.GameObjects.Text;
-  public zombieCounter: number;
-  public deathCounter: number;
-  public icon: Phaser.GameObjects.Image;
-  public uiPanel: Phaser.GameObjects.Image;
+  private scene: Phaser.Scene;
+
+  private textZombiesCounter: Phaser.GameObjects.Text | null;
+
+  private textAmmoQuantity: Phaser.GameObjects.Text | null;
+
+  private zombieCounter: number;
+
+  private currentAmmo: number;
+
+  private icon: Phaser.GameObjects.Image | null;
+
+  private uiPanel: Phaser.GameObjects.Image | null;
 
   constructor(scene: Phaser.Scene) {
-    this.zombieCounter = 0;
-    this.deathCounter = 0;
     this.scene = scene;
+    this.zombieCounter = this.currentAmmo = 0;
+    this.textZombiesCounter =
+      this.textAmmoQuantity =
+      this.icon =
+      this.uiPanel =
+        null;
+    this.create();
+  }
     this.uiPanel = this.scene.add.image(70, 40, 'uiPanel');
     this.icon = this.scene.add.image(70, 40, 'iconMan');
     this.totalZombies = this.createTotalZombies();
