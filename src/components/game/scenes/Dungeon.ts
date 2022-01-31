@@ -28,6 +28,7 @@ import {
 import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
+import GameOver from './GameOver';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -50,6 +51,8 @@ export default class Dungeon extends Phaser.Scene {
 
   private tracks: ITracks | null;
 
+  private gameOver: GameOver | null;
+
   private personPhrases: IPersonPhrases | null;
 
   constructor() {
@@ -64,6 +67,7 @@ export default class Dungeon extends Phaser.Scene {
       this.enemySounds =
       this.tracks =
       this.personPhrases =
+      this.gameOver =
         null;
   }
 
@@ -108,6 +112,9 @@ export default class Dungeon extends Phaser.Scene {
     this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
     this.load.audio('person-walk', './assets/audio/person-walk.mp3');
     this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
+
+    // person-death
+    this.load.video('person-death', './assets/video/game-over.mp4');
   }
 
   create() {
@@ -281,7 +288,9 @@ export default class Dungeon extends Phaser.Scene {
     // appending scene PersonUI
 
     this.scene.add('person-ui', this.person.userInterface);
+    this.gameOver = new GameOver();
     this.scene.run('person-ui');
+    this.scene.add('game-over', this.gameOver);
 
     this.createGroupOfZombies(3);
   }

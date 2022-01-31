@@ -9,6 +9,7 @@ import QuestLabel from '../ui-kit/QuestLabel';
 import '../enemies/Zombie';
 import plotHandle from '../plot/plotHandle';
 import { IEnemySounds, IPersonSounds, ITracks } from '../scenes/dungeon.types';
+import { ISounds } from '../ui-kit/settings-menu.types';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
@@ -162,6 +163,13 @@ export default class EventFactory {
       },
       this
     );
+
+    sceneEvents.on('person-death', () => {
+      this.scene.scene.run('game-over');
+      this.scene.scene.stop();
+      this.personUi.scene.stop();
+      (this.scene.sound as ISounds).sounds.forEach(sound => sound.stop());
+    });
   }
 
   checkQueueLength() {
