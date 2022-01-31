@@ -1,4 +1,4 @@
-export const weaponsGraphicsChars = [
+export const WEAPONS_GRAPHICS_CHARS = [
   {
     type: 'knife',
     rotation: 0,
