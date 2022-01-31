@@ -346,7 +346,7 @@
           }
         },
         {
-          "filename": "firethrower_000.png",
+          "filename": "flamethrower_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -367,7 +367,7 @@
           }
         },
         {
-          "filename": "firethrower_001.png",
+          "filename": "flamethrower_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -388,7 +388,7 @@
           }
         },
         {
-          "filename": "firethrower_002.png",
+          "filename": "flamethrower_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -409,7 +409,7 @@
           }
         },
         {
-          "filename": "firethrower_003.png",
+          "filename": "flamethrower_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -430,7 +430,7 @@
           }
         },
         {
-          "filename": "firethrower_005.png",
+          "filename": "flamethrower_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -451,7 +451,7 @@
           }
         },
         {
-          "filename": "firethrower_007.png",
+          "filename": "flamethrower_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -472,7 +472,7 @@
           }
         },
         {
-          "filename": "firethrower_008.png",
+          "filename": "flamethrower_008.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -955,7 +955,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_000.png",
+          "filename": "Idle_flamethrower_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -976,7 +976,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_001.png",
+          "filename": "Idle_flamethrower_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -997,7 +997,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_002.png",
+          "filename": "Idle_flamethrower_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1018,7 +1018,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_003.png",
+          "filename": "Idle_flamethrower_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1039,7 +1039,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_004.png",
+          "filename": "Idle_flamethrower_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1060,7 +1060,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_005.png",
+          "filename": "Idle_flamethrower_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1081,7 +1081,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_006.png",
+          "filename": "Idle_flamethrower_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1102,7 +1102,7 @@
           }
         },
         {
-          "filename": "Idle_firethrower_007.png",
+          "filename": "Idle_flamethrower_007.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1879,7 +1879,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_000.png",
+          "filename": "Walk_flamethrower_000.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1900,7 +1900,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_001.png",
+          "filename": "Walk_flamethrower_001.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1921,7 +1921,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_002.png",
+          "filename": "Walk_flamethrower_002.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1942,7 +1942,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_003.png",
+          "filename": "Walk_flamethrower_003.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1963,7 +1963,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_004.png",
+          "filename": "Walk_flamethrower_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -1984,7 +1984,7 @@
           }
         },
         {
-          "filename": "Walk_firethrower_005.png",
+          "filename": "Walk_flamethrower_005.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2425,7 +2425,7 @@
           }
         },
         {
-          "filename": "firethrower_004.png",
+          "filename": "flamethrower_004.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
@@ -2446,7 +2446,7 @@
           }
         },
         {
-          "filename": "firethrower_006.png",
+          "filename": "flamethrower_006.png",
           "rotated": false,
           "trimmed": false,
           "sourceSize": {
