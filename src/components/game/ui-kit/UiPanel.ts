@@ -26,16 +26,15 @@ export default class UIPanel {
         null;
     this.create();
   }
+
+  create() {
     this.uiPanel = this.scene.add.image(70, 40, 'uiPanel');
     this.icon = this.scene.add.image(70, 40, 'iconMan');
-    this.totalZombies = this.createTotalZombies();
-    this.totalDeaths = this.createTotalDeaths();
-    this.start();
-  }
+    this.textZombiesCounter = this.createCounter(this.zombieCounter, 22);
+    this.textAmmoQuantity = this.createCounter(this.currentAmmo, 102);
 
-  start() {
-    this.icon.setScale(0.83, 0.83);
-    this.uiPanel.setScale(0.4, 0.4);
+    this.icon.scale = 0.83;
+    this.uiPanel.scale = 0.4;
 
     sceneEvents.on('killZombieEvent', () => {
       this.zombieCounter += 1;
