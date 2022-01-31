@@ -8,13 +8,13 @@ export default class UIPanel {
   public zombieCounter: number;
   public deathCounter: number;
   public icon: Phaser.GameObjects.Image;
-  public iconWrapper: Phaser.GameObjects.Image;
+  public uiPanel: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene) {
     this.zombieCounter = 0;
     this.deathCounter = 0;
     this.scene = scene;
-    this.iconWrapper = this.scene.add.image(70, 40, 'secondIcon');
+    this.uiPanel = this.scene.add.image(70, 40, 'uiPanel');
     this.icon = this.scene.add.image(70, 40, 'iconMan');
     this.totalZombies = this.createTotalZombies();
     this.totalDeaths = this.createTotalDeaths();
@@ -23,7 +23,8 @@ export default class UIPanel {
 
   start() {
     this.icon.setScale(0.83, 0.83);
-    this.iconWrapper.setScale(0.4, 0.4);
+    this.uiPanel.setScale(0.4, 0.4);
+
     sceneEvents.on('killZombieEvent', () => {
       this.zombieCounter += 1;
       this.totalZombies.destroy();
