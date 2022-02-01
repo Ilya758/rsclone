@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import Enemy from '../enemies/abstract/Enemy';
 import { IEnemySounds } from '../scenes/dungeon.types';
 
-export default class Bullet extends Phaser.Physics.Arcade.Image {
+export default class Weapon extends Phaser.Physics.Arcade.Image {
   private incX = 0;
 
   private incY = 0;
@@ -54,7 +54,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     bullets: Phaser.GameObjects.GameObject[],
     enemySounds: IEnemySounds
   ) {
-    const firstBullet = bullets[0] as Bullet;
+    const firstBullet = bullets[0] as Weapon;
 
     const enemy = obj as Enemy;
     enemy.isShooted.state = true;

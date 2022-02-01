@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
-import Bullet from '../entities/bullet';
+import Weapon from '../entities/Weapon';
 import '../person/Person';
 import Person from '../person/Person';
 // import debugGraphicsDraw from '../../../utils/debug';
@@ -171,7 +171,7 @@ export default class Arena extends Phaser.Scene {
     this.trackDynamic.play();
 
     this.bullets = this.physics.add.group({
-      classType: Bullet,
+      classType: Weapon,
       maxSize: 10,
       runChildUpdate: true,
     });
@@ -181,25 +181,25 @@ export default class Arena extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.walls,
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
   
     this.physics.add.collider(
       this.bullets,
       this.trees,
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
   
     this.physics.add.collider(
       this.bullets,
       this.assets,
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
   
     this.physics.add.collider(
       this.bullets,
       this.walls,
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
 
     this.physics.add.collider(this.bullets, this.otherPlayers, (arg1, arg2) => {

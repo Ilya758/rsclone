@@ -4,7 +4,7 @@ import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
-import Bullet from '../entities/bullet';
+import Weapon from '../entities/Weapon';
 import '../person/Person';
 import '../enemies/Zombie';
 import '../enemies/HandBoss';
@@ -225,7 +225,7 @@ export default class Dungeon extends Phaser.Scene {
     // TODO: creating bullets need to be generalized or smth the same
 
     this.bullets = this.physics.add.group({
-      classType: Bullet,
+      classType: Weapon,
       maxSize: 30,
       runChildUpdate: true,
     });
@@ -241,7 +241,7 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.walls[0],
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
 
     (this.person as Person).createRotationAndAttacking(
@@ -294,7 +294,7 @@ export default class Dungeon extends Phaser.Scene {
       this.physics.add.collider(
         this.bullets as Phaser.GameObjects.Group,
         zombie,
-        Bullet.handleBulletAndEnemyCollision.bind(
+        Weapon.handleBulletAndEnemyCollision.bind(
           this,
           zombie,
           this.bullets?.getChildren() as Phaser.GameObjects.GameObject[],

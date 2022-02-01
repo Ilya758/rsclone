@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
-import Bullet from '../entities/bullet';
+import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
 import { IPersonSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
@@ -296,7 +296,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     // when the person is shooting, need to consider a delay
 
     if (this.isDown && time > this.lastFired) {
-      const bullet = bullets?.get() as Bullet;
+      const bullet = bullets?.get() as Weapon;
 
       if (bullet) {
         bullet.callFireMethod(this.mouseX, this.mouseY, this.x, this.y);
@@ -424,7 +424,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     scene: Phaser.Scene,
     personUi: PersonUI | null
   ) {
-    const bullet = arg1 as Bullet;
+    const bullet = arg1 as Weapon;
     const person = arg2 as Person;
 
     if (personUi) {
