@@ -1,1 +1,1 @@
-export const WEAPONS = ['knife', 'bat', 'pistol', 'rifle', 'flamethrower'];
+export const WEAPONS = ['pistol', 'rifle', 'shotgun', 'sniper', 'flamethrower'];

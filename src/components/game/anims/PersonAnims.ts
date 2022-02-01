@@ -3,34 +3,40 @@ import { WEAPONS } from '../../../constants/weapons';
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
   WEAPONS.forEach(weapon => {
+    let curWeapon = weapon;
+
+    if (weapon === 'shotgun' || weapon === 'sniper') {
+      curWeapon = 'rifle';
+    }
+
     anims.create({
-      key: `idle_${weapon}`,
+      key: `idle_${curWeapon}`,
       frames: anims.generateFrameNames('person', {
         start: 0,
         end: 7,
-        prefix: `Idle_${weapon}_00`,
+        prefix: `Idle_${curWeapon}_00`,
         suffix: '.png',
       }),
       repeat: -1,
       frameRate: 4,
     });
     anims.create({
-      key: `walk_${weapon}`,
+      key: `walk_${curWeapon}`,
       frames: anims.generateFrameNames('person', {
         start: 0,
         end: 5,
-        prefix: `Walk_${weapon}_00`,
+        prefix: `Walk_${curWeapon}_00`,
         suffix: '.png',
       }),
       repeat: -1,
       frameRate: 8,
     });
     anims.create({
-      key: weapon,
+      key: curWeapon,
       frames: anims.generateFrameNames('person', {
         start: 2,
         end: 7,
-        prefix: `${weapon}_00`,
+        prefix: `${curWeapon}_00`,
         suffix: '.png',
       }),
       repeat: -1,
