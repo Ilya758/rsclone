@@ -16,6 +16,46 @@ export const SOUNDS = [
     url: './assets/audio/weapon/rifle/shot.mp3',
   },
   {
+    name: 'rifle-reload',
+    url: './assets/audio/weapon/rifle/reload.mp3',
+  },
+  {
+    name: 'pistol-shot',
+    url: './assets/audio/weapon/pistol/shot.mp3',
+  },
+  {
+    name: 'pistol-reload',
+    url: './assets/audio/weapon/pistol/reload.mp3',
+  },
+  {
+    name: 'shotgun-shot',
+    url: './assets/audio/weapon/shotgun/shot.mp3',
+  },
+  {
+    name: 'shotgun-reload',
+    url: './assets/audio/weapon/shotgun/reload.mp3',
+  },
+  {
+    name: 'sniper-shot',
+    url: './assets/audio/weapon/sniper/shot.mp3',
+  },
+  {
+    name: 'sniper-reload',
+    url: './assets/audio/weapon/sniper/reload.mp3',
+  },
+  {
+    name: 'flamethrower-shot',
+    url: './assets/audio/weapon/flamethrower/shot.mp3',
+  },
+  {
+    name: 'flamethrower-reload',
+    url: './assets/audio/weapon/flamethrower/reload.mp3',
+  },
+  {
+    name: 'knife-stab',
+    url: './assets/audio/weapon/knife/stab.mp3',
+  },
+  {
     name: 'first-phrase',
     url: './assets/audio/person/phrases/first-phrase.mp3',
   },
