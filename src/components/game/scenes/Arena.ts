@@ -8,8 +8,10 @@ import Person from '../person/Person';
 import { io, Socket } from 'socket.io-client';
 import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
 import { IPersonSounds } from './dungeon.types';
-import { dataToLoad } from "../data/arenaData";
-import { preloader } from "../utils/preloader";
+import { preloader } from '../utils/preloader';
+import { ATLASES } from '../../../constants/atlases';
+import { IMAGES } from '../../../constants/images';
+import { SOUNDS } from '../../../constants/sounds';
 
 export interface IPlayer {
   x: number;
@@ -52,20 +54,17 @@ export default class Arena extends Phaser.Scene {
   }
 
   preload() {
+    IMAGES.forEach(img => {
+      this.load.image(img.name, img.url);
+    });
+    ATLASES.forEach(atlas => {
+      this.load.atlas(atlas.name, atlas.urlPNG, atlas.urlJSON);
+    });
+    SOUNDS.forEach(sound => {
+      this.load.audio(sound.name, sound.url);
+    });
     this.load.tilemapTiledJSON('main', './assets/game/map/arena.json');
-    this.load.atlas(
-      'person',
-      './assets/game/characters/man.png',
-      './assets/game/characters/man.json'
-    );
-    for(let i = dataToLoad.length; i--; ) {
-     const data = dataToLoad[i];
-     if(data[0] === 'image') {
-       this.load.image(data[1], data[2]);
-     } else {
-       this.load.audio(data[1], data[2]);
-     }
-    }
+    this.load.video('person-death', './assets/video/game-over.mp4');
     preloader(this);
   }
 

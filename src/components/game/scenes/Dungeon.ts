@@ -29,7 +29,8 @@ import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
-import { preloader } from "../utils/preloader";
+import { preloader } from '../utils/preloader';
+import { SOUNDS } from '../../../constants/sounds';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -79,45 +80,11 @@ export default class Dungeon extends Phaser.Scene {
     ATLASES.forEach(atlas => {
       this.load.atlas(atlas.name, atlas.urlPNG, atlas.urlJSON);
     });
+    SOUNDS.forEach(sound => {
+      this.load.audio(sound.name, sound.url);
+    });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
-
-    // person sounds
-
-    this.load.audio('person-walk', './assets/audio/person/person-walk.mp3');
-    this.load.audio('person-hit', './assets/audio/person/person-hit.mp3');
-    this.load.audio('person-dead', './assets/audio/person/person-dead.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    // person phrases
-
-    this.load.audio(
-      'first-phrase',
-      './assets/audio/person/phrases/first-phrase.mp3'
-    );
-
-    // zombie sounds
-
-    this.load.audio(
-      'zombie-aggressive',
-      './assets/audio/zombie/zombie-aggressive.mp3'
-    );
-    this.load.audio('zombie-hit', './assets/audio/zombie/zombie-hit.mp3');
-    this.load.audio('zombie-dead', './assets/audio/zombie/zombie-dead.mp3');
-    this.load.audio('zombie-horde', './assets/audio/zombie/zombie-horde.mp3');
-
-    // tracks
-
-    this.load.audio('track-static', './assets/audio/tracks/track-static.mp3');
-    this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
-
-    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
-    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    // person-death
     this.load.video('person-death', './assets/video/game-over.mp4');
-    
-    // preloader
     preloader(this);
   }
 

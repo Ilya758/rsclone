@@ -21,4 +21,5 @@ export const IMAGES = [
   { name: 'bullet', url: './assets/game/bullet1.png' },
   { name: 'empty-item', url: './assets/game/ui/element_0018_Layer-20.png' },
   { name: 'active-item', url: './assets/game/ui/element_0017_Layer-19.png' },
+  { name: 'settings-menu', url: './assets/game/ui/settings-menu.png' },
 ];
