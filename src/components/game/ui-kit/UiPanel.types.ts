@@ -1,6 +1,6 @@
-export type TWeapon = 'knife' | 'bat' | 'pistol' | 'rifle' | 'flamethrower';
+import { TWeapon } from '../../../types/globals';
 
-export type TWeapons = {
+export type TWeaponsIcons = {
   [weapon in TWeapon]: Phaser.GameObjects.Image | null;
 };
 
