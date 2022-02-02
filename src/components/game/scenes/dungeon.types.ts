@@ -27,3 +27,9 @@ export interface ITracks {
 export interface IPersonPhrases {
   [phrase: string]: Phaser.Sound.BaseSound;
 }
+
+export type TWeaponSounds = {
+  [weapon in TWeapon]: ISound;
+};
+
+export type ISound = Phaser.Sound.BaseSound | null;
