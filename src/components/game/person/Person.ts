@@ -3,7 +3,7 @@ import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
-import { IPersonSounds } from '../scenes/dungeon.types';
+import { IPersonSounds, TWeaponSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
 
@@ -25,8 +25,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   private lastFired = 0;
 
   private isDown = false;
-
-  public currentWeapon = 'pistol';
 
   public playerId: string | undefined;
 

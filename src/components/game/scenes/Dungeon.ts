@@ -24,6 +24,7 @@ import {
   IPersonPhrases,
   IPersonSounds,
   ITracks,
+  TWeaponSounds,
 } from './dungeon.types';
 import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
@@ -31,6 +32,7 @@ import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
 import { preloader } from '../utils/preloader';
 import { SOUNDS } from '../../../constants/sounds';
+import { WEAPONS } from '../../../constants/weapons';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -56,6 +58,10 @@ export default class Dungeon extends Phaser.Scene {
   private gameOver: GameOver | null;
 
   private personPhrases: IPersonPhrases | null;
+
+  private weaponSoundsShot: TWeaponSounds;
+
+  private weaponSoundsReload: TWeaponSounds;
 
   constructor() {
     super('dungeon');
