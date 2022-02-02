@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import sceneEvents from '../events/eventCenter';
 import { WEAPONS_GRAPHICS_CHARS } from '../../../constants/weaponsGraphicsChars';
 
-import { TWeapons } from './UiPanel.types';
+import { TWeaponsIcons } from './UiPanel.types';
 import { WEAPONS } from '../../../constants/weapons';
 export default class UIPanel {
   private scene: Phaser.Scene;
@@ -15,7 +15,7 @@ export default class UIPanel {
 
   private currentAmmo: number;
 
-  private weapons: TWeapons;
+  private weapons: TWeaponsIcons;
 
   private uiPanel: Phaser.GameObjects.Image | null;
 
@@ -24,11 +24,11 @@ export default class UIPanel {
     this.zombieCounter = this.currentAmmo = 0;
     this.textZombiesCounter = this.textAmmoQuantity = this.uiPanel = null;
     this.weapons = {
-      bat: null,
-      flamethrower: null,
-      knife: null,
       pistol: null,
       rifle: null,
+      shotgun: null,
+      sniper: null,
+      flamethrower: null,
     };
     this.create();
   }
@@ -55,7 +55,7 @@ export default class UIPanel {
         .setScale(weapon.scale)
         .setVisible(false);
 
-      this.weapons[texture as keyof TWeapons] = weaponTexture;
+      this.weapons[texture as keyof TWeaponsIcons] = weaponTexture;
     });
 
     this.setActiveWeapon('pistol');
@@ -64,8 +64,8 @@ export default class UIPanel {
   setActiveWeapon(key: string) {
     WEAPONS.forEach(texture => {
       key === texture
-        ? this.weapons[texture as keyof TWeapons]?.setVisible(true)
-        : this.weapons[texture as keyof TWeapons]?.setVisible(false);
+        ? this.weapons[texture as keyof TWeaponsIcons]?.setVisible(true)
+        : this.weapons[texture as keyof TWeaponsIcons]?.setVisible(false);
     });
   }
 
