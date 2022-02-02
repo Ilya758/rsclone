@@ -9,6 +9,7 @@ export const IMAGES = [
   { name: 'walls', url: './assets/game/tiles/walls.png' },
   { name: 'roof2', url: './assets/game/tiles/roof2.png' },
   { name: 'other', url: './assets/game/tiles/other.png' },
+  { name: 'fire', url: './assets/game/items/fire.png' },
   { name: 'pistol', url: './assets/game/items/pistol.png' },
   { name: 'rifle', url: './assets/game/items/rifle.png' },
   { name: 'shotgun', url: './assets/game/items/shotgun.png' },
