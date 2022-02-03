@@ -184,80 +184,64 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     personControlKeys: IUserInteractiveButtons,
     personWalkSound: Phaser.Sound.BaseSound
   ) {
-    let currentWeapon = this.currentWeapon;
-
-    if (currentWeapon === 'shotgun' || currentWeapon === 'sniper') {
-      currentWeapon = 'rifle';
-    }
-
-    // checking pressing buttons
-    if (personControlKeys.right.isDown && personControlKeys.up.isDown) {
-      this.setVelocity(this.speed, -this.speed);
-      this.handleAnims(currentWeapon, 'walk');
+    const setWalkAnimationAndVelocity = (
+      personWalkSound: Phaser.Sound.BaseSound,
+      x: number,
+      y: number
+    ) => {
+      this.setVelocity(x, y);
+      this.isMoved = true;
+      this.handleAnims(Weapon.currentWeapon, 'walk');
 
       if (!personWalkSound.isPlaying) {
         personWalkSound.play();
       }
-    } else if (
-      personControlKeys.right.isDown &&
-      personControlKeys.down.isDown
-    ) {
-      this.setVelocity(this.speed, this.speed);
-      this.handleAnims(currentWeapon, 'walk');
+    };
 
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
+    switch (true) {
+      case personControlKeys.right.isDown && personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, -this.speed);
+        break;
       }
-    } else if (personControlKeys.left.isDown && personControlKeys.down.isDown) {
-      this.setVelocity(-this.speed, this.speed);
-      this.handleAnims(currentWeapon, 'walk');
+      case personControlKeys.right.isDown && personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown && personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown && personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, -this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, 0);
+        break;
+      }
+      case personControlKeys.right.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, 0);
+        break;
+      }
+      case personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, 0, -this.speed);
+        break;
+      }
+      case personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, 0, this.speed);
+        break;
+      }
+      default: {
+        this.isMoved = false;
 
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.left.isDown && personControlKeys.up.isDown) {
-      this.setVelocity(-this.speed, -this.speed);
-      this.handleAnims(currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.left.isDown) {
-      this.setVelocity(-this.speed, 0);
-      this.handleAnims(currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.right.isDown) {
-      this.setVelocity(+this.speed, 0);
-      this.handleAnims(currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.up.isDown) {
-      this.setVelocity(0, -this.speed);
-      this.handleAnims(currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.down.isDown) {
-      this.setVelocity(0, +this.speed);
-      this.handleAnims(currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else {
-      if (!this.hit) {
-        // is the person isn't in kick-immune state
-        this.setVelocity(0, 0);
-      }
-      if (!this.isDown) {
-        this.handleAnims(currentWeapon, 'idle');
-        personWalkSound.stop();
+        if (!this.hit) {
+          // is the person isn't in kick-immune state
+          this.setVelocity(0, 0);
+        }
+        if (!this.isDown) {
+          this.handleAnims(Weapon.currentWeapon, 'idle');
+          personWalkSound.stop();
+        }
       }
     }
   }
