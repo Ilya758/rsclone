@@ -164,12 +164,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       const currentWeapon = this.getCurrentWeaponChars(attackSounds);
       const weaponChars = currentWeapon.weaponChars;
 
-      if (!this.isDead && this.scene) {
-        this.isDown = true;
-      }
-
-      if (!this.isShooting) {
+      if (!this.isShooting && !this.isDead && this.anims && this.scene) {
         this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+        this.isDown = true;
       } else {
         this.animTimer = scene.time.addEvent({
           delay:
@@ -178,7 +175,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
               currentWeapon.currentTime -
               currentWeapon.POSSIBLE_DELAY || 0,
           callback: () => {
-            this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+            if (!this.isDead && this.anims) {
+              this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+            }
           },
         });
       }
