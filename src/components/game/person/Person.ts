@@ -147,34 +147,34 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     personControlKeys: IUserInteractiveButtons,
     personUI: PersonUI
   ) {
+    const switchWeapon = (currentWeapon: string) => {
+      Weapon.currentWeapon = currentWeapon;
+      personUI.uiPanel?.setActiveWeapon(Weapon.currentWeapon);
+    };
+
     switch (true) {
       case personControlKeys.one.isDown: {
-        this.currentWeapon = 'pistol';
-        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        switchWeapon('pistol');
         break;
       }
 
       case personControlKeys.two.isDown: {
-        this.currentWeapon = 'rifle';
-        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        switchWeapon('rifle');
         break;
       }
 
       case personControlKeys.three.isDown: {
-        this.currentWeapon = 'shotgun';
-        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        switchWeapon('shotgun');
         break;
       }
 
       case personControlKeys.four.isDown: {
-        this.currentWeapon = 'sniper';
-        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        switchWeapon('sniper');
         break;
       }
 
       case personControlKeys.five.isDown: {
-        this.currentWeapon = 'flamethrower';
-        personUI.uiPanel?.setActiveWeapon(this.currentWeapon);
+        switchWeapon('flamethrower');
         break;
       }
     }
