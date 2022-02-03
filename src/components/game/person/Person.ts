@@ -278,18 +278,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  handleFiring(weaponType: string) {
-    if (!this.anims.currentAnim || this.anims.currentAnim.key !== weaponType) {
-      this.anims.play(weaponType);
-    }
-  }
-
   handleShooting(time: number, bullets: Phaser.GameObjects.Group) {
-    let currentWeapon = this.currentWeapon;
-
-    if (currentWeapon === 'shotgun' || currentWeapon === 'sniper') {
-      currentWeapon = 'rifle';
-    }
     // when the person is shooting, need to consider a delay
 
     if (this.isDown && time > this.lastFired) {
@@ -298,14 +287,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       if (bullet) {
         bullet.callFireMethod(this.mouseX, this.mouseY, this.x, this.y);
 
-        this.lastFired = time + 100;
-      }
-
-      if (
-        !this.anims.currentAnim ||
-        this.anims.currentAnim.key !== currentWeapon
-      ) {
-        this.anims.play(currentWeapon);
+        this.lastFired = time + Weapon.fireRate;
       }
     }
   }
@@ -417,12 +399,11 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   }
 
   static handleBulletDamage(
-    arg1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    _: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     arg2: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     scene: Phaser.Scene,
     personUi: PersonUI | null
   ) {
-    const bullet = arg1 as Weapon;
     const person = arg2 as Person;
 
     if (personUi) {
