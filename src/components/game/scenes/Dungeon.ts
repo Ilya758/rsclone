@@ -26,13 +26,12 @@ import {
   ITracks,
   TWeaponSounds,
 } from './dungeon.types';
-import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
 import { preloader } from '../utils/preloader';
 import { SOUNDS } from '../../../constants/sounds';
-import { WEAPONS } from '../../../constants/weapons';
+import { createSceneSounds } from '../../../utils/createSceneSounds';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -47,19 +46,19 @@ export default class Dungeon extends Phaser.Scene {
 
   private walls: IWall | [null];
 
-  private personSounds: IPersonSounds | null;
+  public personSounds: IPersonSounds | null;
 
-  private enemySounds: IEnemySounds | null;
+  public enemySounds: IEnemySounds | null;
 
-  private tracks: ITracks | null;
+  public tracks: ITracks | null;
 
   private gameOver: GameOver | null;
 
   private personPhrases: IPersonPhrases | null;
 
-  private weaponSoundsShot: TWeaponSounds;
+  public weaponSoundsShot: TWeaponSounds;
 
-  private weaponSoundsReload: TWeaponSounds;
+  public weaponSoundsReload: TWeaponSounds;
 
   constructor() {
     super('dungeon');
@@ -221,7 +220,7 @@ export default class Dungeon extends Phaser.Scene {
 
     // creating the sounds
 
-    this.createSceneSounds();
+    createSceneSounds(this);
 
     // TODO: creating bullets need to be generalized or smth the same
 
@@ -265,39 +264,6 @@ export default class Dungeon extends Phaser.Scene {
     this.scene.add('game-over', this.gameOver);
 
     this.createGroupOfZombies(3);
-  }
-
-  createSceneSounds() {
-    WEAPONS.forEach(weapon => {
-      const shot = this.sound.add(`${weapon}-shot`, {
-        volume: 0.5,
-        loop: true,
-      });
-      const reload = this.sound.add(`${weapon}-reload`, {
-        volume: 0.5,
-        loop: true,
-      });
-
-      const currentWeapon = weapon as keyof TWeaponSounds;
-
-      this.weaponSoundsShot[currentWeapon] = shot;
-      this.weaponSoundsReload[currentWeapon] = reload;
-    });
-
-    this.personSounds = Person.createPersonSounds(this);
-    this.enemySounds = Enemy.createEnemySounds(this);
-    this.tracks = {
-      static: this.sound.add('track-static', {
-        // volume: 0.4,
-        volume: 0,
-        loop: true,
-      }),
-      dynamic: this.sound.add('track-dynamic', {
-        volume: 0,
-        // volume: 0.4,
-        loop: true,
-      }),
-    };
   }
 
   createGroupOfZombies(ndx: number) {
