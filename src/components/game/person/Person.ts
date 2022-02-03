@@ -46,6 +46,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     this.timeHealingTimer = scene.time.addEvent({});
     this.scene = scene;
     this.userInterface = new PersonUI(this.scene, this);
+    this.anims.play('idle_pistol');
   }
 
   heal(scene: Phaser.Scene, amount: number) {
@@ -130,8 +131,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     scene.input.on('pointermove', () => {
       if (!this.isDead && this.scene) {
-        this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
-        this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
+        const mouseCoords = this.getMouseCoords() as IMouseCoords;
+        this.mouseX = mouseCoords.mouseX;
+        this.mouseY = mouseCoords.mouseY;
       }
     });
 
@@ -261,20 +263,17 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   }
 
   handleAnims(weapon: string, type: string) {
-    let currentWeapon = this.currentWeapon;
-
-    if (currentWeapon === 'shotgun' || currentWeapon === 'sniper') {
-      currentWeapon = 'rifle';
-    }
-
     if (
       !this.anims.currentAnim ||
       this.anims.currentAnim.key !== `${type}_${weapon}`
     ) {
-      if (!this.isDown) {
+      if (
+        !this.isDown &&
+        this.anims.currentAnim &&
+        this.anims.currentAnim.getTotalFrames() ===
+          this.anims.currentFrame.index
+      ) {
         this.anims.play(`${type}_${weapon}`);
-      } else {
-        this.handleFiring(currentWeapon);
       }
     }
   }
@@ -388,8 +387,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     // set rotation to the person
 
     if (!this.isDead) {
-      this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
-      this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
+      const mouseCoords = this.getMouseCoords() as IMouseCoords;
+      this.mouseX = mouseCoords.mouseX;
+      this.mouseY = mouseCoords.mouseY;
 
       if (this._hp !== this.maxHealth) {
         this.heal(this.scene, 5);
