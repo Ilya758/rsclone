@@ -7,11 +7,12 @@ import Person from '../person/Person';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { io, Socket } from 'socket.io-client';
 import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
-import { IPersonSounds } from './dungeon.types';
+import { IPersonSounds, TWeaponSounds } from './dungeon.types';
 import { preloader } from '../utils/preloader';
 import { ATLASES } from '../../../constants/atlases';
 import { IMAGES } from '../../../constants/images';
 import { SOUNDS } from '../../../constants/sounds';
+import { createSceneSounds } from '../../../utils/createSceneSounds';
 
 export interface IPlayer {
   x: number;
@@ -30,27 +31,44 @@ export default class Arena extends Phaser.Scene {
 
   private bullets: Phaser.GameObjects.Group | null;
 
-  private personRifleSound: Phaser.Sound.BaseSound | null;
-
   private socket: Socket | undefined;
 
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-  
+
   private assets: Phaser.Tilemaps.TilemapLayer | null;
 
   private walls: Phaser.Tilemaps.TilemapLayer | null;
 
-  private personSounds: IPersonSounds | null;
+  public personSounds: IPersonSounds | null;
 
   private trackDynamic: Phaser.Sound.BaseSound | null;
+
   private trees: Phaser.Tilemaps.TilemapLayer | undefined;
+
+  public weaponSoundsShot: TWeaponSounds;
+
+  public weaponSoundsReload: TWeaponSounds;
 
   constructor() {
     super('Arena');
     this.person = null;
     this.bullets = null;
     this.assets = this.walls = null;
-    this.personSounds = this.personRifleSound = this.trackDynamic = null;
+    this.personSounds = this.trackDynamic = null;
+    this.weaponSoundsShot = {
+      pistol: null,
+      rifle: null,
+      shotgun: null,
+      sniper: null,
+      flamethrower: null,
+    };
+    this.weaponSoundsReload = {
+      pistol: null,
+      rifle: null,
+      shotgun: null,
+      sniper: null,
+      flamethrower: null,
+    };
   }
 
   preload() {
@@ -156,12 +174,7 @@ export default class Arena extends Phaser.Scene {
 
     // creating the sounds
 
-    this.personSounds = Person.createPersonSounds(this);
-
-    this.personRifleSound = this.sound.add('rifle-shot', {
-      volume: 0.8,
-      loop: true,
-    });
+    createSceneSounds(this);
 
     this.trackDynamic = this.sound.add('track-dynamic', {
       loop: true,
