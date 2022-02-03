@@ -186,7 +186,7 @@ export default class Dungeon extends Phaser.Scene {
       ),
       1: map.createLayer(
         'walls2',
-        [tileset, tilesetFurniture, tilesetOther2, tilesetTech, tilesetWalls],
+        [tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
         0,
         0
       ),
