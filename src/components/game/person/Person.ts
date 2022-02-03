@@ -112,10 +112,40 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  createRotationAndAttacking(
-    scene: Phaser.Scene,
-    attackSound: Phaser.Sound.BaseSound | null
-  ) {
+  handleCurrentAnimation(currentAttackSound: ISound) {
+    if (
+      !this.anims.currentAnim ||
+      this.anims.currentAnim.key !== Weapon.currentWeapon
+    ) {
+      this.anims.play(Weapon.currentWeapon);
+    }
+
+    this.isShooting = true;
+
+    if (currentAttackSound && !currentAttackSound?.isPlaying) {
+      currentAttackSound?.play();
+    }
+  }
+
+  getCurrentWeaponChars(attackSounds: TWeaponSounds) {
+    const MS_COEFFICIENT = 1000;
+    const POSSIBLE_DELAY = 100;
+    const currentWeapon = Weapon.currentWeapon as keyof TWeaponSounds;
+    const currentAttackSound = attackSounds[currentWeapon];
+    const weaponChars = WEAPON_ANIMATION_CHARS[currentWeapon];
+    const currentTime =
+      (currentAttackSound as unknown as Phaser.Sound.WebAudioSound).seek *
+      MS_COEFFICIENT;
+
+    return {
+      MS_COEFFICIENT,
+      POSSIBLE_DELAY,
+      currentAttackSound,
+      weaponChars,
+      currentTime,
+    };
+  }
+
     // if the person is dead, he cannot rotate/shoot
 
     scene.input.on('pointerdown', () => {
