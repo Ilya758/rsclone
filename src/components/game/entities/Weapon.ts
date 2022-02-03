@@ -9,16 +9,75 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
 
   private lifespan = 0;
 
-  private speed = 1000;
+  private static speed = 1000;
 
-  private _damage = 10;
+  private static _fireRate = 550;
+
+  private static _damage = 10;
+
+  private static _currentWeapon = 'pistol';
+
+  static get currentWeapon() {
+    return Weapon._currentWeapon;
+  }
+
+  static set currentWeapon(type: string) {
+    Weapon._currentWeapon = type;
+
+    switch (type) {
+      case 'pistol': {
+        Weapon.setWeaponChars(25, 500, 1300);
+        break;
+      }
+
+      case 'rifle': {
+        Weapon.setWeaponChars(20, 100, 1000);
+        break;
+      }
+
+      case 'shotgun': {
+        Weapon.setWeaponChars(30, 1800, 1300);
+        break;
+      }
+
+      case 'sniper': {
+        Weapon.setWeaponChars(100, 1750, 2000);
+        break;
+      }
+
+      case 'flamethrower': {
+        Weapon.setWeaponChars(10, 10, 100);
+        break;
+      }
+    }
+  }
+
+  static setWeaponChars(damage: number, fireRate: number, speed: number) {
+    Weapon._damage = damage;
+    Weapon._fireRate = fireRate;
+    Weapon.speed = speed;
+  }
+
+  static get fireRate() {
+    return Weapon._fireRate;
+  }
+
+  static set fireRate(value: number) {
+    Weapon._fireRate = value;
+  }
 
   private fire(x: number, y: number, personX: number, personY: number) {
-    this.setTexture('bullet');
-    this.setScale(0.25, 0.25);
+    if (Weapon.currentWeapon === 'flamethrower') {
+      this.setScale(0.2).setAlpha(0.6);
+      this.setTexture('fire');
+    } else {
+      this.setVisible(true);
+      this.setScale(0.25);
+      this.setTexture('bullet').setAlpha(1);
+    }
+
     this.body.setSize(this.width, this.height);
     this.setActive(true);
-    this.setVisible(true);
     const angle = Phaser.Math.Angle.Between(x, y, personX, personY);
     this.setRotation(angle - Math.PI);
 
@@ -34,8 +93,8 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     this.incX = Math.cos(angle);
     this.incY = Math.sin(angle);
     this.setVelocity(
-      -this.incX * this.speed + Math.random() * 100 - 50,
-      -this.incY * this.speed + Math.random() * 100 - 50
+      -this.incX * Weapon.speed + Math.random() * 100 - 50,
+      -this.incY * Weapon.speed + Math.random() * 100 - 50
     );
     this.lifespan = 1000;
   }
@@ -68,7 +127,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     }
 
     enemy.setTint(0xff0000);
-    enemy.decreaseHp(10);
+    enemy.decreaseHp(Weapon.damage);
     firstBullet.destroy(true);
 
     obj.scene.time.addEvent({
@@ -90,8 +149,12 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     bullet.destroy();
   }
 
-  get damage() {
-    return this._damage;
+  static get damage() {
+    return Weapon._damage;
+  }
+
+  set damage(value: number) {
+    Weapon._damage = value;
   }
 
   update(_: number, delta: number) {
