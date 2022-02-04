@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { WEAPON_ANIMATION_CHARS } from '../../../constants/weaponsAnimationChars';
-import { IUserInteractiveButtons } from '../../../types/globals';
+import { IUserInteractiveButtons, TWeapon } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
@@ -26,7 +26,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private lastFired = 0;
 
-  private isDown = false;
+  public static pointerIsDown = false;
 
   private isMoved = false;
 
@@ -168,8 +168,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         const currentWeapon = this.getCurrentWeaponChars(attackSounds);
         const weaponChars = currentWeapon.weaponChars;
 
-        if (!this.isDead && this.scene) {
-          this.isDown = true;
+        if (!this.isDead && this.scene && !Weapon.isRealoaded) {
+          Person.pointerIsDown = true;
 
           if (!this.isShooting && this.anims) {
             this.handleCurrentAnimation(currentWeapon.currentAttackSound);
@@ -203,7 +203,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     scene.input.on('pointerup', () => {
       const currentWeapon = this.getCurrentWeaponChars(attackSounds);
       const weaponChars = currentWeapon.weaponChars;
-      this.isDown = false;
+      Person.pointerIsDown = false;
 
       this.soundTimer = scene.time.addEvent({
         delay:
@@ -223,7 +223,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     });
   }
 
-  handleChangeWeapons(
+  handleChangeWeaponsAndReload(
     personControlKeys: IUserInteractiveButtons,
     personUI: PersonUI,
     shotSounds: TWeaponSounds
@@ -323,7 +323,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
           // is the person isn't in kick-immune state
           this.setVelocity(0, 0);
         }
-        if (!this.isDown) {
+        if (!Person.pointerIsDown) {
           this.handleAnims(Weapon.currentWeapon, 'idle');
           personWalkSound.stop();
         }
@@ -337,7 +337,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       this.anims.currentAnim.key !== `${type}_${weapon}`
     ) {
       if (
-        !this.isDown &&
+        !Person.pointerIsDown &&
         this.anims.currentAnim &&
         this.anims.currentAnim.getTotalFrames() ===
           this.anims.currentFrame.index
@@ -350,7 +350,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   handleShooting(time: number, bullets: Phaser.GameObjects.Group) {
     // when the person is shooting, need to consider a delay
 
-    if (this.isDown && time > this.lastFired) {
+    if (Person.pointerIsDown && time > this.lastFired) {
       const bullet = bullets?.get() as Weapon;
 
       if (bullet) {
@@ -465,7 +465,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     this.handleShooting(time, bullets);
     this.handleMoving(personControlKeys, personSounds.walk);
-    this.handleChangeWeapons(personControlKeys, personUi, shotSounds);
+    this.handleChangeWeaponsAndReload(personControlKeys, personUi, shotSounds);
   }
 
   static handleBulletDamage(
