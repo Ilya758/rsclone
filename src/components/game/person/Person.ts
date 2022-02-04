@@ -164,22 +164,25 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       const currentWeapon = this.getCurrentWeaponChars(attackSounds);
       const weaponChars = currentWeapon.weaponChars;
 
-      if (!this.isShooting && !this.isDead && this.anims && this.scene) {
-        this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+      if (!this.isDead && this.scene) {
         this.isDown = true;
-      } else {
-        this.animTimer = scene.time.addEvent({
-          delay:
-            weaponChars.duration +
-              weaponChars.delay -
-              currentWeapon.currentTime -
-              currentWeapon.POSSIBLE_DELAY || 0,
-          callback: () => {
-            if (!this.isDead && this.anims) {
-              this.handleCurrentAnimation(currentWeapon.currentAttackSound);
-            }
-          },
-        });
+
+        if (!this.isShooting && this.anims) {
+          this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+        } else {
+          this.animTimer = scene.time.addEvent({
+            delay:
+              weaponChars.duration +
+                weaponChars.delay -
+                currentWeapon.currentTime -
+                currentWeapon.POSSIBLE_DELAY || 0,
+            callback: () => {
+              if (!this.isDead && this.anims) {
+                this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+              }
+            },
+          });
+        }
       }
       this.soundTimer.remove();
     });
