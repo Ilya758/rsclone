@@ -262,6 +262,12 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         switchWeapon('flamethrower');
         break;
       }
+
+      case personControlKeys.reload.isDown: {
+        Weapon.isRealoaded = true;
+        sceneEvents.emit('changeCurrentAmmo');
+        Weapon.reload(Weapon.currentWeapon as TWeapon, this.scene);
+      }
     }
   }
 
