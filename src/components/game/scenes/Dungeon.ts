@@ -210,13 +210,13 @@ export default class Dungeon extends Phaser.Scene {
         if (
           !this.person ||
           !this.person.userInterface ||
-          !this.person.userInterface.iconUI
+          !this.person.userInterface.uiPanel
         ) {
           throw new Error('Not found');
         }
         if (
           (checkPoints.objects[ind].name === 'roofQuest4' &&
-            this.person.userInterface.iconUI.zombieCounter > 15) ||
+            this.person.userInterface.uiPanel.zombieCounter > 15) ||
           checkPoints.objects[ind].name !== 'roofQuest4'
         ) {
           plotHandle(checkPoints.objects[ind].name, {
