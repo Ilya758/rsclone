@@ -100,6 +100,41 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
       -this.incY * Weapon.speed + Math.random() * 100 - 50
     );
     this.lifespan = 1000;
+
+  static reload(currentWeapon: TWeapon, scene: Phaser.Scene) {
+    Weapon.currentAmmo[currentWeapon] = CLIP_AMMO_SIZE[currentWeapon];
+    UIPanel.currentAmmo = Weapon.currentAmmo[currentWeapon];
+    Weapon.isRealoaded = true;
+    Person.pointerIsDown = false;
+
+    const sound = (scene as Dungeon).weaponSoundsShot[
+      currentWeapon
+    ] as Phaser.Sound.BaseSound;
+    let delay = sound.duration * 500;
+
+    if (currentWeapon === 'rifle') {
+      delay = 100;
+    } else if (currentWeapon === 'pistol') {
+      delay = 500;
+    }
+    scene.time.addEvent({
+      delay: delay,
+      callback: () => {
+        sound?.stop();
+      },
+    });
+
+    const currentReloadSound = (scene as Dungeon).weaponSoundsReload[
+      currentWeapon
+    ] as Phaser.Sound.BaseSound;
+    currentReloadSound?.play();
+
+    scene.time.addEvent({
+      delay: currentReloadSound.duration * 1000,
+      callback: () => {
+        Weapon.isRealoaded = false;
+      },
+    });
   }
 
   public callFireMethod(
