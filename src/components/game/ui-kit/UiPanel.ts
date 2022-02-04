@@ -12,7 +12,7 @@ export default class UIPanel {
 
   private textAmmoQuantity: Phaser.GameObjects.Text | null;
 
-  private zombieCounter: number;
+  public zombieCounter: number;
 
   public static currentAmmo: number;
 

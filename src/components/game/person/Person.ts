@@ -100,6 +100,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     return this._speed;
   }
 
+  set speed(value: number) {
+    this._speed = value;
+  }
+
   get hp() {
     return this._hp;
   }

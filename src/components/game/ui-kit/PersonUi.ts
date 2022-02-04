@@ -9,6 +9,8 @@ export default class PersonUI extends Phaser.Scene {
 
   public hpBar: PersonHealthBar | null;
 
+  public items: number;
+
   private person: Person;
 
   private settingsMenu: SettingsMenu | null;
@@ -21,6 +23,7 @@ export default class PersonUI extends Phaser.Scene {
     super({ key: 'person-ui' });
     this.parentScene = scene;
     this.person = person;
+    this.items = 0;
     this.hpBar = null;
     this.settingsMenu = null;
     this.uiPanel = null;
