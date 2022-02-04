@@ -4,6 +4,7 @@ import { WEAPONS_GRAPHICS_CHARS } from '../../../constants/weaponsGraphicsChars'
 
 import { TWeaponsIcons } from './UiPanel.types';
 import { WEAPONS } from '../../../constants/weapons';
+import Weapon from '../entities/Weapon';
 export default class UIPanel {
   private scene: Phaser.Scene;
 
@@ -13,7 +14,7 @@ export default class UIPanel {
 
   private zombieCounter: number;
 
-  private currentAmmo: number;
+  public static currentAmmo: number;
 
   private weapons: TWeaponsIcons;
 
@@ -21,7 +22,11 @@ export default class UIPanel {
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.zombieCounter = this.currentAmmo = 0;
+    this.zombieCounter = 0;
+    UIPanel.currentAmmo =
+      Weapon.currentAmmo[
+        Weapon.currentWeapon as keyof typeof Weapon.currentAmmo
+      ];
     this.textZombiesCounter = this.textAmmoQuantity = this.uiPanel = null;
     this.weapons = {
       pistol: null,
@@ -36,7 +41,7 @@ export default class UIPanel {
   create() {
     this.uiPanel = this.scene.add.image(70, 40, 'uiPanel');
     this.textZombiesCounter = this.createCounter(this.zombieCounter, 22);
-    this.textAmmoQuantity = this.createCounter(this.currentAmmo, 102);
+    this.textAmmoQuantity = this.createCounter(UIPanel.currentAmmo, 102);
     this.uiPanel.scale = 0.4;
 
     sceneEvents.on('killZombieEvent', () => {
