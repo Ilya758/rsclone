@@ -72,7 +72,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     };
 
     if (Weapon.currentWeapon === 'flamethrower') {
-      setBulletChars(0.25, 0.6, 'fire');
+      setBulletChars(0.6, 0.6, 'fire');
     } else if (Weapon.currentWeapon === 'shotgun') {
       setBulletChars(0.6, 0.6, 'bullet-shotgun');
     } else {
