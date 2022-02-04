@@ -1,6 +1,12 @@
 import Phaser from 'phaser';
+import { CLIP_AMMO_SIZE } from '../../../constants/clipAmmoSize';
+import { TWeapon } from '../../../types/globals';
 import Enemy from '../enemies/abstract/Enemy';
+import sceneEvents from '../events/eventCenter';
+import Person from '../person/Person';
+import Dungeon from '../scenes/Dungeon';
 import { IEnemySounds } from '../scenes/dungeon.types';
+import UIPanel from '../ui-kit/UiPanel';
 
 export default class Weapon extends Phaser.Physics.Arcade.Image {
   private incX = 0;
@@ -66,6 +72,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     Weapon._damage = damage;
     Weapon._fireRate = fireRate;
     Weapon.speed = speed;
+    sceneEvents.emit('switch-weapon');
   }
 
   static get fireRate() {
@@ -110,6 +117,19 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
       -this.incY * Weapon.speed + Math.random() * 100 - 50
     );
     this.lifespan = 1000;
+
+    const currentWeapon =
+      Weapon.currentWeapon as keyof typeof Weapon.currentAmmo;
+    const currentWeaponAmmo = Weapon.currentAmmo[currentWeapon];
+    Weapon.currentAmmo[currentWeapon] -= 1;
+    UIPanel.currentAmmo = Weapon.currentAmmo[currentWeapon];
+
+    if (currentWeaponAmmo < 2) {
+      Weapon.reload(currentWeapon, this.scene);
+    }
+
+    sceneEvents.emit('changeCurrentAmmo');
+  }
 
   static reload(currentWeapon: TWeapon, scene: Phaser.Scene) {
     Weapon.currentAmmo[currentWeapon] = CLIP_AMMO_SIZE[currentWeapon];
