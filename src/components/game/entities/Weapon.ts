@@ -17,6 +17,16 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
 
   private static _currentWeapon = 'pistol';
 
+  public static isRealoaded = false;
+
+  public static currentAmmo = {
+    pistol: 10,
+    rifle: 30,
+    shotgun: 7,
+    sniper: 5,
+    flamethrower: 500,
+  };
+
   static get currentWeapon() {
     return Weapon._currentWeapon;
   }
