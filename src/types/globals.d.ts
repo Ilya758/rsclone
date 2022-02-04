@@ -14,6 +14,7 @@ interface IUserInteractiveButtons {
   three: Phaser.Input.Keyboard.Key;
   four: Phaser.Input.Keyboard.Key;
   five: Phaser.Input.Keyboard.Key;
+  reload: Phaser.Input.Keyboard.Key;
 }
 
 export type TWeapon =
