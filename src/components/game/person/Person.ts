@@ -217,9 +217,14 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   handleChangeWeapons(
     personControlKeys: IUserInteractiveButtons,
-    personUI: PersonUI
+    personUI: PersonUI,
+    shotSounds: TWeaponSounds
   ) {
     const switchWeapon = (currentWeapon: string) => {
+      Object.values(shotSounds).forEach(sound => {
+        sound?.stop();
+      });
+
       Weapon.currentWeapon = currentWeapon;
       personUI.uiPanel?.setActiveWeapon(Weapon.currentWeapon);
     };
@@ -417,7 +422,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     time: number,
     bullets: Phaser.GameObjects.Group | null,
     personSounds: IPersonSounds,
-    personUi: PersonUI
+    personUi: PersonUI,
+    shotSounds: TWeaponSounds
   ): void {
     if (!bullets) {
       throw new Error('Cannot find bullets');
@@ -451,7 +457,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     this.handleShooting(time, bullets);
     this.handleMoving(personControlKeys, personSounds.walk);
-    this.handleChangeWeapons(personControlKeys, personUi);
+    this.handleChangeWeapons(personControlKeys, personUi, shotSounds);
   }
 
   static handleBulletDamage(

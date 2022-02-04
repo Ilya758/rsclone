@@ -359,7 +359,8 @@ export default class Dungeon extends Phaser.Scene {
         time as number,
         this.bullets,
         this.personSounds as IPersonSounds,
-        this.person.userInterface
+        this.person.userInterface,
+        this.weaponSoundsShot
       );
     }
   }
