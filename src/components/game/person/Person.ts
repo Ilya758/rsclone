@@ -7,6 +7,7 @@ import sceneEvents from '../events/eventCenter';
 import { IPersonSounds, ISound, TWeaponSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
+import Pointer = Phaser.Input.Pointer;
 
 export default class Person extends Phaser.Physics.Arcade.Sprite {
   public hit = false;
@@ -160,31 +161,35 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   createRotationAndAttacking(scene: Phaser.Scene, attackSounds: TWeaponSounds) {
     // if the person is dead, he cannot rotate/shoot
 
-    scene.input.on('pointerdown', () => {
-      const currentWeapon = this.getCurrentWeaponChars(attackSounds);
-      const weaponChars = currentWeapon.weaponChars;
+    scene.input.on('pointerdown', (e: Pointer) => {
+      if (e.buttons !== 1) {
+        e.event.preventDefault();
+      } else {
+        const currentWeapon = this.getCurrentWeaponChars(attackSounds);
+        const weaponChars = currentWeapon.weaponChars;
 
-      if (!this.isDead && this.scene) {
-        this.isDown = true;
+        if (!this.isDead && this.scene) {
+          this.isDown = true;
 
-        if (!this.isShooting && this.anims) {
-          this.handleCurrentAnimation(currentWeapon.currentAttackSound);
-        } else {
-          this.animTimer = scene.time.addEvent({
-            delay:
-              weaponChars.duration +
-                weaponChars.delay -
-                currentWeapon.currentTime -
-                currentWeapon.POSSIBLE_DELAY || 0,
-            callback: () => {
-              if (!this.isDead && this.anims) {
-                this.handleCurrentAnimation(currentWeapon.currentAttackSound);
-              }
-            },
-          });
+          if (!this.isShooting && this.anims) {
+            this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+          } else {
+            this.animTimer = scene.time.addEvent({
+              delay:
+                weaponChars.duration +
+                  weaponChars.delay -
+                  currentWeapon.currentTime -
+                  currentWeapon.POSSIBLE_DELAY || 0,
+              callback: () => {
+                if (!this.isDead && this.anims) {
+                  this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+                }
+              },
+            });
+          }
         }
+        this.soundTimer.remove();
       }
-      this.soundTimer.remove();
     });
 
     scene.input.on('pointermove', () => {
