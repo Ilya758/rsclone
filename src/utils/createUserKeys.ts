@@ -12,6 +12,7 @@ export const createUserKeys = (
   const three = input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
   const four = input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
   const five = input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+  const reload = input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
   const mouseButtons = input.mousePointer;
 
   return {
@@ -25,5 +26,6 @@ export const createUserKeys = (
     three,
     four,
     five,
+    reload,
   };
 };
