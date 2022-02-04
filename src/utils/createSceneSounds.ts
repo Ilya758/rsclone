@@ -13,7 +13,7 @@ export const createSceneSounds = (scene: Dungeon | Arena) => {
     });
     const reload = scene.sound.add(`${weapon}-reload`, {
       volume: 0.5,
-      loop: true,
+      loop: false,
     });
 
     const currentWeapon = weapon as keyof TWeaponSounds;

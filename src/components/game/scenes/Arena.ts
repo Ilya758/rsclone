@@ -358,10 +358,11 @@ export default class Arena extends Phaser.Scene {
       this.assets as Phaser.Tilemaps.TilemapLayer
     );
 
-    // (this.person as Person).createRotationAndAttacking(
-    //   this,
-    //   this.personRifleSound
-    // );
+    (this.person as Person).createRotationAndAttacking(
+      this,
+      this.weaponSoundsShot
+    );
+
     this.lights.addLight(224, 1386, 500, 0xffffff, 2);
 
     this.flashLight = this.lights.addLight(
@@ -376,14 +377,14 @@ export default class Arena extends Phaser.Scene {
   update(time?: number): void {
     this.flashLight?.setPosition(this.person?.x, this.person?.y);
     if (this.person) {
-      // this.person.update(
-      //   createUserKeys(this.input),
-      //   time as number,
-      //   this.bullets,
-      //   this.personSounds as IPersonSounds,
-      //   this.person.userInterface,
-
-      // );
+      this.person.update(
+        createUserKeys(this.input),
+        time as number,
+        this.bullets,
+        this.personSounds as IPersonSounds,
+        this.person.userInterface,
+        this.weaponSoundsShot
+      );
 
       this.bullets?.getChildren().forEach(bullet => {
         const entity = bullet as Weapon;
