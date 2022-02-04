@@ -1,6 +1,7 @@
 import sceneEvents from '../events/eventCenter';
+import { ITracks } from '../scenes/dungeon.types';
 
-const plotHandle = (type: string) => {
+const plotHandle = (type: string, tracks?: ITracks) => {
   switch (type) {
     case 'questBridge':
       sceneEvents.emit(`questLabelDestroy`, 7);
@@ -16,6 +17,7 @@ const plotHandle = (type: string) => {
       sceneEvents.emit(`roof`, 0);
       sceneEvents.emit(`questLabel`, 3);
       sceneEvents.emit(`questLabel`, 0);
+      sceneEvents.emit('staticMusicStart', tracks?.static, tracks);
       break;
     case 'roofQuest1':
       sceneEvents.emit(`dialog`, 1);
@@ -62,8 +64,8 @@ const plotHandle = (type: string) => {
       sceneEvents.emit(`questLabelDestroy`, 3);
       sceneEvents.emit(`hide`);
       sceneEvents.emit(`questLabel`, 6);
+      sceneEvents.emit('dynamicMusicStart', tracks);
       break;
-
     default:
       break;
   }

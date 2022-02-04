@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS } from '../../../constants/colors';
 import getSettingsMenuButtonsParams from '../../../utils/getSettingsMenuButtonsParams';
+import { ISounds } from './settings-menu.types';
 
 export interface ISize {
   width: number;
@@ -26,6 +27,8 @@ export default class SettingsMenu {
 
   private settingsMenuButtons: ReturnType<typeof getSettingsMenuButtonsParams>;
 
+  private overlay: Phaser.GameObjects.Graphics | null;
+
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
     this.size = {
@@ -33,6 +36,7 @@ export default class SettingsMenu {
       height: this.scene.scale.height,
     };
     this.soundsButton = this.musicButton = this.backToMenuButton = null;
+    this.overlay = null;
     this.settingsMenu = this.createMenu();
     this.settingsMenuButtons = getSettingsMenuButtonsParams(this.settingsMenu);
     this.createButtons();
@@ -55,7 +59,19 @@ export default class SettingsMenu {
       )
     );
 
+    this.overlay = this.createOverlay();
+
     return settingsMenu;
+  }
+
+  createOverlay() {
+    const overlay = this.scene.add.graphics();
+
+    overlay.fillStyle(0x000000);
+    overlay.setAlpha(0.45);
+    overlay.fillRect(0, 0, this.scene.scale.width, this.scene.scale.height);
+
+    return overlay;
   }
 
   createButtons() {
@@ -96,10 +112,12 @@ export default class SettingsMenu {
             button.setColor(COLORS.yellow);
           }
         };
+        const sounds = (this.scene.sound as ISounds).sounds;
 
         switch (btn) {
           case 'soundsButton': {
             button.setInteractive().on('pointerdown', () => {
+              this.toggleSoundsMute(sounds);
               this.soundsAreMuted = !this.soundsAreMuted;
               setStateToButton(this.soundsAreMuted);
             });
@@ -107,6 +125,7 @@ export default class SettingsMenu {
           }
           case 'musicButton': {
             button.setInteractive().on('pointerdown', () => {
+              this.toggleSoundsMute(sounds, 'tracks');
               this.musicIsMuted = !this.musicIsMuted;
               setStateToButton(this.musicIsMuted);
             });
@@ -128,8 +147,22 @@ export default class SettingsMenu {
     );
   }
 
+  toggleSoundsMute(sounds: ISounds['sounds'], param = 'sounds') {
+    sounds.forEach(sound => {
+      const predicate =
+        param === 'sounds'
+          ? !sound.key.includes('track')
+          : sound.key.includes('track');
+
+      if (predicate) {
+        sound.mute = !sound.mute;
+      }
+    });
+  }
+
   destroy() {
     this.settingsMenu.destroy();
+    this.overlay?.destroy();
 
     ['soundsButton', 'musicButton', 'backToMenuButton'].forEach(
       (btn: string) => {

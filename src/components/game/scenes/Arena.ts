@@ -7,6 +7,9 @@ import Person from '../person/Person';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { io, Socket } from 'socket.io-client';
 import { PERSON_SPAWN_POINTS } from '../../../constants/personSpawnPoints';
+import { IPersonSounds } from './dungeon.types';
+import { dataToLoad } from "../data/arenaData";
+import { preloader } from "../utils/preloader";
 
 export interface IPlayer {
   x: number;
@@ -20,72 +23,50 @@ export interface IPlayers {
   [index: string]: IPlayer;
 }
 
-export default class Dungeon extends Phaser.Scene {
+export default class Arena extends Phaser.Scene {
   protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
-
-  private personWalkSound: Phaser.Sound.BaseSound | null;
 
   private personRifleSound: Phaser.Sound.BaseSound | null;
 
   private socket: Socket | undefined;
 
   private otherPlayers: Phaser.GameObjects.Group | undefined;
-
-  private spawn: { x: number; y: number }[] | undefined;
-
+  
   private assets: Phaser.Tilemaps.TilemapLayer | null;
 
   private walls: Phaser.Tilemaps.TilemapLayer | null;
 
+  private personSounds: IPersonSounds | null;
+
+  private trackDynamic: Phaser.Sound.BaseSound | null;
+  private trees: Phaser.Tilemaps.TilemapLayer | undefined;
+
   constructor() {
-    super('dungeon');
+    super('Arena');
     this.person = null;
     this.bullets = null;
     this.assets = this.walls = null;
-    this.personWalkSound = this.personRifleSound = null;
+    this.personSounds = this.personRifleSound = this.trackDynamic = null;
   }
 
   preload() {
-    this.load.image('floor', './assets/game/tiles/floor.png');
-    this.load.image('walls', './assets/game/tiles/walls.png');
-    this.load.image('other2', './assets/game/tiles/other2.png');
-    this.load.image('furniture', './assets/game/tiles/furniture.png');
-    this.load.image('tech', './assets/game/tiles/tech.png');
     this.load.tilemapTiledJSON('main', './assets/game/map/arena.json');
     this.load.atlas(
       'person',
       './assets/game/characters/man.png',
       './assets/game/characters/man.json'
     );
-    this.load.atlas(
-      'otherPerson',
-      './assets/game/characters/man.png',
-      './assets/game/characters/man.json'
-    );
-    this.load.image('bullet', './assets/game/bullet1.png');
-
-    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    this.load.image('gun', './assets/game/items/gun.png');
-    this.load.image('rifle', './assets/game/items/rifle.png');
-    this.load.image('bat', './assets/game/items/bat.png');
-    this.load.image('firethrower', './assets/game/items/firethrower.png');
-    this.load.image('knife', './assets/game/items/knife.png');
-
-    this.load.image('empty-item', './assets/game/ui/element_0018_Layer-20.png');
-    this.load.image(
-      'active-item',
-      './assets/game/ui/element_0017_Layer-19.png'
-    );
-
-    this.load.image('secondIcon', './assets/game/ui/element_0074_Layer-76.png');
-    this.load.image('iconMan', './assets/game/icons/manicon.png');
-
-    this.load.image('btn-settings', './assets/game/ui/btn-settings.png');
-    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
+    for(let i = dataToLoad.length; i--; ) {
+     const data = dataToLoad[i];
+     if(data[0] === 'image') {
+       this.load.image(data[1], data[2]);
+     } else {
+       this.load.audio(data[1], data[2]);
+     }
+    }
+    preloader(this);
   }
 
   create() {
@@ -155,6 +136,8 @@ export default class Dungeon extends Phaser.Scene {
     // create layer
 
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
+    this.trees = map.createLayer('trunk', [tilesetTech], 0, 0);
+    this.trees.depth = 10;
     this.walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
     map.createLayer('shadow', [tilesetTech], 0, 0);
     this.assets = map.createLayer(
@@ -166,6 +149,7 @@ export default class Dungeon extends Phaser.Scene {
     // create collision
 
     ground.setCollisionByProperty({ collides: true });
+    this.trees.setCollisionByProperty({ collides: true });
     this.walls.setCollisionByProperty({ collides: true });
     this.assets.setCollisionByProperty({ collides: true });
     // debugGraphicsDraw(walls, this);
@@ -173,14 +157,19 @@ export default class Dungeon extends Phaser.Scene {
 
     // creating the sounds
 
-    this.personWalkSound = this.sound.add('person-walk', {
-      volume: 0.5,
-    });
+    this.personSounds = Person.createPersonSounds(this);
 
     this.personRifleSound = this.sound.add('rifle-shot', {
       volume: 0.8,
       loop: true,
     });
+
+    this.trackDynamic = this.sound.add('track-dynamic', {
+      loop: true,
+      volume: 0.5,
+    });
+
+    this.trackDynamic.play();
 
     this.bullets = this.physics.add.group({
       classType: Bullet,
@@ -190,6 +179,24 @@ export default class Dungeon extends Phaser.Scene {
 
     this.createPerson();
 
+    this.physics.add.collider(
+      this.bullets,
+      this.walls,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
+    this.physics.add.collider(
+      this.bullets,
+      this.trees,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
+    this.physics.add.collider(
+      this.bullets,
+      this.assets,
+      Bullet.handleBulletAndWallsCollision.bind(this)
+    );
+  
     this.physics.add.collider(
       this.bullets,
       this.walls,
@@ -299,6 +306,11 @@ export default class Dungeon extends Phaser.Scene {
       this.person,
       this.walls as Phaser.Tilemaps.TilemapLayer
     );
+    
+    this.physics.add.collider(
+      this.person,
+      this.trees as Phaser.Tilemaps.TilemapLayer
+    )
 
     this.physics.add.collider(
       this.person,
@@ -317,7 +329,7 @@ export default class Dungeon extends Phaser.Scene {
         createUserKeys(this.input),
         time as number,
         this.bullets,
-        this.personWalkSound as Phaser.Sound.BaseSound,
+        this.personSounds as IPersonSounds,
         this.person.userInterface
       );
 

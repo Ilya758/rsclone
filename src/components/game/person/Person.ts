@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { IUserInteractiveButtons } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Bullet from '../entities/bullet';
+import sceneEvents from '../events/eventCenter';
+import { IPersonSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
 
@@ -286,7 +288,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   handleEnemyDamage(
     obj1: Phaser.GameObjects.GameObject,
     obj2: Phaser.GameObjects.GameObject,
-    scene: Phaser.Scene
+    scene: Phaser.Scene,
+    personSounds: IPersonSounds
   ) {
     if (!this) {
       throw new Error("Person isn't created or found");
@@ -297,6 +300,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     if (!person.hit && !person.isDead) {
       if (zombie.anims.currentFrame.index >= 3) {
+        personSounds.hit.play();
         person.hit = true; // after kicking from one enemy, the person gets a bit of kick-immune
         person.setTint(0xff0000);
 
@@ -317,17 +321,39 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       }
 
       if (person.hp <= 0) {
+        personSounds.hit.stop();
+        personSounds.dead.play();
         person.hp = 0;
         person.isDead = true;
+        sceneEvents.emit('person-death');
       }
     }
+  }
+
+  static createPersonSounds(scene: Phaser.Scene): IPersonSounds {
+    const phrases = ['first-phrase'];
+
+    return {
+      walk: scene.sound.add('person-walk', {
+        volume: 0.3,
+      }),
+      hit: scene.sound.add('person-hit', {
+        volume: 0.3,
+      }),
+      dead: scene.sound.add('person-dead', {
+        volume: 0.5,
+      }),
+      phrases: {
+        'first-phrase': scene.sound.add(phrases[0]),
+      },
+    };
   }
 
   update(
     personControlKeys: IUserInteractiveButtons,
     time: number,
     bullets: Phaser.GameObjects.Group | null,
-    personWalkSound: Phaser.Sound.BaseSound,
+    personSounds: IPersonSounds,
     personUi: PersonUI
   ): void {
     if (!bullets) {
@@ -360,8 +386,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
 
     this.handleShooting(time, bullets);
-
-    this.handleMoving(personControlKeys, personWalkSound);
+    this.handleMoving(personControlKeys, personSounds.walk);
     this.handleChangeWeapons(personControlKeys, personUi);
   }
 

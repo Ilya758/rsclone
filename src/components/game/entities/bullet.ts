@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Enemy from '../enemies/abstract/Enemy';
+import { IEnemySounds } from '../scenes/dungeon.types';
 
 export default class Bullet extends Phaser.Physics.Arcade.Image {
   private incX = 0;
@@ -50,13 +51,25 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
 
   static handleBulletAndEnemyCollision(
     obj: Phaser.GameObjects.GameObject,
-    bullet: Phaser.GameObjects.GameObject
+    bullets: Phaser.GameObjects.GameObject[],
+    enemySounds: IEnemySounds
   ) {
+    const firstBullet = bullets[0] as Bullet;
+
     const enemy = obj as Enemy;
     enemy.isShooted.state = true;
+
+    if (enemySounds.aggressive.isPlaying) {
+      enemySounds.hit.stop();
+    }
+
+    if (!enemySounds.aggressive.isPlaying && !enemySounds.hit.isPlaying) {
+      enemySounds.hit.play();
+    }
+
     enemy.setTint(0xff0000);
     enemy.decreaseHp(10);
-    bullet.destroy(true);
+    firstBullet.destroy(true);
 
     obj.scene.time.addEvent({
       delay: 150,
@@ -66,6 +79,8 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     });
 
     if (!enemy.hp) {
+      enemySounds.hit.stop();
+      enemySounds.dead.play();
       enemy.isDead = true;
       enemy.kill();
     }
