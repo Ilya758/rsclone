@@ -15,6 +15,7 @@ export default class EventFactory {
   private personUi: Phaser.Scene;
   private questLabels: QuestLabel[];
   private dialogQueue: number[];
+  private counter: number;
 
   constructor(
     scene: Dungeon,
@@ -29,6 +30,7 @@ export default class EventFactory {
     this.run();
     this.questLabels = [];
     this.dialogQueue = [];
+    this.counter = 0;
   }
 
   handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
@@ -56,33 +58,36 @@ export default class EventFactory {
     });
 
     sceneEvents.on('killZombieCounter', (counter: number) => {
-      if (counter === 1) {
+      this.counter = counter;
+      if (this.counter === 1) {
         plotHandle('killFirstZombie');
       }
-      if (counter === 6) {
+      if (this.counter === 6) {
         plotHandle('killSecondZombies');
       }
-      if (counter === 16) {
+      if (this.counter === 16) {
         plotHandle('killLastZombies');
       }
-      if (counter === 21) {
+      if (this.counter === 21) {
         plotHandle('killZombie21');
       }
-      if (counter === 100 || counter === 50) {
+      if (this.counter === 100 || this.counter === 50) {
         plotHandle('killZombie100');
       }
     });
 
     sceneEvents.on('hide', () => {
-      this.scene.cameras.main.fadeOut(2000);
-      //TODO
-      setTimeout(() => {
-        this.person.setX(400);
-        this.person.setY(400);
-      }, 3000);
-      setTimeout(() => {
-        this.scene.cameras.main.fadeIn(1000);
-      }, 3000);
+      if (this.counter > 15) {
+        this.scene.cameras.main.fadeOut(2000);
+        //TODO
+        setTimeout(() => {
+          this.person.setX(400);
+          this.person.setY(400);
+        }, 3000);
+        setTimeout(() => {
+          this.scene.cameras.main.fadeIn(1000);
+        }, 3000);
+      }
     });
 
     sceneEvents.on('questLabel', (number: number) => {

@@ -2,6 +2,15 @@ import sceneEvents from '../events/eventCenter';
 
 const plotHandle = (type: string) => {
   switch (type) {
+    case 'questBridge':
+      sceneEvents.emit(`questLabelDestroy`, 7);
+      sceneEvents.emit(`questLabel`, 8);
+      break;
+    case 'quest5':
+      sceneEvents.emit(`questLabelDestroy`, 6);
+      sceneEvents.emit(`dialog`, 15);
+      sceneEvents.emit(`questLabel`, 7);
+      break;
     case 'roofQuest0':
       sceneEvents.emit(`dialog`, 0);
       sceneEvents.emit(`roof`, 0);
@@ -52,6 +61,7 @@ const plotHandle = (type: string) => {
     case 'roofQuest4':
       sceneEvents.emit(`questLabelDestroy`, 3);
       sceneEvents.emit(`hide`);
+      sceneEvents.emit(`questLabel`, 6);
       break;
 
     default:
