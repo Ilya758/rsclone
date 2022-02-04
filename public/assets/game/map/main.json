@@ -203,6 +203,28 @@
                  "width":11.1666666666666,
                  "x":558,
                  "y":739.666666666667
+                }, 
+                {
+                 "height":12.6666666666665,
+                 "id":18,
+                 "name":"questBridge",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":8.66666666666697,
+                 "x":3017.33333333333,
+                 "y":3258
+                }, 
+                {
+                 "height":14,
+                 "id":19,
+                 "name":"helicopter",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14,
+                 "x":3468.66666666667,
+                 "y":1134.66666666667
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -211,7 +233,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":18,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

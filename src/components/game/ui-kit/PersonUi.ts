@@ -23,6 +23,8 @@ export default class PersonUI extends Phaser.Scene {
 
   public active: Phaser.GameObjects.Image | null;
 
+  public iconUI: IconUi | null;
+
   public itemKeys: {
     [key: string]: number;
   };
@@ -37,6 +39,7 @@ export default class PersonUI extends Phaser.Scene {
     super({ key: 'person-ui' });
     this.parentScene = scene;
     this.person = person;
+    this.iconUI = null;
     this.items = 0;
     this.knife = null;
     this.hpBar = null;
@@ -91,7 +94,7 @@ export default class PersonUI extends Phaser.Scene {
     });
 
     this.createIcons({ xCoord, yCoords });
-    new IconUi(this);
+    this.iconUI = new IconUi(this);
     this.hpBar = new PersonHealthBar(this, 0, 0, this.person);
   }
 

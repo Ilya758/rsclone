@@ -109,8 +109,16 @@ export const DIALOGS = [
     count: 15,
     width: 220,
     height: 120,
-    text: "I've tried to leave this town in South... But it isn't possible. But some citizen said - there is an exit on the other side our river...",
+    text: "I've tried to leave this town in South... But it isn't possible. But some citizen said - there is a crashed helicopter with radio set on the other side the river...",
     coordinates: [535, 737],
+    delay: 7000,
+  },
+  {
+    count: 16,
+    width: 220,
+    height: 120,
+    text: '-I need help.. I repeat I need Help! -How did you survive there? Wait us, we will be in 5 minutes!',
+    coordinates: [3468, 1134],
     delay: 7000,
   },
 ];
