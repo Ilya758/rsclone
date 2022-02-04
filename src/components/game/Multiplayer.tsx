@@ -15,7 +15,7 @@ const Multiplayer = () => {
         height: window.innerHeight / 2,
       },
     },
-    maxLights: 200,
+    maxLights: 50,
     backgroundColor: '#000000',
     physics: {
       default: 'arcade',

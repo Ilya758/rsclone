@@ -95,16 +95,18 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   kill(): void {
-    sceneEvents.emit('killZombieEvent');
-    sceneEvents.emit('dropItem', [this.x, this.y]);
-    this.hpBar.destroy();
-    this.anims.play('zombie-death');
-    this.disableBody();
+    if (!this.isDead) {
+      sceneEvents.emit('killZombieEvent');
+      sceneEvents.emit('dropItem', [this.x, this.y]);
+      this.hpBar.destroy();
+      this.anims.play('zombie-death');
+      this.disableBody();
 
-    this.scene.time.addEvent({
-      delay: 1500,
-      callback: () => this.destroy(),
-    });
+      this.scene.time.addEvent({
+        delay: 1500,
+        callback: () => this.destroy(),
+      });
+    }
   }
 
   static createEnemySounds(scene: Phaser.Scene): IEnemySounds {
