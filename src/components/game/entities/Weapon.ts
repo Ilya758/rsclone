@@ -31,12 +31,12 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
       }
 
       case 'rifle': {
-        Weapon.setWeaponChars(20, 100, 1000);
+        Weapon.setWeaponChars(15, 100, 1000);
         break;
       }
 
       case 'shotgun': {
-        Weapon.setWeaponChars(30, 1800, 1300);
+        Weapon.setWeaponChars(60, 1800, 1300);
         break;
       }
 
@@ -67,13 +67,16 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
   }
 
   private fire(x: number, y: number, personX: number, personY: number) {
+    const setBulletChars = (scale: number, alpha: number, texture: string) => {
+      this.setScale(scale).setAlpha(alpha).setTexture(texture);
+    };
+
     if (Weapon.currentWeapon === 'flamethrower') {
-      this.setScale(0.2).setAlpha(0.6);
-      this.setTexture('fire');
+      setBulletChars(0.25, 0.6, 'fire');
+    } else if (Weapon.currentWeapon === 'shotgun') {
+      setBulletChars(0.6, 0.6, 'bullet-shotgun');
     } else {
-      this.setVisible(true);
-      this.setScale(0.25);
-      this.setTexture('bullet').setAlpha(1);
+      setBulletChars(0.25, 1, 'bullet');
     }
 
     this.body.setSize(this.width, this.height);
@@ -140,8 +143,8 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     if (!enemy.hp) {
       enemySounds.hit.stop();
       enemySounds.dead.play();
-      enemy.isDead = true;
       enemy.kill();
+      enemy.isDead = true;
     }
   }
 
