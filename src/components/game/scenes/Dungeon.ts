@@ -29,7 +29,7 @@ import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
-import { preloader } from "../utils/preloader";
+import { preloader } from '../utils/preloader';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
@@ -40,7 +40,7 @@ export default class Dungeon extends Phaser.Scene {
 
   private zombies: Phaser.Physics.Arcade.Group | null;
 
-  private tmpEnemyCount = 10;
+  private tmpEnemyCount = 250;
 
   private points: Phaser.Physics.Arcade.StaticGroup | null;
 
@@ -116,7 +116,7 @@ export default class Dungeon extends Phaser.Scene {
 
     // person-death
     this.load.video('person-death', './assets/video/game-over.mp4');
-    
+
     // preloader
     preloader(this);
   }
@@ -150,7 +150,7 @@ export default class Dungeon extends Phaser.Scene {
       0
     );
 
-    const roof = map.createLayer('roof', tilesetRoof, 0, 0);
+    const roof = map.createLayer('roof', [tilesetRoof, tilesetFurniture], 0, 0);
     roof.depth = 10;
     const roof0 = map.createLayer('roofQuest0', tilesetRoof, 0, 0);
     roof0.depth = 10;
@@ -186,7 +186,7 @@ export default class Dungeon extends Phaser.Scene {
       ),
       1: map.createLayer(
         'walls2',
-        [tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
+        [tileset, tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
         0,
         0
       ),
@@ -224,12 +224,25 @@ export default class Dungeon extends Phaser.Scene {
         throw new Error('Not found');
       }
       this.physics.add.overlap(this.person, el, () => {
-        plotHandle(checkPoints.objects[ind].name, {
-          ...(this.tracks as ITracks),
-          ...this.personSounds,
-          ...this.enemySounds,
-        });
-        el.destroy(true);
+        if (
+          !this.person ||
+          !this.person.userInterface ||
+          !this.person.userInterface.iconUI
+        ) {
+          throw new Error('Not found');
+        }
+        if (
+          (checkPoints.objects[ind].name === 'roofQuest4' &&
+            this.person.userInterface.iconUI.zombieCounter > 15) ||
+          checkPoints.objects[ind].name !== 'roofQuest4'
+        ) {
+          plotHandle(checkPoints.objects[ind].name, {
+            ...(this.tracks as ITracks),
+            ...this.personSounds,
+            ...this.enemySounds,
+          });
+          el.destroy(true);
+        }
       });
     });
 
@@ -360,7 +373,6 @@ export default class Dungeon extends Phaser.Scene {
   setCollisionBetweenZombies() {
     const zombieArray = this.zombies?.children
       .entries as Phaser.GameObjects.GameObject[];
-
     for (let i = 0; i < zombieArray.length; i += 1) {
       for (let j = 0; j <= zombieArray.length; j += 1) {
         this.physics.add.collider(zombieArray[i], zombieArray[j]);
@@ -372,7 +384,6 @@ export default class Dungeon extends Phaser.Scene {
     if (!this.zombies?.children.entries.length) {
       // this.createGroupOfZombies();
     }
-
     Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
       zombie.update();
       zombie.movingToPerson(

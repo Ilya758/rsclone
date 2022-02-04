@@ -3,6 +3,11 @@ import { ITracks } from '../scenes/dungeon.types';
 
 const plotHandle = (type: string, tracks?: ITracks) => {
   switch (type) {
+    case 'helicopter':
+      sceneEvents.emit(`questLabelDestroy`, 8);
+      sceneEvents.emit(`questLabel`, 9);
+      sceneEvents.emit(`dialog`, 16);
+      break;
     case 'questBridge':
       sceneEvents.emit(`questLabelDestroy`, 7);
       sceneEvents.emit(`questLabel`, 8);

@@ -10,23 +10,26 @@ import '../enemies/Zombie';
 import plotHandle from '../plot/plotHandle';
 import { IEnemySounds, IPersonSounds, ITracks } from '../scenes/dungeon.types';
 import { ISounds } from '../ui-kit/settings-menu.types';
+import Person from '../person/Person';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
   private scene: Dungeon;
-  private person: Phaser.Physics.Arcade.Sprite;
+  private person: Person;
   private personUi: Phaser.Scene;
   private questLabels: QuestLabel[];
   private dialogQueue: number[];
   private counter: number;
+  private speedUp: QuestLabel | null;
 
   constructor(
     scene: Dungeon,
-    person: Phaser.Physics.Arcade.Sprite,
+    person: Person,
     roofs: Phaser.Tilemaps.TilemapLayer[],
     personUi: Phaser.Scene
   ) {
     this.scene = scene;
+    this.speedUp = null;
     this.person = person;
     this.roofs = roofs;
     this.personUi = personUi;
@@ -37,7 +40,8 @@ export default class EventFactory {
   }
 
   handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
-    sceneEvents.emit('dialog', 8 + itemRandom);
+    sceneEvents.emit('dialog', 9 + itemRandom);
+    sceneEvents.emit('getItem', itemRandom);
     item.destroy();
   }
 
@@ -114,17 +118,15 @@ export default class EventFactory {
     });
 
     sceneEvents.on('hide', () => {
-      if (this.counter > 15) {
-        this.scene.cameras.main.fadeOut(2000);
-        //TODO
-        setTimeout(() => {
-          this.person.setX(400);
-          this.person.setY(400);
-        }, 3000);
-        setTimeout(() => {
-          this.scene.cameras.main.fadeIn(1000);
-        }, 3000);
-      }
+      this.scene.cameras.main.fadeOut(2000);
+      //TODO
+      setTimeout(() => {
+        this.person.setX(400);
+        this.person.setY(400);
+      }, 3000);
+      setTimeout(() => {
+        this.scene.cameras.main.fadeIn(1000);
+      }, 3000);
     });
 
     sceneEvents.on('questLabel', (number: number) => {
@@ -165,6 +167,40 @@ export default class EventFactory {
       'dialog',
       (number: number) => {
         this.dialogQueue.push(number);
+      },
+      this
+    );
+
+    sceneEvents.on(
+      'getItem',
+      (number: number) => {
+        switch (number) {
+          case 0:
+            this.person.speed = 150;
+            this.speedUp = new QuestLabel(
+              this.personUi,
+              '-speed up: ',
+              20,
+              10,
+              150
+            );
+            setTimeout(() => {
+              if (!this.speedUp) throw new Error('error');
+              this.speedUp.crossLine();
+              this.speedUp = null;
+              this.person.speed = 100;
+            }, 10000);
+            break;
+          case 1:
+            this.person.hp = Math.min(this.person.hp + 25, 100);
+            break;
+          case 2:
+            console.log('slow');
+            break;
+          case 3:
+            console.log('rage');
+            break;
+        }
       },
       this
     );
