@@ -43,6 +43,14 @@ export default class UIPanel {
       this.incrementZombieDeathCounter();
     });
 
+    sceneEvents.on('changeCurrentAmmo', () => {
+      this.changeCurrentAmmoCounter();
+    });
+
+    sceneEvents.on('switch-weapon', () => {
+      this.changeCurrentAmmoCounter();
+    });
+
     this.createIcons();
   }
 
