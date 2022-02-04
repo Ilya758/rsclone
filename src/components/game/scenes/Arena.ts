@@ -13,6 +13,7 @@ import { ATLASES } from '../../../constants/atlases';
 import { IMAGES } from '../../../constants/images';
 import { SOUNDS } from '../../../constants/sounds';
 import { createSceneSounds } from '../../../utils/createSceneSounds';
+import Light = Phaser.GameObjects.Light;
 
 export interface IPlayer {
   x: number;
@@ -49,10 +50,18 @@ export default class Arena extends Phaser.Scene {
 
   public weaponSoundsReload: TWeaponSounds;
 
+  private day: boolean;
+
+  private traceLights: Map<Weapon, Light>;
+
+  private flashLight: Phaser.GameObjects.Light | undefined;
+
   constructor() {
     super('Arena');
     this.person = null;
+    this.day = false;
     this.bullets = null;
+    this.traceLights = new Map();
     this.assets = this.walls = null;
     this.personSounds = this.trackDynamic = null;
     this.weaponSoundsShot = {
@@ -87,6 +96,17 @@ export default class Arena extends Phaser.Scene {
   }
 
   create() {
+    this.lights.enable().setAmbientColor(0x423eef);
+    // setInterval(() => {
+    //   if (this.day) {
+    //     this.lights.setAmbientColor(0xffffff);
+    //     this.day = !this.day;
+    //   } else {
+    //     this.lights.setAmbientColor(0x1916ae);
+    //     this.day = !this.day;
+    //   }
+    // }, 10000);
+
     // this.socket = io('ws://localhost:5000');
     this.socket = io('https://rscloneback.herokuapp.com/');
     this.otherPlayers = this.physics.add.group();
@@ -105,6 +125,7 @@ export default class Arena extends Phaser.Scene {
               PERSON_SPAWN_POINTS[spawnPoint].y,
               'person'
             );
+            otherPerson?.setPipeline('Light2D');
           }
           if (otherPerson) {
             otherPerson.playerId = players[id].playerId;
@@ -153,16 +174,22 @@ export default class Arena extends Phaser.Scene {
     // create layer
 
     const ground = map.createLayer('ground', [tileset, tilesetWalls], 0, 0);
+    ground.setPipeline('Light2D');
     this.trees = map.createLayer('trunk', [tilesetTech], 0, 0);
+    this.trees.setPipeline('Light2D');
     this.trees.depth = 10;
     this.walls = map.createLayer('walls', [tilesetWalls, tileset], 0, 0);
-    map.createLayer('shadow', [tilesetTech], 0, 0);
+    const shadow = map.createLayer('shadow', [tilesetTech], 0, 0);
+    shadow.setPipeline('Light2D');
+    this.walls.setPipeline('Light2D');
     this.assets = map.createLayer(
       'assets',
       [tilesetFurniture, tilesetTech],
       0,
       0
     );
+    this.assets.setPipeline('Light2D');
+
     // create collision
 
     ground.setCollisionByProperty({ collides: true });
@@ -190,25 +217,26 @@ export default class Arena extends Phaser.Scene {
     });
 
     this.createPerson();
+    this.person?.setPipeline('Light2D');
 
     this.physics.add.collider(
       this.bullets,
       this.walls,
       Weapon.handleBulletAndWallsCollision.bind(this)
     );
-  
+
     this.physics.add.collider(
       this.bullets,
       this.trees,
       Weapon.handleBulletAndWallsCollision.bind(this)
     );
-  
+
     this.physics.add.collider(
       this.bullets,
       this.assets,
       Weapon.handleBulletAndWallsCollision.bind(this)
     );
-  
+
     this.physics.add.collider(
       this.bullets,
       this.walls,
@@ -261,6 +289,7 @@ export default class Arena extends Phaser.Scene {
           if ((this.person as Person).hp <= 0) {
             this.person?.destroy(true);
             this.createPerson();
+            this.person?.setPipeline('Light2D');
             if (this.socket) (this.person as Person).playerId = this.socket.id;
             this.socket &&
               this.socket.emit('damaged', {
@@ -318,32 +347,63 @@ export default class Arena extends Phaser.Scene {
       this.person,
       this.walls as Phaser.Tilemaps.TilemapLayer
     );
-    
+
     this.physics.add.collider(
       this.person,
       this.trees as Phaser.Tilemaps.TilemapLayer
-    )
+    );
 
     this.physics.add.collider(
       this.person,
       this.assets as Phaser.Tilemaps.TilemapLayer
     );
 
-    (this.person as Person).createRotationAndAttacking(
-      this,
-      this.personRifleSound
+    // (this.person as Person).createRotationAndAttacking(
+    //   this,
+    //   this.personRifleSound
+    // );
+    this.lights.addLight(224, 1386, 500, 0xffffff, 2);
+
+    this.flashLight = this.lights.addLight(
+      this.person.x,
+      this.person.y,
+      50,
+      0xffffff,
+      0.1
     );
   }
 
   update(time?: number): void {
+    this.flashLight?.setPosition(this.person?.x, this.person?.y);
     if (this.person) {
-      this.person.update(
-        createUserKeys(this.input),
-        time as number,
-        this.bullets,
-        this.personSounds as IPersonSounds,
-        this.person.userInterface
-      );
+      // this.person.update(
+      //   createUserKeys(this.input),
+      //   time as number,
+      //   this.bullets,
+      //   this.personSounds as IPersonSounds,
+      //   this.person.userInterface,
+
+      // );
+
+      this.bullets?.getChildren().forEach(bullet => {
+        const entity = bullet as Weapon;
+        if (this.traceLights.has(entity)) {
+          const tmp = this.traceLights.get(entity);
+          tmp && tmp.setPosition(entity.x, entity.y);
+          tmp && this.traceLights.set(entity, tmp);
+        } else {
+          this.traceLights.set(
+            entity,
+            this.lights.addLight(entity.x, entity.y, 50, 0xff0000, 5)
+          );
+        }
+        setTimeout(() => {
+          this.traceLights.forEach(value => {
+            this.lights.removeLight(value);
+          });
+          this.traceLights = new Map();
+        }, 0);
+      });
 
       this.person?.userInterface.hpBar?.draw(this.person.hp);
     }
