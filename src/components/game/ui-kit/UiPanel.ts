@@ -76,6 +76,15 @@ export default class UIPanel {
     sceneEvents.emit(`killZombieCounter`, this.zombieCounter);
   }
 
+  changeCurrentAmmoCounter() {
+    UIPanel.currentAmmo =
+      Weapon.currentAmmo[
+        Weapon.currentWeapon as keyof typeof Weapon.currentAmmo
+      ];
+    this.textAmmoQuantity?.destroy();
+    this.textAmmoQuantity = this.createCounter(UIPanel.currentAmmo, 102);
+  }
+
   createCounter(elem: number, x: number) {
     const content = this.scene.add.text(
       0,
