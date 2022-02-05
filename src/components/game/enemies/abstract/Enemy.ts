@@ -71,7 +71,10 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    if (!this.isDead) {
+    if (
+      !this.isDead &&
+      Phaser.Math.Distance.BetweenPoints(this, person) < 500
+    ) {
       if (!this.isShooted.once && this.isShooted.state) {
         zombieSounds.aggressive.play();
         this.isShooted.once = true;
@@ -95,16 +98,18 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   kill(): void {
-    sceneEvents.emit('killZombieEvent');
-    sceneEvents.emit('dropItem', [this.x, this.y]);
-    this.hpBar.destroy();
-    this.anims.play('zombie-death');
-    this.disableBody();
+    if (!this.isDead) {
+      sceneEvents.emit('killZombieEvent');
+      sceneEvents.emit('dropItem', [this.x, this.y]);
+      this.hpBar.destroy();
+      this.anims.play('zombie-death');
+      this.disableBody();
 
-    this.scene.time.addEvent({
-      delay: 1500,
-      callback: () => this.destroy(),
-    });
+      this.scene.time.addEvent({
+        delay: 1500,
+        callback: () => this.destroy(),
+      });
+    }
   }
 
   static createEnemySounds(scene: Phaser.Scene): IEnemySounds {

@@ -4,7 +4,7 @@ import { createUserKeys } from '../../../utils/createUserKeys';
 import { createCharacterAnims } from '../anims/PersonAnims';
 import { createZombieAnims } from '../anims/ZombieAnims';
 import Zombie from '../enemies/Zombie';
-import Bullet from '../entities/bullet';
+import Weapon from '../entities/Weapon';
 import '../person/Person';
 import '../enemies/Zombie';
 import '../enemies/HandBoss';
@@ -24,37 +24,41 @@ import {
   IPersonPhrases,
   IPersonSounds,
   ITracks,
+  TWeaponSounds,
 } from './dungeon.types';
-import Enemy from '../enemies/abstract/Enemy';
 import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
-import { preloader } from "../utils/preloader";
+import { preloader } from '../utils/preloader';
+import { SOUNDS } from '../../../constants/sounds';
+import { createSceneSounds } from '../../../utils/createSceneSounds';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
 
-  private personRifleSound: Phaser.Sound.BaseSound | null;
-
   private zombies: Phaser.Physics.Arcade.Group | null;
 
-  private tmpEnemyCount = 10;
+  private tmpEnemyCount = 250;
 
   private points: Phaser.Physics.Arcade.StaticGroup | null;
 
   private walls: IWall | [null];
 
-  private personSounds: IPersonSounds | null;
+  public personSounds: IPersonSounds | null;
 
-  private enemySounds: IEnemySounds | null;
+  public enemySounds: IEnemySounds | null;
 
-  private tracks: ITracks | null;
+  public tracks: ITracks | null;
 
   private gameOver: GameOver | null;
 
   private personPhrases: IPersonPhrases | null;
+
+  public weaponSoundsShot: TWeaponSounds;
+
+  public weaponSoundsReload: TWeaponSounds;
 
   constructor() {
     super('dungeon');
@@ -62,7 +66,6 @@ export default class Dungeon extends Phaser.Scene {
     this.zombies = null;
     this.bullets = null;
     this.points = null;
-    this.personRifleSound = null;
     this.walls = Array(2).fill(null) as [null];
     this.personSounds =
       this.enemySounds =
@@ -70,6 +73,20 @@ export default class Dungeon extends Phaser.Scene {
       this.personPhrases =
       this.gameOver =
         null;
+    this.weaponSoundsShot = {
+      pistol: null,
+      rifle: null,
+      shotgun: null,
+      sniper: null,
+      flamethrower: null,
+    };
+    this.weaponSoundsReload = {
+      pistol: null,
+      rifle: null,
+      shotgun: null,
+      sniper: null,
+      flamethrower: null,
+    };
   }
 
   preload() {
@@ -79,45 +96,11 @@ export default class Dungeon extends Phaser.Scene {
     ATLASES.forEach(atlas => {
       this.load.atlas(atlas.name, atlas.urlPNG, atlas.urlJSON);
     });
+    SOUNDS.forEach(sound => {
+      this.load.audio(sound.name, sound.url);
+    });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
-
-    // person sounds
-
-    this.load.audio('person-walk', './assets/audio/person/person-walk.mp3');
-    this.load.audio('person-hit', './assets/audio/person/person-hit.mp3');
-    this.load.audio('person-dead', './assets/audio/person/person-dead.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    // person phrases
-
-    this.load.audio(
-      'first-phrase',
-      './assets/audio/person/phrases/first-phrase.mp3'
-    );
-
-    // zombie sounds
-
-    this.load.audio(
-      'zombie-aggressive',
-      './assets/audio/zombie/zombie-aggressive.mp3'
-    );
-    this.load.audio('zombie-hit', './assets/audio/zombie/zombie-hit.mp3');
-    this.load.audio('zombie-dead', './assets/audio/zombie/zombie-dead.mp3');
-    this.load.audio('zombie-horde', './assets/audio/zombie/zombie-horde.mp3');
-
-    // tracks
-
-    this.load.audio('track-static', './assets/audio/tracks/track-static.mp3');
-    this.load.audio('track-dynamic', './assets/audio/tracks/track-dynamic.mp3');
-
-    this.load.image('settings-menu', './assets/game/ui/settings-menu.png');
-    this.load.audio('person-walk', './assets/audio/person-walk.mp3');
-    this.load.audio('rifle-shot', './assets/audio/rifle-shot.mp3');
-
-    // person-death
     this.load.video('person-death', './assets/video/game-over.mp4');
-    
-    // preloader
     preloader(this);
   }
 
@@ -150,7 +133,7 @@ export default class Dungeon extends Phaser.Scene {
       0
     );
 
-    const roof = map.createLayer('roof', tilesetRoof, 0, 0);
+    const roof = map.createLayer('roof', [tilesetRoof, tilesetFurniture], 0, 0);
     roof.depth = 10;
     const roof0 = map.createLayer('roofQuest0', tilesetRoof, 0, 0);
     roof0.depth = 10;
@@ -186,7 +169,7 @@ export default class Dungeon extends Phaser.Scene {
       ),
       1: map.createLayer(
         'walls2',
-        [tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
+        [tileset, tilesetWalls, tilesetFurniture, tilesetOther2, tilesetTech],
         0,
         0
       ),
@@ -224,12 +207,25 @@ export default class Dungeon extends Phaser.Scene {
         throw new Error('Not found');
       }
       this.physics.add.overlap(this.person, el, () => {
-        plotHandle(checkPoints.objects[ind].name, {
-          ...(this.tracks as ITracks),
-          ...this.personSounds,
-          ...this.enemySounds,
-        });
-        el.destroy(true);
+        if (
+          !this.person ||
+          !this.person.userInterface ||
+          !this.person.userInterface.uiPanel
+        ) {
+          throw new Error('Not found');
+        }
+        if (
+          (checkPoints.objects[ind].name === 'roofQuest4' &&
+            this.person.userInterface.uiPanel.zombieCounter > 15) ||
+          checkPoints.objects[ind].name !== 'roofQuest4'
+        ) {
+          plotHandle(checkPoints.objects[ind].name, {
+            ...(this.tracks as ITracks),
+            ...this.personSounds,
+            ...this.enemySounds,
+          });
+          el.destroy(true);
+        }
       });
     });
 
@@ -237,28 +233,12 @@ export default class Dungeon extends Phaser.Scene {
 
     // creating the sounds
 
-    this.personRifleSound = this.sound.add('rifle-shot', {
-      volume: 0.5,
-      loop: true,
-    });
-
-    this.personSounds = Person.createPersonSounds(this);
-    this.enemySounds = Enemy.createEnemySounds(this);
-    this.tracks = {
-      static: this.sound.add('track-static', {
-        volume: 0.4,
-        loop: true,
-      }),
-      dynamic: this.sound.add('track-dynamic', {
-        volume: 0.4,
-        loop: true,
-      }),
-    };
+    createSceneSounds(this);
 
     // TODO: creating bullets need to be generalized or smth the same
 
     this.bullets = this.physics.add.group({
-      classType: Bullet,
+      classType: Weapon,
       maxSize: 30,
       runChildUpdate: true,
     });
@@ -274,12 +254,12 @@ export default class Dungeon extends Phaser.Scene {
     this.physics.add.collider(
       this.bullets,
       this.walls[0],
-      Bullet.handleBulletAndWallsCollision.bind(this)
+      Weapon.handleBulletAndWallsCollision.bind(this)
     );
 
     (this.person as Person).createRotationAndAttacking(
       this,
-      this.personRifleSound
+      this.weaponSoundsShot
     );
 
     new EventFactory(
@@ -295,8 +275,6 @@ export default class Dungeon extends Phaser.Scene {
     this.gameOver = new GameOver();
     this.scene.run('person-ui');
     this.scene.add('game-over', this.gameOver);
-
-    this.createGroupOfZombies(3);
   }
 
   createGroupOfZombies(ndx: number) {
@@ -327,7 +305,7 @@ export default class Dungeon extends Phaser.Scene {
       this.physics.add.collider(
         this.bullets as Phaser.GameObjects.Group,
         zombie,
-        Bullet.handleBulletAndEnemyCollision.bind(
+        Weapon.handleBulletAndEnemyCollision.bind(
           this,
           zombie,
           this.bullets?.getChildren() as Phaser.GameObjects.GameObject[],
@@ -360,7 +338,6 @@ export default class Dungeon extends Phaser.Scene {
   setCollisionBetweenZombies() {
     const zombieArray = this.zombies?.children
       .entries as Phaser.GameObjects.GameObject[];
-
     for (let i = 0; i < zombieArray.length; i += 1) {
       for (let j = 0; j <= zombieArray.length; j += 1) {
         this.physics.add.collider(zombieArray[i], zombieArray[j]);
@@ -369,18 +346,16 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    if (!this.zombies?.children.entries.length) {
-      // this.createGroupOfZombies();
+    if (this.zombies?.children.entries.length) {
+      Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
+        zombie.update();
+        zombie.movingToPerson(
+          this.person as Person,
+          this,
+          this.enemySounds as IEnemySounds
+        );
+      });
     }
-
-    Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
-      zombie.update();
-      zombie.movingToPerson(
-        this.person as Person,
-        this,
-        this.enemySounds as IEnemySounds
-      );
-    });
 
     if (this.person === null) {
       throw new Error();
@@ -392,7 +367,8 @@ export default class Dungeon extends Phaser.Scene {
         time as number,
         this.bullets,
         this.personSounds as IPersonSounds,
-        this.person.userInterface
+        this.person.userInterface,
+        this.weaponSoundsShot
       );
     }
   }

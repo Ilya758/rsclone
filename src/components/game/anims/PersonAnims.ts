@@ -1,14 +1,25 @@
 import Phaser from 'phaser';
+import { WEAPONS } from '../../../constants/weapons';
+import { WEAPON_ANIMATION_CHARS } from '../../../constants/weaponsAnimationChars';
+import { TWeaponSounds } from '../scenes/dungeon.types';
 
 const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
-  const weapons = ['rifle', 'gun', 'bat', 'knife', 'firethrower'];
-  weapons.forEach(weapon => {
+  WEAPONS.forEach(weapon => {
+    let currentAnim = weapon;
+
+    const currentWeaponChars =
+      WEAPON_ANIMATION_CHARS[weapon as keyof TWeaponSounds];
+
+    if (weapon === 'shotgun' || weapon === 'sniper') {
+      currentAnim = 'rifle';
+    }
+
     anims.create({
       key: `idle_${weapon}`,
       frames: anims.generateFrameNames('person', {
         start: 0,
         end: 7,
-        prefix: `Idle_${weapon}_00`,
+        prefix: `Idle_${currentAnim}_00`,
         suffix: '.png',
       }),
       repeat: -1,
@@ -19,7 +30,7 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
       frames: anims.generateFrameNames('person', {
         start: 0,
         end: 5,
-        prefix: `Walk_${weapon}_00`,
+        prefix: `Walk_${currentAnim}_00`,
         suffix: '.png',
       }),
       repeat: -1,
@@ -28,13 +39,14 @@ const createCharacterAnims = (anims: Phaser.Animations.AnimationManager) => {
     anims.create({
       key: weapon,
       frames: anims.generateFrameNames('person', {
-        start: 2,
-        end: 7,
-        prefix: `${weapon}_00`,
+        start: currentWeaponChars.start,
+        end: currentWeaponChars.end,
+        prefix: `${currentAnim}_00`,
         suffix: '.png',
       }),
       repeat: -1,
-      frameRate: 16,
+      duration: currentWeaponChars.duration,
+      repeatDelay: currentWeaponChars.delay,
     });
   });
 

@@ -1,11 +1,13 @@
 import Phaser from 'phaser';
-import { IUserInteractiveButtons } from '../../../types/globals';
+import { WEAPON_ANIMATION_CHARS } from '../../../constants/weaponsAnimationChars';
+import { IUserInteractiveButtons, TWeapon } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
-import Bullet from '../entities/bullet';
+import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
-import { IPersonSounds } from '../scenes/dungeon.types';
+import { IPersonSounds, ISound, TWeaponSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
+import Pointer = Phaser.Input.Pointer;
 
 export default class Person extends Phaser.Physics.Arcade.Sprite {
   public hit = false;
@@ -24,15 +26,21 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   private lastFired = 0;
 
-  private isDown = false;
+  public static pointerIsDown = false;
 
-  public currentWeapon = 'knife';
+  private isMoved = false;
+
+  private isShooting = false;
 
   public playerId: string | undefined;
 
   public isHealing = false;
 
   private timeHealingTimer: Phaser.Time.TimerEvent;
+
+  private soundTimer: Phaser.Time.TimerEvent;
+
+  private animTimer: Phaser.Time.TimerEvent;
 
   public userInterface: PersonUI;
 
@@ -46,8 +54,11 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, frame);
     this._hp = this.maxHealth = 100;
     this.timeHealingTimer = scene.time.addEvent({});
+    this.soundTimer = scene.time.addEvent({});
+    this.animTimer = scene.time.addEvent({});
     this.scene = scene;
     this.userInterface = new PersonUI(this.scene, this);
+    this.anims.play('idle_pistol');
   }
 
   heal(scene: Phaser.Scene, amount: number) {
@@ -89,6 +100,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     return this._speed;
   }
 
+  set speed(value: number) {
+    this._speed = value;
+  }
+
   get hp() {
     return this._hp;
   }
@@ -113,59 +128,150 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  createRotationAndAttacking(
-    scene: Phaser.Scene,
-    attackSound: Phaser.Sound.BaseSound | null
-  ) {
+  handleCurrentAnimation(currentAttackSound: ISound) {
+    if (
+      !this.anims.currentAnim ||
+      this.anims.currentAnim.key !== Weapon.currentWeapon
+    ) {
+      this.anims.play(Weapon.currentWeapon);
+    }
+
+    this.isShooting = true;
+
+    if (currentAttackSound && !currentAttackSound?.isPlaying) {
+      currentAttackSound?.play();
+    }
+  }
+
+  getCurrentWeaponChars(attackSounds: TWeaponSounds) {
+    const MS_COEFFICIENT = 1000;
+    const POSSIBLE_DELAY = 100;
+    const currentWeapon = Weapon.currentWeapon as keyof TWeaponSounds;
+    const currentAttackSound = attackSounds[currentWeapon];
+    const weaponChars = WEAPON_ANIMATION_CHARS[currentWeapon];
+    const currentTime =
+      (currentAttackSound as unknown as Phaser.Sound.WebAudioSound).seek *
+      MS_COEFFICIENT;
+
+    return {
+      MS_COEFFICIENT,
+      POSSIBLE_DELAY,
+      currentAttackSound,
+      weaponChars,
+      currentTime,
+    };
+  }
+
+  createRotationAndAttacking(scene: Phaser.Scene, attackSounds: TWeaponSounds) {
     // if the person is dead, he cannot rotate/shoot
 
-    scene.input.on('pointerdown', () => {
-      if (!this.isDead && this.scene) {
-        this.isDown = true;
-        this.handleFiring('rifle');
+    scene.input.on('pointerdown', (e: Pointer) => {
+      if (e.buttons !== 1) {
+        e.event.preventDefault();
+      } else {
+        const currentWeapon = this.getCurrentWeaponChars(attackSounds);
+        const weaponChars = currentWeapon.weaponChars;
 
-        if (attackSound && !attackSound.isPlaying) {
-          attackSound.play();
+        if (!this.isDead && this.scene && !Weapon.isRealoaded) {
+          Person.pointerIsDown = true;
+
+          if (!this.isShooting && this.anims) {
+            this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+          } else {
+            this.animTimer = scene.time.addEvent({
+              delay:
+                weaponChars.duration +
+                  weaponChars.delay -
+                  currentWeapon.currentTime -
+                  currentWeapon.POSSIBLE_DELAY || 0,
+              callback: () => {
+                if (!this.isDead && this.anims) {
+                  this.handleCurrentAnimation(currentWeapon.currentAttackSound);
+                }
+              },
+            });
+          }
         }
+        this.soundTimer.remove();
       }
     });
 
     scene.input.on('pointermove', () => {
       if (!this.isDead && this.scene) {
-        this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
-        this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
+        const mouseCoords = this.getMouseCoords() as IMouseCoords;
+        this.mouseX = mouseCoords.mouseX;
+        this.mouseY = mouseCoords.mouseY;
       }
     });
 
     scene.input.on('pointerup', () => {
-      this.isDown = false;
-      if (attackSound) attackSound.stop();
+      const currentWeapon = this.getCurrentWeaponChars(attackSounds);
+      const weaponChars = currentWeapon.weaponChars;
+      Person.pointerIsDown = false;
+
+      this.soundTimer = scene.time.addEvent({
+        delay:
+          weaponChars.duration +
+            weaponChars.delay -
+            currentWeapon.currentTime -
+            currentWeapon.POSSIBLE_DELAY || 0,
+        callback: () => {
+          this.isShooting = false;
+          this.animTimer.remove();
+
+          if (currentWeapon.currentAttackSound) {
+            currentWeapon.currentAttackSound?.stop();
+          }
+        },
+      });
     });
   }
 
-  handleChangeWeapons(
+  handleChangeWeaponsAndReload(
     personControlKeys: IUserInteractiveButtons,
-    personUI: PersonUI
+    personUI: PersonUI,
+    shotSounds: TWeaponSounds
   ) {
-    if (personControlKeys.one.isDown) {
-      this.currentWeapon = 'knife';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.two.isDown) {
-      this.currentWeapon = 'bat';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.three.isDown) {
-      this.currentWeapon = 'gun';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.four.isDown) {
-      this.currentWeapon = 'rifle';
-      personUI.changeWeapon(this.currentWeapon);
-    }
-    if (personControlKeys.five.isDown) {
-      this.currentWeapon = 'firethrower';
-      personUI.changeWeapon(this.currentWeapon);
+    const switchWeapon = (currentWeapon: string) => {
+      Object.values(shotSounds).forEach(sound => {
+        sound?.stop();
+      });
+
+      Weapon.currentWeapon = currentWeapon;
+      personUI.uiPanel?.setActiveWeapon(Weapon.currentWeapon);
+    };
+
+    switch (true) {
+      case personControlKeys.one.isDown: {
+        switchWeapon('pistol');
+        break;
+      }
+
+      case personControlKeys.two.isDown: {
+        switchWeapon('rifle');
+        break;
+      }
+
+      case personControlKeys.three.isDown: {
+        switchWeapon('shotgun');
+        break;
+      }
+
+      case personControlKeys.four.isDown: {
+        switchWeapon('sniper');
+        break;
+      }
+
+      case personControlKeys.five.isDown: {
+        switchWeapon('flamethrower');
+        break;
+      }
+
+      case personControlKeys.reload.isDown: {
+        Weapon.isRealoaded = true;
+        sceneEvents.emit('changeCurrentAmmo');
+        Weapon.reload(Weapon.currentWeapon as TWeapon, this.scene);
+      }
     }
   }
 
@@ -173,74 +279,64 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     personControlKeys: IUserInteractiveButtons,
     personWalkSound: Phaser.Sound.BaseSound
   ) {
-    // checking pressing buttons
-    if (personControlKeys.right.isDown && personControlKeys.up.isDown) {
-      this.setVelocity(this.speed, -this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
+    const setWalkAnimationAndVelocity = (
+      personWalkSound: Phaser.Sound.BaseSound,
+      x: number,
+      y: number
+    ) => {
+      this.setVelocity(x, y);
+      this.isMoved = true;
+      this.handleAnims(Weapon.currentWeapon, 'walk');
 
       if (!personWalkSound.isPlaying) {
         personWalkSound.play();
       }
-    } else if (
-      personControlKeys.right.isDown &&
-      personControlKeys.down.isDown
-    ) {
-      this.setVelocity(this.speed, this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
+    };
 
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
+    switch (true) {
+      case personControlKeys.right.isDown && personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, -this.speed);
+        break;
       }
-    } else if (personControlKeys.left.isDown && personControlKeys.down.isDown) {
-      this.setVelocity(-this.speed, this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
+      case personControlKeys.right.isDown && personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown && personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown && personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, -this.speed);
+        break;
+      }
+      case personControlKeys.left.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, -this.speed, 0);
+        break;
+      }
+      case personControlKeys.right.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, this.speed, 0);
+        break;
+      }
+      case personControlKeys.up.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, 0, -this.speed);
+        break;
+      }
+      case personControlKeys.down.isDown: {
+        setWalkAnimationAndVelocity(personWalkSound, 0, this.speed);
+        break;
+      }
+      default: {
+        this.isMoved = false;
 
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.left.isDown && personControlKeys.up.isDown) {
-      this.setVelocity(-this.speed, -this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.left.isDown) {
-      this.setVelocity(-this.speed, 0);
-      this.handleAnims(this.currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.right.isDown) {
-      this.setVelocity(+this.speed, 0);
-      this.handleAnims(this.currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.up.isDown) {
-      this.setVelocity(0, -this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else if (personControlKeys.down.isDown) {
-      this.setVelocity(0, +this.speed);
-      this.handleAnims(this.currentWeapon, 'walk');
-
-      if (!personWalkSound.isPlaying) {
-        personWalkSound.play();
-      }
-    } else {
-      if (!this.hit) {
-        // is the person isn't in kick-immune state
-        this.setVelocity(0, 0);
-      }
-      if (!this.isDown) {
-        this.handleAnims(this.currentWeapon, 'idle');
-        personWalkSound.stop();
+        if (!this.hit) {
+          // is the person isn't in kick-immune state
+          this.setVelocity(0, 0);
+        }
+        if (!Person.pointerIsDown) {
+          this.handleAnims(Weapon.currentWeapon, 'idle');
+          personWalkSound.stop();
+        }
       }
     }
   }
@@ -250,37 +346,27 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       !this.anims.currentAnim ||
       this.anims.currentAnim.key !== `${type}_${weapon}`
     ) {
-      if (!this.isDown) {
+      if (
+        !Person.pointerIsDown &&
+        this.anims.currentAnim &&
+        this.anims.currentAnim.getTotalFrames() ===
+          this.anims.currentFrame.index
+      ) {
         this.anims.play(`${type}_${weapon}`);
-      } else {
-        this.handleFiring(this.currentWeapon);
       }
-    }
-  }
-
-  handleFiring(weaponType: string) {
-    if (!this.anims.currentAnim || this.anims.currentAnim.key !== weaponType) {
-      this.anims.play(weaponType);
     }
   }
 
   handleShooting(time: number, bullets: Phaser.GameObjects.Group) {
     // when the person is shooting, need to consider a delay
 
-    if (this.isDown && time > this.lastFired) {
-      const bullet = bullets?.get() as Bullet;
+    if (Person.pointerIsDown && time > this.lastFired) {
+      const bullet = bullets?.get() as Weapon;
 
       if (bullet) {
         bullet.callFireMethod(this.mouseX, this.mouseY, this.x, this.y);
 
-        this.lastFired = time + 100;
-      }
-
-      if (
-        !this.anims.currentAnim ||
-        this.anims.currentAnim.key !== this.currentWeapon
-      ) {
-        this.anims.play(this.currentWeapon);
+        this.lastFired = time + Weapon.fireRate;
       }
     }
   }
@@ -354,7 +440,8 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     time: number,
     bullets: Phaser.GameObjects.Group | null,
     personSounds: IPersonSounds,
-    personUi: PersonUI
+    personUi: PersonUI,
+    shotSounds: TWeaponSounds
   ): void {
     if (!bullets) {
       throw new Error('Cannot find bullets');
@@ -362,8 +449,9 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     // set rotation to the person
 
     if (!this.isDead) {
-      this.mouseX = (this.getMouseCoords() as IMouseCoords).mouseX;
-      this.mouseY = (this.getMouseCoords() as IMouseCoords).mouseY;
+      const mouseCoords = this.getMouseCoords() as IMouseCoords;
+      this.mouseX = mouseCoords.mouseX;
+      this.mouseY = mouseCoords.mouseY;
 
       if (this._hp !== this.maxHealth) {
         this.heal(this.scene, 5);
@@ -387,21 +475,20 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
     this.handleShooting(time, bullets);
     this.handleMoving(personControlKeys, personSounds.walk);
-    this.handleChangeWeapons(personControlKeys, personUi);
+    this.handleChangeWeaponsAndReload(personControlKeys, personUi, shotSounds);
   }
 
   static handleBulletDamage(
-    arg1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    _: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     arg2: Phaser.Types.Physics.Arcade.GameObjectWithBody,
     scene: Phaser.Scene,
     personUi: PersonUI | null
   ) {
-    const bullet = arg1 as Bullet;
     const person = arg2 as Person;
 
     if (personUi) {
       person.setTint(0xff0000);
-      person.hp -= bullet.damage;
+      person.hp -= Weapon.damage;
       person.setVelocity(0, 0);
 
       scene.time.addEvent({

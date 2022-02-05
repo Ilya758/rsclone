@@ -27,10 +27,10 @@ export default class QuestLabel {
   createText() {
     const content = this.scene.add.text(0, 0, this.content, {
       fontFamily: 'Arial',
-      fontSize: '14px',
+      fontSize: '18px',
       color: '#245893',
       align: 'center',
-      wordWrap: { width: 200 },
+      wordWrap: { width: 280 },
     });
     content.depth = 19;
 

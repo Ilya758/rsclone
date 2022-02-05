@@ -1,3 +1,5 @@
+import { TWeapon } from '../../../types/globals';
+
 export interface IWall {
   0: Phaser.Tilemaps.TilemapLayer;
   1: Phaser.Tilemaps.TilemapLayer;
@@ -25,3 +27,9 @@ export interface ITracks {
 export interface IPersonPhrases {
   [phrase: string]: Phaser.Sound.BaseSound;
 }
+
+export type TWeaponSounds = {
+  [weapon in TWeapon]: ISound;
+};
+
+export type ISound = Phaser.Sound.BaseSound | null;

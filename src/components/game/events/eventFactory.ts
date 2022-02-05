@@ -10,32 +10,38 @@ import '../enemies/Zombie';
 import plotHandle from '../plot/plotHandle';
 import { IEnemySounds, IPersonSounds, ITracks } from '../scenes/dungeon.types';
 import { ISounds } from '../ui-kit/settings-menu.types';
+import Person from '../person/Person';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
   private scene: Dungeon;
-  private person: Phaser.Physics.Arcade.Sprite;
+  private person: Person;
   private personUi: Phaser.Scene;
   private questLabels: QuestLabel[];
   private dialogQueue: number[];
+  private counter: number;
+  private speedUp: QuestLabel | null;
 
   constructor(
     scene: Dungeon,
-    person: Phaser.Physics.Arcade.Sprite,
+    person: Person,
     roofs: Phaser.Tilemaps.TilemapLayer[],
     personUi: Phaser.Scene
   ) {
     this.scene = scene;
+    this.speedUp = null;
     this.person = person;
     this.roofs = roofs;
     this.personUi = personUi;
     this.run();
     this.questLabels = [];
     this.dialogQueue = [];
+    this.counter = 0;
   }
 
   handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
-    sceneEvents.emit('dialog', 8 + itemRandom);
+    sceneEvents.emit('dialog', 9 + itemRandom);
+    sceneEvents.emit('getItem', itemRandom);
     item.destroy();
   }
 
@@ -93,19 +99,20 @@ export default class EventFactory {
     });
 
     sceneEvents.on('killZombieCounter', (counter: number) => {
-      if (counter === 1) {
+      this.counter = counter;
+      if (this.counter === 1) {
         plotHandle('killFirstZombie');
       }
-      if (counter === 6) {
+      if (this.counter === 6) {
         plotHandle('killSecondZombies');
       }
-      if (counter === 16) {
+      if (this.counter === 16) {
         plotHandle('killLastZombies');
       }
-      if (counter === 21) {
+      if (this.counter === 21) {
         plotHandle('killZombie21');
       }
-      if (counter === 100 || counter === 50) {
+      if (this.counter === 100 || this.counter === 50) {
         plotHandle('killZombie100');
       }
     });
@@ -160,6 +167,40 @@ export default class EventFactory {
       'dialog',
       (number: number) => {
         this.dialogQueue.push(number);
+      },
+      this
+    );
+
+    sceneEvents.on(
+      'getItem',
+      (number: number) => {
+        switch (number) {
+          case 0:
+            this.person.speed = 150;
+            this.speedUp = new QuestLabel(
+              this.personUi,
+              '-speed up: ',
+              20,
+              10,
+              150
+            );
+            setTimeout(() => {
+              if (!this.speedUp) throw new Error('error');
+              this.speedUp.crossLine();
+              this.speedUp = null;
+              this.person.speed = 100;
+            }, 10000);
+            break;
+          case 1:
+            this.person.hp = Math.min(this.person.hp + 25, 100);
+            break;
+          case 2:
+            console.log('slow');
+            break;
+          case 3:
+            console.log('rage');
+            break;
+        }
       },
       this
     );
