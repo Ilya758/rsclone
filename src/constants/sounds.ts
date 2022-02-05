@@ -84,3 +84,14 @@ export const SOUNDS = [
     url: './assets/audio/tracks/track-dynamic.mp3',
   },
 ];
+
+export const PHRASES_COUNTER = 28;
+
+export const PHRASES = Array(PHRASES_COUNTER)
+  .fill(null)
+  .map((_, ndx) => {
+    return {
+      name: `phrase-${ndx + 1}`,
+      url: `./assets/audio/person/phrases/${ndx + 1}.mp3`,
+    };
+  });

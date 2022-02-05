@@ -5,6 +5,8 @@ import { WEAPONS_GRAPHICS_CHARS } from '../../../constants/weaponsGraphicsChars'
 import { TWeaponsIcons } from './UiPanel.types';
 import { WEAPONS } from '../../../constants/weapons';
 import Weapon from '../entities/Weapon';
+import PersonUI from './PersonUi';
+import Person from '../person/Person';
 export default class UIPanel {
   private scene: Phaser.Scene;
 
@@ -46,6 +48,10 @@ export default class UIPanel {
 
     sceneEvents.on('killZombieEvent', () => {
       this.incrementZombieDeathCounter();
+
+      if (this.zombieCounter % 5 === 0) {
+        Person.sayPhrase((this.scene as PersonUI).parentScene);
+      }
     });
 
     sceneEvents.on('changeCurrentAmmo', () => {

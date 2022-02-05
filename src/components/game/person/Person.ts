@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
+import { PHRASES, PHRASES_COUNTER } from '../../../constants/sounds';
 import { WEAPON_ANIMATION_CHARS } from '../../../constants/weaponsAnimationChars';
 import { IUserInteractiveButtons, TWeapon } from '../../../types/globals';
 import Zombie from '../enemies/Zombie';
 import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
+import Dungeon from '../scenes/Dungeon';
 import { IPersonSounds, ISound, TWeaponSounds } from '../scenes/dungeon.types';
 import PersonUI from '../ui-kit/PersonUi';
 import { IMouseCoords } from './person.types';
@@ -419,7 +421,7 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   static createPersonSounds(scene: Phaser.Scene): IPersonSounds {
     const phrases = ['first-phrase'];
 
-    return {
+    const sounds = {
       walk: scene.sound.add('person-walk', {
         volume: 0.3,
       }),
@@ -433,6 +435,16 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         'first-phrase': scene.sound.add(phrases[0]),
       },
     };
+
+    for (let i = 0; i < PHRASES_COUNTER; i += 1) {
+      const name = PHRASES[i].name as keyof typeof sounds.phrases;
+      sounds.phrases[name] = scene.sound.add(name, {
+        volume: 0.7,
+      });
+    }
+
+    return sounds;
+  }
 
   static sayPhrase(scene: Phaser.Scene) {
     const phrases = (scene as Dungeon).personSounds?.phrases;
