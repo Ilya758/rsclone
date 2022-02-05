@@ -433,6 +433,20 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         'first-phrase': scene.sound.add(phrases[0]),
       },
     };
+
+  static sayPhrase(scene: Phaser.Scene) {
+    const phrases = (scene as Dungeon).personSounds?.phrases;
+
+    if (!phrases) {
+      throw new Error("There're no any phrases");
+    }
+
+    Object.values(phrases).forEach(phrase => {
+      phrase.stop();
+    });
+
+    const randomNumber = Math.floor(Math.random() * 22) + 1;
+    phrases[`phrase-${randomNumber}`].play();
   }
 
   update(
