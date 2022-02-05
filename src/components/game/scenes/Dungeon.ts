@@ -275,8 +275,6 @@ export default class Dungeon extends Phaser.Scene {
     this.gameOver = new GameOver();
     this.scene.run('person-ui');
     this.scene.add('game-over', this.gameOver);
-
-    this.createGroupOfZombies(3);
   }
 
   createGroupOfZombies(ndx: number) {
@@ -348,17 +346,16 @@ export default class Dungeon extends Phaser.Scene {
   }
 
   update(time?: number): void {
-    if (!this.zombies?.children.entries.length) {
-      // this.createGroupOfZombies();
+    if (this.zombies?.children.entries.length) {
+      Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
+        zombie.update();
+        zombie.movingToPerson(
+          this.person as Person,
+          this,
+          this.enemySounds as IEnemySounds
+        );
+      });
     }
-    Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
-      zombie.update();
-      zombie.movingToPerson(
-        this.person as Person,
-        this,
-        this.enemySounds as IEnemySounds
-      );
-    });
 
     if (this.person === null) {
       throw new Error();
