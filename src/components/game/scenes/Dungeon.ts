@@ -30,7 +30,7 @@ import { IWall } from './dungeon.types';
 import { IMAGES } from '../../../constants/images';
 import GameOver from './GameOver';
 import { preloader } from '../utils/preloader';
-import { SOUNDS } from '../../../constants/sounds';
+import { PHRASES, SOUNDS } from '../../../constants/sounds';
 import { createSceneSounds } from '../../../utils/createSceneSounds';
 
 export default class Dungeon extends Phaser.Scene {
@@ -98,6 +98,9 @@ export default class Dungeon extends Phaser.Scene {
     });
     SOUNDS.forEach(sound => {
       this.load.audio(sound.name, sound.url);
+    });
+    PHRASES.forEach(phrase => {
+      this.load.audio(phrase.name, phrase.url);
     });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
     this.load.video('person-death', './assets/video/game-over.mp4');

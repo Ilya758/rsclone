@@ -40,7 +40,7 @@ export default class EventFactory {
   }
 
   handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
-    sceneEvents.emit('dialog', 9 + itemRandom);
+    Person.sayPhrase(this.scene);
     sceneEvents.emit('getItem', itemRandom);
     item.destroy();
   }
