@@ -12,25 +12,25 @@ const Multiplayer = () => {
       height: 400,
       min: {
         width: window.innerWidth / 2,
-        height: window.innerHeight / 2,
-      },
+        height: window.innerHeight / 2
+      }
     },
-    maxLights: 50,
+    maxLights: 100,
     backgroundColor: '#000000',
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: { y: 0 },
+        gravity: { y: 0 }
         // debug: true,
-      },
+      }
     },
     zoom: 2,
-    scene: [Arena],
+    scene: [Arena]
   };
   useEffect(() => {
     new Phaser.Game(config).scene.start('dungeon');
   }, []);
-
+  
   console.log('MultiPlayer Entry Point. Warning!!!');
   return <div id={'canvasPoint'} />;
 };
