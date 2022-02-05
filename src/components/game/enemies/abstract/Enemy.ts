@@ -71,10 +71,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       return;
     }
 
-    if (
-      !this.isDead &&
-      Phaser.Math.Distance.BetweenPoints(this, person) < 500
-    ) {
+    if (!this.isDead) {
       if (!this.isShooted.once && this.isShooted.state) {
         zombieSounds.aggressive.play();
         this.isShooted.once = true;

@@ -19,7 +19,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
 
   private static _fireRate = 550;
 
-  private static _damage = 10;
+  private static _damage = 25;
 
   private static _currentWeapon = 'pistol';
 
