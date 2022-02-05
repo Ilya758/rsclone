@@ -436,11 +436,13 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       },
     };
 
-    for (let i = 0; i < PHRASES_COUNTER; i += 1) {
-      const name = PHRASES[i].name as keyof typeof sounds.phrases;
-      sounds.phrases[name] = scene.sound.add(name, {
-        volume: 0.7,
-      });
+    if (scene instanceof Dungeon) {
+      for (let i = 0; i < PHRASES_COUNTER; i += 1) {
+        const name = PHRASES[i].name as keyof typeof sounds.phrases;
+        sounds.phrases[name] = scene.sound.add(name, {
+          volume: 0.7,
+        });
+      }
     }
 
     return sounds;
