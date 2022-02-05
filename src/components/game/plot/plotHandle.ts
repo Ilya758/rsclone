@@ -7,6 +7,7 @@ const plotHandle = (type: string, tracks?: ITracks) => {
       sceneEvents.emit(`questLabelDestroy`, 8);
       sceneEvents.emit(`questLabel`, 9);
       sceneEvents.emit(`dialog`, 16);
+      sceneEvents.emit(`zombie`, 4);
       break;
     case 'questBridge':
       sceneEvents.emit(`questLabelDestroy`, 7);
@@ -68,6 +69,7 @@ const plotHandle = (type: string, tracks?: ITracks) => {
     case 'roofQuest4':
       sceneEvents.emit(`questLabelDestroy`, 3);
       sceneEvents.emit(`hide`);
+      sceneEvents.emit(`zombie`, 3);
       sceneEvents.emit(`questLabel`, 6);
       sceneEvents.emit('dynamicMusicStart', tracks);
       break;
