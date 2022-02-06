@@ -131,7 +131,7 @@ export default class EventFactory {
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
       const itemRandom = Phaser.Math.Between(0, 3);
-      if (random <= 20) {
+      if (random <= 5) {
         const item = this.scene.physics.add.image(
           coords[0],
           coords[1],
@@ -236,7 +236,7 @@ export default class EventFactory {
               150
             );
             setTimeout(() => {
-              if (!this.speedUp) throw new Error('error');
+              if (!this.speedUp) throw new Error('speedUp error');
               this.speedUp.crossLine();
               this.speedUp = null;
               this.person.speed = 100;
