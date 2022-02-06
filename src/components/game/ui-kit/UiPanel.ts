@@ -7,6 +7,8 @@ import { WEAPONS } from '../../../constants/weapons';
 import Weapon from '../entities/Weapon';
 import PersonUI from './PersonUi';
 import Person from '../person/Person';
+import Arena from '../scenes/Arena';
+import Dungeon from '../scenes/Dungeon';
 export default class UIPanel {
   private scene: Phaser.Scene;
 
@@ -41,9 +43,20 @@ export default class UIPanel {
   }
 
   create() {
-    this.uiPanel = this.scene.add.image(70, 40, 'uiPanel');
-    this.textZombiesCounter = this.createCounter(this.zombieCounter, 22);
-    this.textAmmoQuantity = this.createCounter(UIPanel.currentAmmo, 102);
+    const texture =
+      (this.scene as PersonUI).parentScene instanceof Arena
+        ? 'uiPanel-light'
+        : 'uiPanel';
+
+    this.uiPanel = this.scene.add.image(70, 40, texture);
+    this.textZombiesCounter = this.createCounter(
+      this.zombieCounter,
+      22
+    ) as Phaser.GameObjects.Text;
+    this.textAmmoQuantity = this.createCounter(
+      UIPanel.currentAmmo,
+      102
+    ) as Phaser.GameObjects.Text;
     this.uiPanel.scale = 0.4;
 
     sceneEvents.on('killZombieEvent', () => {
@@ -91,7 +104,10 @@ export default class UIPanel {
   incrementZombieDeathCounter() {
     this.zombieCounter += 1;
     this.textZombiesCounter?.destroy();
-    this.textZombiesCounter = this.createCounter(this.zombieCounter, 22);
+    this.textZombiesCounter = this.createCounter(
+      this.zombieCounter,
+      22
+    ) as Phaser.GameObjects.Text;
     sceneEvents.emit(`killZombieCounter`, this.zombieCounter);
   }
 
@@ -100,26 +116,34 @@ export default class UIPanel {
       Weapon.currentAmmo[
         Weapon.currentWeapon as keyof typeof Weapon.currentAmmo
       ];
-    this.textAmmoQuantity?.destroy();
-    this.textAmmoQuantity = this.createCounter(UIPanel.currentAmmo, 102);
+
+    if ((this.scene as PersonUI).parentScene instanceof Dungeon) {
+      this.textAmmoQuantity?.destroy();
+      this.textAmmoQuantity = this.createCounter(
+        UIPanel.currentAmmo,
+        102
+      ) as Phaser.GameObjects.Text;
+    }
   }
 
   createCounter(elem: number, x: number) {
-    const content = this.scene.add.text(
-      0,
-      0,
-      elem.toString().padStart(3, '0'),
-      {
-        fontFamily: 'Arial',
-        fontSize: '10px',
-        color: '#ffffff',
-        align: 'center',
-        wordWrap: { width: 20 },
-      }
-    );
-    content.depth = 19;
+    if ((this.scene as PersonUI).parentScene instanceof Dungeon) {
+      const content = this.scene.add.text(
+        0,
+        0,
+        elem.toString().padStart(3, '0'),
+        {
+          fontFamily: 'Arial',
+          fontSize: '10px',
+          color: '#ffffff',
+          align: 'center',
+          wordWrap: { width: 20 },
+        }
+      );
+      content.depth = 19;
 
-    content.setPosition(x, 32);
-    return content;
+      content.setPosition(x, 32);
+      return content;
+    }
   }
 }
