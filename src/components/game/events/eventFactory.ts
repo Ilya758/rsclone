@@ -131,7 +131,7 @@ export default class EventFactory {
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
       const itemRandom = Phaser.Math.Between(0, 3);
-      if (random <= 20) {
+      if (random <= 5) {
         const item = this.scene.physics.add.image(
           coords[0],
           coords[1],
@@ -226,7 +226,7 @@ export default class EventFactory {
       'getItem',
       (number: number) => {
         switch (number) {
-          case 0:
+          case 1:
             this.person.speed = 150;
             this.speedUp = new QuestLabel(
               this.personUi,
@@ -236,13 +236,13 @@ export default class EventFactory {
               150
             );
             setTimeout(() => {
-              if (!this.speedUp) throw new Error('error');
+              if (!this.speedUp) throw new Error('speedUp error');
               this.speedUp.crossLine();
               this.speedUp = null;
               this.person.speed = 100;
             }, 10000);
             break;
-          case 1:
+          case 0:
             this.person.hp = Math.min(this.person.hp + 25, 100);
             break;
           case 2:

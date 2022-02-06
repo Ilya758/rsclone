@@ -29,7 +29,7 @@ export default class PersonUI extends Phaser.Scene {
     this.hpBar = null;
     this.settingsMenu = null;
     this.uiPanel = null;
-    this.timer = 120;
+    this.timer = 30;
   }
 
   create() {
