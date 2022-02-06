@@ -77,7 +77,7 @@ export default class UIPanel {
       this.weapons[texture as keyof TWeaponsIcons] = weaponTexture;
     });
 
-    this.setActiveWeapon('pistol');
+    this.setActiveWeapon(Weapon.currentWeapon);
   }
 
   setActiveWeapon(key: string) {
