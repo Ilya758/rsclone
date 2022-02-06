@@ -226,7 +226,7 @@ export default class EventFactory {
       'getItem',
       (number: number) => {
         switch (number) {
-          case 0:
+          case 1:
             this.person.speed = 150;
             this.speedUp = new QuestLabel(
               this.personUi,
@@ -242,7 +242,7 @@ export default class EventFactory {
               this.person.speed = 100;
             }, 10000);
             break;
-          case 1:
+          case 0:
             this.person.hp = Math.min(this.person.hp + 25, 100);
             break;
           case 2:
