@@ -258,12 +258,8 @@ export default class Arena extends Phaser.Scene {
         });
       }
     });
-    
-    // appending scene PersonUI
-    
-    this.scene.add("person-ui", this.person?.userInterface as Phaser.Scene);
-    
-    this.socket.on("playerMoved", (playerInfo: IPlayer) => {
+
+    this.socket.on('playerMoved', (playerInfo: IPlayer) => {
       if (this.otherPlayers)
         this.otherPlayers.getChildren().forEach(otherPlayer => {
           if (playerInfo.playerId === (otherPlayer as Person).playerId) {
@@ -334,8 +330,6 @@ export default class Arena extends Phaser.Scene {
     this.input.on("pointerup", () => {
       if (this.socket) this.socket.emit("firing", { status: false });
     });
-    
-    this.scene.run("person-ui");
   }
   
   createPerson() {
@@ -366,6 +360,9 @@ export default class Arena extends Phaser.Scene {
       this,
       this.weaponSoundsShot
     );
+
+    this.scene.add('person-ui', this.person?.userInterface as Phaser.Scene);
+    this.scene.run('person-ui');
   }
   
   update(time?: number): void {

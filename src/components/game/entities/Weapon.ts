@@ -29,7 +29,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     pistol: 10,
     rifle: 30,
     shotgun: 7,
-    sniper: 5,
+    sniper: 1,
     flamethrower: 500,
   };
 
@@ -132,6 +132,7 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
   }
 
   static reload(currentWeapon: TWeapon, scene: Phaser.Scene) {
+    const currentAmmo = Weapon.currentAmmo[currentWeapon];
     Weapon.currentAmmo[currentWeapon] = CLIP_AMMO_SIZE[currentWeapon];
     UIPanel.currentAmmo = Weapon.currentAmmo[currentWeapon];
     Weapon.isRealoaded = true;
@@ -157,14 +158,30 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     const currentReloadSound = (scene as Dungeon).weaponSoundsReload[
       currentWeapon
     ] as Phaser.Sound.BaseSound;
-    currentReloadSound?.play();
 
-    scene.time.addEvent({
-      delay: currentReloadSound.duration * 1000,
-      callback: () => {
-        Weapon.isRealoaded = false;
-      },
-    });
+    if (currentWeapon === 'shotgun') {
+      const duration =
+        (currentReloadSound.duration * 1000 * (7 - currentAmmo)) / 7;
+
+      currentReloadSound.play();
+
+      scene.time.addEvent({
+        delay: duration,
+        callback: () => {
+          currentReloadSound.stop();
+          Weapon.isRealoaded = false;
+        },
+      });
+    } else {
+      currentReloadSound?.play();
+
+      scene.time.addEvent({
+        delay: currentReloadSound.duration * 1000,
+        callback: () => {
+          Weapon.isRealoaded = false;
+        },
+      });
+    }
   }
 
   public callFireMethod(

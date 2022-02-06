@@ -1,5 +1,6 @@
 export const IMAGES = [
   { name: 'uiPanel', url: './assets/game/ui/element_0074_Layer-76.png' },
+  { name: 'uiPanel-light', url: './assets/game/ui/uiPanel-light.png' },
   { name: 'health', url: './assets/game/items/items_0005_health.png' },
   { name: 'speed', url: './assets/game/items/items_0006_speed.png' },
   { name: 'slow', url: './assets/game/items/items_0007_slow_enemies.png' },

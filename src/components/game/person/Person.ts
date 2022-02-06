@@ -270,9 +270,11 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
       }
 
       case personControlKeys.reload.isDown: {
-        Weapon.isRealoaded = true;
-        sceneEvents.emit('changeCurrentAmmo');
-        Weapon.reload(Weapon.currentWeapon as TWeapon, this.scene);
+        if (!Weapon.isRealoaded) {
+          Weapon.isRealoaded = true;
+          Weapon.reload(Weapon.currentWeapon as TWeapon, this.scene);
+          sceneEvents.emit('changeCurrentAmmo');
+        }
       }
     }
   }
