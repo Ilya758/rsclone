@@ -14,10 +14,7 @@ import Person from '../person/Person';
 import EventFactory from '../events/eventFactory';
 // import debugGraphicsDraw from '../../../utils/debug';
 import { ZOMBIES } from '../../../constants/zombies';
-import {
-  PERSON_COORDINATES,
-  ZOMBIE_COORDINATES,
-} from '../../../constants/coordinates';
+import { PERSON_COORDINATES } from '../../../constants/coordinates';
 import plotHandle from '../plot/plotHandle';
 import {
   IEnemySounds,
@@ -264,7 +261,6 @@ export default class Dungeon extends Phaser.Scene {
       this,
       this.weaponSoundsShot
     );
-
     new EventFactory(
       this,
       this.person,
@@ -280,26 +276,21 @@ export default class Dungeon extends Phaser.Scene {
     this.scene.add('game-over', this.gameOver);
   }
 
-  createGroupOfZombies(ndx: number) {
+  createGroupOfZombies(array: number[][]) {
     if (!this.person && !this.bullets) {
       throw new Error('Not found');
     }
 
-    this.zombies = this.physics.add.group({
-      classType: Zombie,
-      maxSize: this.tmpEnemyCount,
-    });
+    if (!this.zombies?.children.entries.length) {
+      this.zombies = this.physics.add.group({
+        classType: Zombie,
+        maxSize: this.tmpEnemyCount,
+      });
+    }
 
-    // function getCoord() {
-    //   return 500 + Math.random() * 300;
-    // }
-    for (let i = 0; i < ZOMBIE_COORDINATES[ndx].length; i += 1) {
+    for (let i = 0; i < array.length; i += 1) {
       const texture = Object.keys(ZOMBIES)[Math.floor(Math.random() * 5)];
-      const zombie = this.add.zombie(
-        ZOMBIE_COORDINATES[ndx][i][0],
-        ZOMBIE_COORDINATES[ndx][i][1],
-        texture
-      );
+      const zombie = this.add.zombie(array[i][0], array[i][1], texture);
 
       createZombieAnims(zombie.anims, texture);
 
@@ -374,5 +365,10 @@ export default class Dungeon extends Phaser.Scene {
         this.weaponSoundsShot
       );
     }
+  }
+
+  getZombiesLength() {
+    if (!this.zombies) throw new Error('error');
+    return this.zombies.children.entries.length;
   }
 }
