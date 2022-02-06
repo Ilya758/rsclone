@@ -267,7 +267,7 @@ export default class EventFactory {
   getRandomArrayOfZombies() {
     const arr = [...ZOMBIE_COORDINATES[4]];
 
-    while (arr.length > 7) {
+    while (arr.length > 6) {
       arr.splice(Phaser.Math.Between(0, arr.length), 1);
     }
     return arr;
