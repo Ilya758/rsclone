@@ -121,4 +121,11 @@ export const DIALOGS = [
     coordinates: [3468, 1134],
     delay: 7000,
   },
+  {
+    count: 17,
+    width: 120,
+    height: 50,
+    text: 'I have to find the Helicopter!',
+    delay: 2000,
+  },
 ];
