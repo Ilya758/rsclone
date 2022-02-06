@@ -19,6 +19,8 @@ export default class PersonUI extends Phaser.Scene {
 
   public uiPanel: UIPanel | null;
 
+  public timer: number;
+
   constructor(scene: Phaser.Scene, person: Person) {
     super({ key: 'person-ui' });
     this.parentScene = scene;
@@ -27,6 +29,7 @@ export default class PersonUI extends Phaser.Scene {
     this.hpBar = null;
     this.settingsMenu = null;
     this.uiPanel = null;
+    this.timer = 120;
   }
 
   create() {

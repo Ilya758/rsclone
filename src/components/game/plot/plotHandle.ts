@@ -5,13 +5,14 @@ const plotHandle = (type: string, tracks?: ITracks) => {
   switch (type) {
     case 'helicopter':
       sceneEvents.emit(`questLabelDestroy`, 8);
-      sceneEvents.emit(`questLabel`, 9);
       sceneEvents.emit(`dialog`, 16);
       sceneEvents.emit(`zombie`, 4);
+      sceneEvents.emit(`survive`);
       break;
     case 'questBridge':
       sceneEvents.emit(`questLabelDestroy`, 7);
       sceneEvents.emit(`questLabel`, 8);
+      sceneEvents.emit(`dialog`, 17);
       break;
     case 'quest5':
       sceneEvents.emit(`questLabelDestroy`, 6);

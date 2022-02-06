@@ -11,29 +11,35 @@ import plotHandle from '../plot/plotHandle';
 import { IEnemySounds, IPersonSounds, ITracks } from '../scenes/dungeon.types';
 import { ISounds } from '../ui-kit/settings-menu.types';
 import Person from '../person/Person';
+import PersonUI from '../ui-kit/PersonUi';
+import { ZOMBIE_COORDINATES } from '../../../constants/coordinates';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
   private scene: Dungeon;
   private person: Person;
-  private personUi: Phaser.Scene;
+  private personUi: PersonUI;
   private questLabels: QuestLabel[];
   private dialogQueue: number[];
   private counter: number;
   private speedUp: QuestLabel | null;
+  private surviveLabel: QuestLabel | null;
+  private zombieQuestCounter: number;
 
   constructor(
     scene: Dungeon,
     person: Person,
     roofs: Phaser.Tilemaps.TilemapLayer[],
-    personUi: Phaser.Scene
+    personUi: PersonUI
   ) {
+    this.surviveLabel = null;
     this.scene = scene;
     this.speedUp = null;
     this.person = person;
     this.roofs = roofs;
     this.personUi = personUi;
     this.run();
+    this.zombieQuestCounter = 0;
     this.questLabels = [];
     this.dialogQueue = [];
     this.counter = 0;
@@ -45,7 +51,48 @@ export default class EventFactory {
     item.destroy();
   }
 
+  timer = () => {
+    this.personUi.timer -= 1;
+    if (!this.surviveLabel) throw new Error('error');
+    this.surviveLabel.destroyText();
+    if (this.personUi.timer <= 0) {
+      sceneEvents.emit(`survived`);
+    } else {
+      this.surviveLabel = new QuestLabel(
+        this.personUi,
+        'survive: ' + this.personUi.timer,
+        20,
+        10,
+        190
+      );
+    }
+  };
+
   run() {
+    sceneEvents.on('survived', () => {
+      //TODO вызвать музыку, вызвать конец игры
+      this.scene.scene.run('game-over');
+      this.scene.scene.stop();
+      this.personUi.scene.stop();
+    });
+
+    sceneEvents.on('survive', () => {
+      this.zombieQuestCounter = this.scene.getZombiesLength();
+      this.scene.time.addEvent({
+        delay: 1000,
+        callback: this.timer,
+        repeat: 300,
+      });
+
+      this.surviveLabel = new QuestLabel(
+        this.personUi,
+        'survive: ' + this.personUi.timer,
+        20,
+        10,
+        190
+      );
+    });
+
     sceneEvents.on(
       'staticMusicStart',
       (staticTrack: Phaser.Sound.BaseSound) => {
@@ -100,6 +147,11 @@ export default class EventFactory {
 
     sceneEvents.on('killZombieCounter', (counter: number) => {
       this.counter = counter;
+      const zombieLength = this.scene.getZombiesLength();
+      if (this.zombieQuestCounter - zombieLength >= 5) {
+        this.scene.createGroupOfZombies(this.getRandomArrayOfZombies());
+      }
+
       if (this.counter === 1) {
         plotHandle('killFirstZombie');
       }
@@ -119,7 +171,6 @@ export default class EventFactory {
 
     sceneEvents.on('hide', () => {
       this.scene.cameras.main.fadeOut(2000);
-      //TODO
       setTimeout(() => {
         this.person.setX(400);
         this.person.setY(400);
@@ -160,7 +211,7 @@ export default class EventFactory {
     });
 
     sceneEvents.on('zombie', (number: number) => {
-      this.scene.createGroupOfZombies(number);
+      this.scene.createGroupOfZombies(ZOMBIE_COORDINATES[number]);
     });
 
     sceneEvents.on(
@@ -211,6 +262,15 @@ export default class EventFactory {
       this.personUi.scene.stop();
       (this.scene.sound as ISounds).sounds.forEach(sound => sound.stop());
     });
+  }
+
+  getRandomArrayOfZombies() {
+    const arr = [...ZOMBIE_COORDINATES[4]];
+
+    while (arr.length > 6) {
+      arr.splice(Phaser.Math.Between(0, arr.length), 1);
+    }
+    return arr;
   }
 
   checkQueueLength() {
