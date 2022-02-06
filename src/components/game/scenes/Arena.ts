@@ -61,8 +61,6 @@ export default class Arena extends Phaser.Scene {
   
   private traceLights: Map<Weapon, Light>;
   
-  private flashLight: Phaser.GameObjects.Light | undefined;
-  
   constructor() {
     super("Arena");
     this.person = null;
@@ -104,16 +102,6 @@ export default class Arena extends Phaser.Scene {
   
   create() {
     this.lights.enable().setAmbientColor(0x423eef);
-    // setInterval(() => {
-    //   if (this.day) {
-    //     this.lights.setAmbientColor(0xffffff);
-    //     this.day = !this.day;
-    //   } else {
-    //     this.lights.setAmbientColor(0x1916ae);
-    //     this.day = !this.day;
-    //   }
-    // }, 10000);
-    
     // this.socket = io('ws://localhost:5000');
     this.socket = io("https://rscloneback.herokuapp.com/");
     this.otherPlayers = this.physics.add.group();
@@ -378,33 +366,26 @@ export default class Arena extends Phaser.Scene {
       this,
       this.weaponSoundsShot
     );
-    
-    this.flashLight = this.lights.addLight(
-      this.person.x,
-      this.person.y,
-      50,
-      0xffffff,
-      0.1
-    );
   }
   
   update(time?: number): void {
-    this.flashLight && this.lights.removeLight(this.flashLight);
     if (this.person) {
-      this.flashLight = this.lights.addLight(
+      const flashlight = this.lights.addLight(
         this.person.x,
         this.person.y,
         50,
         0xffffff,
         0.1
       );
+      setTimeout(() => {
+        this.lights.removeLight(flashlight);
+      }, 0);
     }
     this.otherPlayers?.getChildren().forEach((player) => {
       const entity = player as Person;
       entity.setPipeline("Light2D");
     });
     
-    this.flashLight?.setPosition(this.person?.x, this.person?.y);
     if (this.person) {
       this.person.update(
         createUserKeys(this.input),
