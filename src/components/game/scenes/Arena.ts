@@ -278,6 +278,7 @@ export default class Arena extends Phaser.Scene {
           
           if ((this.person as Person).hp <= 0) {
             this.person?.destroy(true);
+            this.scene.remove('person-ui');
             this.createPerson();
             this.person?.setPipeline("Light2D");
             if (this.socket) (this.person as Person).playerId = this.socket.id;
