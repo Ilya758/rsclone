@@ -35,7 +35,7 @@ export default class Dungeon extends Phaser.Scene {
 
   private bullets: Phaser.GameObjects.Group | null;
 
-  private zombies: Phaser.Physics.Arcade.Group | null;
+  public zombies: Phaser.Physics.Arcade.Group | null;
 
   private tmpEnemyCount = 250;
 
