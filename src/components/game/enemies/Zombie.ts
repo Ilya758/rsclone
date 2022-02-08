@@ -13,12 +13,23 @@ export default class Zombie extends Enemy {
 
   public hpBar: ZombieHealthBar;
 
+  public lastSpeed: number;
+
   constructor(scene: Phaser.Scene, x: number, y: number, typeOfZombie: string) {
     super(scene, x, y, typeOfZombie);
     this._hp = ZOMBIES[typeOfZombie as keyof IZombieChars].hp;
     this._speed = ZOMBIES[typeOfZombie as keyof IZombieChars].speed / 2;
+    this.lastSpeed = this._speed;
     this._damage = ZOMBIES[typeOfZombie as keyof IZombieChars].damage;
     this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
+  }
+
+  set setSpeed(speed: number) {
+    this.lastSpeed = this._speed;
+    this._speed = speed;
+  }
+  setLastSpeed() {
+    this._speed = this.lastSpeed;
   }
 }
 
