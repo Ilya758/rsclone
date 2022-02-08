@@ -1,7 +1,7 @@
 {
   "textures": [
     {
-      "image": "megaboss",
+      "image": "megaBoss",
       "format": "RGBA8888",
       "size": {
         "w": 2559,
