@@ -103,7 +103,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       this.disableBody();
 
       this.scene.time.addEvent({
-        delay: 1500,
+        delay: 2500,
         callback: () => this.destroy(),
       });
     }
