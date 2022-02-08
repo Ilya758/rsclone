@@ -19,9 +19,9 @@ export default class MegaBoss extends Enemy {
     frame?: string | number
   ) {
     super(scene, x, y, texture, frame);
-    this._hp = 1070;
-    this._speed = 50;
-    this._damage = 25;
+    this._hp = 5000;
+    this._speed = 70;
+    this._damage = 20;
     this.hpBar = new ZombieHealthBar(scene, this.x, this.y, this, this.hp);
   }
 }
@@ -46,9 +46,10 @@ Phaser.GameObjects.GameObjectFactory.register(
       sprite,
       Phaser.Physics.Arcade.DYNAMIC_BODY
     );
-    sprite.setScale(0.5, 0.5);
-    sprite.body.setSize(60, 60);
-    sprite.setOffset(15, 15);
+    sprite.setScale(0.9);
+    sprite.body.setSize(150, 200);
+    sprite.setOffset(50, 0);
+
     return sprite;
   }
 );
