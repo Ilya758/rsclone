@@ -389,7 +389,16 @@ export default class Dungeon extends Phaser.Scene {
       );
     }
   }
+
+  update(time?: number): void {
+    if (this.zombies?.children.entries.length) {
+      Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
+        this.updateZombie(zombie);
       });
+    }
+
+    if (this.finalBoss) {
+      this.updateZombie(this.finalBoss);
     }
 
     if (this.person === null) {
