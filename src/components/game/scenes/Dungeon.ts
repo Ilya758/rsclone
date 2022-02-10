@@ -329,6 +329,46 @@ export default class Dungeon extends Phaser.Scene {
     this.tmpEnemyCount += 1;
   }
 
+  createFinalBoss() {
+    if (!this.person && !this.bullets) {
+      throw new Error('Not found');
+    }
+
+    this.finalBoss = this.add.megaBoss(3700, 1250, 'megaBoss') as MegaBoss;
+
+    createMegaBossAnims(this.finalBoss.anims);
+
+    this.physics.add.collider(
+      this.bullets as Phaser.GameObjects.Group,
+      this.finalBoss,
+      Weapon.handleBulletAndEnemyCollision.bind(
+        this,
+        this.finalBoss,
+        this.bullets?.getChildren() as Phaser.GameObjects.GameObject[],
+        this.enemySounds as IEnemySounds
+      )
+    );
+
+    Object.values(this.walls).forEach(wall => {
+      this.physics.add.collider(
+        this.finalBoss as MegaBoss,
+        wall as Phaser.Tilemaps.TilemapLayer
+      );
+    });
+
+    this.physics.add.collider(
+      this.finalBoss,
+      this.person as Phaser.Physics.Arcade.Sprite,
+      () =>
+        (this.person as Person).handleEnemyDamage(
+          this.finalBoss as MegaBoss,
+          this.person as Person,
+          this,
+          this.personSounds as IPersonSounds
+        )
+    );
+  }
+
   setCollisionBetweenZombies() {
     const zombieArray = this.zombies?.children
       .entries as Phaser.GameObjects.GameObject[];
@@ -339,15 +379,16 @@ export default class Dungeon extends Phaser.Scene {
     }
   }
 
-  update(time?: number): void {
-    if (this.zombies?.children.entries.length) {
-      Array.from(this.zombies?.children.entries as Zombie[]).forEach(zombie => {
-        zombie.update();
-        zombie.movingToPerson(
-          this.person as Person,
-          this,
-          this.enemySounds as IEnemySounds
-        );
+  updateZombie(zombie: Zombie | MegaBoss) {
+    if (!zombie.isDead) {
+      zombie.update();
+      zombie.movingToPerson(
+        this.person as Person,
+        this,
+        this.enemySounds as IEnemySounds
+      );
+    }
+  }
       });
     }
 
