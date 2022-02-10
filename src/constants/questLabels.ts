@@ -9,4 +9,5 @@ export const QUESTLABELS = [
   '- Get to the bridge',
   "- Find the helicopter's radio set",
   '- Survive!!!',
+  '- Kill the final boss',
 ];

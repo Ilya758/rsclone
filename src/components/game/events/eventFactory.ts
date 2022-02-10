@@ -13,6 +13,7 @@ import { ISounds } from '../ui-kit/settings-menu.types';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import { ZOMBIE_COORDINATES } from '../../../constants/coordinates';
+import Enemy from '../enemies/abstract/Enemy';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
@@ -78,6 +79,43 @@ export default class EventFactory {
   run() {
     const mainMap = this.scene as Dungeon;
 
+    sceneEvents.on('finalboss', () => {
+      mainMap.createFinalBoss();
+
+      sceneEvents.emit('questLabel', 10);
+    });
+
+    sceneEvents.on('endOfTheGame', () => {
+      sceneEvents.emit('questLabelDestroy', 10);
+      this.scene.time.addEvent({
+        delay: 1500,
+        callback: () => {
+          this.scene.cameras.main.fadeOut(2000);
+
+          this.scene.time.addEvent({
+            delay: 1800,
+            callback: () => {
+              this.scene.scene.stop();
+              this.personUi.scene.stop();
+              (this.scene.sound as ISounds).sounds.forEach(sound =>
+                sound.stop()
+              );
+              this.scene.scene.run('endOfTheGame');
+            },
+          });
+        },
+      });
+    });
+
+    sceneEvents.on('survived', () => {
+      mainMap.zombies?.children.entries.forEach(zombie => {
+        const enemy = zombie as Enemy;
+        enemy.hp = 0;
+        enemy.kill();
+        enemy.isDead = true;
+      });
+
+      sceneEvents.emit('finalboss');
     });
 
     sceneEvents.on('survive', () => {
