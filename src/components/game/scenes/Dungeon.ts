@@ -29,13 +29,16 @@ import GameOver from './GameOver';
 import { preloader } from '../utils/preloader';
 import { PHRASES, SOUNDS } from '../../../constants/sounds';
 import { createSceneSounds } from '../../../utils/createSceneSounds';
+import { createMegaBossAnims } from '../anims/MegaBossAnims';
+import MegaBoss from '../enemies/MegaBoss';
+import EndOfTheGame from './EndOfTheGame';
 
 export default class Dungeon extends Phaser.Scene {
   protected person: Person | null;
 
   private bullets: Phaser.GameObjects.Group | null;
 
-  private zombies: Phaser.Physics.Arcade.Group | null;
+  public zombies: Phaser.Physics.Arcade.Group | null;
 
   private tmpEnemyCount = 250;
 
@@ -57,10 +60,12 @@ export default class Dungeon extends Phaser.Scene {
 
   public weaponSoundsReload: TWeaponSounds;
 
+  public finalBoss: MegaBoss | null;
+
   constructor() {
     super('dungeon');
     this.person = null;
-    this.zombies = null;
+    this.zombies = this.finalBoss = null;
     this.bullets = null;
     this.points = null;
     this.walls = Array(2).fill(null) as [null];
@@ -101,6 +106,7 @@ export default class Dungeon extends Phaser.Scene {
     });
     this.load.tilemapTiledJSON('main', './assets/game/map/main.json');
     this.load.video('person-death', './assets/video/game-over.mp4');
+    this.load.video('endOfTheGame', './assets/video/credits.mp4');
     preloader(this);
   }
 
@@ -274,6 +280,7 @@ export default class Dungeon extends Phaser.Scene {
     this.gameOver = new GameOver();
     this.scene.run('person-ui');
     this.scene.add('game-over', this.gameOver);
+    this.scene.add('endOfTheGame', new EndOfTheGame());
   }
 
   createGroupOfZombies(array: number[][]) {

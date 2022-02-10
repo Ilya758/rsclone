@@ -76,11 +76,8 @@ export default class EventFactory {
   };
 
   run() {
-    sceneEvents.on('survived', () => {
-      //TODO вызвать музыку, вызвать конец игры
-      this.scene.scene.run('game-over');
-      this.scene.scene.stop();
-      this.personUi.scene.stop();
+    const mainMap = this.scene as Dungeon;
+
     });
 
     sceneEvents.on('survive', () => {
@@ -153,26 +150,28 @@ export default class EventFactory {
     });
 
     sceneEvents.on('killZombieCounter', (counter: number) => {
-      this.counter = counter;
-      const zombieLength = this.scene.getZombiesLength();
-      if (this.zombieQuestCounter - zombieLength >= 5) {
-        this.scene.createGroupOfZombies(this.getRandomArrayOfZombies());
-      }
+      if (!mainMap.finalBoss) {
+        this.counter = counter;
+        const zombieLength = this.scene.getZombiesLength();
+        if (this.zombieQuestCounter - zombieLength >= 5) {
+          this.scene.createGroupOfZombies(this.getRandomArrayOfZombies());
+        }
 
-      if (this.counter === 1) {
-        plotHandle('killFirstZombie');
-      }
-      if (this.counter === 6) {
-        plotHandle('killSecondZombies');
-      }
-      if (this.counter === 16) {
-        plotHandle('killLastZombies');
-      }
-      if (this.counter === 21) {
-        plotHandle('killZombie21');
-      }
-      if (this.counter === 100 || this.counter === 50) {
-        plotHandle('killZombie100');
+        if (this.counter === 1) {
+          plotHandle('killFirstZombie');
+        }
+        if (this.counter === 6) {
+          plotHandle('killSecondZombies');
+        }
+        if (this.counter === 16) {
+          plotHandle('killLastZombies');
+        }
+        if (this.counter === 21) {
+          plotHandle('killZombie21');
+        }
+        if (this.counter === 100 || this.counter === 50) {
+          plotHandle('killZombie100');
+        }
       }
     });
 
