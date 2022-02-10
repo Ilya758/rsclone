@@ -12,7 +12,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'kick1',
@@ -23,7 +23,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'kick2',
@@ -34,7 +34,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'kick3',
@@ -45,7 +45,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'kick4',
@@ -56,7 +56,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'walk',
@@ -67,7 +67,7 @@ const createMegaBossAnims = (
       suffix: '.png',
     }),
     repeat: -1,
-    frameRate: 9,
+    frameRate: 6,
   });
   anims.create({
     key: 'zombie-death',
@@ -77,7 +77,7 @@ const createMegaBossAnims = (
       prefix: 'Death_00',
       suffix: '.png',
     }),
-    frameRate: 9,
+    frameRate: 6,
   });
 };
 
