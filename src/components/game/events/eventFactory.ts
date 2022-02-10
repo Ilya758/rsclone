@@ -60,10 +60,14 @@ export default class EventFactory {
     } else {
       this.surviveLabel = new QuestLabel(
         this.personUi,
-        'survive: ' + this.personUi.timer,
+        `Survive: 0:${
+          this.personUi.timer < 10
+            ? `0${this.personUi.timer}`
+            : this.personUi.timer
+        }`,
         20,
         10,
-        190
+        110
       );
     }
   };
@@ -86,10 +90,10 @@ export default class EventFactory {
 
       this.surviveLabel = new QuestLabel(
         this.personUi,
-        'survive: ' + this.personUi.timer,
+        `Survive: 0:${this.personUi.timer}`,
         20,
         10,
-        190
+        110
       );
     });
 
