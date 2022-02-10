@@ -11,7 +11,7 @@ export const preloader = (scene: Phaser.Scene) => {
     y: height / 2 - 50,
     text: 'Loading...',
     style: {
-      font: '20px monospace',
+      font: '20px Orbitron, monospace',
       color: '#ffffff',
     },
   });
@@ -22,7 +22,7 @@ export const preloader = (scene: Phaser.Scene) => {
     y: height / 2,
     text: '0%',
     style: {
-      font: '18px monospace',
+      font: '18px Orbitron, monospace',
       color: '#ffffff',
     },
   });
@@ -33,7 +33,7 @@ export const preloader = (scene: Phaser.Scene) => {
     y: height / 2 + 50,
     text: '',
     style: {
-      font: '18px monospace',
+      font: '18px Orbitron, monospace',
       color: '#ffffff',
     },
   });
@@ -41,7 +41,7 @@ export const preloader = (scene: Phaser.Scene) => {
 
   scene.load.on('progress', function (value: number) {
     progressBar.clear();
-    progressBar.fillStyle(0xffffff, 1);
+    progressBar.fillStyle(0xff0000, 1);
     progressBar.fillRect(width / 2 - 150, height / 2 - 15, 300 * value, 30);
     percentText.setText(parseInt(String(value * 100)) + '%');
   });

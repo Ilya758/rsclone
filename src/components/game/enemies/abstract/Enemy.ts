@@ -63,7 +63,10 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   movingToPerson(
     person: Person,
     scene: Phaser.Scene,
-    zombieSounds: IEnemySounds
+    zombieSounds: IEnemySounds,
+    attackType = 'kick',
+    distance = 60,
+    zombieType = 'zombie'
   ) {
     if (person.isDead) {
       scene.physics.moveToObject(this, person, 0);
@@ -84,10 +87,18 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
           Math.PI / 2
       );
 
-      if (Phaser.Math.Distance.BetweenPoints(this, person) < 60) {
-        this.anims.play('kick', true);
+      if (Phaser.Math.Distance.BetweenPoints(this, person) < distance) {
+        this.anims.play(attackType, true);
+
+        if (zombieType === 'megaBoss') {
+          this.speed = 70;
+        }
       } else {
         this.anims.play('walk', true);
+
+        if (zombieType === 'megaBoss') {
+          this.speed = 120;
+        }
       }
     } else {
       this.setVelocity(0, 0);
@@ -103,7 +114,7 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
       this.disableBody();
 
       this.scene.time.addEvent({
-        delay: 1500,
+        delay: 2500,
         callback: () => this.destroy(),
       });
     }
