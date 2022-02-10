@@ -69,10 +69,9 @@ export default class DialogBox {
   createText() {
     const bubblePadding = 10;
     const content = this.scene.add.text(0, 0, this.quote, {
-      fontFamily: 'Arial',
-      fontSize: '14px',
+      font: '13px Orbitron, monospace',
       color: '#000000',
-      align: 'center',
+      align: 'left',
       wordWrap: { width: this.width - bubblePadding * 2 },
     });
     content.depth = 19;
