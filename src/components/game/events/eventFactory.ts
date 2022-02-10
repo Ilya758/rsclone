@@ -55,9 +55,12 @@ export default class EventFactory {
     this.personUi.timer -= 1;
     if (!this.surviveLabel) throw new Error('error');
     this.surviveLabel.destroyText();
-    if (this.personUi.timer <= 0) {
+
+    if (this.personUi.timer === 0) {
       sceneEvents.emit(`survived`);
-    } else {
+    }
+
+    if (this.personUi.timer > 0) {
       this.surviveLabel = new QuestLabel(
         this.personUi,
         `Survive: 0:${
