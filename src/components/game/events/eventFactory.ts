@@ -136,7 +136,7 @@ export default class EventFactory {
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
       const itemRandom = Phaser.Math.Between(0, 2);
-      if (random <= 95) {
+      if (random <= 5) {
         const item = this.scene.physics.add.image(
           coords[0],
           coords[1],
