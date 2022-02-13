@@ -34,4 +34,9 @@ export const ATLASES = [
     urlPNG: './assets/game/enemies/police1.png',
     urlJSON: './assets/game/enemies/police1.json',
   },
+  {
+    name: 'megaBoss',
+    urlPNG: './assets/game/enemies/megaboss.png',
+    urlJSON: './assets/game/enemies/megaboss.json',
+  },
 ];

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { PHRASES, PHRASES_COUNTER } from '../../../constants/sounds';
 import { WEAPON_ANIMATION_CHARS } from '../../../constants/weaponsAnimationChars';
 import { IUserInteractiveButtons, TWeapon } from '../../../types/globals';
+import MegaBoss from '../enemies/MegaBoss';
 import Zombie from '../enemies/Zombie';
 import Weapon from '../entities/Weapon';
 import sceneEvents from '../events/eventCenter';
@@ -389,7 +390,13 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     const person = obj2 as Person;
 
     if (!person.hit && !person.isDead) {
-      if (zombie.anims.currentFrame.index >= 3) {
+      let index = 3;
+
+      if (zombie instanceof MegaBoss) {
+        index = 5;
+      }
+
+      if (zombie.anims.currentFrame.index >= index) {
         personSounds.hit.play();
         person.hit = true; // after kicking from one enemy, the person gets a bit of kick-immune
         person.setTint(0xff0000);

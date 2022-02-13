@@ -94,6 +94,7 @@ export default class SettingsMenu {
           .setScrollFactor(0)
           .setOrigin(0.5);
 
+        button.setFontFamily('Orbitron');
         button.alpha = 0.7;
         button.depth = 1000;
         button

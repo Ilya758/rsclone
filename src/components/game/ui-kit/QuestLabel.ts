@@ -26,12 +26,15 @@ export default class QuestLabel {
 
   createText() {
     const content = this.scene.add.text(0, 0, this.content, {
-      fontFamily: 'Arial',
+      fontFamily: 'Orbitron',
       fontSize: '18px',
-      color: '#245893',
-      align: 'center',
+      color: '#ffffff',
+      align: 'left',
       wordWrap: { width: 280 },
     });
+
+    content.setShadow(0, 0, '#ff0000', 5);
+
     content.depth = 19;
 
     content.setPosition(this.x, this.y);

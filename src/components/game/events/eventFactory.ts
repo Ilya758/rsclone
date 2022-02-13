@@ -14,6 +14,7 @@ import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import { ZOMBIE_COORDINATES } from '../../../constants/coordinates';
 import Zombie from '../enemies/Zombie';
+import Enemy from '../enemies/abstract/Enemy';
 
 export default class EventFactory {
   private roofs: Phaser.Tilemaps.TilemapLayer[];
@@ -60,25 +61,66 @@ export default class EventFactory {
     this.personUi.timer -= 1;
     if (!this.surviveLabel) throw new Error('error');
     this.surviveLabel.destroyText();
-    if (this.personUi.timer <= 0) {
+
+    if (this.personUi.timer === 0) {
       sceneEvents.emit(`survived`);
-    } else {
+    }
+
+    if (this.personUi.timer > 0) {
       this.surviveLabel = new QuestLabel(
         this.personUi,
-        'survive: ' + this.personUi.timer,
+        `Survive: 0:${
+          this.personUi.timer < 10
+            ? `0${this.personUi.timer}`
+            : this.personUi.timer
+        }`,
         20,
         10,
-        190
+        110
       );
     }
   };
 
   run() {
+    const mainMap = this.scene as Dungeon;
+
+    sceneEvents.on('finalboss', () => {
+      mainMap.createFinalBoss();
+
+      sceneEvents.emit('questLabel', 10);
+    });
+
+    sceneEvents.on('endOfTheGame', () => {
+      sceneEvents.emit('questLabelDestroy', 10);
+      this.scene.time.addEvent({
+        delay: 1500,
+        callback: () => {
+          this.scene.cameras.main.fadeOut(2000);
+
+          this.scene.time.addEvent({
+            delay: 1800,
+            callback: () => {
+              this.scene.scene.stop();
+              this.personUi.scene.stop();
+              (this.scene.sound as ISounds).sounds.forEach(sound =>
+                sound.stop()
+              );
+              this.scene.scene.run('endOfTheGame');
+            },
+          });
+        },
+      });
+    });
+
     sceneEvents.on('survived', () => {
-      //TODO вызвать музыку, вызвать конец игры
-      this.scene.scene.run('game-over');
-      this.scene.scene.stop();
-      this.personUi.scene.stop();
+      mainMap.zombies?.children.entries.forEach(zombie => {
+        const enemy = zombie as Enemy;
+        enemy.hp = 0;
+        enemy.kill();
+        enemy.isDead = true;
+      });
+
+      sceneEvents.emit('finalboss');
     });
 
     sceneEvents.on('survive', () => {
@@ -91,10 +133,10 @@ export default class EventFactory {
 
       this.surviveLabel = new QuestLabel(
         this.personUi,
-        'survive: ' + this.personUi.timer,
+        `Survive: 0:${this.personUi.timer}`,
         20,
         10,
-        190
+        110
       );
     });
 
@@ -151,26 +193,28 @@ export default class EventFactory {
     });
 
     sceneEvents.on('killZombieCounter', (counter: number) => {
-      this.counter = counter;
-      const zombieLength = this.scene.getZombiesLength();
-      if (this.zombieQuestCounter - zombieLength >= 5) {
-        this.scene.createGroupOfZombies(this.getRandomArrayOfZombies());
-      }
+      if (!mainMap.finalBoss) {
+        this.counter = counter;
+        const zombieLength = this.scene.getZombiesLength();
+        if (this.zombieQuestCounter - zombieLength >= 5) {
+          this.scene.createGroupOfZombies(this.getRandomArrayOfZombies());
+        }
 
-      if (this.counter === 1) {
-        plotHandle('killFirstZombie');
-      }
-      if (this.counter === 6) {
-        plotHandle('killSecondZombies');
-      }
-      if (this.counter === 16) {
-        plotHandle('killLastZombies');
-      }
-      if (this.counter === 21) {
-        plotHandle('killZombie21');
-      }
-      if (this.counter === 100 || this.counter === 50) {
-        plotHandle('killZombie100');
+        if (this.counter === 1) {
+          plotHandle('killFirstZombie');
+        }
+        if (this.counter === 6) {
+          plotHandle('killSecondZombies');
+        }
+        if (this.counter === 16) {
+          plotHandle('killLastZombies');
+        }
+        if (this.counter === 21) {
+          plotHandle('killZombie21');
+        }
+        if (this.counter === 100 || this.counter === 50) {
+          plotHandle('killZombie100');
+        }
       }
     });
 
