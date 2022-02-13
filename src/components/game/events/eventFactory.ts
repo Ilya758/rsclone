@@ -13,6 +13,7 @@ import { ISounds } from '../ui-kit/settings-menu.types';
 import Person from '../person/Person';
 import PersonUI from '../ui-kit/PersonUi';
 import { ZOMBIE_COORDINATES } from '../../../constants/coordinates';
+import Zombie from '../enemies/Zombie';
 import Enemy from '../enemies/abstract/Enemy';
 
 export default class EventFactory {
@@ -26,6 +27,8 @@ export default class EventFactory {
   private speedUp: QuestLabel | null;
   private surviveLabel: QuestLabel | null;
   private zombieQuestCounter: number;
+  private slowZombie: boolean;
+  private speedZombie: QuestLabel | null;
 
   constructor(
     scene: Dungeon,
@@ -44,6 +47,8 @@ export default class EventFactory {
     this.questLabels = [];
     this.dialogQueue = [];
     this.counter = 0;
+    this.slowZombie = false;
+    this.speedZombie = null;
   }
 
   handleGetItem(item: Phaser.Physics.Arcade.Image, itemRandom: number) {
@@ -172,7 +177,7 @@ export default class EventFactory {
     this.checkQueueLength();
     sceneEvents.on('dropItem', (coords: number[]) => {
       const random = Phaser.Math.Between(0, 99);
-      const itemRandom = Phaser.Math.Between(0, 3);
+      const itemRandom = Phaser.Math.Between(0, 2);
       if (random <= 5) {
         const item = this.scene.physics.add.image(
           coords[0],
@@ -266,46 +271,68 @@ export default class EventFactory {
       this
     );
 
-    sceneEvents.on(
-      'getItem',
-      (number: number) => {
-        switch (number) {
-          case 1:
-            this.person.speed = 150;
-            this.speedUp = new QuestLabel(
-              this.personUi,
-              '-speed up: ',
-              20,
-              10,
-              150
-            );
-            setTimeout(() => {
-              if (!this.speedUp) throw new Error('speedUp error');
-              this.speedUp.crossLine();
-              this.speedUp = null;
-              this.person.speed = 100;
-            }, 10000);
-            break;
-          case 0:
-            this.person.hp = Math.min(this.person.hp + 25, 100);
-            break;
-          case 2:
-            console.log('slow');
-            break;
-          case 3:
-            console.log('rage');
-            break;
-        }
-      },
-      this
-    );
-
     sceneEvents.on('person-death', () => {
       this.scene.scene.run('game-over');
       this.scene.scene.stop();
       this.personUi.scene.stop();
       (this.scene.sound as ISounds).sounds.forEach(sound => sound.stop());
     });
+    sceneEvents.on(
+      'getItem',
+      (number: number) => {
+        switch (number) {
+          case 0:
+            this.speedUpHandle();
+            break;
+          case 1:
+            this.person.hp = Math.min(this.person.hp + 25, 100);
+            break;
+          case 2:
+            this.speedZombiesHandle();
+            break;
+        }
+      },
+      this
+    );
+  }
+
+  speedUpHandle() {
+    if (this.speedUp) return;
+    this.person.speed = 150;
+    this.speedUp = new QuestLabel(this.personUi, '-speed up: ', 20, 10, 150);
+    setTimeout(() => {
+      if (this.speedUp) {
+        this.speedUp.crossLine();
+      }
+      this.speedUp = null;
+      this.person.speed = 100;
+    }, 10000);
+  }
+
+  speedZombiesHandle() {
+    if (this.slowZombie) return;
+    this.speedZombie = new QuestLabel(
+      this.personUi,
+      '-speed zombie down: ',
+      20,
+      10,
+      180
+    );
+    this.slowZombie = true;
+    (this.scene.zombies?.children.entries as Zombie[]).forEach(zombie => {
+      zombie.setSpeed = 10;
+    });
+
+    setTimeout(() => {
+      (this.scene.zombies?.children.entries as Zombie[]).forEach(zombie => {
+        zombie.setLastSpeed();
+      });
+      if (this.speedZombie) {
+        this.speedZombie.crossLine();
+      }
+      this.speedZombie = null;
+      this.slowZombie = false;
+    }, 5000);
   }
 
   getRandomArrayOfZombies() {
