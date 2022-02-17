@@ -101,12 +101,8 @@ export default class Weapon extends Phaser.Physics.Arcade.Image {
     const angle = Phaser.Math.Angle.Between(x, y, personX, personY);
     this.setRotation(angle - Math.PI);
 
-    // calculate delta coords of the bullet
-
     const xA = -25 * Math.cos(angle) + 10 * Math.sin(angle) + personX;
     const yA = -25 * Math.sin(angle) - 10 * Math.cos(angle) + personY;
-
-    // set initial position of the bullet
 
     this.setPosition(xA, yA);
 

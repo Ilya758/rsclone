@@ -37,25 +37,16 @@ export default abstract class HealthBar {
   }
 
   draw(hp: number) {
-    // clearing bar
-
     this.bar.clear();
-
-    // background border
-
     this.bar.fillStyle(0x000000);
     this.bar.fillRect(this.x, this.y, this.barWidth, this.barHeight);
 
-    // health fill
-
     if (hp <= 0.3 * this.maxHealth) {
-      // when the health state is low
       this.bar.fillStyle(0xff0000);
     } else {
       this.bar.fillStyle(0x00ff00);
     }
 
-    // using delta to fill bar with a current percentage of health
     const delta = Math.floor(
       (this.barWidth * hp) / this.maxHealth - (4 * hp) / this.maxHealth
     );
@@ -66,16 +57,12 @@ export default abstract class HealthBar {
 
   update() {
     if (this.person) {
-      // if the object-variable is existed, then position of the bar relates with a character
-
       this.bar.x = this.person.x - this.x - 18;
       this.bar.y = this.person.y - this.y - 30;
     }
   }
 
   destroy() {
-    //when a character is dying, the health bar will be destroyed
-
     this.bar.destroy(true);
   }
 }
