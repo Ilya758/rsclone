@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLORS } from '../../../constants/colors';
 import getSettingsMenuButtonsParams from '../../../utils/getSettingsMenuButtonsParams';
+import PersonUI from './PersonUi';
 import { ISounds } from './settings-menu.types';
 
 export interface ISize {
@@ -94,6 +95,21 @@ export default class SettingsMenu {
           .setScrollFactor(0)
           .setOrigin(0.5);
 
+        const setCurrentColor = (param: boolean) => {
+          button.setColor(param ? COLORS.red : COLORS.yellow);
+        };
+
+        switch (btn) {
+          case 'soundsButton': {
+            setCurrentColor(PersonUI.soundsAreMuted);
+            break;
+          }
+          case 'musicButton': {
+            setCurrentColor(PersonUI.musicIsMuted);
+            break;
+          }
+        }
+
         button.setFontFamily('Orbitron');
         button.alpha = 0.7;
         button.depth = 1000;
@@ -119,16 +135,16 @@ export default class SettingsMenu {
           case 'soundsButton': {
             button.setInteractive().on('pointerdown', () => {
               this.toggleSoundsMute(sounds);
-              this.soundsAreMuted = !this.soundsAreMuted;
-              setStateToButton(this.soundsAreMuted);
+              PersonUI.soundsAreMuted = !PersonUI.soundsAreMuted;
+              setStateToButton(PersonUI.soundsAreMuted);
             });
             break;
           }
           case 'musicButton': {
             button.setInteractive().on('pointerdown', () => {
               this.toggleSoundsMute(sounds, 'tracks');
-              this.musicIsMuted = !this.musicIsMuted;
-              setStateToButton(this.musicIsMuted);
+              PersonUI.musicIsMuted = !PersonUI.musicIsMuted;
+              setStateToButton(PersonUI.musicIsMuted);
             });
             break;
           }
