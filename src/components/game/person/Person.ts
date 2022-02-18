@@ -66,14 +66,10 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
   heal(scene: Phaser.Scene, amount: number) {
     if (!this.hit && !this.isDead) {
-      // when the person is in the cooldown
-
       if (this.hp !== this.maxHealth && this.isHealing) {
-        // he starts to healing
         this.isHealing = false;
 
         this.timeHealingTimer = scene.time.addEvent({
-          // after 30 seconds, health increases for 10 pts
           delay: 30000,
           callback: () => {
             this.hp += amount;
@@ -93,8 +89,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         this.isHealing = false;
       }
     } else {
-      // otherwise time-healing-timer is removing
-
       this.timeHealingTimer.remove();
     }
   }
@@ -166,8 +160,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   }
 
   createRotationAndAttacking(scene: Phaser.Scene, attackSounds: TWeaponSounds) {
-    // if the person is dead, he cannot rotate/shoot
-
     scene.input.on('pointerdown', (e: Pointer) => {
       if (e.buttons !== 1) {
         e.event.preventDefault();
@@ -335,7 +327,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
         this.isMoved = false;
 
         if (!this.hit) {
-          // is the person isn't in kick-immune state
           this.setVelocity(0, 0);
         }
         if (!Person.pointerIsDown) {
@@ -363,8 +354,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
   }
 
   handleShooting(time: number, bullets: Phaser.GameObjects.Group) {
-    // when the person is shooting, need to consider a delay
-
     if (Person.pointerIsDown && time > this.lastFired) {
       const bullet = bullets?.get() as Weapon;
 
@@ -398,19 +387,19 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
 
       if (zombie.anims.currentFrame.index >= index) {
         personSounds.hit.play();
-        person.hit = true; // after kicking from one enemy, the person gets a bit of kick-immune
+        person.hit = true;
         person.setTint(0xff0000);
 
         const dx = person.x - zombie.x;
         const dy = person.y - zombie.y;
-        const vector = new Phaser.Math.Vector2(dx, dy).normalize().scale(100); // calculating estimate delta-debouncing after collision
+        const vector = new Phaser.Math.Vector2(dx, dy).normalize().scale(100);
         person.hp -= zombie.damage;
-        person.setVelocity(vector.x, vector.y); // and sets the debounce to the person
+        person.setVelocity(vector.x, vector.y);
 
         scene.time.addEvent({
           delay: 500,
           callback: () => {
-            person.hit = false; // removing the kick-immune
+            person.hit = false;
             person.isHealing = true;
             person.clearTint();
           },
@@ -483,7 +472,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     if (!bullets) {
       throw new Error('Cannot find bullets');
     }
-    // set rotation to the person
 
     if (!this.isDead) {
       const mouseCoords = this.getMouseCoords() as IMouseCoords;
@@ -501,7 +489,6 @@ export default class Person extends Phaser.Physics.Arcade.Sprite {
     }
 
     if (this.isDead) {
-      // if person is dead, he can't walk
       if (!this.anims.currentAnim || this.anims.currentAnim.key !== 'death') {
         this.anims.play('death');
       }

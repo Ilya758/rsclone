@@ -1,38 +1,36 @@
-import { ContainerStyle } from "./game.style";
-import Phaser from "phaser";
-import Dungeon from "./scenes/Dungeon";
-import { useEffect } from "react";
+import { ContainerStyle } from './game.style';
+import Phaser from 'phaser';
+import Dungeon from './scenes/Dungeon';
+import { useEffect } from 'react';
 
 const GameInitializer = () => {
   const config = {
     type: Phaser.AUTO,
     scale: {
       mode: Phaser.Scale.RESIZE,
-      parent: "canvasPoint",
+      parent: 'canvasPoint',
       width: 800,
       height: 400,
       min: {
         width: window.innerWidth / 2,
-        height: window.innerHeight / 2
-      }
+        height: window.innerHeight / 2,
+      },
     },
     maxLights: 100,
     physics: {
-      default: "arcade",
+      default: 'arcade',
       arcade: {
-        gravity: { y: 0 }
-        // debug: true,
-      }
+        gravity: { y: 0 },
+      },
     },
     zoom: 2,
-    scene: [Dungeon]
+    scene: [Dungeon],
   };
   useEffect(() => {
-    new Phaser.Game(config).scene.start("dungeon");
+    new Phaser.Game(config).scene.start('dungeon');
   }, []);
-  
-  console.log("Game Entry Point. Warning!!!");
-  return <ContainerStyle id={"canvasPoint"} />;
+
+  return <ContainerStyle id={'canvasPoint'} />;
 };
 
 export default GameInitializer;

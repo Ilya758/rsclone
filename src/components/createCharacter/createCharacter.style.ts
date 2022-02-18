@@ -43,14 +43,6 @@ export const WrapperStyle = styled.div`
   justify-content: space-between;
 `;
 
-export const PaginationWrapperStyle = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-  width: 128px;
-  justify-content: space-around;
-`;
-
 export const BGWrapperStyle = styled.div`
   display: flex;
   position: absolute;
@@ -66,19 +58,6 @@ export const BGWrapperStyle = styled.div`
   background-size: 100% 100%;
   background-repeat: no-repeat;
   flex-direction: column;
-`;
-
-export const PaginationButtonStyle = styled.div<IGenericButtonStyle>`
-  width: 28px;
-  height: 34px;
-  margin: ${props => props.margin};
-  background-image: url(${props => props.background});
-  background-repeat: no-repeat;
-  background-size: cover;
-  cursor: pointer;
-  :hover {
-    transform: scale(1.05);
-  }
 `;
 
 export const BackgroundStyle = styled.div<IGenericButtonStyle>`

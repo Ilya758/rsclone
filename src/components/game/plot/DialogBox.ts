@@ -36,19 +36,12 @@ export default class DialogBox {
 
     bubble.fillStyle(0x222222, 0.5);
     bubble.fillRoundedRect(6, 6, this.width, this.height, 16);
-
-    //  Bubble color
     bubble.fillStyle(0xffffff, 1);
-
-    //  Bubble outline line style
     bubble.lineStyle(4, 0x565656, 1);
-
-    //  Bubble shape and outline
     bubble.strokeRoundedRect(0, 0, this.width, this.height, 16);
     bubble.fillRoundedRect(0, 0, this.width, this.height, 16);
     bubble.depth = 18;
 
-    //  Calculate arrow coordinates
     const point1X = Math.floor(this.width / 7);
     const point1Y = this.height;
     const point2X = Math.floor((this.width / 7) * 2);

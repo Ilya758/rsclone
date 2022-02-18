@@ -3,13 +3,11 @@ import {
   WrapperStyle,
   BackgroundStyle,
   BGWrapperStyle,
-  PaginationButtonStyle,
   LinkWrapperStyle,
-  PaginationWrapperStyle,
   HeaderStyle,
 } from './createCharacter.style';
 import { useState } from 'react';
-import { BG_ARRAY } from '../../constants/bgManikins';
+import HelpButton from '../buttons/helpButton/HelpButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import {
   setStoreCharacter,
@@ -29,28 +27,6 @@ function CreateCharacter() {
     calculated.userId = options;
     setCharacter(calculated);
   }, []);
-
-  const changeBackgroundHandler = (
-    direction: string,
-    array: string[],
-    type: string
-  ) => {
-    let index =
-      type === 'background'
-        ? array.indexOf(character.background)
-        : array.indexOf(character.city);
-    index = direction === 'left' ? (index -= 1) : (index += 1);
-    if (index < 0) index = array.length - 1;
-    if (index > array.length - 1) index = 0;
-    setCharacter({ ...character, [type]: array[index] });
-  };
-
-  // const handleSettings = <T extends HTMLSelectElement | HTMLInputElement>(
-  //   e: ChangeEvent<T>,
-  //   type: string
-  // ) => {
-  //   setCharacter({ ...character, [type]: e.target.value });
-  // };
 
   return (
     <WrapperStyle>
@@ -85,24 +61,10 @@ function CreateCharacter() {
           background={`./assets/game/icons/${character.background}`}
           width={'128px'}
           height={'128px'}
-          margin={'5px 0px 0px 0px'}
+          margin={'15px 0px 0px 0px'}
         />
-        <PaginationWrapperStyle>
-          <PaginationButtonStyle
-            background={'./assets/game/ui/element_0142_Layer-144.png'}
-            margin={'0 auto 0 0'}
-            onClick={() =>
-              changeBackgroundHandler('left', BG_ARRAY, 'background')
-            }
-          />
-          <PaginationButtonStyle
-            background={'./assets/game/ui/element_0143_Layer-145.png'}
-            onClick={() =>
-              changeBackgroundHandler('right', BG_ARRAY, 'background')
-            }
-          />
-        </PaginationWrapperStyle>
       </BGWrapperStyle>
+      <HelpButton />
     </WrapperStyle>
   );
 }

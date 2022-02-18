@@ -45,10 +45,10 @@ export default abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
   }
 
   decreaseHp(amount: number) {
-    this.hp -= amount; // every damage decreases hp
+    this.hp -= amount;
 
     if (this.hp < 0) {
-      this.hp = 0; // character is dead
+      this.hp = 0;
     }
 
     this.hpBar.draw(this.hp);

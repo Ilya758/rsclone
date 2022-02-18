@@ -51,7 +51,6 @@ export default class QuestLabel {
       x: -350,
       duration: 800,
     });
-    // TODO
   }
 
   destroyText() {
