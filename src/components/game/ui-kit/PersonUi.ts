@@ -5,6 +5,10 @@ import SettingsMenu from './SettingsMenu';
 import UIPanel from './UiPanel';
 
 export default class PersonUI extends Phaser.Scene {
+  public static soundsAreMuted = false;
+
+  public static musicIsMuted = false;
+
   public parentScene: Phaser.Scene;
 
   public hpBar: PersonHealthBar | null;
