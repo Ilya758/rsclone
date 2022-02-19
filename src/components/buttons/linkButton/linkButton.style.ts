@@ -36,8 +36,8 @@ export const ButtonStyle = styled.button`
     color: rgb(15, 4, 82);
     font-weight: bold;
     display: inline-block;
-    height: 45px;
-    width: 180px;
+    height: 100%;
+    width: 100%;
     line-height: 55px;
     text-decoration: none;
   }

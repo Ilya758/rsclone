@@ -12,6 +12,6 @@ export const ButtonStyle = styled.button`
   cursor: pointer;
   outline: none;
   &:hover svg {
-    fill: blue;
+    fill: rgb(212, 232, 108);
   }
 `;
