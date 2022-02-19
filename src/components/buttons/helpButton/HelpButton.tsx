@@ -1,12 +1,12 @@
 import { ButtonStyle } from './helpButton.style';
+import { IProps } from './helpButton.types';
 
-const HelpButton = () => {
-  const handleClick = () => {
-    console.log('show popup');
-  };
-
+const HelpButton = (props: IProps) => {
   return (
-    <ButtonStyle onClick={handleClick}>
+    <ButtonStyle
+      onMouseEnter={props.handleEnter}
+      onMouseLeave={props.handleLeave}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="26"

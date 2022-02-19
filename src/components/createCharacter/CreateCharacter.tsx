@@ -14,8 +14,10 @@ import {
   storeCharacter,
 } from '../../stores/reducers/characterReducer';
 import LinkButton from '../buttons/linkButton/LinkButton';
+import HelpMessage from '../messages/helpMessage/HelpMessage';
 
 function CreateCharacter() {
+  const [display, setDisplay] = useState('none');
   const char = useAppSelector(state => state.character);
   const [character, setCharacter] = useState(() => char);
   const options = useAppSelector(state => state.user.userId);
@@ -27,6 +29,14 @@ function CreateCharacter() {
     calculated.userId = options;
     setCharacter(calculated);
   }, []);
+
+  const handleEnter = () => {
+    setDisplay('block');
+  };
+
+  const handleLeave = () => {
+    setDisplay('none');
+  };
 
   return (
     <WrapperStyle>
@@ -64,7 +74,8 @@ function CreateCharacter() {
           margin={'15px 0px 0px 0px'}
         />
       </BGWrapperStyle>
-      <HelpButton />
+      <HelpButton handleEnter={handleEnter} handleLeave={handleLeave} />
+      <HelpMessage display={display} />
     </WrapperStyle>
   );
 }
