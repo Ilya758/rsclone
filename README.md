@@ -1,5 +1,19 @@
 # RSClone
 
+## Frontend
+- React
+- Typescript
+- Redux / Redux-Toolkit
+- Styled Components
+- Phaser 3(Canvas, WebGL)
+
+## Backend
+- TypeORM
+- MongoDB
+- Express
+- NodeJS
+- Socket.io
+
 ## Here is your instruction!!!
 
 At first you need to clone the repo
